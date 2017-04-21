@@ -27,43 +27,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten_dip">
 
-                <RelativeLayout
-                    android:id="@+id/linear_layout_image"
-                    android:layout_width="@dimen/thirty_five_dip"
-                    android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_alignParentLeft="true"
-                    android:background="@color/orange">
-
-                    <ImageView
-                        android:layout_width="@dimen/twenty_dip"
-                        android:layout_height="@dimen/twenty_dip"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/five_dip"
-                        android:src="@drawable/ic_user" />
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_marginLeft="@dimen/three_dip"
-                    android:layout_toRightOf="@+id/linear_layout_image"
-                    android:background="@color/orange"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/five_dip">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/bussiness_details"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textsize_medium"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
             </RelativeLayout>
 
 
