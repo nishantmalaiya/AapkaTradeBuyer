@@ -122,22 +122,11 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         setUpToolBar();
         initView();
         saveUserTypeInSharedPreferences();
-        setUpBusinessCategory();
+
         getState();
 
-        uploadPDFButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isCompIncorp = true;
-                performImgPicAction(2);
-            }
-        });
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picPhoto();
-            }
-        });
+
+
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,19 +183,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
             }
         });
 
-        cancelImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                previewImageLayout.setVisibility(View.GONE);
-            }
-        });
 
-        cancelFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                previewPDFLayout.setVisibility(View.GONE);
-            }
-        });
 
 
     }
@@ -470,51 +447,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
 
-    private void setUpBusinessCategory() {
 
-        SpBussinessAdapter spadapter = new SpBussinessAdapter(getApplicationContext(), spBussinessName);
-
-        spBussinessCategory.setDropDownHorizontalOffset(Gravity.CENTER);
-
-        spBussinessCategory.setAdapter(spadapter);
-        spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                busiType = String.valueOf(position);
-                if (position == 0) {
-                    uploadCard.setVisibility(View.GONE);
-                    findViewById(R.id.input_layout_tin_number).setVisibility(View.GONE);
-                    findViewById(R.id.input_layout_tan_number).setVisibility(View.GONE);
-                }
-                if (position == 2) {
-                    uploadCard.setVisibility(View.VISIBLE);
-                    uploadView.setVisibility(View.VISIBLE);
-                    uploadPDFView.setVisibility(View.GONE);
-                    ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.shop_name));
-                    uploadMsg.setText(getString(R.string.personal_doc));
-                    findViewById(R.id.input_layout_tin_number).setVisibility(View.GONE);
-                    findViewById(R.id.input_layout_tan_number).setVisibility(View.GONE);
-
-                } else if (position == 1) {
-                    uploadCard.setVisibility(View.VISIBLE);
-                    uploadView.setVisibility(View.VISIBLE);
-                    uploadPDFView.setVisibility(View.VISIBLE);
-                    ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.company_name_heading));
-                    findViewById(R.id.input_layout_tin_number).setVisibility(View.VISIBLE);
-                    findViewById(R.id.input_layout_tan_number).setVisibility(View.VISIBLE);
-                    uploadMsg.setText(getString(R.string.comp_doc));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-    }
 
     public void getState() {
 
@@ -665,10 +598,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private void initView() {
 
         businessDetailsCard = (CardView) findViewById(R.id.businessDetailsCard);
-        et_tin_number = (EditText) findViewById(R.id.et_tin_number);
-        et_tan_number = (EditText) findViewById(R.id.et_tan_number);
+
+
         relativeCompanyListheader = (RelativeLayout) findViewById(R.id.relativeCompanyListheader);
-        uploadCard = (LinearLayout) findViewById(R.id.uploadCard);
+
         progressBarHandler = new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
@@ -677,7 +610,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         tvSave = (TextView) findViewById(R.id.tvSave);
         tvSave.setText(getString(R.string.save));
         uploadMsg = (TextView) findViewById(R.id.uploadMsg);
-        etProductName = (EditText) findViewById(R.id.etshopname);
+
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
         etDOB = (EditText) findViewById(R.id.etDOB);
@@ -688,7 +621,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         businessDetails = (LinearLayout) findViewById(R.id.businessDetails);
         spBussinessCategoryLayout = (RelativeLayout) findViewById(R.id.spBussinessCategoryLayout);
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
-        etReferenceNo = (EditText) findViewById(R.id.etReferenceNo);
+
         uploadView = (LinearLayout) findViewById(R.id.uploadView);
         uploadPDFView = (LinearLayout) findViewById(R.id.uploadPDFView);
         circleImageView = (CircleImageView) findViewById(R.id.previewImage);
@@ -732,67 +665,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private void validateFields(String userType) {
         isAllFieldSet = 0;
         Log.e("reach", "validateFiledsCalled");
-        if (userType.equals("1") || isAddVendorCall.equals("true")) {
-            if (formSellerData != null) {
-
-                Log.e("reach", formSellerData.toString() + "            DATAAAAAAAAA");
-                if (Validation.isEmptyStr(formSellerData.getFirstName())) {
-                    putError(0);
-                    isAllFieldSet++;
-                } else if (Validation.isEmptyStr(formSellerData.getLastName())) {
-                    putError(1);
-                    isAllFieldSet++;
-                }else if (!Validation.isValidNumber(formSellerData.getMobile(), Validation.getNumberPrefix(formSellerData.getMobile()))) {
-                    putError(3);
-                    isAllFieldSet++;
-                }else
-                if (Validation.isEmptyStr(formSellerData.getBusinessType())
-                        || formSellerData.getBusinessType().equals("0")) {
-                    showmessage("Please Select Business Category");
-                    isAllFieldSet++;
-                } else if (Validation.isEmptyStr(etProductName.getText().toString())) {
-                    putError(12);
-                    isAllFieldSet++;
-                } else if (formSellerData.getBusinessType().equals("1") && Validation.isEmptyStr(et_tin_number.getText().toString())) {
-                    putError(13);
-                    isAllFieldSet++;
-                } else if (formSellerData.getBusinessType().equals("1") && Validation.isEmptyStr(et_tan_number.getText().toString())) {
-                    putError(14);
-                    isAllFieldSet++;
-                } else if (!(Validation.isNonEmptyStr(formSellerData.getStateId()) &&
-                        Integer.parseInt(formSellerData.getStateId()) > 0)) {
-                    showmessage("Please Select State");
-                    isAllFieldSet++;
-                } else if (!(Validation.isNonEmptyStr(formSellerData.getCityId()) &&
-                        Integer.parseInt(formSellerData.getCityId()) > 0)) {
-                    showmessage("Please Select City");
-                    isAllFieldSet++;
-                } else   if (!Validation.isValidDOB(formSellerData.getDOB())) {
-                    putError(6);
-                    isAllFieldSet++;
-                } else if (!Validation.isValidEmail(formSellerData.getEmail())) {
-                    putError(2);
-                    isAllFieldSet++;
-                }  else if (!Validation.isValidPassword(formSellerData.getPassword())) {
-                    putError(4);
-                    isAllFieldSet++;
-                } else if (!Validation.isValidPassword(formSellerData.getConfirmPassword())) {
-                    putError(4);
-                    isAllFieldSet++;
-                } else if (!Validation.isPasswordMatching(formSellerData.getPassword(), formSellerData.getConfirmPassword())) {
-                    putError(5);
-                    isAllFieldSet++;
-                }
-                else if(!agreement_check.isChecked()){
-                    putError(16);
-                }
 
 
-            }
-            Log.d("error", "error Null");
-        }
-        if (userType.equals("2")) {
-            Log.e("reach", "BuyerValidate Called");
             if (formBuyerData != null) {
                 if (Validation.isEmptyStr(formBuyerData.getFirstName())) {
                     putError(0);
@@ -840,7 +714,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 }
 
 
-            }
+
         }
 
 
