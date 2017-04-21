@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AapkaTrade.iml" filepath="$PROJECT_DIR$/AapkaTrade.iml" />
       <module fileurl="file://$PROJECT_DIR$/AapkaTradeBuyer.iml" filepath="$PROJECT_DIR$/AapkaTradeBuyer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
