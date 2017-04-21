@@ -36,7 +36,7 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.login.LoginDashboard;
+import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.payment.PaymentActivity;
 import com.example.pat.aapkatrade.productdetail.open_shop.OpenShopAdapter;
@@ -504,7 +504,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                 if (app_sharedpreference.getsharedpref("username", "not").contains("not"))
                 {
-                    startActivity(new Intent(ProductDetail.this, LoginDashboard.class));
+                    startActivity(new Intent(ProductDetail.this, LoginActivity.class));
                 }
                 else
                 {
@@ -630,7 +630,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                     if (app_sharedpreference.getsharedpref("username", "not").contains("not"))
                     {
-                        startActivity(new Intent(ProductDetail.this, LoginDashboard.class));
+                        startActivity(new Intent(ProductDetail.this, LoginActivity.class));
                     }
                     else
                     {

@@ -61,13 +61,6 @@
         <activity android:name=".user_dashboard.companylist.CompanyList" />
         <activity android:name=".user_dashboard.product_list.ProductListActivity" />
         <activity
-            android:name=".login.LoginDashboard"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_logindashboard"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
             android:name=".Home.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
