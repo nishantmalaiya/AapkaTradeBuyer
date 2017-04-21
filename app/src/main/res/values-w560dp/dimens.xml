@@ -13,15 +13,12 @@
     <dimen name="textsize_small">14sp</dimen>
 
     <dimen name="textsize_large">22sp</dimen>
-    <dimen name="Button_small">33dp</dimen>
     <dimen name="textsize">14sp</dimen>
     <dimen name="five_dip">6dp</dimen>
     <dimen name="textsize_medium">16sp</dimen>
     <dimen name="ten_dip">11dp</dimen>
     <dimen name="three_dip">3dp</dimen>
-    <dimen name="minus_three_dip">-3dp</dimen>
 
-    <dimen name="min_height_header">77dp</dimen>
     <dimen name="thirty_five_dip">39dp</dimen>
     <dimen name="fifty_dip">55dp</dimen>
     <dimen name="hundred_dip">110dp</dimen>
@@ -36,8 +33,8 @@
     <dimen name="one_hundred_twenty_dip">130dp</dimen>
     <dimen name="fifteen_dip">17dp</dimen>
     <dimen name="seven_dip">8dp</dimen>
-    <dimen name="ninety_dip">99dp</dimen>
     <dimen name="two_hundred_dip">220dp</dimen>
     <dimen name="one_hundred_five_dip">105dp</dimen>
+    <dimen name="thirty_dip">33dp</dimen>
 
 </resources>

@@ -18,15 +18,12 @@
     <dimen name="textsize_small">10sp</dimen>
 
     <dimen name="textsize_large">16sp</dimen>
-    <dimen name="Button_small">24dp</dimen>
 
     <dimen name="five_dip">4dp</dimen>
     <dimen name="textsize">14sp</dimen>
     <dimen name="ten_dip">8dp</dimen>
     <dimen name="three_dip">2dp</dimen>
-    <dimen name="minus_three_dip">-2dp</dimen>
 
-    <dimen name="min_height_header">56dp</dimen>
     <dimen name="thirty_five_dip">28dp</dimen>
     <dimen name="fifty_dip">40dp</dimen>
     <dimen name="hundred_dip">80dp</dimen>

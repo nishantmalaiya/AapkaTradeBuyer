@@ -139,7 +139,6 @@ public class AddProductActivity extends AppCompatActivity implements TabLayout.O
         tabLayout.addOnTabSelectedListener(this);
         tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
 
-
 //        setupRecyclerView();
 //        initspinner();
 //        getCompany();
@@ -177,7 +176,7 @@ public class AddProductActivity extends AppCompatActivity implements TabLayout.O
         add_product_root_container = (LinearLayout) findViewById(R.id.add_product_root_container);
         etProductName = (EditText) findViewById(R.id.etProductName);
         etPrice = (EditText) findViewById(R.id.etPrice);
-        etDiscount = (EditText) findViewById(R.id.etDiscount);
+       // etDiscount = (EditText) findViewById(R.id.etDiscount);
 
         etAreaLocation = (EditText) findViewById(R.id.etAreaLocation);
         etPinCode = (EditText) findViewById(R.id.et_pincode);
@@ -213,7 +212,7 @@ public class AddProductActivity extends AppCompatActivity implements TabLayout.O
 //
 //        });
 
-        rl_layout1_saveandcontinue_container = (RelativeLayout) findViewById(R.id.rl_layout1_saveandcontinue_container);
+     //   rl_layout1_saveandcontinue_container = (RelativeLayout) findViewById(R.id.rl_layout1_saveandcontinue_container);
 
         //container 1 save& continue click event
 
