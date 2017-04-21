@@ -33,7 +33,6 @@
 
 
             <LinearLayout
-                android:id="@+id/activity_my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/cardview_background"
@@ -80,7 +79,6 @@
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.TextInputLayout
-                                        android:id="@+id/input_layout_email"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -100,7 +98,6 @@
                                     </android.support.design.widget.TextInputLayout>
 
                                     <android.support.design.widget.TextInputLayout
-                                        android:id="@+id/input_layout_password"
                                         android:layout_width="match_parent"
                                         android:visibility="gone"
                                         android:layout_height="wrap_content"
@@ -123,7 +120,6 @@
                                     </android.support.design.widget.TextInputLayout>
 
                                     <android.support.design.widget.TextInputLayout
-                                        android:id="@+id/input_confirm_password"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:visibility="gone"
@@ -167,7 +163,6 @@
                                 android:orientation="vertical">
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_emp_type"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -184,7 +179,6 @@
                                         android:padding="2dp">
 
                                         <Spinner
-                                            android:id="@+id/spEmpType"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_alignParentLeft="true"
@@ -206,7 +200,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_first_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -226,7 +219,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_last_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -252,7 +244,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_dob"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -299,7 +290,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_father_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -320,7 +310,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_mobile"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -343,7 +332,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_ref_number"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -393,7 +381,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_state"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -401,7 +388,6 @@
                                     android:layout_marginTop="@dimen/ten_dip">
 
                                     <RelativeLayout
-                                        android:id="@+id/spStateLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
@@ -442,7 +428,6 @@
                                     android:layout_marginTop="@dimen/ten_dip">
 
                                     <RelativeLayout
-                                        android:id="@+id/spcityLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
                                         <Spinner
@@ -469,7 +454,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_address"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -490,7 +474,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_pincode"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -570,7 +553,6 @@
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.TextInputLayout
-                                        android:id="@+id/input_layout_qualification"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -579,7 +561,6 @@
                                         android:padding="@dimen/five_dip">
 
                                         <RelativeLayout
-                                            android:id="@+id/spQualificationLayout"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:padding="@dimen/two_dip">
@@ -607,7 +588,6 @@
                                     </android.support.design.widget.TextInputLayout>
 
                                     <android.support.design.widget.TextInputLayout
-                                        android:id="@+id/input_layout_total_exp"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -617,7 +597,6 @@
                                         android:padding="@dimen/five_dip">
 
                                         <RelativeLayout
-                                            android:id="@+id/spTotalExpLayout"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:padding="2dp">
@@ -645,7 +624,6 @@
                                     </android.support.design.widget.TextInputLayout>
 
                                     <android.support.design.widget.TextInputLayout
-                                        android:id="@+id/input_layout_rel_exp"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -654,7 +632,6 @@
                                         android:padding="@dimen/five_dip">
 
                                         <RelativeLayout
-                                            android:id="@+id/spRelExpLayout"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:padding="2dp">
@@ -706,7 +683,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_select_bank"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -715,7 +691,6 @@
                                     android:padding="@dimen/five_dip">
 
                                     <RelativeLayout
-                                        android:id="@+id/spSelectBankLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:padding="2dp">
@@ -743,7 +718,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_account_no"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -763,7 +737,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_branch_code"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -784,7 +757,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_branch_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -805,7 +777,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_ifsc_code"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -826,7 +797,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_micr_code"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -847,7 +817,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_account_holder_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -868,7 +837,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_registered_mobile_with_bank"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/twenty_dip"

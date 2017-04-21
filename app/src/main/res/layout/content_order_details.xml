@@ -111,7 +111,6 @@
                                 />
 
                             <TextView
-                                android:id="@+id/tvOrderId"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4156454"
@@ -134,7 +133,6 @@
 
 
                             <TextView
-                                android:id="@+id/tvDateTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tvOrderIdHeading"
@@ -157,7 +155,6 @@
                                 />
 
                             <TextView
-                                android:id="@+id/tvStatus"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Available"
@@ -227,7 +224,6 @@
                                 />
 
                             <TextView
-                                android:id="@+id/textView3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="PinCode 201301"

@@ -13,17 +13,14 @@
         />
 
     <include
-        android:id="@+id/content_add_product_dynamic_form"
         layout="@layout/content_add_product_shop_store_details"
         android:visibility="gone" />
 
     <include
-        android:id="@+id/content_add_product_product_location"
         layout="@layout/content_add_product_product_location"
         android:visibility="gone" />
 
     <include
-        android:id="@+id/content_add_product"
         layout="@layout/content_add_product"
         android:visibility="gone" />
 

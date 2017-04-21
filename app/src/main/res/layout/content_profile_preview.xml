@@ -41,7 +41,6 @@
                     >
 
                     <ImageView
-                        android:id="@+id/imageViewFacebook"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="6dp"
@@ -49,7 +48,6 @@
                         android:src="@drawable/facebook_icon" />
 
                     <ImageView
-                        android:id="@+id/imageViewTwitter"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="6dp"
@@ -57,7 +55,6 @@
                         android:src="@drawable/twittericon" />
 
                     <ImageView
-                        android:id="@+id/imageViewWhatsup"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="6dp"
@@ -65,7 +62,6 @@
                         android:src="@drawable/icon_whatapp" />
 
                     <ImageView
-                        android:id="@+id/imageViewGoogle"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="6dp"
@@ -74,7 +70,6 @@
                         android:src="@drawable/gplus" />
 
                     <ImageView
-                        android:id="@+id/imageViewSMS"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="6dp"
@@ -82,7 +77,6 @@
                         android:src="@drawable/sms_icon" />
 
                     <ImageView
-                        android:id="@+id/imageViewEmail"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="6dp"
@@ -100,7 +94,6 @@
                 android:orientation="vertical">
 
                 <com.balysv.materialripple.MaterialRippleLayout
-                    android:id="@+id/ripplePremium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -137,8 +130,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:text="Add Address"
-                                android:textSize="14sp"
-                                android:id="@+id/textView3" />
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -154,7 +146,6 @@
 
 
                 <com.balysv.materialripple.MaterialRippleLayout
-                    android:id="@+id/rippleReview"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="10dp"
                     android:visibility="gone"
@@ -207,7 +198,6 @@
 
 
                 <com.balysv.materialripple.MaterialRippleLayout
-                    android:id="@+id/rippleSetting"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content">
@@ -239,8 +229,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Log out"
                                 android:textSize="16sp"
-                                android:textColor="@color/black"
-                                android:id="@+id/textView5" />
+                                android:textColor="@color/black" />
 
                             <TextView
                                 android:layout_width="wrap_content"

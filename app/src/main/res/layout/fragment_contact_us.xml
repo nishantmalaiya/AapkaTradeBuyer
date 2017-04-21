@@ -196,7 +196,6 @@
 
 
                             <ImageView
-                                android:id="@+id/imageViewFacebook"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_marginTop="6dp"
@@ -204,7 +203,6 @@
                                 android:src="@drawable/facebook_icon" />
 
                             <ImageView
-                                android:id="@+id/imageViewTwitter"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_margin="6dp"
@@ -212,7 +210,6 @@
                                 android:src="@drawable/twittericon" />
 
                             <ImageView
-                                android:id="@+id/imageViewWhatsup"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_margin="6dp"
@@ -220,7 +217,6 @@
                                 android:src="@drawable/icon_whatapp" />
 
                             <ImageView
-                                android:id="@+id/imageViewGoogle"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_margin="6dp"

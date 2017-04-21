@@ -207,9 +207,6 @@
     </style>
 
 
-    <color name="dark_orange">#ff623c</color>
-
-
     <style name="You.Dialog" parent="android:Theme.Holo.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>

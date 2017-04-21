@@ -50,7 +50,6 @@
 
 
         <ImageView
-            android:id="@+id/imgSpinner"
             android:layout_width="@dimen/five_dip"
             android:layout_height="@dimen/five_dip"
             android:layout_alignParentRight="true"
@@ -85,7 +84,6 @@
 
 
         <Button
-            android:id="@+id/buttonContinuePay"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/fifty_dip"
             android:text="CONTINUE TO PAY"

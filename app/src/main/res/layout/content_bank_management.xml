@@ -3,7 +3,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_my_profile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/cardview_background"
@@ -36,7 +35,6 @@
                     android:background="@color/orange">
 
                     <ImageView
-                        android:id="@+id/imgProfile"
                         android:layout_width="@dimen/twenty_dip"
                         android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
@@ -92,7 +90,6 @@
                         tools:ignore="UselessParent">
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_beneficiary_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -104,7 +101,6 @@
                             android:textColorHint="@color/hint_color">
 
                             <EditText
-                                android:id="@+id/et_beneficiary_name"
                                 style="@style/myedittext"
 
                                 android:layout_width="match_parent"
@@ -120,7 +116,6 @@
 
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_beneficiary_code"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -130,7 +125,6 @@
                             android:textColorHint="@color/hint_color">
 
                             <EditText
-                                android:id="@+id/et_beneficiary_code"
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -143,7 +137,6 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_beneficiary_account"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/twenty_dip"
@@ -152,7 +145,6 @@
                             android:textColorHint="@color/hint_color">
 
                             <EditText
-                                android:id="@+id/et_beneficiary_account"
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -166,7 +158,6 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_beneficiary_bank_reference"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -178,7 +169,6 @@
                             android:textColorHint="@color/hint_color">
 
                             <EditText
-                                android:id="@+id/et_beneficiary_bank_reference"
                                 style="@style/myedittext"
 
                                 android:layout_width="match_parent"
@@ -194,7 +184,6 @@
 
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_beneficiary_bank_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -204,7 +193,6 @@
                             android:textColorHint="@color/hint_color">
 
                             <EditText
-                                android:id="@+id/et_beneficiary_bank_name"
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -217,7 +205,6 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_beneficiary_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/twenty_dip"
@@ -226,7 +213,6 @@
                             android:textColorHint="@color/hint_color">
 
                             <EditText
-                                android:id="@+id/et_beneficiary_address"
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -252,7 +238,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativeCompanyListheader1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten_dip">
@@ -266,7 +251,6 @@
                     android:background="@color/orange">
 
                     <ImageView
-                        android:id="@+id/imgProfile1"
                         android:layout_width="@dimen/twenty_dip"
                         android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
@@ -286,7 +270,6 @@
                     android:padding="@dimen/five_dip">
 
                     <TextView
-                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -315,7 +298,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -348,7 +330,6 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_pin_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -372,7 +353,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_landline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -381,7 +361,6 @@
                         android:textColorHint="@color/hint_color">
 
                         <EditText
-                            android:id="@+id/et_landline"
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -397,7 +376,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -421,7 +399,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -443,7 +420,6 @@
 
                     </android.support.design.widget.TextInputLayout>
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_additional_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -451,7 +427,6 @@
                         android:textColorHint="@color/hint_color">
 
                         <EditText
-                            android:id="@+id/et_additional_info"
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -466,12 +441,10 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <View
-                        android:id="@+id/height1"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/ten_dip"/>
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -499,7 +472,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativeCompanyListheader2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten_dip">
@@ -512,7 +484,6 @@
                     android:background="@color/orange">
 
                     <ImageView
-                        android:id="@+id/imgProfile2"
                         android:layout_width="@dimen/twenty_dip"
                         android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"

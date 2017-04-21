@@ -26,7 +26,6 @@
             >
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cardViewAddress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardElevation="4dp"
@@ -35,7 +34,6 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/relativeLayoutAddresss"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
