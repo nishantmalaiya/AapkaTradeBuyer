@@ -76,7 +76,6 @@
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
         <activity android:name=".user_dashboard.order_list.order_details.OrderDetailsActivity" />
         <activity android:name=".categories_tab.CategoriesTabActivity" />
-        <activity android:name=".Home.registration.RegistrationBusinessAssociateActivity" />
         <activity android:name=".login.ForgotPassword" />
         <activity android:name=".categories_tab.CategoryListActivity" />
         <activity android:name=".categories_tab.FilterActivity" />

@@ -128,32 +128,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             }
         }, 0, 3000);
 
-
-//        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                try {
-//                    for (int i = 0; i < dotsCount; i++) {
-//                        dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
-//                    }
-//
-//                    dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-//                } catch (Exception e) {
-//                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-
-
         circleIndicator.setViewPager(vp);
     }
 

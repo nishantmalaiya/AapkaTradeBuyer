@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
-import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
@@ -28,7 +27,6 @@ import com.example.pat.aapkatrade.general.Validation;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 
 public class LoginActivity extends AppCompatActivity {
