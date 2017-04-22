@@ -27,8 +27,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_app_icon"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -47,8 +47,6 @@
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".user_dashboard.add_product.Dialog.Timing_dialog"
             android:screenOrientation="portrait" />
@@ -65,8 +63,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
-        <activity android:name=".productdetail.ProductDetail"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".productdetail.ProductDetail"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Home.registration.RegistrationActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -119,10 +118,11 @@
             android:name=".user_dashboard.add_vendor.AddVendorActivity"
             android:label="@string/title_activity_add_vendor"
             android:theme="@style/AppTheme" />
-        <activity android:name=".payment.PaymentActivity"></activity>
+        <activity android:name=".payment.PaymentActivity" />
         <activity android:name=".filter.FilterScreenActivity" />
         <activity android:name=".payment.PaymentActivity" />
-        <activity android:name=".rateus.RateusActivity"></activity>
+        <activity android:name=".rateus.RateusActivity" />
+        <activity android:name=".productdetail.shop_all_product.ShopAllProductActivity"></activity>
     </application>
 
 </manifest>

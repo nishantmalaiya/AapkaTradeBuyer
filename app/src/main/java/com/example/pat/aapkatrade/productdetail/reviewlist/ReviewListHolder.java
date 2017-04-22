@@ -11,11 +11,8 @@ import com.example.pat.aapkatrade.R;
  * Created by PPC16 on 4/8/2017.
  */
 
-
-
 public class ReviewListHolder extends RecyclerView.ViewHolder
 {
-
     View view;
     TextView title ,message_description, username, deliver_date,tvRating;
     ImageView imgStar;
@@ -40,5 +37,6 @@ public class ReviewListHolder extends RecyclerView.ViewHolder
         deliver_date = (TextView) itemView.findViewById(R.id.deliver_date);
 
         view = itemView;
+
     }
 }
