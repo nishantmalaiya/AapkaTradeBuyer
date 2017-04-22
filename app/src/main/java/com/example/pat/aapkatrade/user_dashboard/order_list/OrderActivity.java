@@ -21,7 +21,8 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity
+{
 
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
@@ -32,17 +33,19 @@ public class OrderActivity extends AppCompatActivity {
     String user_id;
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_order);
+
         Log.e("hi////", "ghuygubgiugvuyuuihguogyuygukyvgbuk");
 
         setuptoolbar();
 
         progress_handler = new ProgressBarHandler(this);
-
 
         app_sharedpreference = new AppSharedPreference(this);
 
@@ -52,9 +55,7 @@ public class OrderActivity extends AppCompatActivity {
 
         get_web_data();
 
-
     }
-
 
     private void setup_layout() {
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
@@ -96,9 +97,6 @@ public class OrderActivity extends AppCompatActivity {
     private void get_web_data() {
         orderListDatas.clear();
         progress_handler.show();
-
-
-
 
         Log.e("hi////", app_sharedpreference.getsharedpref("userid", user_id)+"GGGGGGG"+app_sharedpreference.getsharedpref("usertype","1"));
 

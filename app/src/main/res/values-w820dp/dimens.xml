@@ -40,6 +40,7 @@
     <dimen name="two_hundred_dip">400dp</dimen>
     <dimen name="one_hundred_five_dip">210dp</dimen>
     <dimen name="thirty_dip">60dp</dimen>
+    <dimen name="twelve_dip">24dp</dimen>
 
 
 </resources>

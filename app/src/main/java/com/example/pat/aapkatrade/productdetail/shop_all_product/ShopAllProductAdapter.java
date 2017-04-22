@@ -25,8 +25,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     List<ShopAllProductData> itemList;
     Context context;
     ShopAllProductHolder viewHolder;
-    AppSharedPreference app_sharedpreference;
-    ProgressBarHandler progress_handler;
+
 
 
     public ShopAllProductAdapter(Context context, List<ShopAllProductData> itemList)
@@ -35,9 +34,6 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.context = context;
         inflater = LayoutInflater.from(context);
 
-        app_sharedpreference = new AppSharedPreference(context);
-        progress_handler = new ProgressBarHandler(context);
-
     }
 
     @Override
@@ -45,6 +41,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
         View view = inflater.inflate(R.layout.row_shop_service_list, parent, false);
 
+        viewHolder = new ShopAllProductHolder(view);
 
         return viewHolder;
     }
@@ -63,6 +60,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             public void onClick(View v)
             {
 
+
             }
         });
 
@@ -71,6 +69,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             @Override
             public void onClick(View v)
             {
+
 
             }
         });
@@ -86,13 +85,8 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemCount()
     {
-        return itemList.size();
+        return 10;
         //return itemList.size();
-    }
-
-    public String getCurrentTimeStamp()
-    {
-        return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
 
 
