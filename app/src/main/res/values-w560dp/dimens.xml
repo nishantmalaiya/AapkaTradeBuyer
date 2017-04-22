@@ -36,5 +36,6 @@
     <dimen name="two_hundred_dip">220dp</dimen>
     <dimen name="one_hundred_five_dip">105dp</dimen>
     <dimen name="thirty_dip">33dp</dimen>
+    <dimen name="twelve_dip">13dp</dimen>
 
 </resources>

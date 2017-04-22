@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,10 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -27,24 +32,13 @@ import java.util.ArrayList;
 
 
 
-public class ShopAllProductActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
+public class ShopAllProductActivity extends AppCompatActivity
 {
 
-
-
-    private RecyclerView product_list;
-    private ShopAllProductAdapter productListAdapter;
-    private AppSharedPreference app_sharedpreference;
-    private String user_id;
-    private LinearLayout layout_container;
-    private ArrayList<ShopAllProductData> productListDatas = new ArrayList<>();
-    private LinearLayoutManager mLayoutManager, linearLayoutManager;
-    private boolean isLoading = false;
-    private int mPageSize = 6;
-    private SwipeRefreshLayout mSwipyRefreshLayout;
-    private int page = 1;
-    private Context context;
-    ArrayList<String> product_image_list = new ArrayList<>();
+    ArrayList<ShopAllProductData> shopAllProductDatas = new ArrayList<>();
+    RecyclerView order_list;
+    ShopAllProductAdapter shopAllProductAdapter;
+    LinearLayout layout_container;
 
 
 
@@ -53,138 +47,44 @@ public class ShopAllProductActivity extends AppCompatActivity implements SwipeRe
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.row_shop_service_list);
+        setContentView(R.layout.activity_shop_all_product);
 
-        /*context = ShopAllProductActivity.this;
-
-        app_sharedpreference = new AppSharedPreference(this);
-
-        user_id = app_sharedpreference.getsharedpref("userid", "");
-
-        setUpToolBar();
+        setuptoolbar();
 
         setup_layout();
 
-        get_web_data();*/
-
-
+        //get_web_data();
 
     }
 
     private void setup_layout()
     {
-        mSwipyRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
-
-        mSwipyRefreshLayout.setRefreshing(false);
-
-        mSwipyRefreshLayout.setOnRefreshListener(ShopAllProductActivity.this);
-
-        product_list = (RecyclerView) findViewById(R.id.product_list_recycler_view);
-
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
 
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        order_list = (RecyclerView) findViewById(R.id.order_list);
 
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
-        product_list.setLayoutManager(mLayoutManager);
+        order_list.setLayoutManager(mLayoutManager);
 
-        productListAdapter = new ShopAllProductAdapter(ShopAllProductActivity.this, productListDatas);
+        shopAllProductAdapter = new ShopAllProductAdapter(getApplicationContext(), shopAllProductDatas);
 
-        product_list.setAdapter(productListAdapter);
-
-
-        product_list.setOnScrollListener(new RecyclerView.OnScrollListener()
-        {
-
-            public void onScrollStateChanged(RecyclerView view, int scrollState)
-            {
-                super.onScrollStateChanged(product_list, scrollState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int totalItemCount = mLayoutManager.getItemCount();
-
-                int firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-
-                int lastVisibleItemCount = mLayoutManager.findLastVisibleItemPosition();
-
-                if (totalItemCount > 0)
-                {
-                    if ((totalItemCount - 1) == lastVisibleItemCount)
-                    {
-                        page = page + 1;
-                        get_web_data2(page);
-                    }
-                    else
-                    {
-                        //loadingProgress.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-        });
-
-
-
+        order_list.setAdapter(shopAllProductAdapter);
     }
 
-
-    private int returnPageIndex(int sizeOfList)
-    {
-        int index = sizeOfList / mPageSize;
-        return index;
-    }
-
-
-    private void setUpToolBar()
+    private void setuptoolbar()
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
-        back_imagview.setVisibility(View.VISIBLE);
-        back_imagview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
-        ImageView logoWord = (ImageView) findViewById(R.id.logoWord);
-        TextView header_name = (TextView) findViewById(R.id.header_name);
-        header_name.setVisibility(View.VISIBLE);
-        header_name.setText(getResources().getString(R.string.product_list_heading));
-        logoWord.setVisibility(View.GONE);
-        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
-        homeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
         setSupportActionBar(toolbar);
-
-
-        if (getSupportActionBar() != null)
-        {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setTitle(null);
-            getSupportActionBar().setElevation(0);
-        }
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -202,33 +102,36 @@ public class ShopAllProductActivity extends AppCompatActivity implements SwipeRe
         return super.onOptionsItemSelected(item);
     }
 
-    public void get_web_data2(int page_number)
+/*
+    private void get_web_data()
     {
+        shopAllProductDatas.clear();
+        progress_handler.show();
+
+        Log.e("hi////", app_sharedpreference.getsharedpref("userid", user_id)+"GGGGGGG"+app_sharedpreference.getsharedpref("usertype","1"));
+
         Ion.with(ShopAllProductActivity.this)
-                .load(getResources().getString(R.string.webservice_base_url)+"/productlist")
+                .load(getResources().getString(R.string.webservice_base_url)+"/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "product_list")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id", user_id)
-                .setBodyParameter("page", String.valueOf(page_number))
-                .setBodyParameter("apply", "1")
+
+                .setBodyParameter("seller_id", app_sharedpreference.getsharedpref("userid", user_id))
+                .setBodyParameter("type", app_sharedpreference.getsharedpref("usertype","1"))
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-
                     public void onCompleted(Exception e, JsonObject result) {
-                        System.out.println("userid----------------" + user_id);
 
-                        if (result == null)
-                        {
-                            // progress_handler.hide();
-                            // layout_container.setVisibility(View.INVISIBLE);
-                            //  mSwipyRefreshLayout.setRefreshing(false);
-                        }
-                        else
-                        {
+                        System.out.println("jsonObject-------------" + result.toString());
 
+
+                        if (result == null) {
+                            progress_handler.hide();
+                            layout_container.setVisibility(View.INVISIBLE);
+                        } else {
                             JsonObject jsonObject = result.getAsJsonObject();
+
 
                             String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
 
@@ -236,38 +139,58 @@ public class ShopAllProductActivity extends AppCompatActivity implements SwipeRe
 
                             System.out.println("message_data==================" + message_data);
 
-                            if (message_data.equals("No record found"))
-                            {
-                                //progress_handler.hide();
+                            if (message_data.equals("No record found")) {
+                                progress_handler.hide();
+                                layout_container.setVisibility(View.INVISIBLE);
 
-                                // layout_container.setVisibility(View.INVISIBLE);
-                            }
-                            else
-                            {
+                            } else {
 
-                                JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+                                JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
+
+                                System.out.println("jsonOblect-------------" + jsonObject1.toString());
+
+                                JsonArray jsonArray = jsonObject1.getAsJsonArray("list");
 
                                 for (int i = 0; i < jsonArray.size(); i++)
                                 {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
-                                    String product_id = jsonObject2.get("id").getAsString();
+                                    String order_id = jsonObject2.get("id").getAsString();
 
-                                    String product_name = jsonObject2.get("name").getAsString();
+                                    String product_name = jsonObject2.get("product_name").getAsString();
 
-                                    String product_price = jsonObject2.get("price").getAsString();
+                                    String product_price = jsonObject2.get("product_price").getAsString();
 
-                                    String product_image = jsonObject2.get("image_url").getAsString();
+                                    String product_qty = jsonObject2.get("product_qty").getAsString();
 
-                                    String unit_id = jsonObject2.get("unit_id").getAsString();
+                                    String address = jsonObject2.get("address").getAsString();
 
-                                    productListDatas.add(new ShopAllProductData(product_id,product_name,product_price,unit_id,product_image));
+                                    String email = jsonObject2.get("email").getAsString();
+
+                                    String buyersmobile = jsonObject2.get("buyersmobile").getAsString();
+
+                                    String buyersname = jsonObject2.get("buyersname").getAsString();
+
+                                    String company_name = jsonObject2.get("cname").getAsString();
+
+                                    String status = jsonObject2.get("status").getAsString();
+
+                                    String created_at = jsonObject2.get("created_at").getAsString();
+
+                                    String product_image= jsonObject2.get("image_url").getAsString();
+
+                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at,product_image));
+
                                 }
 
-                                productListAdapter.notifyDataSetChanged();
+                                orderListAdapter = new OrderListAdapter(getApplicationContext(), orderListDatas);
 
-                                //  mSwipyRefreshLayout.setRefreshing(false);
-                                // progress_handler.hide();
+                                order_list.setAdapter(orderListAdapter);
+
+                                orderListAdapter.notifyDataSetChanged();
+
+                                progress_handler.hide();
+
                             }
 
                             //   layout_container.setVisibility(View.VISIBLE);
@@ -276,91 +199,6 @@ public class ShopAllProductActivity extends AppCompatActivity implements SwipeRe
                     }
                 });
 
-    }
-
-    private void get_web_data()
-    {
-        // layout_container.setVisibility(View.INVISIBLE);
-        mSwipyRefreshLayout.setRefreshing(true);
-
-        productListDatas.clear();
-
-        Ion.with(ShopAllProductActivity.this)
-                .load(getResources().getString(R.string.webservice_base_url)+"/productlist")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "product_list")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id", user_id)
-                .setBodyParameter("page", "0")
-                .setBodyParameter("apply", "1")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
-
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-
-                        System.out.println("result----------------"+result.toString());
-
-                        if (result == null) {
-                            //progress_handler.hide();
-                            layout_container.setVisibility(View.INVISIBLE);
-                            mSwipyRefreshLayout.setRefreshing(false);
-                        }
-                        else
-                        {
-                            System.out.println("message_data==================" + result);
-                            JsonObject jsonObject = result.getAsJsonObject();
-
-                            String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
-
-                            String message_data = message.replace("\"", "");
-
-                            System.out.println("message_data==================" + message_data);
-
-                            if (message_data.equals("No record found"))
-                            {
-                                layout_container.setVisibility(View.INVISIBLE);
-                                mSwipyRefreshLayout.setRefreshing(false);
-                            }
-                            else
-                            {
-                                JsonArray jsonArray = jsonObject.getAsJsonArray("result");
-
-                                System.out.println("jsonArray----------------" + jsonArray.toString());
-
-                                for (int i = 0; i < jsonArray.size(); i++)
-                                {
-                                    JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
-
-                                    String product_id = jsonObject2.get("id").getAsString();
-
-                                    String product_name = jsonObject2.get("name").getAsString();
-
-                                    String product_price = jsonObject2.get("price").getAsString();
-
-                                    String product_image = jsonObject2.get("image_url").getAsString();
-
-                                    String unit_id = jsonObject2.get("unit_id").getAsString();
-
-                                    productListDatas.add(new ShopAllProductData(product_id,product_name,product_price,unit_id,product_image));
-
-                                }
-                                productListAdapter.notifyDataSetChanged();
-
-                                mSwipyRefreshLayout.setRefreshing(false);
-                            }
-                        }
-                    }
-                });
-    }
-
-
-    public void onRefresh()
-    {
-        get_web_data();
-    }
-
+    }*/
 
 }
