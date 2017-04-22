@@ -7,7 +7,6 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/activity_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/brown_light">
@@ -29,7 +28,6 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/tool_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -37,7 +35,6 @@
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -277,7 +274,6 @@
 
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/loginregisterfooter"

@@ -47,7 +47,7 @@ import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.login.LoginDashboard;
+import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
@@ -207,7 +207,7 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.login:
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                    Intent i = new Intent(HomeActivity.this, LoginDashboard.class);
+                    Intent i = new Intent(HomeActivity.this, LoginActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
@@ -474,14 +474,15 @@ public class HomeActivity extends AppCompatActivity {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
 
-                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
-                            startActivity(new Intent(HomeActivity.this, LoginDashboard.class));
-                        } else {
-                            Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
-                            String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
-                            replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
-                            //showOrHideBottomNavigation(true);
-                        }
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+//                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
+//                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+//                        } else {
+//                            Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
+//                            String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
+//                            replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
+//                            //showOrHideBottomNavigation(true);
+//                        }
 
                         break;
 

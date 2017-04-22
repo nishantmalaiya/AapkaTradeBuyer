@@ -3,7 +3,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_my_profile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/cardview_background"
@@ -23,224 +22,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativeCompanyListheader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten_dip">
-
-                <RelativeLayout
-                    android:id="@+id/linear_layout_image"
-                    android:layout_width="@dimen/thirty_five_dip"
-                    android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_alignParentLeft="true"
-                    android:background="@color/orange">
-
-                    <ImageView
-                        android:id="@+id/imgProfile"
-                        android:layout_width="@dimen/twenty_dip"
-                        android:layout_height="@dimen/twenty_dip"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/five_dip"
-                        android:src="@drawable/ic_user" />
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_marginLeft="@dimen/three_dip"
-                    android:layout_toRightOf="@+id/linear_layout_image"
-                    android:background="@color/orange"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/five_dip">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/bussiness_details"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textsize_medium"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/businessDetailsCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ten_dip"
-                android:layout_marginRight="@dimen/ten_dip"
-                android:padding="@dimen/twenty_dip">
-
-                <LinearLayout
-                    android:id="@+id/businessDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/ten_dip"
-                    android:layout_marginTop="@dimen/ten_dip"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        tools:ignore="UselessParent">
-
-                        <LinearLayout
-                            android:id="@+id/uploadCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-
-                            <include
-                                android:id="@+id/company_incorporation"
-                                layout="@layout/upload_pdf" />
-
-
-                            <include
-                                android:id="@+id/doc"
-                                layout="@layout/upload_image_layout" />
-
-                        </LinearLayout>
-
-
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_busi_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/twenty_dip"
-                            android:layout_marginRight="@dimen/twenty_dip"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:textColorHint="@color/hint_color">
-
-                            <RelativeLayout
-                                android:id="@+id/spBussinessCategoryLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/five_dip"
-                                android:layout_marginTop="@dimen/five_dip">
-
-
-                                <Spinner
-                                    android:id="@+id/spBussinessCategory"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-
-                                    android:layout_alignParentLeft="true"
-
-                                    android:background="@drawable/simple_spinner_back"
-                                    android:gravity="center_horizontal" />
-
-                                <ImageView
-                                    android:layout_width="@dimen/twenty_dip"
-                                    android:layout_height="@dimen/twenty_dip"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="@dimen/ten_dip"
-                                    android:scaleType="fitXY"
-                                    android:src="@drawable/ic_arrow" />
-
-                            </RelativeLayout>
-                        </android.support.design.widget.TextInputLayout>
-
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_shop_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/twenty_dip"
-                            android:layout_marginRight="@dimen/twenty_dip"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:gravity="center_vertical"
-                            android:textColorHint="@color/hint_color">
-
-                            <EditText
-                                android:id="@+id/etshopname"
-                                style="@style/myedittext"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/five_dip"
-                                android:layout_marginRight="@dimen/five_dip"
-                                android:hint="@string/company_name_heading"
-                                android:inputType="text"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green"
-                                android:theme="@style/myedittext" />
-
-
-                        </android.support.design.widget.TextInputLayout>
-
-
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_tin_number"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/twenty_dip"
-                            android:layout_marginRight="@dimen/twenty_dip"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:textColorHint="@color/hint_color">
-
-                            <EditText
-                                android:id="@+id/et_tin_number"
-                                style="@style/myedittext"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/five_dip"
-                                android:layout_marginRight="@dimen/five_dip"
-                                android:hint="@string/tin_number"
-                                android:inputType="number"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green"
-                                android:theme="@style/myedittext" />
-
-                        </android.support.design.widget.TextInputLayout>
-
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/input_layout_tan_number"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/twenty_dip"
-                            android:layout_marginRight="@dimen/twenty_dip"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:textColorHint="@color/hint_color">
-
-                            <EditText
-                                android:id="@+id/et_tan_number"
-                                style="@style/myedittext"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/five_dip"
-                                android:layout_marginRight="@dimen/five_dip"
-                                android:hint="@string/tan_number"
-                                android:inputType="number"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green"
-                                android:theme="@style/myedittext"
-                                tools:ignore="RtlSymmetry" />
-
-                        </android.support.design.widget.TextInputLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/ten_dip" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-
-            <RelativeLayout
-                android:id="@+id/relativeCompanyListheader1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten_dip">
@@ -254,7 +35,6 @@
                     android:background="@color/orange">
 
                     <ImageView
-                        android:id="@+id/imgProfile1"
                         android:layout_width="@dimen/twenty_dip"
                         android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
@@ -274,7 +54,6 @@
                     android:padding="@dimen/five_dip">
 
                     <TextView
-                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -303,7 +82,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -329,7 +107,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -355,7 +132,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_dob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -403,7 +179,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -429,7 +204,6 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_five_dip"
@@ -470,7 +244,8 @@
                         android:layout_marginLeft="@dimen/twenty_five_dip"
                         android:layout_marginRight="@dimen/twenty_five_dip"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:textColorHint="@color/hint_color">
+                        android:textColorHint="@color/hint_color"
+                        android:visibility="gone">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -498,7 +273,12 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <View
-                        android:id="@+id/height1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ten_dip" />
+
+
+
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/ten_dip" />
 
@@ -525,42 +305,12 @@
 
 
                     </android.support.design.widget.TextInputLayout>
-
-                    <View
-                        android:id="@+id/height2"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/ten_dip" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_ref_no"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/twenty_dip"
-                        android:layout_marginRight="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color">
-
-                        <EditText
-                            android:id="@+id/etReferenceNo"
-                            style="@style/myedittext"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/five_dip"
-                            android:layout_marginRight="@dimen/five_dip"
-                            android:hint="@string/ref_number"
-                            android:inputType="text"
-                            android:paddingLeft="@dimen/ten_dip"
-                            android:textColorHint="@color/green"
-                            android:theme="@style/myedittext" />
-
-
-                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
 
             <RelativeLayout
-                android:id="@+id/relativeCompanyListheader2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten_dip">
@@ -573,7 +323,6 @@
                     android:background="@color/orange">
 
                     <ImageView
-                        android:id="@+id/imgProfile2"
                         android:layout_width="@dimen/twenty_dip"
                         android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
@@ -621,7 +370,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -647,7 +395,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -671,7 +418,6 @@
 
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"

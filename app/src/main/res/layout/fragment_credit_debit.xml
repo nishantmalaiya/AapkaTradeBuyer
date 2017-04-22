@@ -154,7 +154,6 @@
 
 
             <ImageView
-                android:id="@+id/imgCardType"
                 android:layout_width="@dimen/fifty_dip"
                 android:layout_height="@dimen/thirty_five_dip"
                 android:layout_alignParentRight="true"
@@ -228,7 +227,6 @@
             </RelativeLayout>
 
             <View
-                android:id="@+id/View2"
                 android:layout_width="@dimen/one_hundred_twenty_dip"
                 android:layout_height="@dimen/two_dip"
                 android:layout_below="@+id/relativeExpirationInput"
@@ -240,7 +238,6 @@
 
 
         <RelativeLayout
-            android:id="@+id/relativeCvDetail"
             android:layout_width="@dimen/one_hundred_twenty_dip"
             android:layout_height="wrap_content"
             android:layout_below="@+id/View1"
@@ -281,7 +278,6 @@
 
 
             <View
-                android:id="@+id/View3"
                 android:layout_width="@dimen/one_hundred_twenty_dip"
                 android:layout_height="@dimen/two_dip"
                 android:layout_below="@+id/relativeCvvDetail"
@@ -320,7 +316,6 @@
                     />
 
                 <EditText
-                    android:id="@+id/edtCardAlias"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/fifty_dip"
                     android:hint="Enter Alias"
@@ -340,7 +335,6 @@
 
 
             <View
-                android:id="@+id/View4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/two_dip"
                 android:layout_below="@+id/realativeAlias"
@@ -378,7 +372,6 @@
             />
 
         <Button
-            android:id="@+id/buttonContinuePay"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/thirty_five_dip"
             android:text="CONTINUE TO PAY"

@@ -1,6 +1,5 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_parent_scrollview"
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
@@ -129,7 +128,6 @@
                     android:visibility="gone" />
 
                 <View
-                    android:id="@+id/footer_categories"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
@@ -180,7 +178,6 @@
 
 
                 <View
-                    android:id="@+id/footer_categorie2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
@@ -206,7 +203,6 @@
                     android:textSize="14sp" />
 
                 <View
-                    android:id="@+id/footer_categorie3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
@@ -232,7 +228,6 @@
                     android:textSize="14sp" />
 
                 <View
-                    android:id="@+id/footer_categorie4"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
@@ -244,7 +239,6 @@
 
 
         <View
-            android:id="@+id/snakBar1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/orange"></View>

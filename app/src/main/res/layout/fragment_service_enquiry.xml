@@ -69,7 +69,6 @@
 
 
             <LinearLayout
-                android:id="@+id/activity_my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="14"
@@ -106,7 +105,6 @@
 
 
                                 <ImageView
-                                    android:id="@+id/imgServiceEnquiry"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center_horizontal|center_vertical"
@@ -172,7 +170,6 @@
                                 android:padding="10dp">
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_first_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -196,7 +193,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_quantity"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -220,7 +216,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_price"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -243,7 +238,6 @@
                                 </android.support.design.widget.TextInputLayout>
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_mobile"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -268,7 +262,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_email"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -381,7 +374,6 @@
 
 
                                 <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_description"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/twenty_dip"

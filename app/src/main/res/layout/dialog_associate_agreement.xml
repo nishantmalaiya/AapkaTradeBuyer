@@ -73,7 +73,6 @@
 
 
             <LinearLayout
-                android:id="@+id/activity_my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="14"
@@ -114,7 +113,6 @@
 
 
                                 <de.hdodenhof.circleimageview.CircleImageView
-                                    android:id="@+id/imageViewProfilePic"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center_horizontal|center_vertical"
@@ -221,7 +219,6 @@
 
 
                         <android.support.v7.widget.CardView
-                            android:id="@+id/cardViewGraph"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ten_dip"
@@ -483,7 +480,6 @@
                                         </RelativeLayout>
 
                                         <RelativeLayout
-                                            android:id="@+id/black_indicator_layout"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_below="@+id/red_indicator_layout"

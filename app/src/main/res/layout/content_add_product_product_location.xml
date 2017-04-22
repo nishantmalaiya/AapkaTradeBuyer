@@ -29,7 +29,6 @@
 
 
             <Spinner
-                android:id="@+id/spStatename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -100,7 +99,6 @@
 
 
             <Spinner
-                android:id="@+id/spDeliver_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -135,7 +133,6 @@
 
 
             <Spinner
-                android:id="@+id/spArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -168,7 +165,6 @@
 
 
             <Spinner
-                android:id="@+id/spPincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"

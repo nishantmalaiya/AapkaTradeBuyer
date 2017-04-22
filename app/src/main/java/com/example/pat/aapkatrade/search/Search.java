@@ -59,7 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class Search extends AppCompatActivity  implements Adapter_callback_interface {
+public class Search extends AppCompatActivity implements Adapter_callback_interface {
 
     AutoCompleteTextView autocomplete_textview_state, autocomplete_textview_product;
     CustomAutocompleteAdapter categoryadapter;
@@ -68,7 +68,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
     public static RecyclerView recyclerView_search, state_names_recycler, category_names_recycler;
     CommomAdapter commomAdapter;
     Spinner state_list_spinner;
-    RecyclerView.LayoutManager mLayoutManager_state,mLayoutManager_category;
+    RecyclerView.LayoutManager mLayoutManager_state, mLayoutManager_category;
     common_state_search common_state_search;
     Adapter_callback_interface callback_interface;
     ArrayList<String> state_names = new ArrayList<>();
@@ -95,6 +95,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
     String selected_categoryid;
     ViewPager viewpager_state;
     FloatingActionButton fab_filter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +104,10 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
         c = Search.this;
         Intent i = getIntent();
         currentlocation_statename = i.getStringExtra("state_name");
-        Log.e("current_statename_",currentlocation_statename);
+        Log.e("current_statename_", currentlocation_statename);
 
         class_name = i.getStringExtra("classname");
-        Log.e("class_name",class_name);
-
+        Log.e("class_name", class_name);
 
 
         setuptoolbar();
@@ -171,12 +171,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 */
 
 
-
-
-
-
-
-
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -218,10 +212,9 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
                     if (autocomplete_textview_product.getText().length() != 0) {
                         // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
-                        call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(),"","","","");
+                        call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(), "", "", "", "");
 
                         App_config.hideKeyboard(Search.this);
-
 
 
                     }
@@ -278,7 +271,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
         stateList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
 
 
-
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(c, R.layout.white_textcolor_spinner, stateList);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.white_textcolor_spinner);
 
@@ -287,13 +279,10 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
     }
 
 
-    private void call_state_webservice( String a) {
+    private void call_state_webservice(String a) {
 
         progressBarHandler.show();
         Log.e("statelist_state", stateList.toString() + "" + c);
-
-
-
 
 
         for (int i = 0; i < stateList.size(); i++) {
@@ -313,12 +302,12 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
     private void call_search_webservice(String location_text, final String product_name1, final String id, String stateid, String cityid, final String type) {
 
-        Log.e("callback_state",id+"***"+type);
+        Log.e("callback_state", id + "***" + type);
 
 
         String search_url = (getResources().getString(R.string.webservice_base_url)) + "/search";
         progressBarHandler.show();
-        if (type.contains("category")){
+        if (type.contains("category")) {
 
             Ion.with(Search.this)
                     .load(search_url)
@@ -326,19 +315,19 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("name", product_name1)
-                    .setBodyParameter("category_id",id)
+                    .setBodyParameter("category_id", id)
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
 
-                            Log.e("first---",result.toString());
+                            Log.e("first---", result.toString());
 
                             if (result != null) {
 
-                                set_webservice_data(result,type);
+                                set_webservice_data(result, type);
 
-                                Log.e("call 2_sending",product_name1+"**"+id+"");
+                                Log.e("call 2_sending", product_name1 + "**" + id + "");
                                 // Log.e("call 2_receiving",result.toString());
 
 
@@ -354,8 +343,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
                     });
 
 
-        }
-        else if (type.contains("state")){
+        } else if (type.contains("state")) {
 
             Ion.with(Search.this)
                     .load(search_url)
@@ -363,20 +351,20 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("name", product_name1)
-                    .setBodyParameter("state_id ",id)
-                    .setBodyParameter("category_id","")
+                    .setBodyParameter("state_id ", id)
+                    .setBodyParameter("category_id", "")
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
 
-                            Log.e("second---",result.toString());
+                            Log.e("second---", result.toString());
 
                             if (result != null) {
 
-                                set_webservice_data(result,type);
+                                set_webservice_data(result, type);
 
-                                Log.e("call 2_state",product_name1+"**"+id+"");
+                                Log.e("call 2_state", product_name1 + "**" + id + "");
                                 // Log.e("call 2_receiving",result.toString());
 
 
@@ -392,16 +380,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
                     });
 
 
-        }
-
-
-
-
-
-
-
-
-        else{
+        } else {
 
             Ion.with(Search.this)
                     .load(search_url)
@@ -409,15 +388,15 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
                     .setBodyParameter("location", location_text)
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("name", product_name1)
-                    .setBodyParameter("apply","1")
+                    .setBodyParameter("apply", "1")
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             if (result != null) {
-                                set_webservice_data(result,"");
+                                set_webservice_data(result, "");
 
-                                Log.e("call 3",result.toString());
+                                Log.e("call 3", result.toString());
 
                             } else {
                                 progressBarHandler.hide();
@@ -434,18 +413,12 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
         }
 
 
-
-
-
-
-
-
     }
 
-    public void set_webservice_data(JsonObject result,String type) {
+    public void set_webservice_data(JsonObject result, String type) {
 
 
-        Log.e("Arvind_data",result.toString());
+        Log.e("Arvind_data", result.toString());
 
         search_productlist.clear();
 //        common_category_searchlist.clear();
@@ -464,7 +437,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
             progressBarHandler.hide();
 
         } else {
-          //  search_productlist=new ArrayList<>();
+            //  search_productlist=new ArrayList<>();
 
             Log.e("data2_search", result.toString());
             if (jsonObject.get("result").isJsonNull()) {
@@ -497,8 +470,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
             commomAdapter.notifyDataSetChanged();
 
 
-
-
             JsonArray jsonarray_category = jsonObject.getAsJsonArray("category");
 
 
@@ -516,7 +487,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
             searchResults_category_Adapter = new SearchcategoryAdapter(Search.this, common_category_searchlist, state_list_spinner.getItemAtPosition(current_state_index).toString(),
                     autocomplete_textview_product.getText().toString());
-            Log.e("category_data",common_category_searchlist.toString());
+            Log.e("category_data", common_category_searchlist.toString());
             searchResults_category_Adapter.notifyDataSetChanged();
 
 
@@ -529,7 +500,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
                 String state_id = jsonObject_result.get("state_id").getAsString();
                 String statename = jsonObject_result.get("statename").getAsString();
                 String countprod = jsonObject_result.get("countprod").getAsString();
-            common_state_search=  new common_state_search(state_id, statename, countprod);
+                common_state_search = new common_state_search(state_id, statename, countprod);
 
 
                 common_state_searchlist.add(common_state_search);
@@ -538,13 +509,9 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
             }
 
             searchResults_state_Adapter = new SearchStateAdapter(Search.this, common_state_searchlist);
-            Log.e("state_data",common_state_searchlist.toString());
+            Log.e("state_data", common_state_searchlist.toString());
 
             searchResults_state_Adapter.notifyDataSetChanged();
-
-
-
-
 
 
             JsonArray jsonarray_cities = jsonObject.getAsJsonArray("cities");
@@ -563,8 +530,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
             }
 
 
-
-
 //            state_list_spinner.setSelection(current_state_index);
 //            if (type.contains("category"))
 //            {
@@ -575,10 +540,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 //
 //                category_names_recycler.setAdapter(searchResults_category_Adapter);
 //            }
-
-
-
-
 
 
 //            if(searchResults_state_Adapter!=null)
@@ -597,9 +558,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
 
 //search recycleview set adapter
-           // recyclerView_search.setLayoutManager(gridLayoutManager);
-
-
+            // recyclerView_search.setLayoutManager(gridLayoutManager);
 
 
             progressBarHandler.hide();
@@ -609,12 +568,14 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
         }
 
 
-
-
     }
 
 
     private void call_search_suggest_webservice_product(String product_search_url, String product_search_text, String location_text) {
+        Context context = Search.this;
+
+        AndroidUtils.showErrorLog(context, "location", location_text.trim());
+        AndroidUtils.showErrorLog(context, "location_name", product_search_text.trim());
 
         Ion.with(Search.this)
                 .load(product_search_url)
@@ -638,9 +599,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
                                 AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
 
-                            }
-
-                            else {
+                            } else {
 
                                 Log.e("data2", result.toString());
                                 if (jsonObject.get("result").isJsonNull()) {
@@ -662,7 +621,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
 
                                 if (error.contains("false")) {
-
 
 
                                     product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, product_names);
@@ -689,9 +647,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
 
     }
-
-
-
 
 
     @Override
@@ -726,8 +681,6 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
     }
 
 
-
-
     @Override
     public void onBackPressed() {
         if (class_name.contains("homeactivity"))
@@ -744,19 +697,15 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
     }
 
 
-
-
-
     @Override
-    public void callback(String id,String type) {
+    public void callback(String id, String type) {
 
 
-        Log.e("callback_state",id+"***"+type);
-        if(type.contains("category")) {
+        Log.e("callback_state", id + "***" + type);
+        if (type.contains("category")) {
             call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(), id, null, "", "category");
 
-        }
-        else {
+        } else {
             call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(), id, null, "", "state");
 
         }

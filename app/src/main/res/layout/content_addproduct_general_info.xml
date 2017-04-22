@@ -173,7 +173,6 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_area_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -195,7 +194,6 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/twenty_dip"
@@ -204,7 +202,6 @@
                     android:padding="@dimen/five_dip">
 
                     <RelativeLayout
-                        android:id="@+id/spStateLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -241,7 +238,6 @@
                     android:padding="@dimen/five_dip">
 
                     <RelativeLayout
-                        android:id="@+id/spcityLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -269,7 +265,6 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_pincode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/twenty_dip"
