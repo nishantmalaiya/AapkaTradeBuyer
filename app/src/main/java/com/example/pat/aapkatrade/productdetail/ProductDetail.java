@@ -44,6 +44,7 @@ import com.example.pat.aapkatrade.productdetail.open_shop.OpenShopData;
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListAdapter;
 
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListData;
+import com.example.pat.aapkatrade.productdetail.shop_all_product.ShopAllProductActivity;
 import com.example.pat.aapkatrade.rateus.RateusActivity;
 import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -147,11 +148,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
         get_data();
 
-
     }
 
-    private void Init_droppy() {
-
+    private void Init_droppy()
+    {
         DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(this, linearLayoutQuantity);
         droppyMenu = droppyBuilder.build();
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
@@ -191,6 +191,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         linearLayoutQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
             }
         });
@@ -300,8 +301,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                                 }
 
+
                                 reviewListAdapter = new ReviewListAdapter(ProductDetail.this, reviewListDatas);
                                 reviewList.setAdapter(reviewListAdapter);
+
                             }
 
                             System.out.println("jsonArray_image------" + jsonArray_review.toString());
@@ -352,7 +355,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                             linearProductDetail.setVisibility(View.VISIBLE);
                             relativeBuyNow.setVisibility(View.VISIBLE);
 
-
                         }
                         else
                         {
@@ -372,7 +374,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
     private void setUiPageViewController()
     {
-
         dotsCount = viewpageradapter.getCount();
         dots = new ImageView[dotsCount];
 
@@ -391,7 +392,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         }
 
         dots[0].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-
 
     }
 
@@ -424,7 +424,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         }, 0, 3000);
 
 
-        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
             {
@@ -448,9 +451,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
             public void onPageScrollStateChanged(int state)
             {
 
-
-
             }
+
+
+
         });
 
     }
@@ -500,7 +504,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View v)
             {
-
 
                 if (app_sharedpreference.getsharedpref("username", "not").contains("not"))
                 {
@@ -624,8 +627,14 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         relativeBuyNow.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
-                if (tvServiceBuy.getText().toString().equals("Buy Now"))
+            public void onClick(View v)
+            {
+
+                Intent i = new Intent(ProductDetail.this, ShopAllProductActivity.class);
+                startActivity(i);
+
+
+               /* if (tvServiceBuy.getText().toString().equals("Buy Now"))
                 {
 
                     if (app_sharedpreference.getsharedpref("username", "not").contains("not"))
@@ -657,14 +666,13 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                     ServiceEnquiry serviceEnquiry = new ServiceEnquiry(context, product_name, categoryName);
                     serviceEnquiry.show();
-                }
+                }*/
 
             }
         });
 
-
-
     }
+
 
     private void setUpToolBar()
     {
@@ -689,7 +697,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -698,8 +705,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 break;
