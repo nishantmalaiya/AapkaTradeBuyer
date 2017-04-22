@@ -126,8 +126,6 @@
 
                 </RelativeLayout>
 
-
-
                 <RelativeLayout
                     android:id="@+id/relativeViewMinus"
                     android:layout_width="@dimen/thirty_dip"
