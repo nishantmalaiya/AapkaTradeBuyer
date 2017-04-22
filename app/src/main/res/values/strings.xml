@@ -227,6 +227,7 @@
     <string name="twitter_url_heading">Twitter URL</string>
     <string name="google_plus_url_heading">G+ URL</string>
     <string name="youtube_url_heading">Youtube URL</string>
+    <string name="welcomebuyer">Welcome Buyer</string>
 
 
 </resources>

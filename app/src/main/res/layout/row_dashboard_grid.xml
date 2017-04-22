@@ -51,7 +51,6 @@ android:id="@+id/rl_grid_row_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_productprize" />
         <io.techery.properratingbar.ProperRatingBar
-            android:id="@+id/lowerRatingBar"
             android:layout_width="match_parent"
             android:layout_height="15dp"
             android:layout_centerHorizontal="true"

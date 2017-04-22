@@ -62,6 +62,8 @@ public class CustomSimpleListAdapter extends BaseAdapter {
             names.setText(((CompanyData) categoriesNames.get(i)).getCompanyName());
         } else if(categoriesNames.get(i) instanceof SubCategory){
             names.setText(((SubCategory) categoriesNames.get(i)).subCategoryName);
+        } else {
+            names.setText(categoriesNames.get(i).toString());
         }
         return view;
     }

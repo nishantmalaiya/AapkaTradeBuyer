@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_mobile_bg"
@@ -18,7 +17,6 @@
 
 
         <RelativeLayout
-            android:id="@+id/splash_footer_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -35,7 +33,6 @@
 
 
             <TextView
-                android:id="@+id/tv_aapkatrade_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_aapkatrade"
@@ -99,7 +96,6 @@
 
 
             <ImageView
-                android:id="@+id/imageView2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentBottom="true"
@@ -111,7 +107,6 @@
 
 
             <ImageView
-                android:id="@+id/imageView3"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentBottom="true"

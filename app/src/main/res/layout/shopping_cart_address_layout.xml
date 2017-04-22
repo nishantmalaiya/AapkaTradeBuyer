@@ -228,9 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <include
-                    android:id="@+id/address_for_shipping"
-                    layout="@layout/content_address" />
+                <include layout="@layout/content_address" />
             </LinearLayout>
 
 
