@@ -156,7 +156,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                 progressBarHandler.hide();
                                 Intent call_to_startactivity = new Intent(RegistrationActivity.this, ActivityOTPVerify.class);
                                 call_to_startactivity.putExtra("class_name", context.getClass().getName());
-                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                startActivity(call_to_startactivity);
+
                             } else {
 
                                 progressBarHandler.hide();
@@ -397,7 +398,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 showmessage("Password did not match");
                 break;
             case 6:
-                showmessage("Please Select Date");
+                //showmessage("Please Select Date");
                 break;
             case 9:
                 etAddress.setError("Address Can't be empty");

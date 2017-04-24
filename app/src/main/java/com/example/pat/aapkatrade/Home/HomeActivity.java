@@ -474,15 +474,15 @@ public class HomeActivity extends AppCompatActivity {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
 
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-//                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
-//                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-//                        } else {
-//                            Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
-//                            String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
-//                            replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
-//                            //showOrHideBottomNavigation(true);
-//                        }
+                       // startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
+                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        } else {
+                            Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
+                            String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
+                            replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
+                            //showOrHideBottomNavigation(true);
+                        }
 
                         break;
 
