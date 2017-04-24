@@ -148,16 +148,7 @@
             </android.support.v7.widget.RecyclerView>
 
 
-            <ExpandableListView
-                android:id="@+id/lvExp"
-                android:layout_width="match_parent"
-                android:layout_height="1000dp"
-                android:layout_below="@+id/rl_category"
-                android:background="@color/white"
-                android:groupIndicator="@null"
-                android:nestedScrollingEnabled="false"
-                android:visibility="gone"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
             <RelativeLayout
                 android:id="@+id/rl_terms"

@@ -160,7 +160,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         navigation_recycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
         navigation_recycleview.setLayoutManager(navigation_linear_layout_manager);
 
-        expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
+
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
 
@@ -184,41 +184,16 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
                 setdata(Username, Emailid);
 
-                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+                Ion.with(user_pic_img_vew)
+                        .error(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
+                        .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
+                        .load(user_image);
+
+                usertype.setText("Buyer");
 
 
-                    Ion.with(user_pic_img_vew)
-                            .error(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                            .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                            .load(user_image);
-                    Log.e("image_large", "image_large");
 
 
-                    usertype.setText("Bussiness Associate");
-
-
-                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
-
-
-                    Ion.with(user_pic_img_vew)
-                            .error(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                            .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                            .load(user_image);
-
-                    usertype.setText("Buyer");
-
-
-                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-                    Ion.with(user_pic_img_vew)
-                            .error(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                            .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                            .load(user_image);
-
-
-                    usertype.setText(" Seller");
-
-
-                }
 
 
             }
@@ -438,6 +413,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void Taskcomplete(JsonObject data) {
+
+                Log.e("data",data.toString());
                 if (data != null) {
                     JsonObject jsonObject = data.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
@@ -535,25 +512,26 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 set_visibility_logout();
 
                 setdata(Username, Emailid);
+                usertype.setText("Buyer");
 
-                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-
-
-                    usertype.setText("Bussiness Associate");
-
-
-                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
-
-                    usertype.setText("Buyer");
-
-
-                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-
-
-                    usertype.setText(" Seller");
-
-
-                }
+//                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+//
+//
+//                    usertype.setText("Bussiness Associate");
+//
+//
+//                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
+//
+//
+//
+//
+//                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
+//
+//
+//                    usertype.setText(" Seller");
+//
+//
+//                }
 
 
             }
