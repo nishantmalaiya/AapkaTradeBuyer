@@ -121,16 +121,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 .minHeightHeaderDim(R.dimen.min_header_height)
                 .build();
 
-//        FilterDialog.commonInterface = new CommonInterface() {
-//            @Override
-//            public Object getData(Object object) {
-//                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, (List<CategoriesListData>) object);
-//                myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
-//                mRecyclerView.setAdapter(categoriesListAdapter);
-//                categoriesListAdapter.notifyDataSetChanged();
-//                return null;
-//            }
-//        };
+
 
         get_web_data();
 
@@ -147,19 +138,12 @@ public class CategoryListActivity extends AppCompatActivity {
         Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : "+category_id);
         progress_handler.show();
         Ion.with(CategoryListActivity.this)
-                .load(getResources().getString(R.string.webservice_base_url) + "/productlist")
+                .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "product_list")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("category_id", category_id)
                 .setBodyParameter("apply", "1")
-//                .asString()
-//                .setCallback(new FutureCallback<String>() {
-//                    @Override
-//                    public void onCompleted(Exception e, String result) {
-//                        Log.e(AndroidUtils.getTag(context), "result"+result);
-//                    }
-//                });
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -174,16 +158,6 @@ public class CategoryListActivity extends AppCompatActivity {
                                 toolbarRightText.setVisibility(View.VISIBLE);
                                 Log.e(AndroidUtils.getTag(context), "total_result" + result);
                             }
-//                            if (result.get("states") != null) {
-//                                Log.e(AndroidUtils.getTag(context), "result" + result);
-//                                JsonArray statesArray = result.get("states").getAsJsonArray();
-//                                for (int i = 0; i < statesArray.size(); i++) {
-//                                    JsonObject stateObject = (JsonObject) statesArray.get(i);
-//                                    State state = new State(stateObject.get("state_id").getAsString(), stateObject.get("statename").getAsString(), stateObject.get("countprod").getAsString());
-//                                    productAvailableStateList.add(state);
-//                                }
-//                            }
-
                             JsonArray statesArray1 = result.get("filter").getAsJsonArray();
                             for (int i = 0; i < statesArray1.size(); i++) {
                                 JsonObject stateObject = (JsonObject) statesArray1.get(i);
@@ -207,19 +181,17 @@ public class CategoryListActivity extends AppCompatActivity {
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
-                                    String product_id = jsonObject2.get("id").getAsString();
+                                    String shopId = jsonObject2.get("id").getAsString();
 
-                                    String product_name = jsonObject2.get("name").getAsString();
+                                    String shopName = jsonObject2.get("name").getAsString();
 
-                                    String product_price = jsonObject2.get("price").getAsString();
+//
 
-                                    String product_cross_price = jsonObject2.get("cross_price").getAsString();
-
-                                    String product_image = jsonObject2.get("image_url").getAsString();
-                                    String productlocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
+                                    String shopImage = jsonObject2.get("image_url").getAsString();
+                                    String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
                                             jsonObject2.get("country_name").getAsString();
 
-                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image, productlocation));
+                                    productListDatas.add(new CategoriesListData(shopId, shopName,shopImage,shopLocation));
 
                                 }
 
@@ -319,7 +291,6 @@ public class CategoryListActivity extends AppCompatActivity {
                                 filterObjectData.count.value = value;
                             }
                         }
-                        //                            AndroidUtils.showErrorLog(context, "---->"+filterValueObjectArray[k].split(":")[0].replaceAll("\"", ""));
 
                         valueArrayList.add(filterObjectData);
                     }

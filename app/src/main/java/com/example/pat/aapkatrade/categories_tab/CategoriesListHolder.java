@@ -35,11 +35,9 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
 
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
-        tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
 
-        tvProductCrossPrice = (TextView) itemView.findViewById(R.id.tvProductCrossPrice) ;
 
-        tvProductCrossPrice.setPaintFlags(tvProductCrossPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
 
         productimage = (ImageView) itemView.findViewById(R.id.productImage);
 

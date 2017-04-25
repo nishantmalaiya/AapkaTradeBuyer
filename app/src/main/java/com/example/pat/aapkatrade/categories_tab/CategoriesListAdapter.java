@@ -61,16 +61,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         CategoriesListHolder homeHolder = (CategoriesListHolder) holder;
 
-        homeHolder.tvProductName.setText(itemList.get(position).product_name);
+        homeHolder.tvProductName.setText(itemList.get(position).shopName);
 
-        homeHolder.tvProductPrice.setText("\u20A8" + "." + " " + itemList.get(position).product_price);
 
-        homeHolder.tvProductCrossPrice.setText("\u20A8" + "." + " " + itemList.get(position).product_cross_price);
 
 
         if(Tabletsize.isTablet(context))
         {
-            String product_imageurl=itemList.get(position).product_image.replace("small","large");
+            String product_imageurl=itemList.get(position).shopImage.replace("small","large");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
@@ -81,7 +79,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
         else if(Tabletsize.isMedium(context))
         {
-            String product_imageurl=itemList.get(position).product_image.replace("small","medium");
+            String product_imageurl=itemList.get(position).shopImage.replace("small","medium");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
@@ -92,7 +90,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
         else if(Tabletsize.isSmall(context))
         {
-            String product_imageurl=itemList.get(position).product_image.replace("small","medium");
+            String product_imageurl=itemList.get(position).shopImage.replace("small","medium");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
@@ -106,14 +104,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
 
-       // Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
 
-        Picasso.with(context).load(itemList.get(position).product_image)
+
+        Picasso.with(context).load(itemList.get(position).shopImage)
                 .placeholder(R.drawable.default_noimage)
                 .error(R.drawable.default_noimage)
                 .into(homeHolder.productimage);
 
-//        Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
+//
 
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
@@ -121,12 +119,12 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             public void onClick(View v)
             {
 
-                Log.e("product_id",itemList.get(position).product_id);
+                Log.e("product_id",itemList.get(position).shopId);
               //  System.out.println("product_id-------------"+itemList.get(position).product_id);
 
                 Intent intent = new Intent(context, ProductDetail.class);
-                intent.putExtra("product_id", itemList.get(position).product_id);
-                intent.putExtra("product_location", itemList.get(position).product_location);
+                intent.putExtra("product_id", itemList.get(position).shopId);
+                intent.putExtra("product_location", itemList.get(position).shopLocation);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
@@ -161,7 +159,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         progressBarHandler.show();
                         Intent intent = new Intent(context, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("product_location", itemList.get(position).product_location);
+                        intent.putExtra("product_location", itemList.get(position).shopLocation);
                         context.startActivity(intent);
 
                         progressBarHandler.hide();

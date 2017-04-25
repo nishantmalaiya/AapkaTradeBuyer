@@ -79,10 +79,10 @@ public class ProductViewPagerAdapter extends PagerAdapter {
         } else if (Tabletsize.isMedium(mContext)) {
             String product_imageurl = imageurl.get(position).replace("small", "medium");
 
-//            Ion.with(imageView)
-//                    .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-//                    .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-//                    .load(product_imageurl);
+            Ion.with(imageView)
+                    .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
+                    .load(product_imageurl);
 
             Log.e("image_medium", "image_medium");
 

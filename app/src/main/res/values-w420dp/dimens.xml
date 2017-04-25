@@ -29,6 +29,8 @@
     <dimen name="one_hundred_five_dip">105dp</dimen>
     <dimen name="thirty_dip">30dp</dimen>
     <dimen name="twelve_dip">12dp</dimen>
+    <dimen name="three_hundreds">300dp</dimen>
+    <dimen name="two_hundreds_fifty">250dp</dimen>
     <!-- view* 1 -->
 
 </resources>

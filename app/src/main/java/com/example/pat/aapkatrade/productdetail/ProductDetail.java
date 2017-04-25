@@ -3,11 +3,9 @@ package com.example.pat.aapkatrade.productdetail;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +27,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.pat.aapkatrade.Home.CommomAdapter;
+import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
@@ -38,7 +38,6 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
-import com.example.pat.aapkatrade.payment.PaymentActivity;
 import com.example.pat.aapkatrade.productdetail.open_shop.OpenShopAdapter;
 import com.example.pat.aapkatrade.productdetail.open_shop.OpenShopData;
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListAdapter;
@@ -47,7 +46,6 @@ import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListData;
 import com.example.pat.aapkatrade.productdetail.shop_all_product.ShopAllProductActivity;
 import com.example.pat.aapkatrade.rateus.RateusActivity;
 import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
-import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -62,10 +60,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
+import me.relex.circleindicator.CircleIndicator;
 
 
-public class ProductDetail extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
-{
+public class ProductDetail extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     LinearLayout viewpagerindicator, linearlayoutShare, linearlayoutLocation;
     Spinner spinner;
@@ -79,11 +77,12 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     ViewPager vp;
     ProductViewPagerAdapter viewpageradapter;
     private int dotsCount;
+    CircleIndicator  circleIndicator;
     private ImageView[] dots;
     Timer banner_timer = new Timer();
     RelativeLayout relativeBuyNow, RelativeProductDetail, relativeRateReview;
     LinearLayout linearProductDetail;
-    TextView tvProductName, tvProPrice, tvCrossPrice, tvDiscription, tvSpecification, tvQuatity;
+    TextView tvshopName, tvProPrice, tvCrossPrice, tvDiscription, tvSpecification, tvQuatity;
     ProgressBarHandler progress_handler;
     String product_id, product_location;
     ImageView imgViewPlus, imgViewMinus;
@@ -92,24 +91,26 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     String productlocation, categoryName;
     LinearLayout linearLayoutQuantity;
     EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description, editText;
-    TextView tvServiceBuy, textViewQuantity,tvRatingAverage,tvTotal_rating_review;
+    TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone;
     // TextView tvDurationHeading,tvDuration;
     Dialog dialog;
     private Context context;
+    ArrayList<CommomData> productlist=new ArrayList<>();
     private String product_name;
     DroppyMenuPopup droppyMenu;
     AppSharedPreference app_sharedpreference;
-    RecyclerView reviewList,openShopList;
-    LinearLayoutManager mLayoutManager,mLayoutManagerShoplist;
+    RecyclerView reviewList, openShopList, recyclerProduct ;
+    LinearLayoutManager mLayoutManager, mLayoutManagerShoplist,llmanagerProductList;
     ReviewListAdapter reviewListAdapter;
     OpenShopAdapter openShopAdapter;
     ArrayList<OpenShopData> openShopDatas = new ArrayList<>();
     ArrayList<ReviewListData> reviewListDatas = new ArrayList<>();
     ArrayList<Integer> color_openshop = new ArrayList<>();
+    CommomAdapter  commomAdapter_latestpost;
 
 
-    protected void onCreate(Bundle savedInstanceState)
-    {
+
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.e("time  Product Detail", String.valueOf(System.currentTimeMillis()));
@@ -133,7 +134,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         product_location = b.getString("product_location");
 
         progressBarHandler = new ProgressBarHandler(context);
-
+        circleIndicator=(CircleIndicator)findViewById(R.id.indicator_product_detail) ;
         setUpToolBar();
 
         color_openshop.add(R.color.open_shop_day_color1);
@@ -150,8 +151,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
     }
 
-    private void Init_droppy()
-    {
+    private void Init_droppy() {
         DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(this, linearLayoutQuantity);
         droppyMenu = droppyBuilder.build();
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
@@ -224,25 +224,23 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     }
 
 
-    private void get_data()
-    {
+    private void get_data() {
         relativeBuyNow.setVisibility(View.INVISIBLE);
         linearProductDetail.setVisibility(View.INVISIBLE);
         progress_handler.show();
-        Log.e("data_productdeatil", getResources().getString(R.string.webservice_base_url) + "     "+product_id);
+        Log.e("data_productdeatil", getResources().getString(R.string.webservice_base_url) + "     " + product_id);
 
         Ion.with(getApplicationContext())
                 .load(getResources().getString(R.string.webservice_base_url) + "/product_detail/" + product_id)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("id","0")
+                .setBodyParameter("id", "0")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
                             Log.e("result---------", result.toString());
 
@@ -258,28 +256,19 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                             String total_review = json_total_rating.get("countreviews").getAsString();
 
-                            tvTotal_rating_review.setText(total_review +" rating and "+"review "+total_review);
+                            tvTotal_rating_review.setText(total_review + " rating and " + "review " + total_review);
 
                             JsonArray jsonArray_image = json_result.getAsJsonArray("product_images");
-
-                           /* JsonArray jsonArray_openshop = result.getAsJsonArray("");
-
-                            for (int k= 0; k<jsonArray_openshop.size(); k++)
-                            {
-                                JsonObject jsonopenshop_data = (JsonObject) jsonArray_openshop.get(k);
-                            }*/
 
 
                             JsonArray jsonArray_review = result.getAsJsonArray("reviews");
 
-                            if (jsonArray_review.size()==0)
-                            {
 
-                            }
-                            else
-                            {
-                                for (int j = 0; j < jsonArray_review.size(); j++)
-                                {
+
+                            if (jsonArray_review.size() == 0) {
+
+                            } else {
+                                for (int j = 0; j < jsonArray_review.size(); j++) {
 
                                     JsonObject jsonreview_data = (JsonObject) jsonArray_review.get(j);
 
@@ -299,6 +288,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                                     reviewListDatas.add(new ReviewListData(email, name, message, rating, title, created_date));
 
+
+
+
+
+
                                 }
 
 
@@ -307,10 +301,13 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                             }
 
+
+
+
+
                             System.out.println("jsonArray_image------" + jsonArray_review.toString());
 
-                            for (int i = 0; i < jsonArray_image.size(); i++)
-                            {
+                            for (int i = 0; i < jsonArray_image.size(); i++) {
                                 JsonObject jsonimage = (JsonObject) jsonArray_image.get(i);
 
                                 String image_url = jsonimage.get("image_url").getAsString();
@@ -319,6 +316,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                                 imageList.add(image_url);
 
                             }
+
+
+
+
+
                             product_name = json_result.get("name").getAsString();
 
                             categoryName = json_result.get("catname").getAsString();
@@ -330,23 +332,52 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                             String description = json_result.get("short_des").getAsString();
 
                             String duration = json_result.get("deliverday").getAsString();
+                            String pincode = json_result.get("pincode").getAsString();
+                            String address = json_result.get("address").getAsString() + "," + pincode;
+                            String mobile = json_result.get("mobile").getAsString();
+                            String phone = json_result.get("phone").getAsString();
+
+
+
+                            JsonArray jsonProductList = json_result.getAsJsonArray("associate_product");
+
+
+                            for (int i = 0; i < jsonProductList.size(); i++) {
+                                JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
+
+                                String product_id = jsonproduct.get("id").getAsString();
+                                String product_name = jsonproduct.get("name").getAsString();
+                                String product_short_description = jsonproduct.get("short_des").getAsString();
+                                String price = jsonproduct.get("price").getAsString();
+                                String product_image = jsonproduct.get("image_url").getAsString();
+
+
+
+                                productlist.add(new CommomData(product_id, product_name, price, product_image, address));
+
+
+
+
+                            }
+                            commomAdapter_latestpost = new CommomAdapter(context, productlist, "list_product", "latestdeals");
+                            recyclerProduct.setAdapter(commomAdapter_latestpost);
+
+                            tvShopAddress.setText(address);
+                            tvPhone.setText(phone);
+                            tvMobile.setText(mobile);
 
                             String enquiry = json_result.get("enquiry").getAsString();
 
                             productlocation = json_result.get("city_name").getAsString() + "," + json_result.get("state_name").getAsString() + "," + json_result.get("country_name").getAsString();
 
-                            if (enquiry.equals("1"))
-                            {
+                            if (enquiry.equals("1")) {
                                 tvServiceBuy.setText("Buy Now");
-                            }
-                            else
-                            {
+                            } else {
                                 tvServiceBuy.setText("Service Enquiry");
                             }
 
-                            tvProductName.setText(product_name);
-                            tvProPrice.setText("\u20A8" + "." + " " + product_price);
-                            tvCrossPrice.setText("\u20A8" + "." + " " + product_cross_price);
+                            tvshopName.setText(product_name);
+//
                             tvDiscription.setText(description);
                             setupviewpager();
 
@@ -355,9 +386,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                             linearProductDetail.setVisibility(View.VISIBLE);
                             relativeBuyNow.setVisibility(View.VISIBLE);
 
-                        }
-                        else
-                        {
+                        } else {
                             progress_handler.hide();
                             linearProductDetail.setVisibility(View.INVISIBLE);
                             relativeBuyNow.setVisibility(View.INVISIBLE);
@@ -372,8 +401,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     }
 
 
-    private void setUiPageViewController()
-    {
+    private void setUiPageViewController() {
         dotsCount = viewpageradapter.getCount();
         dots = new ImageView[dotsCount];
 
@@ -424,19 +452,16 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         }, 0, 3000);
 
 
-        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
+        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
                 try {
                     for (int i = 0; i < dotsCount; i++) {
                         dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
@@ -448,25 +473,21 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
             }
 
             @Override
-            public void onPageScrollStateChanged(int state)
-            {
+            public void onPageScrollStateChanged(int state) {
 
             }
 
 
-
         });
-
+        circleIndicator.setViewPager(vp);
     }
 
 
-    private void initView()
-    {
+    private void initView() {
         context = ProductDetail.this;
 
         //linearLayoutQuantity = (LinearLayout) findViewById(R.id.linearlayoutQuantity);
 
-        textViewQuantity = (TextView) findViewById(R.id.tvQuatity);
 
         progress_handler = new ProgressBarHandler(this);
 
@@ -479,6 +500,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         linearlayoutLocation = (LinearLayout) findViewById(R.id.linearlayoutLocation);
 
         tvRatingAverage = (TextView) findViewById(R.id.tvRatingAverage);
+        tvShopAddress = (TextView) findViewById(R.id.tvShopAddress);
+        tvMobile = (TextView) findViewById(R.id.tvMobile);
+        tvPhone = (TextView) findViewById(R.id.tvPhone);
+
 
         tvTotal_rating_review = (TextView) findViewById(R.id.tvToatal_rating_review);
 
@@ -491,39 +516,35 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         reviewList.setLayoutManager(mLayoutManager);
 
         openShopList = (RecyclerView) findViewById(R.id.openShopList);
+        recyclerProduct = (RecyclerView) findViewById(R.id.recyclerproduct);
+        llmanagerProductList = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        recyclerProduct.setLayoutManager(llmanagerProductList);
 
         mLayoutManagerShoplist = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         openShopList.setLayoutManager(mLayoutManagerShoplist);
-        openShopAdapter = new OpenShopAdapter(ProductDetail.this, openShopDatas,color_openshop);
+        openShopAdapter = new OpenShopAdapter(ProductDetail.this, openShopDatas, color_openshop);
         openShopList.setAdapter(openShopAdapter);
 
 
-        relativeRateReview.setOnClickListener(new View.OnClickListener()
-        {
+        relativeRateReview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if (app_sharedpreference.getsharedpref("username", "not").contains("not"))
-                {
+                if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
                     startActivity(new Intent(ProductDetail.this, LoginActivity.class));
-                }
-                else
-                {
-                    Intent rate_us = new Intent(ProductDetail.this,RateusActivity.class);
-                    rate_us.putExtra("product_id",product_id);
-                    rate_us.putExtra("product_name",tvProductName.getText().toString());
-                    rate_us.putExtra("product_price",tvProPrice.getText().toString());
-                    rate_us.putExtra("product_image",imageList.get(0).toString());
+                } else {
+                    Intent rate_us = new Intent(ProductDetail.this, RateusActivity.class);
+                    rate_us.putExtra("product_id", product_id);
+                    rate_us.putExtra("product_name", tvshopName.getText().toString());
+                    rate_us.putExtra("product_price", tvProPrice.getText().toString());
+                    rate_us.putExtra("product_image", imageList.get(0).toString());
                     startActivity(rate_us);
                 }
 
 
-
             }
         });
-
 
 
         linearlayoutLocation.setOnClickListener(new View.OnClickListener() {
@@ -550,11 +571,9 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                 }
             }
         });
-        linearlayoutShare.setOnClickListener(new View.OnClickListener()
-        {
+        linearlayoutShare.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 String message = "Text I want to share.";
                 Intent share = new Intent(Intent.ACTION_SEND);
@@ -567,34 +586,13 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
         RelativeProductDetail = (RelativeLayout) findViewById(R.id.RelativeProductDetail);
         linearProductDetail = (LinearLayout) findViewById(R.id.linearProductDetail);
-        tvProductName = (TextView) findViewById(R.id.tvProductName);
-        tvProPrice = (TextView) findViewById(R.id.tvProPrice);
-        tvCrossPrice = (TextView) findViewById(R.id.tvCrossPrice);
-        tvCrossPrice.setPaintFlags(tvCrossPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        tvshopName = (TextView) findViewById(R.id.tvShopName);
+
+
         tvDiscription = (TextView) findViewById(R.id.tvDiscription);
         tvSpecification = (TextView) findViewById(R.id.tvSpecification);
-        tvQuatity = (TextView) findViewById(R.id.tvQuatity);
-        imgViewPlus = (ImageView) findViewById(R.id.imgViewPlus);
-        imgViewPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quantity_value = quantity_value + 1;
-                tvQuatity.setText(String.valueOf(quantity_value));
 
-            }
-        });
-        imgViewMinus = (ImageView) findViewById(R.id.imgViewMinus);
-        imgViewMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (quantity_value == 1) {
-                    tvQuatity.setText(String.valueOf(quantity_value));
-                } else {
-                    quantity_value = quantity_value - 1;
-                    tvQuatity.setText(String.valueOf(quantity_value));
-                }
-            }
-        });
+
         relativeBuyNow = (RelativeLayout) findViewById(R.id.relativeBuyNow);
         vp = (ViewPager) findViewById(R.id.viewpager_custom);
         viewpagerindicator = (LinearLayout) findViewById(R.id.viewpagerindicator);
@@ -624,58 +622,22 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         progressbarOne.setProgress(3);
         progressbarOne.setSecondaryProgress(7);
 
-        relativeBuyNow.setOnClickListener(new View.OnClickListener()
-        {
+        relativeBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 Intent i = new Intent(ProductDetail.this, ShopAllProductActivity.class);
                 startActivity(i);
 
 
-               /* if (tvServiceBuy.getText().toString().equals("Buy Now"))
-                {
-
-                    if (app_sharedpreference.getsharedpref("username", "not").contains("not"))
-                    {
-                        startActivity(new Intent(ProductDetail.this, LoginActivity.class));
-                    }
-                    else
-                    {
-                        if(app_sharedpreference.getsharedpref("usertype","0").contains("2"))
-                        {
-
-                            Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
-                            startActivity(i);
-
-                        }
-                        else
-                        {
-                           // AndroidUtils.showSnackBar();
-                            Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
-                            startActivity(i);
-
-                        }
-
-                    }
-
-                }
-                else
-                {
-
-                    ServiceEnquiry serviceEnquiry = new ServiceEnquiry(context, product_name, categoryName);
-                    serviceEnquiry.show();
-                }*/
-
             }
         });
+
 
     }
 
 
-    private void setUpToolBar()
-    {
+    private void setUpToolBar() {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
@@ -698,17 +660,14 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -720,14 +679,12 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
-    {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         showDate(year, monthOfYear + 1, dayOfMonth);
     }
 
 
-    private void showDate(int year, int month, int day)
-    {
+    private void showDate(int year, int month, int day) {
         date = (new StringBuilder()).append(year).append("-").append(month).append("-").append(day).toString();
         if (isStartDate == 0) {
             etStatDate.setText(date);
@@ -737,8 +694,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     }
 
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 

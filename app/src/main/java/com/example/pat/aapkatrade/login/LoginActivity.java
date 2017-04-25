@@ -161,13 +161,26 @@ public class LoginActivity extends AppCompatActivity {
             public void Taskcomplete(JsonObject webservice_returndata) {
 
                 if (webservice_returndata != null) {
-                    showMessage(getResources().getString(R.string.welcomebuyer));
-                    saveDataInSharedPreference(webservice_returndata);
-                    Intent Homedashboard = new Intent(context, HomeActivity.class);
-                    Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(Homedashboard);
 
+                    String error = webservice_returndata.get("error").getAsString();
+                    if (error.contains("true"))
+
+                    {
+                        String message = webservice_returndata.get("message").getAsString();
+                        showMessage(message);
+                    }
+
+                    else {
+                        showMessage(getResources().getString(R.string.welcomebuyer));
+                        Log.e("webservice_returndata", webservice_returndata.toString());
+                         saveDataInSharedPreference(webservice_returndata);
+                        Intent Homedashboard = new Intent(context, HomeActivity.class);
+                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(Homedashboard);
+
+                    }
                 }
+
             }
         };
 

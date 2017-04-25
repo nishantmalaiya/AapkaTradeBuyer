@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
+    android:background="@color/grey_light"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:background="#EEEEEE">
+            android:fillViewport="true"
+            android:background="@color/grey_light">
 
 
             <LinearLayout
@@ -42,7 +43,14 @@
                 <!--android:layout_height="match_parent"-->
                 <!--&gt;-->
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten_dip"
+                    android:layout_marginRight="@dimen/ten_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
 
+                    >
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,7 +65,21 @@
                         android:layout_marginTop="@dimen/ten_dip"
 
                         />
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/indicator_product_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
 
+                        android:layout_marginBottom="100dp"
+                        android:layout_marginLeft="16dp"
+                        app:ci_animator="@anim/indicator_animator"
+                        app:ci_drawable="@drawable/selecteditem_dot"
+                        app:ci_drawable_unselected="@drawable/nonselected_item"
+                        app:ci_height="3dp"
+                        app:ci_margin="3dp"
+                        app:ci_width="8dp" />
 
                     <LinearLayout
                         android:id="@+id/viewpagerindicator"
@@ -70,7 +92,58 @@
 
                     </LinearLayout>
                 </RelativeLayout>
-                <!--</android.support.v7.widget.CardView>-->
+                </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/ten_dip"
+
+                android:layout_height="match_parent">
+
+<android.support.percent.PercentRelativeLayout
+    android:layout_width="match_parent"
+    android:layout_alignParentTop="true"
+   android:layout_marginBottom="@dimen/ten_dip"
+    android:layout_height="match_parent">
+
+
+
+
+</android.support.percent.PercentRelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="0dip"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="9.5"
+                        android:background="#E20054"
+                        android:minHeight="179dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/ten_dip"
+                            android:text="@string/shop_info"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_height="0dp">
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
 
 
                 <android.support.v7.widget.CardView
@@ -78,7 +151,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ten_dip"
                     android:layout_marginRight="@dimen/ten_dip"
-                    android:layout_marginTop="@dimen/ten_dip"
+                    android:background="@color/grey_light"
+                    android:layout_marginTop="@dimen/fifty_dip"
 
                     >
 
@@ -217,157 +291,44 @@
                             android:padding="@dimen/ten_dip">
 
                             <TextView
-                                android:id="@+id/tvProductName"
+                                android:id="@+id/tvShopName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
                                 android:text="Laxmi Auto World"
                                 android:textColor="@color/green"
                                 android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:layout_alignParentTop="true"
+                             />
+
 
 
                             <TextView
-                                android:id="@+id/tvProPrice"
+                                android:id="@+id/tvShopAddress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvProductName"
-                                android:layout_marginTop="@dimen/five_dip"
-                                android:text="@string/rupees_deatils"
-                                android:textColor="@color/orange"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvCrossPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvProductName"
-                                android:layout_marginLeft="@dimen/ten_dip"
-                                android:layout_marginTop="5dp"
-                                android:layout_toRightOf="@+id/tvProPrice"
-                                android:text="\u20A8 200"
-                                android:textColor="@color/black"
-                                android:textSize="12sp" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/thirty_five_dip"
-                                android:layout_alignParentRight="true"
-                                android:layout_below="@+id/tvProductName"
-                                android:layout_marginTop="6dp">
-
-
-                                <TextView
-                                    android:id="@+id/tvQtyHeading"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:text="Qty."
-                                    android:textColor="@color/orange"
-                                    android:textStyle="bold" />
-
-
-                                <LinearLayout
-                                    android:layout_width="@dimen/one_hundred_twenty_dip"
-                                    android:layout_height="@dimen/thirty_five_dip"
-                                    android:layout_marginBottom="@dimen/three_dip"
-                                    android:layout_marginLeft="@dimen/five_dip"
-                                    android:layout_toRightOf="@+id/tvQtyHeading"
-                                    android:orientation="horizontal"
-                                    android:background="@drawable/spinner_black_border"
-                                    android:weightSum="3"
-                                    >
-
-
-                                    <ImageView
-                                        android:id="@+id/imgViewPlus"
-                                        android:layout_weight="1"
-                                        android:layout_width="0dp"
-                                        android:layout_height="@dimen/thirty_five_dip"
-                                        android:scaleType="fitXY"
-                                        android:src="@drawable/ic_plus" />
-
-
-                                    <RelativeLayout
-                                        android:id="@+id/relativeQuantity"
-                                        android:layout_weight="1"
-                                        android:layout_width="0dp"
-                                        android:layout_height="@dimen/thirty_five_dip"
-                                        android:layout_toRightOf="@+id/imgViewPlus">
-
-
-                                        <TextView
-                                            android:id="@+id/tvQuatity"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_centerVertical="true"
-                                            android:text="1"
-                                            android:textColor="@color/black" />
-
-                                    </RelativeLayout>
-
-                                    <ImageView
-                                        android:id="@+id/imgViewMinus"
-                                        android:layout_weight="1"
-                                        android:layout_width="0dp"
-                                        android:layout_height="@dimen/thirty_five_dip"
-                                        android:scaleType="fitXY"
-                                        android:src="@drawable/ic_minus"
-                                        android:layout_toRightOf="@+id/relativeQuantity"
-                                        />
-
-
-
-                                </LinearLayout>
-
-
-                            </RelativeLayout>
-
-                            <!--    <TextView
-                                    android:id="@+id/tvDurationHeading"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/tvProPrice"
-                                    android:text="Duration :"
-                                    android:layout_marginTop="@dimen/five_dip"
-                                    android:textColor="@color/black"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/tvDuration"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/tvProPrice"
-                                    android:text="1-2"
-                                    android:layout_marginTop="@dimen/five_dip"
-                                    android:layout_toRightOf="@+id/tvDurationHeading"
-                                    android:textColor="@color/black"
-                                    android:layout_marginLeft="@dimen/five_dip"
-                                    />
-        -->
-
-                            <TextView
-                                android:id="@+id/tvDeliveryAreaHeading"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvProPrice"
+                                android:layout_below="@+id/tvShopName"
                                 android:layout_marginTop="@dimen/fifteen_dip"
-                                android:text="@string/delivery_area_heading"
+
                                 android:textColor="@color/orange" />
 
-
                             <TextView
-                                android:id="@+id/tvDeliveryArea"
+                                android:id="@+id/tvMobile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvProPrice"
-                                android:layout_marginLeft="@dimen/five_dip"
+                                android:layout_below="@+id/tvShopAddress"
                                 android:layout_marginTop="@dimen/fifteen_dip"
-                                android:layout_toRightOf="@+id/tvDeliveryAreaHeading"
-                                android:text="Sector 45, Chandigarh,"
-                                android:textColor="@color/black" />
 
+                                android:textColor="@color/orange" />
+
+                            <TextView
+                                android:id="@+id/tvPhone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tvMobile"
+                                android:layout_marginTop="@dimen/fifteen_dip"
+
+                                android:textColor="@color/orange" />
 
                         </RelativeLayout>
 
@@ -377,44 +338,79 @@
                 </android.support.v7.widget.CardView>
 
 
-                <android.support.v7.widget.CardView
+</RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/ten_dip"
-                    android:layout_marginRight="@dimen/ten_dip"
-                    android:layout_marginTop="@dimen/ten_dip">
+                    android:layout_marginTop="@dimen/fourty_dip"
 
+                    android:layout_height="match_parent">
 
-                    <RelativeLayout
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/ten_dip">
+                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:background="@color/grey_light"
+                        android:layout_weight="8"
+                        android:layout_marginTop="@dimen/fourty_dip"
+                        android:layout_marginRight="@dimen/ten_dip"
+                      >
 
-                        <TextView
-                            android:id="@+id/tvDiscriptionHeading"
-                            android:layout_width="wrap_content"
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_heading"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
+                            android:padding="@dimen/ten_dip">
 
 
-                        <TextView
-                            android:id="@+id/tvDiscription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvDiscriptionHeading"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:text="@string/description"
-                            android:textColor="@color/black" />
 
 
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tvDiscription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/fifty_dip"
+
+                                android:layout_marginTop="@dimen/ten_dip"
+                                android:text="@string/description"
+                                android:textColor="@color/black" />
 
 
-                </android.support.v7.widget.CardView>
+                        </RelativeLayout>
 
 
+                    </android.support.v7.widget.CardView>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:weightSum="10"
+                android:layout_alignParentTop="true"
+
+                android:layout_height="@dimen/hundred_dip">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="9.5"
+                    android:background="#21BEDD">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/ten_dip"
+                        android:text="@string/description_heading"
+                        android:textColor="@color/white" />
+
+                </RelativeLayout>
+
+
+
+
+</LinearLayout>
+</RelativeLayout>
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -429,19 +425,13 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/ten_dip">
 
-                        <TextView
-                            android:id="@+id/tvSpecificationHeading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/specification_heading"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
+
 
                         <TextView
                             android:id="@+id/tvSpecification"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvSpecificationHeading"
+
                             android:layout_marginTop="@dimen/ten_dip"
                             android:text="@string/description"
                             android:textColor="@color/black" />
@@ -451,12 +441,151 @@
 
 
                 </android.support.v7.widget.CardView>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/fourty_dip"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:layout_alignParentTop="true"
+
+        android:layout_height="@dimen/two_hundreds_fifty">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_weight="9.5"
+            android:background="#EB5B1C"
+            android:layout_height="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+               >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                   android:layout_centerVertical="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="@dimen/ten_dip"
+                    android:text="@string/shop_products"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                   />
+
+                <RelativeLayout
+                    android:id="@+id/rl_viewall_latest_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/ten_dip"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/viewall"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#21BEDD"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty_dip"
+                    android:orientation="vertical">
+
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerproduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="@dimen/twenty_dip"
+                        android:nestedScrollingEnabled="false"
+
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+</RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/fourty_dip"
+
+                    android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    android:layout_alignParentTop="true"
+
+                    android:layout_height="@dimen/two_hundreds_fifty">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="9.5"
+                        android:background="#8CC739"
+                        android:layout_height="0dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_margin="@dimen/ten_dip"
+                            android:text="@string/shop_time"
+                            android:textColor="@color/white"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_height="0dp">
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
 
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ten_dip"
+                    android:layout_marginTop="@dimen/fourty_dip"
                     android:layout_marginLeft="@dimen/ten_dip"
                     android:layout_marginRight="@dimen/ten_dip"
                     >
@@ -493,7 +622,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/one_hundred_five_dip"
                             android:layout_below="@+id/tvOpenShopheading"
-                            android:layout_marginTop="@dimen/fifteen_dip"
+                            android:layout_marginTop="@dimen/twenty_dip"
                             android:layout_marginLeft="2dp"
                             android:layout_marginRight="2dp"
                             android:layout_marginBottom="2dp"
@@ -505,6 +634,51 @@
 
 
                 </android.support.v7.widget.CardView>
+</RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/fourty_dip"
+
+                    android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    android:layout_alignParentTop="true"
+
+                    android:layout_height="@dimen/two_hundred_dip">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="9.5"
+                        android:background="#085DAD"
+
+                        android:layout_height="0dp">
+                        <TextView
+                            android:id="@+id/tvReviewHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/ten_dip"
+                            android:text="@string/review_heading"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_height="0dp">
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
 
 
                 <android.support.v7.widget.CardView
@@ -512,7 +686,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ten_dip"
                     android:layout_marginRight="@dimen/ten_dip"
-                    android:layout_marginTop="@dimen/ten_dip"
+                    android:layout_marginTop="@dimen/fifty_dip"
+                    android:layout_marginBottom="@dimen/ten_dip"
                     >
 
                     <LinearLayout
@@ -525,15 +700,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+
                             android:padding="@dimen/ten_dip">
 
-                            <TextView
-                                android:id="@+id/tvReviewHeading"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/review_heading"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+
 
 
                             <LinearLayout
@@ -781,7 +951,7 @@
 
                 </android.support.v7.widget.CardView>
 
-
+</RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -810,7 +980,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/orange"
             android:padding="@dimen/fifteen_dip"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvServiceBuy"
