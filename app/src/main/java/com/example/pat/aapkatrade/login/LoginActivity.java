@@ -161,13 +161,26 @@ public class LoginActivity extends AppCompatActivity {
             public void Taskcomplete(JsonObject webservice_returndata) {
 
                 if (webservice_returndata != null) {
-                    showMessage(getResources().getString(R.string.welcomebuyer));
-                    saveDataInSharedPreference(webservice_returndata);
-                    Intent Homedashboard = new Intent(context, HomeActivity.class);
-                    Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(Homedashboard);
 
+                    String error = webservice_returndata.get("error").getAsString();
+                    if (error.contains("true"))
+
+                    {
+                        String message = webservice_returndata.get("message").getAsString();
+                        showMessage(message);
+                    }
+
+                    else {
+                        showMessage(getResources().getString(R.string.welcomebuyer));
+                        Log.e("webservice_returndata", webservice_returndata.toString());
+                         saveDataInSharedPreference(webservice_returndata);
+                        Intent Homedashboard = new Intent(context, HomeActivity.class);
+                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(Homedashboard);
+
+                    }
                 }
+
             }
         };
 
@@ -191,7 +204,6 @@ public class LoginActivity extends AppCompatActivity {
         appSharedpreference.setsharedpref("state_id", jsonObject.get("state_id").getAsString());
         appSharedpreference.setsharedpref("city_id", jsonObject.get("city_id").getAsString());
         appSharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
-        // appSharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
         appSharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
         appSharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
         appSharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());

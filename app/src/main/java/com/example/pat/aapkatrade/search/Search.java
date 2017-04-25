@@ -312,7 +312,6 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
             Ion.with(Search.this)
                     .load(search_url)
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("name", product_name1)
                     .setBodyParameter("category_id", id)
@@ -421,9 +420,6 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         Log.e("Arvind_data", result.toString());
 
         search_productlist.clear();
-//        common_category_searchlist.clear();
-//        common_state_searchlist.clear();
-//        common_city_searchlist.clear();
 
 
         JsonObject jsonObject = result.getAsJsonObject();
@@ -472,17 +468,18 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
             JsonArray jsonarray_category = jsonObject.getAsJsonArray("category");
 
+            if (jsonarray_category != null) {
+                for (int l = 0; l < jsonarray_category.size(); l++) {
 
-            for (int l = 0; l < jsonarray_category.size(); l++) {
+                    JsonObject jsonObject_result = (JsonObject) jsonarray_category.get(l);
+                    String cat_id = jsonObject_result.get("category_id").getAsString();
+                    String catname = jsonObject_result.get("catname").getAsString();
+                    String countprod = jsonObject_result.get("countprod").getAsString();
 
-                JsonObject jsonObject_result = (JsonObject) jsonarray_category.get(l);
-                String cat_id = jsonObject_result.get("category_id").getAsString();
-                String catname = jsonObject_result.get("catname").getAsString();
-                String countprod = jsonObject_result.get("countprod").getAsString();
-
-                common_category_searchlist.add(new common_category_search(cat_id, catname, countprod));
+                    common_category_searchlist.add(new common_category_search(cat_id, catname, countprod));
 
 
+                }
             }
 
             searchResults_category_Adapter = new SearchcategoryAdapter(Search.this, common_category_searchlist, state_list_spinner.getItemAtPosition(current_state_index).toString(),
@@ -492,19 +489,21 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
 
             JsonArray jsonarray_states = jsonObject.getAsJsonArray("states");
+            if(jsonarray_states!=null) {
+
+                for (int l = 0; l < jsonarray_states.size(); l++) {
+
+                    JsonObject jsonObject_result = (JsonObject) jsonarray_states.get(l);
+                    String state_id = jsonObject_result.get("state_id").getAsString();
+                    String statename = jsonObject_result.get("statename").getAsString();
+                    String countprod = jsonObject_result.get("countprod").getAsString();
+                    common_state_search = new common_state_search(state_id, statename, countprod);
 
 
-            for (int l = 0; l < jsonarray_states.size(); l++) {
-
-                JsonObject jsonObject_result = (JsonObject) jsonarray_states.get(l);
-                String state_id = jsonObject_result.get("state_id").getAsString();
-                String statename = jsonObject_result.get("statename").getAsString();
-                String countprod = jsonObject_result.get("countprod").getAsString();
-                common_state_search = new common_state_search(state_id, statename, countprod);
+                    common_state_searchlist.add(common_state_search);
 
 
-                common_state_searchlist.add(common_state_search);
-
+                }
 
             }
 
@@ -516,51 +515,20 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
             JsonArray jsonarray_cities = jsonObject.getAsJsonArray("cities");
 
+            if(jsonarray_cities!=null) {
+                for (int l = 0; l < jsonarray_cities.size(); l++) {
 
-            for (int l = 0; l < jsonarray_cities.size(); l++) {
+                    JsonObject jsonObject_result = (JsonObject) jsonarray_cities.get(l);
+                    String city_id = jsonObject_result.get("city_id").getAsString();
+                    String ctyname = jsonObject_result.get("ctyname").getAsString();
+                    String countprod = jsonObject_result.get("countprod").getAsString();
 
-                JsonObject jsonObject_result = (JsonObject) jsonarray_cities.get(l);
-                String city_id = jsonObject_result.get("city_id").getAsString();
-                String ctyname = jsonObject_result.get("ctyname").getAsString();
-                String countprod = jsonObject_result.get("countprod").getAsString();
+                    common_city_searchlist.add(new common_city_search(city_id, ctyname, countprod));
 
-                common_city_searchlist.add(new common_city_search(city_id, ctyname, countprod));
 
+                }
 
             }
-
-
-//            state_list_spinner.setSelection(current_state_index);
-//            if (type.contains("category"))
-//            {
-//
-//            }
-//            else{
-//                Log.e("work2",type);
-//
-//                category_names_recycler.setAdapter(searchResults_category_Adapter);
-//            }
-
-
-//            if(searchResults_state_Adapter!=null)
-//            {
-//                searchResults_state_Adapter = new SearchStateAdapter(Search.this, common_state_searchlist);
-//                state_names_recycler.setAdapter(searchResults_state_Adapter);
-//
-//                Log.e("searchstateAdapter!","notnull");
-//
-//            }
-//            else {
-//                searchResults_state_Adapter = new SearchStateAdapter(Search.this, common_state_searchlist);
-//                searchResults_state_Adapter.notifyDataSetChanged();
-//                Log.e("searchstateAdapter","null");
-//            }
-
-
-//search recycleview set adapter
-            // recyclerView_search.setLayoutManager(gridLayoutManager);
-
-
             progressBarHandler.hide();
             fab_filter.setVisibility(View.VISIBLE);
             findViewById(R.id.search_category_state_container).setVisibility(View.VISIBLE);

@@ -13,20 +13,13 @@
     <string name="add_company_heading" translatable="false">Add Company</string>
     <string name="user_name" translatable="false">Pawan</string>
     <string name="compant_list_heading" translatable="false">Company List</string>
-    <string name="company_name_heading" translatable="false">Company Name*</string>
 
 
     <string name="forgotpassword" translatable="false">Forget Password?</string>
     <string name="new_user" translatable="false">New User?</string>
 
-    <string name="title_activity_logindashboard" translatable="false">logindashboard</string>
-    <string name="seller" translatable="false">SELLER</string>
-    <string name="buyer" translatable="false">BUYER</string>
-    <string name="businessassociate" translatable="false">BUSINESS ASSOCIATE</string>
-
 
     <string name="comp_doc" translatable="false">Company Document</string>
-    <string name="personal_doc" translatable="false">Personal Document(Pan Card,Aadhar Card,Election ID)</string>
     <string name="drawer_open" translatable="false">draweropen</string>
     <string name="drawer_close" translatable="false">drawerclose</string>
     <string name="language" translatable="false">language</string>
@@ -40,7 +33,6 @@
     <string name="product_name" translatable="false">Product Name</string>
 
     <string name="category" translatable="false">Category</string>
-    <string name="loginregisterfooter" translatable="false">Please Click one for Login/Register</string>
     <string name="tab_1" translatable="false">Home</string>
     <string name="tab_2" translatable="false">About Us</string>
     <string name="tab_3" translatable="false">Rate Us</string>
@@ -54,7 +46,6 @@
     <string name="latest_deals" translatable="false">LATEST POST</string>
     <string name="english" translatable="false">English</string>
     <string name="hindi" translatable="false">Hindi</string>
-    <string name="shop_name" translatable="false">Shop Name*</string>
     <string name="address" translatable="false">Address</string>
     <string name="address1" translatable="false">Address*</string>
 
@@ -87,12 +78,6 @@
     <string name="webservice_base_url" translatable="false">http://staging.aapkatrade.com/slim</string>
     <string name="logout" translatable="false">Logout</string>
     <string name="latest_update" translatable="false">LATEST UPDATE</string>
-    <string name="personalInfo" translatable="false">Personal Information</string>
-    <string name="professionalDetails" translatable="false">Professional Details</string>
-    <string name="bankDetails" translatable="false">Bank Details</string>
-    <string name="one" translatable="false">1</string>
-    <string name="two" translatable="false">2</string>
-    <string name="three" translatable="false">3</string>
     <string name="first_name" translatable="false">First Name*</string>
     <string name="last_name" translatable="false">Last Name*</string>
     <string name="father_name" translatable="false">Father Name*</string>
@@ -124,12 +109,8 @@
     <string name="deliveryArea" translatable="false">Indrapuram,Noida,New Delhi</string>
     <string name="selected_place" translatable="false">Selected Place</string>
     <string name="personalDetails" translatable="false">Personal Details</string>
-    <string name="uploadPDFFile" translatable="false">Company Incorporation</string>
     <string name="terms" translatable="false">Terms &amp;amp; Conditions</string>white
     <string name="invite" translatable="false">Invite &amp;amp; Share</string>
-    <string name="tan_number" translatable="false">TAN Number</string>
-    <string name="tin_number" translatable="false">TIN Number</string>
-    <string name="bussiness_details" translatable="false">Bussiness Details</string>
     <string name="product_name2" translatable="false">Product Name</string>
     <string name="delivery_location" translatable="false">Delivery Location</string>
     <string name="action_settings" translatable="false">Settings</string>
@@ -180,8 +161,6 @@
     <string name="about_us_data9">You can sell any kind of services / products</string>
 
 
-    <string name="skip"><u>Skip</u></string>
-
     <string name="add_address_heading">Add Address</string>
 
     <string name="order_mgt_heading">Order Management</string>
@@ -228,6 +207,9 @@
     <string name="google_plus_url_heading">G+ URL</string>
     <string name="youtube_url_heading">Youtube URL</string>
     <string name="welcomebuyer">Welcome Buyer</string>
+    <string name="title_activity_my_cart">MyCartActivity</string>
+    <string name="enter_delivery_pin">Enter Delivery Pincode</string>
+    <string name="check">Check</string>
 
 
 </resources>

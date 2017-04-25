@@ -99,7 +99,7 @@
                     android:text="Dispatched"
                     android:textSize="13sp"
                     android:textColor="#066C57"
-                    android:background="@drawable/button_sky_color_border"
+                    android:background="@drawable/add_to_cart_button_default"
                     android:padding="5dp"
                     style="?android:attr/borderlessButtonStyle"
                     />

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifty_dip"
+        android:layout_marginRight="@dimen/ten_dip"
+        android:layout_marginLeft="@dimen/ten_dip">
+
+        <RelativeLayout
+            android:id="@+id/imageContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/ten_dip">
+
+            <ImageView
+                android:id="@+id/locationImageView"
+                android:layout_width="@dimen/twenty_five_dip"
+                android:layout_height="@dimen/twenty_five_dip"
+                android:src="@drawable/ic_location" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/etPincodeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/twenty_five_dip"
+            android:layout_toRightOf="@+id/imageContainer">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_delivery_pin"
+                android:inputType="number"
+                android:textColor="@color/green"
+                android:textColorHint="@color/green"
+                android:maxLength="6" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/five_dip"
+            android:layout_marginRight="@dimen/ten_dip"
+            android:layout_marginLeft="@dimen/ten_dip"
+            android:padding="@dimen/five_dip">
+
+            <TextView
+                android:id="@+id/checkDeliveryButton"
+                style="@style/myedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/check"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_medium"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/two_dip"
+        android:background="@color/green"
+        />
+
+    <RelativeLayout
+        android:id="@+id/deliveryEstimateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_product_title"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize_small"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -105,24 +105,6 @@ public class User_DashboardFragment extends Fragment {
                 String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url)) + "/userdata";
 
                 userdata_webservice(user_detail_webserviceurl, "2", userid);
-
-
-//                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-//
-//                    userdata_webservice(user_detail_webserviceurl, "3", userid);
-//
-//
-//                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
-//
-//                    userdata_webservice(user_detail_webserviceurl, "1", userid);
-//
-//
-//                } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
-//
-//                    userdata_webservice(user_detail_webserviceurl, "2", userid);
-//
-//
-//                }
             } else {
                 Log.e("null_sharedPreferences", "sharedPreferences");
             }
@@ -151,11 +133,12 @@ public class User_DashboardFragment extends Fragment {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result == null) {
-                            Log.e("result_myProfile", "result_myProfile is null");
+                            Log.e("result_myProfile", "result_myProfile is null ");
                             progressBarHandler.hide();
                         } else {
 
                             progressBarHandler.hide();
+                            Log.e("result_myProfile", "result_myProfile is not null ");
                             String order_quantity = result.get("order").getAsString();
                                     app_sharedpreference.setsharedpref("order_quantity", order_quantity);
                                     dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
@@ -167,98 +150,6 @@ public class User_DashboardFragment extends Fragment {
                                     dashboardlist.setLayoutManager(layoutManager);
                                     dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
-
-
-
-
-//                            Log.e("result_userdata", result.toString());
-//                            String error = result.get("error").getAsString();
-//                            if (error.contains("true")) {
-//                                progressBarHandler.hide();
-//                            }
-//                            else
-//                                {
-//
-//                                progressBarHandler.hide();
-//                                if (user_type.contains("1")) {
-//
-//                                    String order_quantity = result.get("order").getAsString();
-//                                    app_sharedpreference.setsharedpref("order_quantity", order_quantity);
-//                                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity));
-//                                    dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstprdct, R.drawable.circle_cherry_red, true, ""));
-//
-//                                    tvUserType.setText("Welcome Buyer");
-//                                    dashboardlist.setLayoutManager(layoutManager);
-//                                    dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
-//                                    dashboardlist.setAdapter(dashboardAdapter);
-//
-//
-//                                } else if (user_type.contains("2")) {
-//                                    String order_quantity = result.get("order").getAsString();
-//                                    String product_quantity = result.get("product").getAsString();
-//                                    String company_quantity = result.get("company").getAsString();
-//
-//                                    app_sharedpreference.setsharedpref("order_quantity", order_quantity);
-//                                    app_sharedpreference.setsharedpref("product_quantity", product_quantity);
-//                                    app_sharedpreference.setsharedpref("company_quantity", company_quantity);
-//
-//                                    String order_quantity_shared_pref = app_sharedpreference.getsharedpref("order_quantity", "0");
-//                                    String product_quantity_shared_pref = app_sharedpreference.getsharedpref("product_quantity", "0");
-//                                    String company_quantity_shared_pref = app_sharedpreference.getsharedpref("company_quantity", "0");
-//                                    Log.e("order_quantity", order_quantity);
-//                                    Log.e("product_quantity", product_quantity);
-//                                    Log.e("company_quantity", company_quantity);
-//
-//                                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company, R.drawable.circle_cherry_red, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny, R.drawable.circle_deep_pink, true, company_quantity_shared_pref));
-//                                    dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct, R.drawable.circle_turquoise, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray, true, product_quantity_shared_pref));
-//                                    dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity_shared_pref));
-//                                    dashboardDatas.add(new DashboardData("", "Enquiry Services List", R.drawable.ic_svr_enquiry, R.drawable.circle_purple, true, ""));
-//
-//                                    String Username = app_sharedpreference.getsharedpref("username", "not");
-//
-//                                    if (Username.equals("notlogin")) {
-//                                        tvUserType.setText("Welcome Guest");
-//                                        NavigationFragment.usertype.setText("Welcome Guest");
-//                                    } else {
-//                                        tvUserType.setText("Welcome Seller");
-//                                    }
-//
-//
-//                                    dashboardlist.setLayoutManager(layoutManager);
-//                                    dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
-//                                    dashboardlist.setAdapter(dashboardAdapter);
-//                                }
-//                                else if (user_type.contains("3"))
-//                                {
-//
-//                                    String vendor_quantity = result.get("vendor").getAsString();
-//                                    String network_quantity = result.get("network").getAsString();
-//                                    app_sharedpreference.setsharedpref("vendor_quantity", vendor_quantity);
-//                                    app_sharedpreference.setsharedpref("network_quantity", network_quantity);
-//                                    String vendor_quantity_sharedpref = app_sharedpreference.getsharedpref("vendor_quantity", "0");
-//                                    Log.e("vendor_quantity", vendor_quantity);
-//                                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false));
-//                                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false));
-//                                    dashboardDatas.add(new DashboardData("", "Add Vendor", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false));
-//                                    dashboardDatas.add(new DashboardData("", "Vendor List", R.drawable.ic_vendor_list, R.drawable.circle_sienna, true, vendor_quantity_sharedpref));
-//                                    dashboardDatas.add(new DashboardData("", "Associate Agreement", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false, ""));
-//                                    dashboardDatas.add(new DashboardData("", "Payout Reports", R.drawable.ic_payout, R.drawable.circle_deep_pink, false));
-////                                    dashboardDatas.add(new DashboardData("", "My Network", R.drawable.ic_lstprdct, R.drawable.circle_teal, true, ""));
-//
-//                                    tvUserType.setText("Welcome Bussiness Associate");
-//                                    dashboardlist.setLayoutManager(layoutManager);
-//                                    dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);
-//                                    dashboardlist.setAdapter(dashboardAdapter);
-//
-//
-//                                }
-
                             }
                         }
 

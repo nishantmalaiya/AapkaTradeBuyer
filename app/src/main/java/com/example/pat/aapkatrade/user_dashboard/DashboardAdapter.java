@@ -19,7 +19,7 @@ import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgr
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileForBusinessAssociates;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActivity;
 import com.example.pat.aapkatrade.user_dashboard.payout.PayoutActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
@@ -100,27 +100,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
-                } else if (itemList.get(position).dashboard_name.equals("My Profile") && app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i = new Intent(context, LoginActivity.class);
-                        context.startActivity(i);
-
-                    } else {
-
-                        Intent list_product = new Intent(context, MyProfileForBusinessAssociates.class);
-                        context.startActivity(list_product);
-
-                    }
                 } else if (itemList.get(position).dashboard_name.equals("My Profile")) {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                    if (app_sharedpreference.getsharedpref("username", "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 
 
                     } else {
-//                        Intent my_profile = new Intent(context, FilterScreenActivity.class);
-//                        context.startActivity(my_profile);
+                        Intent my_profile = new Intent(context, MyProfileActivity.class);
+                        context.startActivity(my_profile);
 
                     }
 
