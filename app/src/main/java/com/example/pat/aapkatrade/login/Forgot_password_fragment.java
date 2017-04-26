@@ -1,31 +1,22 @@
 package com.example.pat.aapkatrade.login;
 
-import android.content.Context;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.Change_Font;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -39,13 +30,13 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-    AppSharedPreference app_sharedpreference;
+
     ProgressBarHandler progressBarHandler;
     TextView tv_forgot_password,tv_forgot_password_description;
     EditText et_email_forgot,et_mobile_no;
     Button btn_send_otp;
     private CoordinatorLayout activity_forgot__password;
-    private String usertype;
+    private String usertype="buyer";
 
     String classname;
     Forgot_password_fragment forgot_password_fragment;
@@ -90,7 +81,7 @@ initView(v);
     }
 
     private void initView(View v) {
-        app_sharedpreference = new AppSharedPreference(getActivity());
+
         progressBarHandler = new ProgressBarHandler(getActivity());
 
         tv_forgot_password = (TextView)v. findViewById(R.id.tv_forgot_password);
@@ -155,20 +146,7 @@ initView(v);
 
         String webservice_forgot_password = getResources().getString(R.string.webservice_base_url) + "/forget";
 
-        if (app_sharedpreference.shared_pref != null) {
-            if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                usertype = "business";
-            } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-                usertype = "seller";
-
-            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                usertype = "business";
-
-            }
-        } else {
-            Log.e("null_sharedPreferences", "sharedPreferences");
-        }
 
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();

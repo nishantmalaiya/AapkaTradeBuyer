@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.Adapter_callback_interface;
+import com.example.pat.aapkatrade.general.interfaces.Adapter_callback_interface;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 

@@ -31,10 +31,11 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.adapter.CustomSpinnerAdapter;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
-import com.example.pat.aapkatrade.user_dashboard.add_product.CustomSpinnerAdapter;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -155,6 +156,15 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
                                 progressBarHandler.hide();
                                 Intent call_to_startactivity = new Intent(RegistrationActivity.this, ActivityOTPVerify.class);
+                                call_to_startactivity.putExtra("email", etEmail.getText().toString());
+                                call_to_startactivity.putExtra("name", etFirstName.getText().toString());
+                                call_to_startactivity.putExtra("password", etPassword.getText().toString());
+                                call_to_startactivity.putExtra("mobile", etMobileNo.getText().toString());
+                                call_to_startactivity.putExtra("city_id", cityID);
+                                call_to_startactivity.putExtra("lastname", etLastName.getText().toString());
+                                call_to_startactivity.putExtra("country_id", "101");
+                                call_to_startactivity.putExtra("state_id", stateID);
+                                call_to_startactivity.putExtra("address", etAddress.getText().toString());
                                 call_to_startactivity.putExtra("class_name", context.getClass().getName());
                                 startActivity(call_to_startactivity);
 

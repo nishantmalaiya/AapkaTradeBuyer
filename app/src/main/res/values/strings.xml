@@ -216,6 +216,8 @@
     <string name="enter_delivery_pin">Enter Delivery Pincode</string>
     <string name="check">Check</string>
 
+    <string name="usertype">1</string>
+
 
 
 </resources>

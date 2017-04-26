@@ -39,6 +39,7 @@ public class User_DashboardFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     CircleImageView imageviewpp;
     String user_image;
+
     public User_DashboardFragment() {
 
     }
@@ -58,13 +59,9 @@ public class User_DashboardFragment extends Fragment {
     }
 
     private void setup_layout(View v) {
-        imageviewpp=(CircleImageView)v.findViewById(R.id.imageviewpp) ;
+        imageviewpp = (CircleImageView) v.findViewById(R.id.imageviewpp);
 
-        user_image = app_sharedpreference.getsharedpref("profile_pic","demo");
-        Log.e("user_image",user_image);
-//        Picasso.with(getActivity()).load(user_image)
-//                .error(R.drawable.ic_profile_user)
-//                .into(imageviewpp);
+
         textViewName = (TextView) v.findViewById(R.id.textViewName);
         tvMobile = (TextView) v.findViewById(R.id.tvMobile);
         tvEmail = (TextView) v.findViewById(R.id.tvEmail);
@@ -77,10 +74,10 @@ public class User_DashboardFragment extends Fragment {
             }
         });
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+        if (app_sharedpreference.getsharedpref("username", "not") != null) {
             String Username = app_sharedpreference.getsharedpref("name", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
-            if (Username.equals("notlogin")) {
+            if (Username.contains("not")) {
                 textViewName.setText("");
                 tvEmail.setText("");
             } else {
@@ -88,8 +85,6 @@ public class User_DashboardFragment extends Fragment {
                 tvEmail.setText(Emailid);
             }
         }
-
-
 
 
     }
@@ -104,15 +99,13 @@ public class User_DashboardFragment extends Fragment {
 
                 String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url)) + "/userdata";
 
-                userdata_webservice(user_detail_webserviceurl, "2", userid);
+                userdata_webservice(user_detail_webserviceurl, getActivity().getResources().getString(R.string.usertype), userid);
             } else {
                 Log.e("null_sharedPreferences", "sharedPreferences");
             }
 
         } catch (Exception e) {
         }
-
-
 
 
     }
@@ -125,7 +118,7 @@ public class User_DashboardFragment extends Fragment {
         Ion.with(getActivity())
                 .load(url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type",user_type)
+                .setBodyParameter("type", user_type)
                 .setBodyParameter("id", user_id)
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .asJsonObject()
@@ -140,19 +133,18 @@ public class User_DashboardFragment extends Fragment {
                             progressBarHandler.hide();
                             Log.e("result_myProfile", "result_myProfile is not null ");
                             String order_quantity = result.get("order").getAsString();
-                                    app_sharedpreference.setsharedpref("order_quantity", order_quantity);
-                                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
-                                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
-                                    dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity));
-                                    dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstprdct, R.drawable.circle_cherry_red, true, ""));
+                            app_sharedpreference.setsharedpref("order_quantity", order_quantity);
+                            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
+                            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
+                            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity));
+                            dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstprdct, R.drawable.circle_cherry_red, true, ""));
 
-                                    tvUserType.setText("Welcome Buyer");
-                                    dashboardlist.setLayoutManager(layoutManager);
-                                    dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
-                                    dashboardlist.setAdapter(dashboardAdapter);
-                            }
+                            tvUserType.setText("Welcome Buyer");
+                            dashboardlist.setLayoutManager(layoutManager);
+                            dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
+                            dashboardlist.setAdapter(dashboardAdapter);
                         }
-
+                    }
 
 
                 });
@@ -160,20 +152,15 @@ public class User_DashboardFragment extends Fragment {
 
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
-        {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("name", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
-            if (Username.equals("notlogin"))
-            {
+            if (Username.equals("notlogin")) {
                 textViewName.setText("");
                 tvEmail.setText("");
-            }
-            else
-            {
+            } else {
                 textViewName.setText(Username);
                 tvEmail.setText(Emailid);
             }

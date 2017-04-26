@@ -14,13 +14,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;

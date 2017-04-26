@@ -21,7 +21,7 @@ import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.google.gson.JsonObject;
@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     private AppSharedPreference appSharedpreference;
     private CoordinatorLayout coordinatorLayout;
     private Context context;
-    String user_login;
 
 
     @Override
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0, GradientDrawable.OVAL);
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0, GradientDrawable.RECTANGLE);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -219,7 +218,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword = (TextView) findViewById(R.id.tv_forgotpassword);
         loginText = (TextView) findViewById(R.id.tv_login);
 
-        // loginText.setText(user_login);
+        // loginText.setText(userLogin);
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         etEmail = (EditText) findViewById(R.id.etEmail);

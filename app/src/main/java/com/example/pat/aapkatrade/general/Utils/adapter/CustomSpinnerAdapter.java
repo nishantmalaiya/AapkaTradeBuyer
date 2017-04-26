@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.user_dashboard.add_product;
+package com.example.pat.aapkatrade.general.Utils.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

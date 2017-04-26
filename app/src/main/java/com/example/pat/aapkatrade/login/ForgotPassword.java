@@ -21,23 +21,16 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.google.gson.JsonObject;
 
-import java.util.HashMap;
-
-public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
+public class ForgotPassword extends AppCompatActivity {
     private TextView tv_forgot_password, tv_forgot_password_description;
     private Button btn_send_otp;
     private EditText et_email_forgot, et_mobile_no;
     private CoordinatorLayout activity_forgot__password;
     private AppSharedPreference app_sharedpreference;
-    private String usertype;
+    private String usertype = "buyer";
     private ProgressBarHandler progressBarHandler;
     private Context context;
     String classname;
@@ -47,18 +40,18 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     String class_index;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot__password);
-        app_sharedpreference=new AppSharedPreference(this);
-        class_index=  getIntent().getStringExtra("forgot_index");
-        Log.e("class_index",""+class_index);
+        context=ForgotPassword.this;
+        app_sharedpreference = new AppSharedPreference(this);
+        class_index = getIntent().getStringExtra("forgot_index");
+        Log.e("class_index", "" + class_index);
         forgot_password_fragment = new Forgot_password_fragment();
-        //setUpToolBar();
-        setupForgetpassword(class_index);
 
+        setupForgetpassword(class_index);
+        setUpToolBar();
         initView();
 
     }
@@ -67,7 +60,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setupForgetpassword(String class_index) {
-        if (class_index .contains( "0")) {
+        if (class_index.contains("0")) {
             if (forgot_password_fragment == null) {
                 forgot_password_fragment = new Forgot_password_fragment();
             }
@@ -96,123 +89,13 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
 
     private void initView() {
-//        app_sharedpreference = new AppSharedPreference(context);
-//        progressBarHandler = new ProgressBarHandler(context);
-//
-//        tv_forgot_password = (TextView) findViewById(R.id.tv_forgot_password);
-//        tv_forgot_password_description = (TextView) findViewById(R.id.tv_forgot_password_description);
-//
-//
-//        et_email_forgot = (EditText) findViewById(R.id.et_email_forgot);
-//        et_mobile_no = (EditText) findViewById(R.id.et_mobile_no);
-//
-//        btn_send_otp = (Button) findViewById(R.id.btn_send_otp);
-//        btn_send_otp.setOnClickListener(this);
+
 
         activity_forgot__password = (CoordinatorLayout) findViewById(R.id.activity_forgot__password);
 
-//        Change_Font.Change_Font_textview(ForgotPassword.this, tv_forgot_password);
-//        Change_Font.Change_Font_textview(ForgotPassword.this, tv_forgot_password_description);
-
 
     }
 
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId()) {
-
-            case R.id.btn_send_otp:
-
-                Validatefields();
-
-                break;
-        }
-
-    }
-
-    private void Validatefields() {
-
-        if (Validation.validateEdittext(et_email_forgot)) {
-            call_forgotpasswod_webservice();
-
-        } else if (Validation.validateEdittext(et_mobile_no)) {
-
-            call_forgotpasswod_webservice();
-
-
-        } else {
-            showmessage("");
-
-        }
-
-
-    }
-
-    private void showmessage(String message) {
-        AndroidUtils.showSnackBar(activity_forgot__password, message);
-    }
-
-
-    private void call_forgotpasswod_webservice() {
-        progressBarHandler.show();
-
-
-        String webservice_forgot_password = getResources().getString(R.string.webservice_base_url) + "/forget";
-
-        if (app_sharedpreference.shared_pref != null) {
-            if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-
-                usertype = "business";
-            } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-                usertype = "seller";
-
-            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                usertype = "business";
-
-            }
-        } else {
-            Log.e("null_sharedPreferences", "sharedPreferences");
-        }
-
-
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", usertype);
-        webservice_body_parameter.put("email", et_email_forgot.getText().toString().trim());
-        webservice_body_parameter.put("mobile", et_mobile_no.getText().toString().trim());
-        webservice_body_parameter.put("client_id", App_config.getCurrentDeviceId(context));
-
-
-        HashMap<String, String> webservice_header_type = new HashMap<>();
-        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-
-
-        Call_webservice.forgot_password(context, webservice_forgot_password, "forgot_password", webservice_body_parameter, webservice_header_type);
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject data) {
-                if (data != null) {
-                    String error = data.get("error").getAsString();
-                    if (error.contains("false")) {
-                        Log.e("userid_forgot_password",data.get("user_id").getAsString());
-
-                        app_sharedpreference.setsharedpref("userid", data.get("user_id").getAsString());
-
-                        Intent go_to_activity_otp_verify = new Intent(context, ActivityOTPVerify.class);
-                        go_to_activity_otp_verify.putExtra("class_name",context.getClass().getName());
-                        startActivity(go_to_activity_otp_verify);
-                    }
-                    String message = data.get("message").getAsString();
-                    showmessage(message);
-                    progressBarHandler.hide();
-                } else {
-                    progressBarHandler.hide();
-                }
-                Log.e("forgot_password", data.toString());
-            }
-        };
-    }
 
     private void setUpToolBar() {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
@@ -226,8 +109,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
             }
         });
-        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0, GradientDrawable.OVAL);
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0, GradientDrawable.RECTANGLE);
         setSupportActionBar(toolbar);
+        findViewById(R.id.logoWord).setVisibility(View.GONE);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -262,4 +146,8 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    @Override
+    public void onBackPressed() {
+       finish();
+    }
 }
