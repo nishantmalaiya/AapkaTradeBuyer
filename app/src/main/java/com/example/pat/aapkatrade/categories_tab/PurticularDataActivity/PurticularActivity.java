@@ -45,7 +45,7 @@ public class PurticularActivity extends AppCompatActivity
 
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
-    ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
+    ArrayList<CategoriesListData> shopListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
     FrameLayout layout_container, layout_container_relativeSearch;
     MyRecyclerViewEffect myRecyclerViewEffect;
@@ -161,7 +161,7 @@ public class PurticularActivity extends AppCompatActivity
     }
 
     private void get_web_data() {
-        productListDatas.clear();
+        shopListDatas.clear();
         progress_handler.show();
 
         Ion.with(PurticularActivity.this)
@@ -198,22 +198,22 @@ public class PurticularActivity extends AppCompatActivity
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
-                                    String product_id = jsonObject2.get("id").getAsString();
+                                    String shopId = jsonObject2.get("id").getAsString();
 
-                                    String product_name = jsonObject2.get("prodname").getAsString();
+                                    String shopName = jsonObject2.get("prodname").getAsString();
 
-                                    String product_price = jsonObject2.get("price").getAsString();
+                                  //  String shopPrice = jsonObject2.get("price").getAsString();
 
-                                    String product_cross_price = jsonObject2.get("cross_price").getAsString();
+                                    //String product_cross_price = jsonObject2.get("cross_price").getAsString();
 
-                                    String productlocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
+                                    String shopLocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
                                             jsonObject2.get("country_name").getAsString();
-                                    String product_image = jsonObject2.get("image_url").getAsString();
+                                    String shopImage = jsonObject2.get("image_url").getAsString();
 
-                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image,productlocation));
+                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage,shopLocation));
 
                                     }
-                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
+                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, shopListDatas);
                                     myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 

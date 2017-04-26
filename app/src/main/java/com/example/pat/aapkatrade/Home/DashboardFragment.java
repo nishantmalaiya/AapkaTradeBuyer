@@ -184,10 +184,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
         get_home_data();
-        //        StikkyHeaderBuilder.stickTo(scrollView)
-       //                .setHeader(R.id.coordination_home, v2)
-       //                .minHeightHeaderDim(R.dimen.min_header_height)
-       //                .build();
+
 
 
         rl_searchview_dashboard = (RelativeLayout)v.findViewById(R.id.rl_searchview);
@@ -213,10 +210,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             locationManagerCheck.createLocationServiceError(getActivity());
                         }
 
-//                        Intent new_intent = new Intent(getActivity(),Search.class);
-//                        new_intent.putExtra("classname","homeactivity");
-//                        startActivity(new_intent);
-//                        getActivity().finish();
+
 
                     }
 

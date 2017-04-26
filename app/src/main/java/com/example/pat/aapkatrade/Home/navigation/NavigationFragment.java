@@ -164,7 +164,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
 
-        //navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
+
 
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
 
@@ -450,7 +450,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             }
 
-            //        dialog.show();
+
 
         };
 
@@ -499,6 +499,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
                 setdata(Username, Emailid);
                 usertype.setText("Buyer");
+
 
             }
         } else {

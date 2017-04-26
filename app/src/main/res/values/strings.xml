@@ -103,7 +103,7 @@
     <string name="description_heading" translatable="false">Description*</string>
     <string name="description" translatable="false">Department Stores, Chocolate Retailers, Soft Drink Retailers,Grocery Stores, Beverage Dealers, General Stores, Deparmental Stores Home Delivery</string>
     <string name="specification_heading" translatable="false">Specification</string>
-    <string name="review_heading" translatable="false">Ratings &amp;amp; Review</string>
+    <string name="review_heading" translatable="false">Ratings &amp; Review</string>
     <string name="rupees_deatils" translatable="false">\u20A8 600</string>
     <string name="delivery_area_heading" translatable="false">Delivery Area :</string>
     <string name="deliveryArea" translatable="false">Indrapuram,Noida,New Delhi</string>
@@ -207,9 +207,15 @@
     <string name="google_plus_url_heading">G+ URL</string>
     <string name="youtube_url_heading">Youtube URL</string>
     <string name="welcomebuyer">Welcome Buyer</string>
+
+    <string name="shop_info">SHOP INFORMATION</string>
+    <string name="shop_products">SHOP PRODUCTS</string>
+    <string name="shop_time">SHOP TIME</string>
+
     <string name="title_activity_my_cart">MyCartActivity</string>
     <string name="enter_delivery_pin">Enter Delivery Pincode</string>
     <string name="check">Check</string>
+
 
 
 </resources>
