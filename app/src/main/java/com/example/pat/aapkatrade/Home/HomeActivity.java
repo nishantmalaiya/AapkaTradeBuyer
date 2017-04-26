@@ -11,10 +11,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
+import android.support.annotation.IntegerRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +34,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
+import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
@@ -51,6 +55,7 @@ import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+import com.mikepenz.actionitembadge.library.ActionItemBadge;
 
 import java.util.ArrayList;
 
@@ -96,53 +101,43 @@ public class HomeActivity extends AppCompatActivity {
         aboutUsFragment = new AboutUsFragment();
         contactUsFragment = new ContactUsFragment();
         user_dashboardFragment = new User_DashboardFragment();
+        permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (!(app_sharedpreference.getsharedpref("usertype", "-1").equals("3") && app_sharedpreference.getsharedpref("term_accepted", "-1").equals("0"))) {
-            loadLocale();
+        if (permission_status) {
 
-            permission_status = CheckPermission.checkPermissions(HomeActivity.this);
+            setContentView(R.layout.activity_homeactivity);
 
-            if (permission_status) {
-
-                setContentView(R.layout.activity_homeactivity);
-
-                //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-                context = this;
-                //  permissions  granted.
-                setupToolBar();
-                //setupNavigation();
-                setupNavigationCustom();
-                setupDashFragment();
-                Intent iin = getIntent();
-                Bundle b = iin.getExtras();
-                setup_bottomNavigation();
+            //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+            context = this;
+            //  permissions  granted.
+            setupToolBar();
+            //setupNavigation();
+            setupNavigationCustom();
+            setupDashFragment();
+            Intent iin = getIntent();
+            Bundle b = iin.getExtras();
+            setup_bottomNavigation();
 
 
-                App_config.deleteCache(HomeActivity.this);
+            App_config.deleteCache(HomeActivity.this);
 
-            } else {
-
-                setContentView(R.layout.activity_homeactivity);
-
-
-                //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-                context = this;
-                //  permissions  granted.
-                setupToolBar();
-                //setupNavigation();
-                setupNavigationCustom();
-                setupDashFragment();
-                Intent iin = getIntent();
-                Bundle b = iin.getExtras();
-                setup_bottomNavigation();
-                checked_wifispeed();
-                App_config.deleteCache(HomeActivity.this);
-            }
         } else {
-            Log.e("HIIIIIIII", "UJUJUJUJUJUJUJUJUJUJ");
-            AssociateAgreementDialog dialog = new AssociateAgreementDialog(HomeActivity.this);
-            dialog.show();
 
+            setContentView(R.layout.activity_homeactivity);
+
+
+            //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+            context = this;
+            //  permissions  granted.
+            setupToolBar();
+            //setupNavigation();
+            setupNavigationCustom();
+            setupDashFragment();
+            Intent iin = getIntent();
+            Bundle b = iin.getExtras();
+            setup_bottomNavigation();
+            checked_wifispeed();
+            App_config.deleteCache(HomeActivity.this);
         }
     }
 
@@ -166,22 +161,32 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
-        // ActionItemBadge.update(((AppCompatActivity) context), menu.findItem(R.id.login), ContextCompat.getDrawable(context, R.drawable.ic_cart_black)
-        // , ActionItemBadge.BadgeStyles.GREY, 3);
         return true;
     }
 
 
     private void setupToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
         ImageView home_link = (ImageView) toolbar.findViewById(R.id.iconHome);
         AndroidUtils.setImageColor(home_link, context, R.color.white);
         home_link.setVisibility(View.GONE);
-        // getSupportActionBar().setIcon(R.drawable.logo_word);
+        RelativeLayout cartContainer = (RelativeLayout) toolbar.findViewById(R.id.cart_container);
+        TextView textView = (TextView) toolbar.findViewById(R.id.tvCart);
+        if(Integer.parseInt(textView.getText().toString())>0){
+            cartContainer.setVisibility(View.VISIBLE);
+        }
 
+        cartContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MyCartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -300,18 +305,6 @@ public class HomeActivity extends AppCompatActivity {
             // super.onBackPressed();
         }
 
-
-//        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-//
-//
-//            Log.e("condition_one",getSupportFragmentManager().getBackStackEntryCount()+"");
-//            finish();
-//        } else {
-//            Log.e("condition_else",getSupportFragmentManager().getBackStackEntryCount()+"");
-//            super.onBackPressed();
-//        }
-
-
     }
 
 
@@ -357,22 +350,11 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
         scrollView = (NestedScrollView) findViewById(R.id.scroll_main);
-
-        //setup_scrollview(scrollView);
-
-//        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
-//        bottom_menuAdapter = new AHBottomNavigationAdapter(getActivity(), R.menu.button_menu);
-//        bottom_menuAdapter.setupWithBottomNavigation(bottomNavigation, tabColors);
-
-// Create items
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.ic_navigation_home, R.color.dark_green);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.ic_home_dashboard_aboutus, R.color.orange);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_home_dashboard_rate_us, R.color.dark_green);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab_4, R.drawable.ic_home_bottom_account, R.color.dark_green);
         AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.tab_5, R.drawable.ic_about_us, R.color.dark_green);
-
-// Add items
-
 
         bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
             @Override
@@ -385,56 +367,19 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigation.addItem(item3);
         bottomNavigation.addItem(item4);
         bottomNavigation.addItem(item5);
-
-// Set background color
         bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.dark_green));
-
-// Disable the translation inside the CoordinatorLayout
         bottomNavigation.setBehaviorTranslationEnabled(true);
         bottomNavigation.setSelectedBackgroundVisible(true);
-
-
-// Enable the translation of the FloatingActionButton
-        //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
-
-// Change colors
         bottomNavigation.setAccentColor(getResources().getColor(R.color.white));
         bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
-
-// Force to tint the drawable (useful for font with icon for example)
         bottomNavigation.setForceTint(true);
-
-// Display color under navigation bar (API 21+)
-// Don't forget these lines in your style-v21
-// <item name="android:windowTranslucentNavigation">true</item>
-// <item name="android:fitsSystemWindows">true</item>
         bottomNavigation.setTranslucentNavigationEnabled(true);
-
-// Manage titles
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-
-// Use colored navigation with circle reveal effect
         bottomNavigation.setColored(false);
-
-// Set current item programmatically
         bottomNavigation.setCurrentItem(0);
 
-// Customize notification (title, background, typeface)
-//       bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
-//
-//// Add or remove notification for each item
-//        bottomNavigation.setNotification("", 3);
-// OR
-//        AHNotification notification = new AHNotification.Builder()
-//                .setText("1")
-//                .setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_green))
-//                .setTextColor(ContextCompat.getColor(getActivity(), R.color.grey))
-//                .build();
-//        bottomNavigation.setNotification(notification, 1);
-
-// Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
@@ -474,7 +419,7 @@ public class HomeActivity extends AppCompatActivity {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
 
-                       // startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        // startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                         if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
                             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                         } else {

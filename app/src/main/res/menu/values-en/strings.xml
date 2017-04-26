@@ -11,16 +11,10 @@
     <string name="add_company_heading">Add Company</string>
     <string name="user_name">Pawan</string>
     <string name="compant_list_heading">Company List</string>
-    <string name="company_name_heading">Company Name*</string>
 
 
     <string name="forgotpassword">Forget Password?</string>
     <string name="new_user">New User?</string>
-
-    <string name="title_activity_logindashboard">logindashboard</string>
-    <string name="seller">SELLER</string>
-    <string name="buyer">BUYER</string>
-    <string name="businessassociate">BUSINESS ASSOCIATE</string>
 
 
     <string name="drawer_open">draweropen</string>
@@ -35,7 +29,6 @@
     <string name="product_name">LED TV</string>
 
     <string name="category">Category</string>
-    <string name="loginregisterfooter">Please Click one for Login/Register</string>
     <string name="tab_1">Home</string>
     <string name="tab_2">About Us</string>
     <string name="tab_3">Rate Us</string>

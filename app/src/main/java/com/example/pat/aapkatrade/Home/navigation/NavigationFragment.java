@@ -85,7 +85,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     TextView textViewName, emailid;
     public static TextView usertype;
     private ImageView imageViewGB;
-    private ExpandableListView expListView, nested_expandablelistview;
+
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
     private CommonAdapter_navigation_recycleview category_adapter;
@@ -446,7 +446,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 }
                 set_recycleview_adapter();
 
-                set_expandable_adapter_data();
+
 
             }
 
@@ -467,21 +467,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void set_expandable_adapter_data() {
 
-        if (listDataHeader.size() != 0) {
-
-            listAdapter = new ExpandableListAdapter(context, listDataHeader);
-
-            Log.e("listDataHeader1", listDataHeader.toString().substring(0, (listDataHeader.toString().length() / 2)));
-            Log.e("listDataHeader2", listDataHeader.toString().substring((listDataHeader.toString().length() / 2), listDataHeader.toString().length() - 1));
-
-            expListView.setAdapter(listAdapter);
-            listAdapter.setClickListner(this);
-
-
-        }
-    }
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
@@ -513,26 +499,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
                 setdata(Username, Emailid);
                 usertype.setText("Buyer");
-
-//                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-//
-//
-//                    usertype.setText("Bussiness Associate");
-//
-//
-//                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
-//
-//
-//
-//
-//                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-//
-//
-//                    usertype.setText(" Seller");
-//
-//
-//                }
-
 
             }
         } else {

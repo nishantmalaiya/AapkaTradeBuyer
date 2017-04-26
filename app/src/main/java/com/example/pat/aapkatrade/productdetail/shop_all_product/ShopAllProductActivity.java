@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
@@ -28,12 +29,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 
 
-
-public class ShopAllProductActivity extends AppCompatActivity
-{
+public class ShopAllProductActivity extends AppCompatActivity {
 
     ArrayList<ShopAllProductData> shopAllProductDatas = new ArrayList<>();
     RecyclerView order_list;
@@ -41,10 +41,8 @@ public class ShopAllProductActivity extends AppCompatActivity
     LinearLayout layout_container;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_shop_all_product);
@@ -57,8 +55,7 @@ public class ShopAllProductActivity extends AppCompatActivity
 
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
 
         order_list = (RecyclerView) findViewById(R.id.order_list);
@@ -72,8 +69,7 @@ public class ShopAllProductActivity extends AppCompatActivity
         order_list.setAdapter(shopAllProductAdapter);
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -89,10 +85,8 @@ public class ShopAllProductActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

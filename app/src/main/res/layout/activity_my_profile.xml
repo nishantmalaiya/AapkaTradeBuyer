@@ -8,10 +8,6 @@
     android:background="#EEEEEE"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_without_image_layout"
-        android:visibility="gone" />
 
 
     <android.support.design.widget.AppBarLayout
@@ -40,22 +36,23 @@
                 app:layout_collapseMode="parallax">
 
 
-
-
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_imageview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:id="@+id/user_imageview"
                     android:gravity="center_horizontal|center_vertical"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_profile_user" />
 
             </RelativeLayout>
 
-            <android.support.v7.widget.Toolbar
+
+            <include layout="@layout/toolbar_layout" />
+
+           <!-- <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -97,26 +94,24 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/twenty_five_dip"
                         android:layout_toRightOf="@+id/iconHome"
-                        android:gravity="center_vertical|center_horizontal"
-                        >
+                        android:gravity="center_vertical|center_horizontal">
 
                         <TextView
                             android:id="@+id/header_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:layout_gravity="center_vertical|center_horizontal"
+                            android:text="@string/my_profile_heading"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/textsize_medium"
-                            android:textStyle="bold"
-                            android:text="@string/my_profile_heading" />
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
 
-
                 </RelativeLayout>
+            </android.support.v7.widget.Toolbar>-->
 
-            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

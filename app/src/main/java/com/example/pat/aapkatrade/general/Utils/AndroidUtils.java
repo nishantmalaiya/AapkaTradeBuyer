@@ -111,9 +111,7 @@ public class AndroidUtils {
     public static void setBackgroundStroke(View layout, Context context, int bgColor, int cornerRadius, int strokeWidth, int backgroundcolor) {
         GradientDrawable shape = new GradientDrawable();
         shape.setStroke(strokeWidth, ContextCompat.getColor(context, bgColor));
-
         shape.setCornerRadius(cornerRadius);
-        //shape.setColor(ContextCompat.getColor(context, backgroundcolor));
         layout.setBackground(shape);
 
     }
