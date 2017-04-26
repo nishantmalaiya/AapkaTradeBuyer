@@ -25,11 +25,9 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.filter.FilterDialog;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.CommonInterface;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
-import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.location.MyAsyncTask_location;
@@ -40,8 +38,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 

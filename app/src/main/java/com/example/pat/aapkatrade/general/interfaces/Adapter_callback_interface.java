@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.general;
+package com.example.pat.aapkatrade.general.interfaces;
 
 /**
  * Created by PPC17 on 21-Mar-17.

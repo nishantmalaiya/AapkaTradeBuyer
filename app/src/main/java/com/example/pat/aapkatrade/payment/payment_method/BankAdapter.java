@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

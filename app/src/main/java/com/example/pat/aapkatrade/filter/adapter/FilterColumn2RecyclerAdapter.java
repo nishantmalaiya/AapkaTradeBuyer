@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.filter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,8 @@ import android.widget.CompoundButton;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
-import com.example.pat.aapkatrade.filter.viewholder.FilterColumn1ViewHolder;
 import com.example.pat.aapkatrade.filter.viewholder.FilterColumn2ViewHolder;
-import com.example.pat.aapkatrade.general.CommonInterface;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.entity.KeyValue;

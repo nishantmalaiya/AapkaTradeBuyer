@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.filter.viewholder.FilterColumn1ViewHolder;
-import com.example.pat.aapkatrade.general.CommonInterface;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 
 import java.util.ArrayList;

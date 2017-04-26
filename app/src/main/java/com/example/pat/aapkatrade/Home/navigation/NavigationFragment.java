@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,15 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
@@ -35,24 +31,19 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.net.ssl.X509TrustManager;
 
@@ -482,13 +473,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+        if (app_sharedpreference.getsharedpref("username", "not") != null) {
 
-            String Username = app_sharedpreference.getsharedpref("name", "notlogin");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "notlogin");
+            String Username = app_sharedpreference.getsharedpref("name", "not");
+            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
 
-            if (Username.equals("notlogin")) {
+            if (Username.contains("not")) {
 
                 rl_logout.setVisibility(View.GONE);
 
