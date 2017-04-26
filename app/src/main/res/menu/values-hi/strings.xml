@@ -12,16 +12,10 @@
     <string name="add_company_heading">कंपनी जोड़ें</string>
     <string name="user_name"></string>
     <string name="compant_list_heading">कंपनी सूची</string>
-    <string name="company_name_heading">कंपनी का नाम</string>
 
 
     <string name="forgotpassword">पासवर्ड भूल गए?</string>
     <string name="new_user">नया उपयोगकर्ता?</string>
-
-    <string name="title_activity_logindashboard">लॉग इन डैशबोर्ड</string>
-    <string name="seller">विक्रेता</string>
-    <string name="buyer">खरीदार</string>
-    <string name="businessassociate">व्यापार सहयोगी</string>
 
 
     <string name="drawer_open">
@@ -38,7 +32,6 @@
     <string name="product_name">एलईडी टीवी</string>
 
     <string name="category">श्रेणी</string>
-    <string name="loginregisterfooter">कृपया लॉग इन / पंजीकरण के लिए एक क्लिक</string>
     <string name="tab_1">घर</string>
     <string name="tab_2">हमारे बारे में</string>
     <string name="tab_3">हमें रेटिंग दें</string>

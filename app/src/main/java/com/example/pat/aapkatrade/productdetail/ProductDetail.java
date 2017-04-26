@@ -91,7 +91,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     String productlocation, categoryName;
     LinearLayout linearLayoutQuantity;
     EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description, editText;
+
     TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone;
+
+  
+
     // TextView tvDurationHeading,tvDuration;
     Dialog dialog;
     private Context context;
@@ -99,8 +103,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     private String product_name;
     DroppyMenuPopup droppyMenu;
     AppSharedPreference app_sharedpreference;
+
     RecyclerView reviewList, openShopList, recyclerProduct ;
     LinearLayoutManager mLayoutManager, mLayoutManagerShoplist,llmanagerProductList;
+
+   
     ReviewListAdapter reviewListAdapter;
     OpenShopAdapter openShopAdapter;
     ArrayList<OpenShopData> openShopDatas = new ArrayList<>();
@@ -536,7 +543,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                 } else {
                     Intent rate_us = new Intent(ProductDetail.this, RateusActivity.class);
                     rate_us.putExtra("product_id", product_id);
+
                     rate_us.putExtra("product_name", tvshopName.getText().toString());
+
+
                     rate_us.putExtra("product_price", tvProPrice.getText().toString());
                     rate_us.putExtra("product_image", imageList.get(0).toString());
                     startActivity(rate_us);

@@ -27,19 +27,18 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfilePreviewActivity extends AppCompatActivity
-{
+public class ProfilePreviewActivity extends AppCompatActivity {
 
-    TextView tvTitle,textViewName,tvMobile,tvEmail,tvUserType;
-    LinearLayout linearLayoutLagout,linearLayoutResetpassword,linearLayoutAddress;
+    TextView tvTitle, textViewName, tvMobile, tvEmail, tvUserType;
+    LinearLayout linearLayoutLagout, linearLayoutResetpassword, linearLayoutAddress;
     AppSharedPreference app_sharedpreference;
     ImageView btnEdit;
     private Context context;
 
     CircleImageView userimage;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_profile_preview);
@@ -50,9 +49,8 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
     }
 
-    private void setup_layout()
-    {
-        userimage=(CircleImageView)findViewById(R.id.imageviewpp);
+    private void setup_layout() {
+        userimage = (CircleImageView) findViewById(R.id.imageviewpp);
         btnEdit = (ImageView) findViewById(R.id.btnEdit);
 
         linearLayoutLagout = (LinearLayout) findViewById(R.id.linearLayoutLagout);
@@ -62,12 +60,10 @@ public class ProfilePreviewActivity extends AppCompatActivity
         linearLayoutAddress = (LinearLayout) findViewById(R.id.linearLayoutAddress);
 
 
-        btnEdit.setOnClickListener(new View.OnClickListener()
-        {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent profile_edit = new Intent(ProfilePreviewActivity.this, MyProfileActivity.class);
                 startActivity(profile_edit);
             }
@@ -79,7 +75,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                save_shared_pref("notlogin", "notlogin", "notlogin","profile_pic");
+                save_shared_pref("notlogin", "notlogin", "notlogin", "profile_pic");
                 Intent Homedashboard = new Intent(ProfilePreviewActivity.this, HomeActivity.class);
                 Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(Homedashboard);
@@ -89,8 +85,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
         });
 
 
-        linearLayoutResetpassword.setOnClickListener(new View.OnClickListener()
-        {
+        linearLayoutResetpassword.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -115,34 +110,20 @@ public class ProfilePreviewActivity extends AppCompatActivity
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvUserType = (TextView) findViewById(R.id.tvUserType);
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
-        {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("name", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
-            String userType = app_sharedpreference.getsharedpref("usertype","0");
-            String user_image = app_sharedpreference.getsharedpref("profile_pic","");
+            String userType = app_sharedpreference.getsharedpref("usertype", "0");
+            String user_image = app_sharedpreference.getsharedpref("profile_pic", "");
 
-           Log.e("user_image",user_image);
+            Log.e("user_image", user_image);
 
             textViewName.setText(Username);
             tvEmail.setText(Emailid);
 
-            if (userType.equals("1"))
-            {
-                Log.e("user_image",user_image);
-
-//                Picasso.with(context).load(user_image)
-//
-//                        .error(R.drawable.ic_profile_user)
-//                        .into(userimage);
-
-                tvUserType.setText("Welcome Seller");
-
-            }
-            else if (userType.equals("2"))
-            {
-                Log.e("user_image2",user_image);
+            if (userType.equals("2")) {
+                Log.e("user_image2", user_image);
 
 //                Picasso.with(context).load(user_image)
 //
@@ -151,32 +132,13 @@ public class ProfilePreviewActivity extends AppCompatActivity
                 tvUserType.setText("Welcome Buyer");
 
 
-
-
-            }
-            else if (userType.equals("3"))
-            {
-                Log.e("user_image3",user_image);
-
-                Picasso.with(context).load(user_image)
-
-                        .error(R.drawable.ic_profile_user)
-                        .into(userimage);
-
-//                Ion.with(userimage)
-//                        .error(ContextCompat.getDrawable(this, R.drawable.ic_profile_user))
-//                        .placeholder(ContextCompat.getDrawable(this, R.drawable.ic_profile_user))
-//                        .load(user_image);
-
-                tvUserType.setText("Welcome Bussiness Associate");
-
             }
         }
 
     }
 
     private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
         back_imagview.setVisibility(View.VISIBLE);
         back_imagview.setOnClickListener(new View.OnClickListener() {
@@ -211,10 +173,8 @@ public class ProfilePreviewActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -225,12 +185,11 @@ public class ProfilePreviewActivity extends AppCompatActivity
     }
 
 
-    public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic)
-    {
+    public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
-        app_sharedpreference.setsharedpref("profile_pic",profile_pic);
+        app_sharedpreference.setsharedpref("profile_pic", profile_pic);
 
     }
 
@@ -239,21 +198,18 @@ public class ProfilePreviewActivity extends AppCompatActivity
     protected void onRestart() {
         super.onRestart();
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
-        {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("name", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
-            String userType = app_sharedpreference.getsharedpref("usertype","0");
+            String userType = app_sharedpreference.getsharedpref("usertype", "0");
             String user_image = app_sharedpreference.getsharedpref("profile_pic", "");
-
 
 
             textViewName.setText(Username);
             tvEmail.setText(Emailid);
 
-            if (userType.equals("1"))
-            {
+            if (userType.equals("1")) {
                 Picasso.with(context).load(user_image)
 
                         .error(R.drawable.ic_profile_user)
@@ -266,12 +222,9 @@ public class ProfilePreviewActivity extends AppCompatActivity
 //                        .load(user_image);
 
 
-
                 tvUserType.setText("Welcome Seller");
 
-            }
-            else if (userType.equals("2"))
-            {
+            } else if (userType.equals("2")) {
                 Picasso.with(context).load(user_image)
 
                         .error(R.drawable.ic_profile_user)
@@ -284,9 +237,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
 //                        .load(user_image);
                 tvUserType.setText("Welcome Buyer");
 
-            }
-            else if (userType.equals("3"))
-            {
+            } else if (userType.equals("3")) {
                 Picasso.with(context).load(user_image)
 
                         .error(R.drawable.ic_profile_user)

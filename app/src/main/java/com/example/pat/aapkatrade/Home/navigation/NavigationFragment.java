@@ -501,8 +501,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 usertype.setText("Buyer");
 
 
-
-
             }
         } else {
             Log.e("Shared_pref1", "null");

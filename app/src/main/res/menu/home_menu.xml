@@ -16,7 +16,12 @@
         android:orderInCategory="102"
         android:title="@string/language"
         app:showAsAction="always" />
-
-
+<!--
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_cart"
+        android:orderInCategory="103"
+        android:title="@string/cart"
+        app:showAsAction="always" />-->
 
 </menu>

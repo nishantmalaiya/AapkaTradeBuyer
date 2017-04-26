@@ -133,12 +133,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "1")
+                .setBodyParameter("name", formBuyerData.getFirstName())
+                .setBodyParameter("lastname", formBuyerData.getLastName())
                 .setBodyParameter("country_id", formBuyerData.getCountryId())
                 .setBodyParameter("state_id", formBuyerData.getStateId())
                 .setBodyParameter("city_id", formBuyerData.getCityId())
                 .setBodyParameter("address", formBuyerData.getAddress())
-                .setBodyParameter("name", formBuyerData.getFirstName())
-                .setBodyParameter("lastname", formBuyerData.getLastName())
                 .setBodyParameter("email", formBuyerData.getEmail())
                 .setBodyParameter("mobile", formBuyerData.getMobile())
                 .setBodyParameter("password", formBuyerData.getPassword())
@@ -186,8 +186,11 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                        int position, long id) {
                 cityList = new ArrayList<>();
                 AndroidUtils.showErrorLog(context, "State Id is ::::::::  " + position);
-                if (position > 0)
+                if (position > 0){
+                    findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
+                    findViewById(R.id.view1).setVisibility(View.VISIBLE);
                     getCity(String.valueOf(position));
+                }
             }
 
             @Override
@@ -319,6 +322,9 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
             }
         });
 
+        findViewById(R.id.input_layout_city).setVisibility(View.GONE);
+        findViewById(R.id.view1).setVisibility(View.GONE);
+
 
     }
 
@@ -334,11 +340,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
             } else if (Validation.isEmptyStr(formBuyerData.getLastName())) {
                 putError(1);
                 isAllFieldSet++;
+            } else if (!Validation.isValidDOB(etDOB.getText().toString())) {
+                putError(6);
+                isAllFieldSet++;
             } else if (!Validation.isValidNumber(formBuyerData.getMobile(), Validation.getNumberPrefix(formBuyerData.getMobile()))) {
                 putError(3);
                 isAllFieldSet++;
-            } else if (Validation.isValidDOB(etDOB.getText().toString())) {
-                putError(6);
             } else if (spState != null && spState.getSelectedItemPosition() == 0) {
                 showmessage("Please Select State");
                 isAllFieldSet++;
@@ -398,7 +405,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 showmessage("Password did not match");
                 break;
             case 6:
-                //showmessage("Please Select Date");
+                showmessage("Please Select Date");
                 break;
             case 9:
                 etAddress.setError("Address Can't be empty");

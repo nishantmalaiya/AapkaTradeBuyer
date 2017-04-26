@@ -204,7 +204,6 @@ public class LoginActivity extends AppCompatActivity {
         appSharedpreference.setsharedpref("state_id", jsonObject.get("state_id").getAsString());
         appSharedpreference.setsharedpref("city_id", jsonObject.get("city_id").getAsString());
         appSharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
-        // appSharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
         appSharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
         appSharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
         appSharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
