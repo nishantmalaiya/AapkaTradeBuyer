@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.pat.aapkatrade.productdetail.ProductDetail"
-        >
+        tools:context="com.example.pat.aapkatrade.productdetail.ShopDetailActivity">
 
         <include layout="@layout/toolbar_layout" />
 
@@ -51,294 +50,292 @@
                     android:layout_marginTop="@dimen/ten_dip"
 
                     >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal">
-
-
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/viewpager_custom"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/two_hundred_dip"
-                        android:layout_marginTop="@dimen/ten_dip"
-
-                        />
-                    <me.relex.circleindicator.CircleIndicator
-                        android:id="@+id/indicator_product_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-
-                        android:layout_marginBottom="100dp"
-                        android:layout_marginLeft="16dp"
-                        app:ci_animator="@anim/indicator_animator"
-                        app:ci_drawable="@drawable/selecteditem_dot"
-                        app:ci_drawable_unselected="@drawable/nonselected_item"
-                        app:ci_height="3dp"
-                        app:ci_margin="3dp"
-                        app:ci_width="8dp" />
-
-                    <LinearLayout
-                        android:id="@+id/viewpagerindicator"
-                        android:layout_width="40dp"
-                        android:layout_height="@dimen/twenty_dip"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="@dimen/ten_dip"
-                        android:orientation="horizontal">
-
-                    </LinearLayout>
-                </RelativeLayout>
-                </android.support.v7.widget.CardView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/ten_dip"
-
-                android:layout_height="match_parent">
-
-<android.support.percent.PercentRelativeLayout
-    android:layout_width="match_parent"
-    android:layout_alignParentTop="true"
-   android:layout_marginBottom="@dimen/ten_dip"
-    android:layout_height="match_parent">
-
-
-
-
-</android.support.percent.PercentRelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="10"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginBottom="0dip"
-                    android:layout_height="wrap_content">
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="9.5"
-                        android:background="#E20054"
-                        android:minHeight="179dp">
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
 
-                        <TextView
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager_custom"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/two_hundred_dip"
+                            android:layout_marginTop="@dimen/ten_dip"
+
+                            />
+
+                        <me.relex.circleindicator.CircleIndicator
+                            android:id="@+id/indicator_product_detail"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_margin="@dimen/ten_dip"
-                            android:text="@string/shop_info"
-                            android:textColor="@color/white" />
+                            android:layout_height="40dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
 
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.5"
-                        android:layout_height="0dp">
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/ten_dip"
-                    android:layout_marginRight="@dimen/ten_dip"
-                    android:background="@color/grey_light"
-                    android:layout_marginTop="@dimen/fifty_dip"
-
-                    >
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        >
-
+                            android:layout_marginBottom="100dp"
+                            android:layout_marginLeft="16dp"
+                            app:ci_animator="@anim/indicator_animator"
+                            app:ci_drawable="@drawable/selecteditem_dot"
+                            app:ci_drawable_unselected="@drawable/nonselected_item"
+                            app:ci_height="3dp"
+                            app:ci_margin="3dp"
+                            app:ci_width="8dp" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/relativeProductDetail"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-
-                            <com.balysv.materialripple.MaterialRippleLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:mrl_rippleColor="#999999"
-                                app:mrl_rippleOverlay="true">
-
-
-                                <LinearLayout
-                                    android:id="@+id/linearlayoutShare"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/black_border"
-                                    android:orientation="horizontal"
-                                    android:padding="8dp"
-                                    android:weightSum="1">
-
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.3">
-
-                                        <ImageView
-                                            android:id="@+id/imgEdtCompanyName"
-                                            android:layout_width="@dimen/twenty_five_dip"
-                                            android:layout_height="@dimen/twenty_dip"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_centerVertical="true"
-                                            android:layout_weight="0.3"
-                                            android:src="@drawable/ic_share" />
-
-
-                                    </RelativeLayout>
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_toRightOf="@+id/imgEdtCompanyName"
-                                        android:layout_weight="0.7"
-                                        android:text="Share"
-                                        android:textColor="@color/black"
-
-                                        />
-
-                                </LinearLayout>
-
-
-                            </com.balysv.materialripple.MaterialRippleLayout>
-
-
-                            <com.balysv.materialripple.MaterialRippleLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:mrl_rippleColor="#999999"
-                                app:mrl_rippleOverlay="true">
-
-
-                                <LinearLayout
-                                    android:id="@+id/linearlayoutLocation"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/black_border"
-                                    android:orientation="horizontal"
-                                    android:padding="8dp"
-                                    android:weightSum="1">
-
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.3">
-
-                                        <ImageView
-                                            android:id="@+id/imgDeleteCompany"
-                                            android:layout_width="@dimen/twenty_five_dip"
-                                            android:layout_height="@dimen/twenty_dip"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_centerVertical="true"
-                                            android:layout_weight="0.3"
-                                            android:src="@drawable/ic_location" />
-
-
-                                    </RelativeLayout>
-
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_toRightOf="@+id/imgDeleteCompany"
-                                        android:layout_weight="0.7"
-                                        android:text="Location"
-                                        android:textColor="@color/black"
-
-                                        />
-
-                                </LinearLayout>
-
-                            </com.balysv.materialripple.MaterialRippleLayout>
-
-
-
+                            android:id="@+id/viewpagerindicator"
+                            android:layout_width="40dp"
+                            android:layout_height="@dimen/twenty_dip"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/ten_dip"
+                            android:orientation="horizontal">
 
                         </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/ten_dip"
+
+                    android:layout_height="match_parent">
+
+                    <android.support.percent.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="@dimen/ten_dip"
+                        android:layout_height="match_parent">
+
+
+                    </android.support.percent.PercentRelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="10"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="0dip"
+                        android:layout_height="wrap_content">
+
 
                         <RelativeLayout
-                            android:id="@+id/relativeProductDetail"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:padding="@dimen/ten_dip">
+                            android:layout_height="0dp"
+                            android:layout_weight="9.5"
+                            android:background="#E20054"
+                            android:minHeight="179dp">
 
                             <TextView
-                                android:id="@+id/tvShopName"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Laxmi Auto World"
-                                android:textColor="@color/green"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_alignParentTop="true"
-                             />
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/ten_dip"
+                                android:text="@string/shop_info"
+                                android:textColor="@color/white" />
 
+                        </RelativeLayout>
 
-
-                            <TextView
-                                android:id="@+id/tvShopAddress"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvShopName"
-                                android:layout_marginTop="@dimen/fifteen_dip"
-
-                                android:textColor="@color/orange" />
-
-                            <TextView
-                                android:id="@+id/tvMobile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvShopAddress"
-                                android:layout_marginTop="@dimen/fifteen_dip"
-
-                                android:textColor="@color/orange" />
-
-                            <TextView
-                                android:id="@+id/tvPhone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvMobile"
-                                android:layout_marginTop="@dimen/fifteen_dip"
-
-                                android:textColor="@color/orange" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.5"
+                            android:layout_height="0dp">
 
                         </RelativeLayout>
 
 
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
+                    </LinearLayout>
 
 
-</RelativeLayout>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:layout_marginRight="@dimen/ten_dip"
+                        android:background="@color/grey_light"
+                        android:layout_marginTop="@dimen/fifty_dip"
+
+                        >
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            >
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/relativeProductDetail"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <com.balysv.materialripple.MaterialRippleLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:mrl_rippleColor="#999999"
+                                    app:mrl_rippleOverlay="true">
+
+
+                                    <LinearLayout
+                                        android:id="@+id/linearlayoutShare"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/black_border"
+                                        android:orientation="horizontal"
+                                        android:padding="8dp"
+                                        android:weightSum="1">
+
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.3">
+
+                                            <ImageView
+                                                android:id="@+id/imgEdtCompanyName"
+                                                android:layout_width="@dimen/twenty_five_dip"
+                                                android:layout_height="@dimen/twenty_dip"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_weight="0.3"
+                                                android:src="@drawable/ic_share" />
+
+
+                                        </RelativeLayout>
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_toRightOf="@+id/imgEdtCompanyName"
+                                            android:layout_weight="0.7"
+                                            android:text="Share"
+                                            android:textColor="@color/black"
+
+                                            />
+
+                                    </LinearLayout>
+
+
+                                </com.balysv.materialripple.MaterialRippleLayout>
+
+
+                                <com.balysv.materialripple.MaterialRippleLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:mrl_rippleColor="#999999"
+                                    app:mrl_rippleOverlay="true">
+
+
+                                    <LinearLayout
+                                        android:id="@+id/linearlayoutLocation"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/black_border"
+                                        android:orientation="horizontal"
+                                        android:padding="8dp"
+                                        android:weightSum="1">
+
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.3">
+
+                                            <ImageView
+                                                android:id="@+id/imgDeleteCompany"
+                                                android:layout_width="@dimen/twenty_five_dip"
+                                                android:layout_height="@dimen/twenty_dip"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_weight="0.3"
+                                                android:src="@drawable/ic_location" />
+
+
+                                        </RelativeLayout>
+
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_toRightOf="@+id/imgDeleteCompany"
+                                            android:layout_weight="0.7"
+                                            android:text="Location"
+                                            android:textColor="@color/black"
+
+                                            />
+
+                                    </LinearLayout>
+
+                                </com.balysv.materialripple.MaterialRippleLayout>
+
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/relativeProductDetail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:padding="@dimen/ten_dip">
+
+                                <TextView
+                                    android:id="@+id/tvShopName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Laxmi Auto World"
+                                    android:textColor="@color/green"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_alignParentTop="true" />
+
+
+                                <TextView
+                                    android:id="@+id/tvShopAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvShopName"
+                                    android:layout_marginTop="@dimen/fifteen_dip"
+
+                                    android:textColor="@color/orange" />
+
+                                <TextView
+                                    android:id="@+id/tvMobile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvShopAddress"
+                                    android:layout_marginTop="@dimen/fifteen_dip"
+
+                                    android:textColor="@color/orange" />
+
+                                <TextView
+                                    android:id="@+id/tvPhone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvMobile"
+                                    android:layout_marginTop="@dimen/fifteen_dip"
+
+                                    android:textColor="@color/orange" />
+
+                            </RelativeLayout>
+
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/fourty_dip"
@@ -352,8 +349,7 @@
                         android:background="@color/grey_light"
                         android:layout_weight="8"
                         android:layout_marginTop="@dimen/fourty_dip"
-                        android:layout_marginRight="@dimen/ten_dip"
-                      >
+                        android:layout_marginRight="@dimen/ten_dip">
 
 
                         <RelativeLayout
@@ -362,12 +358,10 @@
                             android:padding="@dimen/ten_dip">
 
 
-
-
                             <TextView
                                 android:id="@+id/tvDiscription"
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/fifty_dip"
+                                android:layout_height="wrap_content"
 
                                 android:layout_marginTop="@dimen/ten_dip"
                                 android:text="@string/description"
@@ -380,37 +374,34 @@
                     </android.support.v7.widget.CardView>
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="10"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_height="@dimen/hundred_dip">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:weightSum="10"
-                android:layout_alignParentTop="true"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="9.5"
+                            android:background="#21BEDD">
 
-                android:layout_height="@dimen/hundred_dip">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/ten_dip"
+                                android:text="@string/description_heading"
+                                android:textColor="@color/white" />
+
+                        </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="9.5"
-                    android:background="#21BEDD">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/ten_dip"
-                        android:text="@string/description_heading"
-                        android:textColor="@color/white" />
-
+                    </LinearLayout>
                 </RelativeLayout>
 
-
-
-
-</LinearLayout>
-</RelativeLayout>
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -424,7 +415,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/ten_dip">
-
 
 
                         <TextView
@@ -441,507 +431,67 @@
 
 
                 </android.support.v7.widget.CardView>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/fourty_dip"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:weightSum="10"
-        android:layout_alignParentTop="true"
-
-        android:layout_height="@dimen/two_hundreds_fifty">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_weight="9.5"
-            android:background="#EB5B1C"
-            android:layout_height="0dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-               >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_margin="@dimen/ten_dip"
-                    android:text="@string/shop_products"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                   />
-
-                <RelativeLayout
-                    android:id="@+id/rl_viewall_latest_post"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/ten_dip"
-                    android:background="@color/white"
-                    android:gravity="right"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/viewall"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="#21BEDD"
-                        android:textSize="10sp" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-
-
-
-    </LinearLayout>
-
-
-
-
-
-
-    <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/twenty_dip"
-                    android:orientation="vertical">
-
-
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerproduct"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="@dimen/twenty_dip"
-                        android:nestedScrollingEnabled="false"
-
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                </LinearLayout>
-</RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/fourty_dip"
-
                     android:layout_height="match_parent">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="10"
-                    android:layout_alignParentTop="true"
-
-                    android:layout_height="@dimen/two_hundreds_fifty">
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_weight="9.5"
-                        android:background="#8CC739"
-                        android:layout_height="0dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_margin="@dimen/ten_dip"
-                            android:text="@string/shop_time"
-                            android:textColor="@color/white"
-                            android:layout_height="match_parent" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.5"
-                        android:layout_height="0dp">
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fourty_dip"
-                    android:layout_marginLeft="@dimen/ten_dip"
-                    android:layout_marginRight="@dimen/ten_dip"
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <ImageView
-                            android:id="@+id/imgOpenShop"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_open_shop"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            />
-
-                        <TextView
-                            android:id="@+id/tvOpenShopheading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="OPEN SHOP"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/imgOpenShop"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/fifteen_dip"
-                            android:textSize="18sp"
-                            />
-
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/openShopList"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/one_hundred_five_dip"
-                            android:layout_below="@+id/tvOpenShopheading"
-                            android:layout_marginTop="@dimen/twenty_dip"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="2dp"
-                            android:layout_marginBottom="2dp"
-                            >
-
-                        </android.support.v7.widget.RecyclerView>
-
-                    </RelativeLayout>
-
-
-                </android.support.v7.widget.CardView>
-</RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/fourty_dip"
-
-                    android:layout_height="match_parent">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="10"
-                    android:layout_alignParentTop="true"
-
-                    android:layout_height="@dimen/two_hundred_dip">
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_weight="9.5"
-                        android:background="#085DAD"
-
-                        android:layout_height="0dp">
-                        <TextView
-                            android:id="@+id/tvReviewHeading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/ten_dip"
-                            android:text="@string/review_heading"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.5"
-                        android:layout_height="0dp">
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/ten_dip"
-                    android:layout_marginRight="@dimen/ten_dip"
-                    android:layout_marginTop="@dimen/fifty_dip"
-                    android:layout_marginBottom="@dimen/ten_dip"
-                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:weightSum="10"
+                        android:layout_alignParentTop="true"
 
+                        android:layout_height="@dimen/two_hundreds_fifty_dip">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-
-                            android:padding="@dimen/ten_dip">
-
-
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-
-
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0.8"
-                                    android:padding="@dimen/ten_dip">
-
-
-                                    <RelativeLayout
-                                        android:id="@+id/relativeRatingDetails"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="@dimen/fifteen_dip">
-
-                                        <TextView
-                                            android:id="@+id/tvRatingAverage"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="4.8"
-                                            android:textColor="@color/black"
-                                            android:textSize="@dimen/twenty_five_dip"
-                                            android:textStyle="bold" />
-
-                                        <ImageView
-                                            android:layout_width="@dimen/twenty_dip"
-                                            android:layout_height="@dimen/twenty_dip"
-                                            android:layout_marginTop="8dp"
-                                            android:layout_toRightOf="@+id/tvRatingAverage"
-                                            android:src="@drawable/ic_star" />
-
-                                    </RelativeLayout>
-
-
-                                    <TextView
-                                        android:id="@+id/tvToatal_rating_review"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/relativeRatingDetails"
-                                        android:layout_marginTop="@dimen/ten_dip"
-                                        android:text="32 rating and 12 review" />
-
-                                </RelativeLayout>
-
-
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.01"
-                                    android:background="#E6E2E3"></View>
-
-
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/five_dip"
-                                    android:layout_weight="1.19">
-
-                                    <TextView
-                                        android:id="@+id/tvfiveStar"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="5"
-                                        android:textColor="@color/black" />
-
-
-                                    <ImageView
-                                        android:id="@+id/imgFiveStar"
-                                        android:layout_width="@dimen/fifteen_dip"
-                                        android:layout_height="@dimen/fifteen_dip"
-                                        android:layout_marginTop="2dp"
-                                        android:layout_toRightOf="@+id/tvfiveStar"
-                                        android:src="@drawable/ic_star" />
-
-                                    <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
-                                        android:id="@+id/progressbarFive"
-                                        style="?android:attr/progressBarStyleHorizontal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="4dp"
-                                        android:layout_marginTop="7dp"
-                                        android:layout_toRightOf="@+id/imgFiveStar"
-                                        android:progressDrawable="@drawable/progrees_five_back" />
-
-                                    <TextView
-                                        android:id="@+id/tvfourStar"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/imgFiveStar"
-                                        android:layout_marginTop="@dimen/five_dip"
-                                        android:text="4"
-                                        android:textColor="@color/black" />
-
-                                    <ImageView
-                                        android:id="@+id/imgFourStar"
-                                        android:layout_width="@dimen/fifteen_dip"
-                                        android:layout_height="@dimen/fifteen_dip"
-                                        android:layout_below="@+id/imgFiveStar"
-                                        android:layout_marginTop="@dimen/seven_dip"
-                                        android:layout_toRightOf="@+id/tvfourStar"
-                                        android:src="@drawable/ic_star" />
-
-
-                                    <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
-                                        android:id="@+id/progressbarFour"
-                                        style="?android:attr/progressBarStyleHorizontal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="4dp"
-                                        android:layout_below="@+id/imgFiveStar"
-                                        android:layout_marginTop="13dp"
-                                        android:layout_toRightOf="@+id/imgFourStar"
-                                        android:progressDrawable="@drawable/progress_four_back" />
-
-                                    <TextView
-                                        android:id="@+id/tvthreeStar"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/imgFourStar"
-                                        android:layout_marginTop="@dimen/five_dip"
-                                        android:text="3"
-                                        android:textColor="@color/black" />
-
-
-                                    <ImageView
-                                        android:id="@+id/imgthreeStar"
-                                        android:layout_width="@dimen/fifteen_dip"
-                                        android:layout_height="@dimen/fifteen_dip"
-                                        android:layout_below="@+id/imgFourStar"
-                                        android:layout_marginTop="7dp"
-                                        android:layout_toRightOf="@+id/tvthreeStar"
-                                        android:src="@drawable/ic_star" />
-
-
-                                    <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
-                                        android:id="@+id/progressbarThree"
-                                        style="?android:attr/progressBarStyleHorizontal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="4dp"
-                                        android:layout_below="@+id/imgFourStar"
-                                        android:layout_marginTop="13dp"
-                                        android:layout_toRightOf="@+id/imgthreeStar"
-                                        android:progressDrawable="@drawable/progress_three_back" />
-
-
-                                    <TextView
-                                        android:id="@+id/tvtwoStar"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/imgthreeStar"
-                                        android:layout_marginTop="@dimen/five_dip"
-                                        android:text="2"
-                                        android:textColor="@color/black" />
-
-                                    <ImageView
-                                        android:id="@+id/imgtwoStar"
-                                        android:layout_width="@dimen/fifteen_dip"
-                                        android:layout_height="@dimen/fifteen_dip"
-                                        android:layout_below="@+id/imgthreeStar"
-                                        android:layout_marginTop="7dp"
-                                        android:layout_toRightOf="@+id/tvtwoStar"
-                                        android:src="@drawable/ic_star"
-                                        />
-
-                                    <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
-                                        android:id="@+id/progressbarTwo"
-                                        style="?android:attr/progressBarStyleHorizontal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="4dp"
-                                        android:layout_below="@+id/imgthreeStar"
-                                        android:layout_marginTop="13dp"
-                                        android:layout_toRightOf="@+id/imgtwoStar"
-                                        android:progressDrawable="@drawable/progress_two_back" />
-
-
-                                    <TextView
-                                        android:id="@+id/tvOneStar"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/imgtwoStar"
-                                        android:layout_marginTop="@dimen/five_dip"
-                                        android:text="1"
-                                        android:textColor="@color/black" />
-
-
-                                    <ImageView
-                                        android:id="@+id/imgOneStar"
-                                        android:layout_width="@dimen/fifteen_dip"
-                                        android:layout_height="@dimen/fifteen_dip"
-                                        android:layout_below="@+id/imgtwoStar"
-                                        android:layout_marginTop="7dp"
-                                        android:layout_toRightOf="@+id/tvOneStar"
-                                        android:src="@drawable/ic_star" />
-
-                                    <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
-                                        android:id="@+id/progressbarOne"
-                                        style="?android:attr/progressBarStyleHorizontal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="4dp"
-                                        android:layout_below="@+id/imgtwoStar"
-                                        android:layout_marginTop="13dp"
-                                        android:layout_toRightOf="@+id/imgOneStar"
-                                        android:progressDrawable="@drawable/progress_one_back" />
-
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:background="#BDBAB5"></View>
 
                         <RelativeLayout
-                            android:id="@+id/relativeRateReview"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/ten_dip">
+                            android:layout_weight="9.5"
+                            android:background="#EB5B1C"
+                            android:layout_height="0dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:text="RATE AND WRITE A REVIEW"
-                                android:textColor="@color/orange" />
 
+                                >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_margin="@dimen/ten_dip"
+                                    android:text="@string/shop_products"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:textColor="@color/white" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rl_viewall_latest_post"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="@dimen/ten_dip"
+                                    android:background="@color/white"
+                                    android:gravity="right"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_alignParentStart="true"
+                                        android:layout_alignParentTop="true"
+                                        android:text="@string/viewall"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textColor="#21BEDD"
+                                        android:textSize="10sp" />
+                                </RelativeLayout>
+                            </RelativeLayout>
 
                         </RelativeLayout>
 
@@ -949,25 +499,448 @@
                     </LinearLayout>
 
 
-                </android.support.v7.widget.CardView>
-
-</RelativeLayout>
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="70dp"
-                        >
+                        android:layout_marginTop="@dimen/twenty_dip"
+                        android:orientation="vertical">
+
 
                         <android.support.v7.widget.RecyclerView
-                            android:id="@+id/reviewList"
+                            android:id="@+id/recyclerproduct"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            >
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="@dimen/twenty_dip"
+                            android:nestedScrollingEnabled="false"
+
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                         </android.support.v7.widget.RecyclerView>
 
-                    </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/fourty_dip"
+
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="10"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_height="@dimen/two_hundreds_fifty_dip">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="9.5"
+                            android:background="#8CC739"
+                            android:layout_height="0dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_margin="@dimen/ten_dip"
+                                android:text="@string/shop_time"
+                                android:textColor="@color/white"
+                                android:layout_height="match_parent" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.5"
+                            android:layout_height="0dp">
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fourty_dip"
+                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:layout_marginRight="@dimen/ten_dip">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/imgOpenShop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_open_shop"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/ten_dip" />
+
+                            <TextView
+                                android:id="@+id/tvOpenShopheading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OPEN SHOP"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@+id/imgOpenShop"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="@dimen/fifteen_dip"
+                                android:textSize="18sp" />
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/openShopList"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/one_hundred_five_dip"
+                                android:layout_below="@+id/tvOpenShopheading"
+                                android:layout_marginTop="@dimen/twenty_dip"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginBottom="2dp">
+
+                            </android.support.v7.widget.RecyclerView>
+
+                        </RelativeLayout>
+
+
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/fourty_dip"
+
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="10"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_height="@dimen/two_hundred_dip">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="9.5"
+                            android:background="#085DAD"
+
+                            android:layout_height="0dp">
+
+                            <TextView
+                                android:id="@+id/tvReviewHeading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/ten_dip"
+                                android:text="@string/review_heading"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.5"
+                            android:layout_height="0dp">
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:layout_marginRight="@dimen/ten_dip"
+                        android:layout_marginTop="@dimen/fifty_dip"
+                        android:layout_marginBottom="@dimen/ten_dip">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+
+                                android:padding="@dimen/ten_dip">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2">
+
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.8"
+                                        android:padding="@dimen/ten_dip">
+
+
+                                        <RelativeLayout
+                                            android:id="@+id/relativeRatingDetails"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginTop="@dimen/fifteen_dip">
+
+                                            <TextView
+                                                android:id="@+id/tvRatingAverage"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="4.8"
+                                                android:textColor="@color/black"
+                                                android:textSize="@dimen/twenty_five_dip"
+                                                android:textStyle="bold" />
+
+                                            <ImageView
+                                                android:layout_width="@dimen/twenty_dip"
+                                                android:layout_height="@dimen/twenty_dip"
+                                                android:layout_marginTop="8dp"
+                                                android:layout_toRightOf="@+id/tvRatingAverage"
+                                                android:src="@drawable/ic_star" />
+
+                                        </RelativeLayout>
+
+
+                                        <TextView
+                                            android:id="@+id/tvToatal_rating_review"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/relativeRatingDetails"
+                                            android:layout_marginTop="@dimen/ten_dip"
+                                            android:text="32 rating and 12 review" />
+
+                                    </RelativeLayout>
+
+
+                                    <View
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="0.01"
+                                        android:background="#E6E2E3"></View>
+
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/five_dip"
+                                        android:layout_weight="1.19">
+
+                                        <TextView
+                                            android:id="@+id/tvfiveStar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="5"
+                                            android:textColor="@color/black" />
+
+
+                                        <ImageView
+                                            android:id="@+id/imgFiveStar"
+                                            android:layout_width="@dimen/fifteen_dip"
+                                            android:layout_height="@dimen/fifteen_dip"
+                                            android:layout_marginTop="2dp"
+                                            android:layout_toRightOf="@+id/tvfiveStar"
+                                            android:src="@drawable/ic_star" />
+
+                                        <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
+                                            android:id="@+id/progressbarFive"
+                                            style="?android:attr/progressBarStyleHorizontal"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="4dp"
+                                            android:layout_marginTop="7dp"
+                                            android:layout_toRightOf="@+id/imgFiveStar"
+                                            android:progressDrawable="@drawable/progrees_five_back" />
+
+                                        <TextView
+                                            android:id="@+id/tvfourStar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/imgFiveStar"
+                                            android:layout_marginTop="@dimen/five_dip"
+                                            android:text="4"
+                                            android:textColor="@color/black" />
+
+                                        <ImageView
+                                            android:id="@+id/imgFourStar"
+                                            android:layout_width="@dimen/fifteen_dip"
+                                            android:layout_height="@dimen/fifteen_dip"
+                                            android:layout_below="@+id/imgFiveStar"
+                                            android:layout_marginTop="@dimen/seven_dip"
+                                            android:layout_toRightOf="@+id/tvfourStar"
+                                            android:src="@drawable/ic_star" />
+
+
+                                        <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
+                                            android:id="@+id/progressbarFour"
+                                            style="?android:attr/progressBarStyleHorizontal"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="4dp"
+                                            android:layout_below="@+id/imgFiveStar"
+                                            android:layout_marginTop="13dp"
+                                            android:layout_toRightOf="@+id/imgFourStar"
+                                            android:progressDrawable="@drawable/progress_four_back" />
+
+                                        <TextView
+                                            android:id="@+id/tvthreeStar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/imgFourStar"
+                                            android:layout_marginTop="@dimen/five_dip"
+                                            android:text="3"
+                                            android:textColor="@color/black" />
+
+
+                                        <ImageView
+                                            android:id="@+id/imgthreeStar"
+                                            android:layout_width="@dimen/fifteen_dip"
+                                            android:layout_height="@dimen/fifteen_dip"
+                                            android:layout_below="@+id/imgFourStar"
+                                            android:layout_marginTop="7dp"
+                                            android:layout_toRightOf="@+id/tvthreeStar"
+                                            android:src="@drawable/ic_star" />
+
+
+                                        <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
+                                            android:id="@+id/progressbarThree"
+                                            style="?android:attr/progressBarStyleHorizontal"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="4dp"
+                                            android:layout_below="@+id/imgFourStar"
+                                            android:layout_marginTop="13dp"
+                                            android:layout_toRightOf="@+id/imgthreeStar"
+                                            android:progressDrawable="@drawable/progress_three_back" />
+
+
+                                        <TextView
+                                            android:id="@+id/tvtwoStar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/imgthreeStar"
+                                            android:layout_marginTop="@dimen/five_dip"
+                                            android:text="2"
+                                            android:textColor="@color/black" />
+
+                                        <ImageView
+                                            android:id="@+id/imgtwoStar"
+                                            android:layout_width="@dimen/fifteen_dip"
+                                            android:layout_height="@dimen/fifteen_dip"
+                                            android:layout_below="@+id/imgthreeStar"
+                                            android:layout_marginTop="7dp"
+                                            android:layout_toRightOf="@+id/tvtwoStar"
+                                            android:src="@drawable/ic_star" />
+
+                                        <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
+                                            android:id="@+id/progressbarTwo"
+                                            style="?android:attr/progressBarStyleHorizontal"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="4dp"
+                                            android:layout_below="@+id/imgthreeStar"
+                                            android:layout_marginTop="13dp"
+                                            android:layout_toRightOf="@+id/imgtwoStar"
+                                            android:progressDrawable="@drawable/progress_two_back" />
+
+
+                                        <TextView
+                                            android:id="@+id/tvOneStar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/imgtwoStar"
+                                            android:layout_marginTop="@dimen/five_dip"
+                                            android:text="1"
+                                            android:textColor="@color/black" />
+
+
+                                        <ImageView
+                                            android:id="@+id/imgOneStar"
+                                            android:layout_width="@dimen/fifteen_dip"
+                                            android:layout_height="@dimen/fifteen_dip"
+                                            android:layout_below="@+id/imgtwoStar"
+                                            android:layout_marginTop="7dp"
+                                            android:layout_toRightOf="@+id/tvOneStar"
+                                            android:src="@drawable/ic_star" />
+
+                                        <github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar
+                                            android:id="@+id/progressbarOne"
+                                            style="?android:attr/progressBarStyleHorizontal"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="4dp"
+                                            android:layout_below="@+id/imgtwoStar"
+                                            android:layout_marginTop="13dp"
+                                            android:layout_toRightOf="@+id/imgOneStar"
+                                            android:progressDrawable="@drawable/progress_one_back" />
+
+
+                                    </RelativeLayout>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="@dimen/ten_dip"
+                                android:background="#BDBAB5"></View>
+
+                            <RelativeLayout
+                                android:id="@+id/relativeRateReview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/ten_dip">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="RATE AND WRITE A REVIEW"
+                                    android:textColor="@color/orange" />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="70dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/reviewList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten_dip">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
 
             </LinearLayout>
         </ScrollView>

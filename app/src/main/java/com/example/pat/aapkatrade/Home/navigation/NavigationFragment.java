@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,10 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
+import com.example.pat.aapkatrade.Home.navigation.adapter.NavigationAdapter;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
-import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
@@ -37,15 +35,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
 
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.net.ssl.X509TrustManager;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -53,7 +47,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
+public class NavigationFragment extends Fragment implements View.OnClickListener {
 
 
     public static final String preFile = "textFile";
@@ -75,34 +69,22 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     RelativeLayout header;
     TextView textViewName, emailid;
     public static TextView usertype;
-    private ImageView imageViewGB;
-
-    private ImageView edit_profile_imgview;
-    private ExpandableListAdapter listAdapter;
-    private CommonAdapter_navigation_recycleview category_adapter;
+    private NavigationAdapter category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
-    public ArrayList<SubCategory> listDataChild = new ArrayList<>();
     RelativeLayout rl_category, rl_logout;
-
-    int flag_categoryclick;
     View rl_main_content;
-    private ArrayList nested_dataheader;
-    //public NestedScrollView navigation_parent_scrollview;
     ProgressBarHandler progressBarHandler;
-    private static String shared_pref_name = "aapkatrade";
     RecyclerView navigation_recycleview;
     LinearLayoutManager navigation_linear_layout_manager;
     ImageView navigation_close;
     android.support.v7.widget.AppCompatImageView user_pic_img_vew;
 
     public NavigationFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         progressBarHandler = new ProgressBarHandler(context);
         app_sharedpreference = new AppSharedPreference(getActivity());
@@ -135,17 +117,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 mDrawerLayout.closeDrawers();
             }
         });
-        //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
-        //prepare textviewdata
         categoryname = new ArrayList<>();
         categoryids = new ArrayList<>();
-
-        //sharedprefrance
-        // loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         textViewName = (TextView) view.findViewById(R.id.tv_name);
         usertype = (TextView) view.findViewById(R.id.welcome_guest);
         emailid = (TextView) view.findViewById(R.id.tv_email);
-        // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
         navigation_linear_layout_manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         navigation_recycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
@@ -153,8 +129,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
-
-
 
 
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
@@ -181,10 +155,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                         .load(user_image);
 
                 usertype.setText("Buyer");
-
-
-
-
 
 
             }
@@ -311,83 +281,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     }
 
-    @Override
-    public void itemClicked(View view, int groupview, int childview) {
-
-        String sub_category_id;
-
-        System.out.println("childview------------" + groupview + childview);
-
-        String category_id = listDataHeader.get(groupview).getCategoryId();
-
-        System.out.println("size-------------------" + listDataHeader.get(groupview).getSubCategoryList().size());
-
-        if (listDataHeader.get(groupview).getSubCategoryList().size() == 0) {
-
-            sub_category_id = "not_available";
-        } else {
-            sub_category_id = listDataHeader.get(groupview).getSubCategoryList().get(childview).subCategoryId;
-
-        }
-
-        System.out.println("category_id,sub_category_id---------" + category_id + "hi---" + sub_category_id);
-
-        try {
-
-            Intent i = new Intent(getActivity(), CategoryListActivity.class);
-            i.putExtra("category_id", category_id);
-            i.putExtra("sub_category_id", sub_category_id);
-            startActivity(i);
-
-        } catch (Exception e) {
-            Log.e("Exception", e.toString());
-        }
-
-
-    }
-
-
-    private void replaceFragment(Fragment newFragment, String tag) {
-
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
-        transaction.commit();
-    }
-
-
-    private static class Trust implements X509TrustManager {
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
-                throws CertificateException {
-
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
-                throws CertificateException {
-
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-
-    }
-
     private void prepareListData() {
         getCategory();
-
     }
 
     private void getCategory() {
@@ -405,42 +300,34 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             @Override
             public void Taskcomplete(JsonObject data) {
 
-                Log.e("data",data.toString());
                 if (data != null) {
+                    Log.e("data", data.toString());
                     JsonObject jsonObject = data.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
                     for (int i = 0; i < jsonResultArray.size(); i++) {
 
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
-
-                        listDataChild = new ArrayList<>();
-
-                        for (int k = 0; k < json_subcategory.size(); k++) {
-                            JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
-                            SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
-                            listDataChild.add(subCategory);
-                        }
-                        CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString(), listDataChild);
+                        CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
 
                         listDataHeader.add(categoryHome);
 
-                        Log.e("listDataHeader_cate", categoryHome.toString());
+                        Log.e("listDataHeader_cate", categoryHome.toString()+"----------------->"+categoryHome.getCategoryId()+"----------------->"+categoryHome.getCategoryName());
                     }
-                    Collections.sort(listDataHeader, new Comparator<CategoryHome>() {
-                        @Override
-                        public int compare(CategoryHome o1, CategoryHome o2) {
-                            return o1.getCategoryName().compareToIgnoreCase(o2.getCategoryName());
-                        }
-                    });
+
+                    if(listDataHeader!=null) {
+                        Collections.sort(listDataHeader, new Comparator<CategoryHome>() {
+                            @Override
+                            public int compare(CategoryHome o1, CategoryHome o2) {
+                                return o1.getCategoryName().compareToIgnoreCase(o2.getCategoryName());
+                            }
+                        });
+                    }
                 }
                 set_recycleview_adapter();
 
 
-
             }
-
 
 
         };
@@ -451,14 +338,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private void set_recycleview_adapter() {
 
         if (listDataHeader.size() != 0) {
-            category_adapter = new CommonAdapter_navigation_recycleview(context, listDataHeader);
+            category_adapter = new NavigationAdapter(context, listDataHeader);
             navigation_recycleview.setAdapter(category_adapter);
-
         }
     }
-
-
-
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
@@ -475,20 +358,20 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         if (app_sharedpreference.getsharedpref("username", "not") != null) {
 
-            String Username = app_sharedpreference.getsharedpref("name", "not");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+            String userName = app_sharedpreference.getsharedpref("name", "not");
+            String emailId = app_sharedpreference.getsharedpref("emailid", "not");
 
 
-            if (Username.contains("not")) {
+            if (userName.contains("not")) {
 
                 rl_logout.setVisibility(View.GONE);
 
-                Log.e("Shared_pref2", "null" + Username);
+                Log.e("Shared_pref2", "null" + userName);
             } else {
 
                 set_visibility_logout();
 
-                setdata(Username, Emailid);
+                setdata(userName, emailId);
                 usertype.setText("Buyer");
 
 

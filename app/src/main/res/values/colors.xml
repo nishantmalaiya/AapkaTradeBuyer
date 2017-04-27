@@ -73,6 +73,7 @@
     <color name="color_progress5">#909090</color>
     <color name="color_progress_default">#e8e7e7</color>
     <color name="shop_product_item">#7E7E7E</color>
+    <color name="grey_more_light2">#F1F5F8</color>
 
 
 </resources>

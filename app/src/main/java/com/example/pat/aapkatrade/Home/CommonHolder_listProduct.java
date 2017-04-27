@@ -17,11 +17,11 @@ import com.example.pat.aapkatrade.R;
 class CommonHolder_listProduct extends RecyclerView.ViewHolder {
 
 
-    TextView tvProductName,tvproductprize;
-    ImageView product_imageview,product_addcard,product_description;
-    RatingBar ratingbar;
-    CardView cardview;
-    RelativeLayout rl_cartview;
+    public TextView tvProductName,tvproductprize;
+    public ImageView product_imageview,product_addcard,product_description;
+    public RatingBar ratingbar;
+    public CardView cardview;
+    public RelativeLayout rl_cartview;
 
     View view_grid_left,view_grid_right;
 

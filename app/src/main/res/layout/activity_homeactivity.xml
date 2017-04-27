@@ -95,15 +95,6 @@
                 android:layout_gravity="center_horizontal|bottom">
 
 
-                <!---add your views here-->
-
-                <!-- <ImageView
-                     android:id="@+id/imageView_close"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="top|right"
-                     android:clickable="true"
-                     android:src="@drawable/close" />-->
             </FrameLayout>
 
         </RelativeLayout>
