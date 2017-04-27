@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">AapkaTrade</string>
+    <string name="app_name" translatable="false">AapkaTrade Buyer</string>
 
     <string name="my_profile_heading" translatable="false">My Profile</string>
     <string name="my_profile_detail_heading" translatable="false">Hello,<font color="#0000FF"> Arvind </font> - To Update your account information.</string>
