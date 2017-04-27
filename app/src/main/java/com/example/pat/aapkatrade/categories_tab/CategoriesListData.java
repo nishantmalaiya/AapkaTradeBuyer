@@ -6,7 +6,7 @@ package com.example.pat.aapkatrade.categories_tab;
 
 public class CategoriesListData {
 
-    String shopId, shopName,  shopImage,shopLocation;
+    String shopId, shopName,shopImage,shopLocation;
 
     public CategoriesListData(String shopId, String shopName, String shopImage,String shopLocation){
 

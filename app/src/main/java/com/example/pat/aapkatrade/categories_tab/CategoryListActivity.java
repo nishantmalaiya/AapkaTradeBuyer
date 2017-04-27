@@ -188,9 +188,9 @@ public class CategoryListActivity extends AppCompatActivity {
                                             jsonObject2.get("country_name").getAsString();
 
                                     productListDatas.add(new CategoriesListData(shopId, shopName,shopImage,shopLocation));
+                                    AndroidUtils.showErrorLog(context, "productListDatas : "+productListDatas.get(i).shopImage);
 
                                 }
-
                                 categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
                                 myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
                                 mRecyclerView.setAdapter(categoriesListAdapter);

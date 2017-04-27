@@ -109,8 +109,8 @@
     <string name="deliveryArea" translatable="false">Indrapuram,Noida,New Delhi</string>
     <string name="selected_place" translatable="false">Selected Place</string>
     <string name="personalDetails" translatable="false">Personal Details</string>
-    <string name="terms" translatable="false">Terms &amp;amp; Conditions</string>white
-    <string name="invite" translatable="false">Invite &amp;amp; Share</string>
+    <string name="terms" translatable="false">Terms &amp; Conditions</string>white
+    <string name="invite" translatable="false">Invite &amp; Share</string>
     <string name="product_name2" translatable="false">Product Name</string>
     <string name="delivery_location" translatable="false">Delivery Location</string>
     <string name="action_settings" translatable="false">Settings</string>
