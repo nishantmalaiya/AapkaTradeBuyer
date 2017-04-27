@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.DashboardFragment;
 import com.example.pat.aapkatrade.Home.HomeActivity;
+import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
@@ -27,6 +31,7 @@ import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -56,7 +61,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         class_index=  getIntent().getStringExtra("forgot_index");
         Log.e("class_index",""+class_index);
         forgot_password_fragment = new Forgot_password_fragment();
-        //setUpToolBar();
+        setUpToolBar();
         setupForgetpassword(class_index);
 
         initView();
@@ -261,5 +266,10 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         transaction.commit();
     }
 
+    @Override
+    public void onBackPressed() {
 
+        finish();
+
+    }
 }

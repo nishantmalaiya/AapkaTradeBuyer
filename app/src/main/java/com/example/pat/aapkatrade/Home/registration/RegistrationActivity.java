@@ -155,9 +155,17 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
                                 progressBarHandler.hide();
                                 Intent call_to_startactivity = new Intent(RegistrationActivity.this, ActivityOTPVerify.class);
-                                call_to_startactivity.putExtra("class_name", context.getClass().getName());
+                                call_to_startactivity.putExtra("email", etEmail.getText().toString());
+                                call_to_startactivity.putExtra("name", etFirstName.getText().toString());
+                                call_to_startactivity.putExtra("password", etPassword.getText().toString());
+                                call_to_startactivity.putExtra("mobile", etMobileNo.getText().toString());
+                                call_to_startactivity.putExtra("city_id", cityID);
+                                call_to_startactivity.putExtra("lastname", etLastName.getText().toString());
+                                call_to_startactivity.putExtra("country_id", "101");
+                                call_to_startactivity.putExtra("state_id", stateID);
+                                call_to_startactivity.putExtra("address", etAddress.getText().toString());
+                                call_to_startactivity.putExtra("class_name", context.getClass().getSimpleName());
                                 startActivity(call_to_startactivity);
-
                             } else {
 
                                 progressBarHandler.hide();
@@ -186,7 +194,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                        int position, long id) {
                 cityList = new ArrayList<>();
                 AndroidUtils.showErrorLog(context, "State Id is ::::::::  " + position);
-                if (position > 0){
+                if (position > 0) {
                     findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
                     findViewById(R.id.view1).setVisibility(View.VISIBLE);
                     getCity(String.valueOf(position));

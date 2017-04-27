@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,37 +36,14 @@ import java.util.HashMap;
 
 
 public class Forgot_password_fragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-    AppSharedPreference app_sharedpreference;
-    ProgressBarHandler progressBarHandler;
-    TextView tv_forgot_password,tv_forgot_password_description;
-    EditText et_email_forgot,et_mobile_no;
-    Button btn_send_otp;
-    private CoordinatorLayout activity_forgot__password;
-    private String usertype;
-
-    String classname;
-    Forgot_password_fragment forgot_password_fragment;
-    Reset_password_fragment reset_password_fragment;
-
-    String class_index;
-
-
-
-
-    public Forgot_password_fragment() {
-        // Required empty public constructor
-    }
-
-
-
-
-
-
-
+    private AppSharedPreference app_sharedpreference;
+    private ProgressBarHandler progressBarHandler;
+    private TextView tv_forgot_password, tv_forgot_password_description;
+    private EditText et_email_forgot, et_mobile_no;
+    private Button btn_send_otp;
+    private FrameLayout forgot_password_container;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,37 +52,26 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View v =  inflater.inflate(R.layout.fragment_forgot_password, container, false);
-
-
-initView(v);
-        //setUpToolBar(v);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        initView(v);
         return v;
-
-
-
     }
 
     private void initView(View v) {
         app_sharedpreference = new AppSharedPreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
+        forgot_password_container = (FrameLayout) v.findViewById(R.id.forgot_password_container);
 
-        tv_forgot_password = (TextView)v. findViewById(R.id.tv_forgot_password);
+        tv_forgot_password = (TextView) v.findViewById(R.id.tv_forgot_password);
         tv_forgot_password_description = (TextView) v.findViewById(R.id.tv_forgot_password_description);
 
 
-        et_email_forgot = (EditText)v. findViewById(R.id.et_email_forgot);
-        et_mobile_no = (EditText)v. findViewById(R.id.et_mobile_no);
+        et_email_forgot = (EditText) v.findViewById(R.id.et_email_forgot);
+        et_mobile_no = (EditText) v.findViewById(R.id.et_mobile_no);
 
         btn_send_otp = (Button) v.findViewById(R.id.btn_send_otp);
         btn_send_otp.setOnClickListener(this);
-
-       // activity_forgot__password = (CoordinatorLayout) findViewById(R.id.activity_forgot__password);
-
         Change_Font.Change_Font_textview(getActivity(), tv_forgot_password);
         Change_Font.Change_Font_textview(getActivity(), tv_forgot_password_description);
 
@@ -137,15 +104,10 @@ initView(v);
 
 
         } else {
-            showmessage("");
 
         }
 
 
-    }
-
-    private void showmessage(String message) {
-        AndroidUtils.showSnackBar(activity_forgot__password, message);
     }
 
 
@@ -155,25 +117,9 @@ initView(v);
 
         String webservice_forgot_password = getResources().getString(R.string.webservice_base_url) + "/forget";
 
-        if (app_sharedpreference.shared_pref != null) {
-            if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-
-                usertype = "business";
-            } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-                usertype = "seller";
-
-            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                usertype = "business";
-
-            }
-        } else {
-            Log.e("null_sharedPreferences", "sharedPreferences");
-        }
-
-
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", usertype);
+        webservice_body_parameter.put("type", getString(R.string.user_type));
         webservice_body_parameter.put("email", et_email_forgot.getText().toString().trim());
         webservice_body_parameter.put("mobile", et_mobile_no.getText().toString().trim());
         webservice_body_parameter.put("client_id", App_config.getCurrentDeviceId(getActivity()));
@@ -192,60 +138,18 @@ initView(v);
                     if (error.contains("false")) {
 
                         Intent go_to_activity_otp_verify = new Intent(getActivity(), ActivityOTPVerify.class);
-                        go_to_activity_otp_verify.putExtra("class_name",getActivity().getClass().getName());
+                        go_to_activity_otp_verify.putExtra("class_name", getActivity().getClass().getName());
                         startActivity(go_to_activity_otp_verify);
                     }
                     String message = data.get("message").getAsString();
-                    showmessage(message);
+                    AndroidUtils.showSnackBar(forgot_password_container, message);
                     progressBarHandler.hide();
                 } else {
                     progressBarHandler.hide();
                 }
-                Log.e("forgot_password", data.toString());
             }
         };
     }
-
-//    private void setUpToolBar(View v) {
-//        ImageView homeIcon = (ImageView) v.findViewById(R.id.iconHome);
-//        Toolbar toolbar = (Toolbar)v. findViewById(R.id.toolbar);
-//        AndroidUtils.setImageColor(homeIcon, getActivity(), R.color.white);
-//        homeIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), HomeActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//            }
-//        });
-//        AndroidUtils.setBackgroundSolid(toolbar, getActivity(), R.color.transparent, 0);
-//       getActivity(). setSupportActionBar(toolbar);
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayShowTitleEnabled(false);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setTitle(null);
-//            getSupportActionBar().setElevation(0);
-//        }
-//    }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_map, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                finish();
-//                break;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
 
 
 
