@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.productdetail.shop_all_product.ShopAllProductData;
 import com.example.pat.aapkatrade.productdetail.shop_all_product.ShopAllProductHolder;
 
@@ -36,24 +37,18 @@ public class CartAdapter extends RecyclerView.Adapter<ShopAllProductHolder> {
 
     @Override
     public ShopAllProductHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        return new ShopAllProductHolder(inflater.inflate(R.layout.row_shop_service_list, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ShopAllProductHolder holder, int position) {
-//        View view = inflater.inflate(R.layout.row_shop_service_list, holder, false);
-    }
+        CartData cartData = cartDataArrayList.get(position);
+        holder.buttonAddtoCart.setText("Remove");
 
-//    @Override
-    /*
-    public ShopAllProductHolder onBindViewHolder(ShopAllProductHolder holder, int position) {
-        View view = inflater.inflate(R.layout.row_shop_service_list, holder, false);
-        return new ShopAllProductHolder(view);
     }
-*/
 
     private void showMessage(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+        AndroidUtils.showErrorLog(context, s);
     }
 
 
