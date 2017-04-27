@@ -53,7 +53,7 @@ import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
+
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 

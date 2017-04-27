@@ -1,17 +1,11 @@
 package com.example.pat.aapkatrade.login;
 
-import android.content.Context;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,13 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.Change_Font;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -36,7 +28,30 @@ import java.util.HashMap;
 
 
 public class Forgot_password_fragment extends Fragment implements View.OnClickListener {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+
+
+    ProgressBarHandler progressBarHandler;
+    TextView tv_forgot_password,tv_forgot_password_description;
+    EditText et_email_forgot,et_mobile_no;
+    Button btn_send_otp;
+    private CoordinatorLayout activity_forgot__password;
+    private String usertype="buyer";
+
+    String classname;
+    Forgot_password_fragment forgot_password_fragment;
+    Reset_password_fragment reset_password_fragment;
+
+    String class_index;
+
+
+
+
+    public Forgot_password_fragment() {
+        // Required empty public constructor
+    }
 
     private AppSharedPreference app_sharedpreference;
     private ProgressBarHandler progressBarHandler;
@@ -59,7 +74,7 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
     }
 
     private void initView(View v) {
-        app_sharedpreference = new AppSharedPreference(getActivity());
+
         progressBarHandler = new ProgressBarHandler(getActivity());
         forgot_password_container = (FrameLayout) v.findViewById(R.id.forgot_password_container);
 

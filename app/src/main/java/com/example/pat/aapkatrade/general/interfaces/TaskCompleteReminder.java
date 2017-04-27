@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.general;
+package com.example.pat.aapkatrade.general.interfaces;
 
 import com.google.gson.JsonObject;
 

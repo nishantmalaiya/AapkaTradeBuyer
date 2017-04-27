@@ -26,7 +26,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
@@ -46,13 +46,32 @@ public class ActivityOTPVerify extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     BroadcastReceiver receiver;
     LocalBroadcastManager bManager;
-    String class_name;
+    String class_name, etEmail, etFirstName, etPassword, etMobileNo, cityID, etLastName, state_id, address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpverify);
-        class_name= getIntent().getStringExtra("class_name");
+        class_name = getIntent().getStringExtra("class_name");
+        if (class_name.contains("RegistrationActivity")) {
+            etEmail = getIntent().getStringExtra("email");
+
+            etFirstName = getIntent().getStringExtra("name");
+            etPassword = getIntent().getStringExtra("password");
+
+            etMobileNo = getIntent().getStringExtra("mobile");
+
+            cityID = getIntent().getStringExtra("city_id");
+            etLastName = getIntent().getStringExtra("lastname");
+
+            state_id = getIntent().getStringExtra("state_id");
+
+            address = getIntent().getStringExtra("address");
+
+
+        }
+
+
         context = ActivityOTPVerify.this;
         appSharedPreference = new AppSharedPreference(context);
         setUpToolBar();
@@ -78,7 +97,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
     private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
         back_imagview.setVisibility(View.VISIBLE);
         back_imagview.setOnClickListener(new View.OnClickListener() {
@@ -152,26 +171,20 @@ public class ActivityOTPVerify extends AppCompatActivity {
         otpNotRespond = (TextView) findViewById(R.id.otpNotRespond);
 
 
-        verifyotp.setOnClickListener(new View.OnClickListener()
-        {
+        verifyotp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if (editText1.getText().length() != 0)
-                {
+                if (editText1.getText().length() != 0) {
                     String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
 
                     Log.e("otp ", otp);
                     call_verifyotp_webservice(otp);
-                }
-                else
-                {
+                } else {
 
                     Log.e("otp null", "*****");
 
                 }
-
 
 
             }
@@ -274,18 +287,29 @@ public class ActivityOTPVerify extends AppCompatActivity {
     private void call_verifyotp_webservice(String otp) {
         progressBarHandler.show();
 
+
         String getCurrentDeviceId = App_config.getCurrentDeviceId(ActivityOTPVerify.this);
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("client_id", getCurrentDeviceId);
         webservice_body_parameter.put("otp", otp);
+        webservice_body_parameter.put("email",etEmail );
+        webservice_body_parameter.put("name", etFirstName);
+        webservice_body_parameter.put("password", etPassword);
+        webservice_body_parameter.put("mobile", etMobileNo);
+        webservice_body_parameter.put("city_id", cityID);
+        webservice_body_parameter.put("lastname", etLastName);
+
+        webservice_body_parameter.put("state_id", state_id);
+        webservice_body_parameter.put("country_id", "101");
+        webservice_body_parameter.put("address", address);
 
 
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
-        String verifyotp_url = getResources().getString(R.string.webservice_base_url)+"/varify_otp";
+        String verifyotp_url = getResources().getString(R.string.webservice_base_url) + "/varify_otp";
         Call_webservice.verify_otp(ActivityOTPVerify.this, verifyotp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
@@ -300,22 +324,17 @@ public class ActivityOTPVerify extends AppCompatActivity {
                     String message = jsonObject.get("message").getAsString();
                     if (error.equals("false")) {
                         showMessage(message);
-                        if(appSharedPreference.getsharedpref("isAddVendorCall")!=null && appSharedPreference.getsharedpref("isAddVendorCall").equals("true")){
-                            appSharedPreference.setsharedpref("isAddVendorCall", "false");
-                            Log.e("userid_forgot_password",jsonObject.get("user_id").getAsString());
 
-                        }
 
-                        if(class_name.contains("com.example.pat.aapkatrade.login.ForgotPassword"))
-                        {appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+                        if (class_name.contains("com.example.pat.aapkatrade.login.ForgotPassword")) {
+                            appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, ForgotPassword.class);
-                            intent.putExtra("forgot_index","2");
+                            intent.putExtra("forgot_index", "2");
 
 
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -348,7 +367,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
-        String otp_url = getResources().getString(R.string.webservice_base_url)+"/resend_otp";
+        String otp_url = getResources().getString(R.string.webservice_base_url) + "/resend_otp";
         Call_webservice.resend_otp(ActivityOTPVerify.this, otp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
@@ -365,11 +384,9 @@ public class ActivityOTPVerify extends AppCompatActivity {
                     String message = jsonObject.get("message").getAsString();
 
 
-
-
                     if (error.equals("false")) {
                         String user_id = jsonObject.get("user_id").getAsString();
-                        appSharedPreference.setsharedpref("userid",user_id);
+                        appSharedPreference.setsharedpref("userid", user_id);
 
                         showMessage(message);
 

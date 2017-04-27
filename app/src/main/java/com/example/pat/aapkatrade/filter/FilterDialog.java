@@ -19,7 +19,7 @@ import com.example.pat.aapkatrade.filter.adapter.FilterColumn1RecyclerAdapter;
 import com.example.pat.aapkatrade.filter.adapter.FilterColumn2RecyclerAdapter;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.CommonInterface;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ParseUtils;
 import com.example.pat.aapkatrade.general.entity.KeyValue;

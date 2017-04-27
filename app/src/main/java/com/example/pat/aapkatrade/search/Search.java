@@ -2,9 +2,7 @@ package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -19,31 +17,22 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
-import com.example.pat.aapkatrade.Home.registration.entity.State;
-import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
-import com.example.pat.aapkatrade.filter.FilterDialog;
-import com.example.pat.aapkatrade.general.Adapter_callback_interface;
+import com.example.pat.aapkatrade.general.interfaces.Adapter_callback_interface;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomAutocompleteAdapter;
 import com.example.pat.aapkatrade.general.Utils.adapter.Webservice_search_autocompleteadapter;
@@ -56,8 +45,6 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class Search extends AppCompatActivity implements Adapter_callback_interface {
 
