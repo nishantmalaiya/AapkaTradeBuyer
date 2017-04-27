@@ -22,9 +22,9 @@
         android:layout_alignBottom="@+id/image"
         android:layout_centerVertical="true"
         android:layout_marginLeft="72dp"
-        android:text="asdfasdfasdfasf"
+        android:text="@string/category"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="@dimen/textsize_medium" />
 
     <ImageView
         android:id="@+id/image"

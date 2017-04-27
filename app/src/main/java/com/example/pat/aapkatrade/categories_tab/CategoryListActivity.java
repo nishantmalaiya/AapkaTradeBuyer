@@ -31,7 +31,6 @@ import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.location.MyAsyncTask_location;
-import com.example.pat.aapkatrade.location.Mylocation;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -48,15 +47,14 @@ public class CategoryListActivity extends AppCompatActivity {
     private CategoriesListAdapter categoriesListAdapter;
     private ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     private ProgressBarHandler progress_handler;
-    private FrameLayout layout_container, layout_container_relativeSearch;
-    private MyRecyclerViewEffect myRecyclerViewEffect;
-    private String category_id, sub_category_id, user_id;
-    private AppSharedPreference app_sharedpreference;
-    private Mylocation mylocation;
+    private FrameLayout layout_container;
+    private String category_id;
+    private AppSharedPreference appSharedPreference;
     private ArrayList<State> productAvailableStateList = new ArrayList<>();
     private Context context;
     private TextView toolbarRightText;
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
+    ViewGroup view;
 
 
     @Override
@@ -72,56 +70,20 @@ public class CategoryListActivity extends AppCompatActivity {
         if (b != null) {
             category_id = b.getString("category_id");
         }
-        app_sharedpreference = new AppSharedPreference(this);
-
-        user_id = app_sharedpreference.getsharedpref("userid", "");
-
+        appSharedPreference = new AppSharedPreference(this);
         setUpToolBar();
-
-        ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
-
-        progress_handler = new ProgressBarHandler(this);
-
-        layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
-
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-
-        findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                LocationManager_check locationManagerCheck = new LocationManager_check(
-                        CategoryListActivity.this);
-                Location location = null;
-                if (locationManagerCheck.isLocationServiceAvailable()) {
-
-                    MyAsyncTask_location myAsyncTask_location = new MyAsyncTask_location(CategoryListActivity.this, "homeactivity");
-                    myAsyncTask_location.execute();
-
-
-                } else {
-                    locationManagerCheck.createLocationServiceError(CategoryListActivity.this);
-                }
-
-
-            }
-        });
-
+        initView();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-
         mRecyclerView.setHasFixedSize(true);
-
-        StikkyHeaderBuilder.stickTo(mRecyclerView)
-                .setHeader(R.id.header_simple, view)
-                .minHeightHeaderDim(R.dimen.min_header_height)
-                .build();
-
-
-
+        StikkyHeaderBuilder.stickTo(mRecyclerView).setHeader(R.id.header_simple, view).minHeightHeaderDim(R.dimen.min_header_height).build();
         get_web_data();
+    }
 
-
+    private void initView() {
+        view = (ViewGroup) findViewById(android.R.id.content);
+        progress_handler = new ProgressBarHandler(this);
+        layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
     private void get_web_data() {
@@ -180,9 +142,6 @@ public class CategoryListActivity extends AppCompatActivity {
                                     String shopId = jsonObject2.get("id").getAsString();
 
                                     String shopName = jsonObject2.get("name").getAsString();
-
-//
-
                                     String shopImage = jsonObject2.get("image_url").getAsString();
                                     String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
                                             jsonObject2.get("country_name").getAsString();
@@ -192,7 +151,6 @@ public class CategoryListActivity extends AppCompatActivity {
 
                                 }
                                 categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
-                                myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
                                 mRecyclerView.setAdapter(categoriesListAdapter);
                                 categoriesListAdapter.notifyDataSetChanged();
                                 progress_handler.hide();

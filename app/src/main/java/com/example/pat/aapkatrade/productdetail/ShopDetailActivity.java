@@ -63,34 +63,34 @@ import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 import me.relex.circleindicator.CircleIndicator;
 
 
-public class ProductDetail extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ShopDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    LinearLayout viewpagerindicator, linearlayoutShare, linearlayoutLocation;
-    Spinner spinner;
-    int max = 10;
+    private LinearLayout viewpagerindicator, linearlayoutShare, linearlayoutLocation;
+    private Spinner spinner;
+    private int max = 10;
     private ArrayList<String> imageList;
-    int currentPage = 0;
+    private int currentPage = 0;
     private int isStartDate = -1;
-    ServiceEnquiry serviceEnquiry;
+    private ServiceEnquiry serviceEnquiry;
     private String date;
-    StackedHorizontalProgressBar progressbarFive, progressbarFour, progressbarThree, progressbarTwo, progressbarOne;
-    ViewPager vp;
-    ProductViewPagerAdapter viewpageradapter;
+    private StackedHorizontalProgressBar progressbarFive, progressbarFour, progressbarThree, progressbarTwo, progressbarOne;
+    private ViewPager vp;
+    private ProductViewPagerAdapter viewpageradapter;
     private int dotsCount;
-    CircleIndicator  circleIndicator;
+    private CircleIndicator  circleIndicator;
     private ImageView[] dots;
-    Timer banner_timer = new Timer();
-    RelativeLayout relativeBuyNow, RelativeProductDetail, relativeRateReview;
-    LinearLayout linearProductDetail;
-    TextView tvshopName, tvProPrice, tvCrossPrice, tvDiscription, tvSpecification, tvQuatity;
-    ProgressBarHandler progress_handler;
-    String product_id, product_location;
-    ImageView imgViewPlus, imgViewMinus;
-    int quantity_value = 1;
-    ProgressBarHandler progressBarHandler;
-    String productlocation, categoryName;
-    LinearLayout linearLayoutQuantity;
-    EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description, editText;
+    private Timer banner_timer = new Timer();
+    private RelativeLayout relativeBuyNow, RelativeProductDetail, relativeRateReview;
+    private LinearLayout linearProductDetail;
+    private TextView tvshopName, tvProPrice, tvCrossPrice, tvDiscription, tvSpecification, tvQuatity;
+    private ProgressBarHandler progress_handler;
+    private String product_id, product_location;
+    private ImageView imgViewPlus, imgViewMinus;
+    private int quantity_value = 1;
+    private ProgressBarHandler progressBarHandler;
+    private String productlocation, categoryName;
+    private LinearLayout linearLayoutQuantity;
+    private EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description, editText;
 
     TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone;
 
@@ -124,11 +124,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
         setContentView(R.layout.activity_product_detail);
 
-        app_sharedpreference = new AppSharedPreference(ProductDetail.this);
+        app_sharedpreference = new AppSharedPreference(ShopDetailActivity.this);
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        context = ProductDetail.this;
+        context = ShopDetailActivity.this;
 
         Intent intent = getIntent();
 
@@ -242,6 +242,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", "0")
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -303,7 +304,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                                 }
 
 
-                                reviewListAdapter = new ReviewListAdapter(ProductDetail.this, reviewListDatas);
+                                reviewListAdapter = new ReviewListAdapter(ShopDetailActivity.this, reviewListDatas);
                                 reviewList.setAdapter(reviewListAdapter);
 
                             }
@@ -433,7 +434,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
     private void setupviewpager() {
 
-        viewpageradapter = new ProductViewPagerAdapter(ProductDetail.this, imageList);
+        viewpageradapter = new ProductViewPagerAdapter(ShopDetailActivity.this, imageList);
         vp.setAdapter(viewpageradapter);
         vp.setCurrentItem(currentPage);
         setUiPageViewController();
@@ -491,7 +492,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
 
     private void initView() {
-        context = ProductDetail.this;
+        context = ShopDetailActivity.this;
 
         //linearLayoutQuantity = (LinearLayout) findViewById(R.id.linearlayoutQuantity);
 
@@ -530,7 +531,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         mLayoutManagerShoplist = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         openShopList.setLayoutManager(mLayoutManagerShoplist);
-        openShopAdapter = new OpenShopAdapter(ProductDetail.this, openShopDatas, color_openshop);
+        openShopAdapter = new OpenShopAdapter(ShopDetailActivity.this, openShopDatas, color_openshop);
         openShopList.setAdapter(openShopAdapter);
 
 
@@ -539,9 +540,9 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
             public void onClick(View v) {
 
                 if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
-                    startActivity(new Intent(ProductDetail.this, LoginActivity.class));
+                    startActivity(new Intent(ShopDetailActivity.this, LoginActivity.class));
                 } else {
-                    Intent rate_us = new Intent(ProductDetail.this, RateusActivity.class);
+                    Intent rate_us = new Intent(ShopDetailActivity.this, RateusActivity.class);
                     rate_us.putExtra("product_id", product_id);
 
                     rate_us.putExtra("product_name", tvshopName.getText().toString());
@@ -560,20 +561,20 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         linearlayoutLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean permission_status = CheckPermission.checkPermissions(ProductDetail.this);
+                boolean permission_status = CheckPermission.checkPermissions(ShopDetailActivity.this);
                 if (permission_status) {
                     progressBarHandler.show();
-                    LocationManager_check locationManagerCheck = new LocationManager_check(ProductDetail.this);
+                    LocationManager_check locationManagerCheck = new LocationManager_check(ShopDetailActivity.this);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {
-                        Intent intent = new Intent(ProductDetail.this, GoogleMapActivity.class);
+                        Intent intent = new Intent(ShopDetailActivity.this, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("product_location", productlocation);
-                        ProductDetail.this.startActivity(intent);
+                        ShopDetailActivity.this.startActivity(intent);
                         progressBarHandler.hide();
                     } else {
 
-                        locationManagerCheck.createLocationServiceError(ProductDetail.this);
+                        locationManagerCheck.createLocationServiceError(ShopDetailActivity.this);
                         progress_handler.hide();
 
 
@@ -636,7 +637,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(ProductDetail.this, ShopAllProductActivity.class);
+                Intent i = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
                 startActivity(i);
 
 

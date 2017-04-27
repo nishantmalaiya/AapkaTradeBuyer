@@ -16,15 +16,13 @@ public class CategoryHome {
     private String categoryName;
     private String categoryIconName;
     private String categoryIconPath;
-    private ArrayList<SubCategory> subCategoryList;
     private String basePath = AndroidUtils.BaseUrl + "/public/appicon/";
     private String iconExtention = ".png";
 
-    public CategoryHome(String categoryId, String categoryName, String categoryIconName, ArrayList<SubCategory> subCategoryList) {
+    public CategoryHome(String categoryId, String categoryName, String categoryIconName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryIconName = categoryIconName;
-        this.subCategoryList = subCategoryList;
         setCategoryIconPath(createIconPath(categoryName));
     }
 
@@ -52,10 +50,6 @@ public class CategoryHome {
         this.categoryIconPath = categoryIconPath;
     }
 
-    public ArrayList<SubCategory> getSubCategoryList() {
-        return this.subCategoryList;
-    }
-
 
     @Override
     public String toString() {
@@ -64,7 +58,6 @@ public class CategoryHome {
                 ", categoryName='" + categoryName + '\'' +
                 ", categoryIconName='" + categoryIconName + '\'' +
                 ", categoryIconPath='" + categoryIconPath + '\'' +
-                ", subCategoryList=" + subCategoryList +
                 ", basePath='" + basePath + '\'' +
                 ", iconExtention='" + iconExtention + '\'' +
                 '}';

@@ -12,12 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
-import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CustomSimpleListAdapter extends BaseAdapter {
     Context context;
@@ -59,10 +57,6 @@ public class CustomSimpleListAdapter extends BaseAdapter {
         }
         else if(categoriesNames.get(i) instanceof CategoryHome){
             names.setText(((CategoryHome) categoriesNames.get(i)).getCategoryName());
-        }
-
-         else if(categoriesNames.get(i) instanceof SubCategory){
-            names.setText(((SubCategory) categoriesNames.get(i)).subCategoryName);
         }
         else {
             names.setText(categoriesNames.get(i).toString());

@@ -12,23 +12,15 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 
-import com.example.pat.aapkatrade.MainActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.ConnectivityNotFound;
-import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.productdetail.ProductDetail;
+import com.example.pat.aapkatrade.productdetail.ShopDetailActivity;
 import com.koushikdutta.ion.Ion;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Netforce on 7/25/2016.
@@ -133,7 +125,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                     Log.e("time Adapter", String.valueOf(System.currentTimeMillis()));
 
-                    Intent intent = new Intent(context, ProductDetail.class);
+                    Intent intent = new Intent(context, ShopDetailActivity.class);
                     intent.putExtra("product_id", commomDatas.get(position).id);
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -199,7 +191,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder_listProduct.product_description.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ProductDetail.class);
+                    Intent intent = new Intent(context, ShopDetailActivity.class);
                     intent.putExtra("product_id", commomDatas.get(position).id);
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -222,19 +214,10 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         public void run() {
                             if (viewHolder_listProduct.rl_cartview.getVisibility() == View.VISIBLE) {
                                 viewHolder_listProduct.rl_cartview.setVisibility(View.GONE);
-                            } else {
-
                             }
-
-                /* Create an Intent that will start the Menu-Activity. */
-
                         }
                     }, SPLASH_DISPLAY_LENGTH);
-
-
                     return true;
-
-
                 }
             });
         } else {
@@ -249,31 +232,21 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ProductDetail.class);
+                    Intent intent = new Intent(context, ShopDetailActivity.class);
                     intent.putExtra("product_id", commomDatas.get(position).id.toString());
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
             });
 
-
-//            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
-//            a.setDuration(1000);
-//            grid_holder.product_imageview.startAnimation(a);
-
             if (Tabletsize.isTablet(context)) {
-
                 if (position % 3 == 0) {
-
                     grid_holder.view_grid_left.setVisibility(View.GONE);
                     grid_holder.view_grid_right.setVisibility(View.GONE);
-
-
                 } else {
                     grid_holder.view_grid_left.setVisibility(View.VISIBLE);
                     grid_holder.view_grid_right.setVisibility(View.GONE);
                 }
-
 
             } else {
                 if (position % 2 == 0) {

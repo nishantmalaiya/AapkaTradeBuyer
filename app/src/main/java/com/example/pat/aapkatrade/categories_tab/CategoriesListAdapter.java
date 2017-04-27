@@ -16,9 +16,10 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
-import com.example.pat.aapkatrade.productdetail.ProductDetail;
+import com.example.pat.aapkatrade.productdetail.ShopDetailActivity;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
@@ -119,10 +120,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             public void onClick(View v)
             {
 
-                Log.e("product_id",itemList.get(position).shopId);
-              //  System.out.println("product_id-------------"+itemList.get(position).product_id);
+                AndroidUtils.showErrorLog(context, "product_id",itemList.get(position).shopId);
 
-                Intent intent = new Intent(context, ProductDetail.class);
+                Intent intent = new Intent(context, ShopDetailActivity.class);
                 intent.putExtra("product_id", itemList.get(position).shopId);
                 intent.putExtra("product_location", itemList.get(position).shopLocation);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -180,21 +180,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     }
 
-    private void showMessage(String s) {
-
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-    }
-
-
     @Override
     public int getItemCount() {
         return itemList.size();
-        // return itemList.size();
     }
-
-    public String getCurrentTimeStamp() {
-        return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
-    }
-
 
 }
