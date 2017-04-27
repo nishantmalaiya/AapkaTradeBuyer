@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.Change_Font;
@@ -32,13 +33,8 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-
-    ProgressBarHandler progressBarHandler;
-    TextView tv_forgot_password,tv_forgot_password_description;
-    EditText et_email_forgot,et_mobile_no;
-    Button btn_send_otp;
     private CoordinatorLayout activity_forgot__password;
-    private String usertype="buyer";
+    private String usertype = "buyer";
 
     String classname;
     Forgot_password_fragment forgot_password_fragment;
@@ -46,19 +42,18 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
 
     String class_index;
 
-
-
-
-    public Forgot_password_fragment() {
-        // Required empty public constructor
-    }
-
     private AppSharedPreference app_sharedpreference;
     private ProgressBarHandler progressBarHandler;
     private TextView tv_forgot_password, tv_forgot_password_description;
     private EditText et_email_forgot, et_mobile_no;
     private Button btn_send_otp;
     private FrameLayout forgot_password_container;
+
+
+    public Forgot_password_fragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -165,8 +160,6 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
             }
         };
     }
-
-
 
 
 }
