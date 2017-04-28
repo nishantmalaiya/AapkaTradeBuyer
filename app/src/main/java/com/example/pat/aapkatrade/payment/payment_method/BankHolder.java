@@ -30,25 +30,25 @@ public class BankHolder extends RecyclerView.ViewHolder
 
         View1 = itemView.findViewById(R.id.View1);
 
-        linearLayoutDetail = (LinearLayout)  itemView.findViewById(R.id.linearLayoutDetail);
+//        linearLayoutDetail = (LinearLayout)  itemView.findViewById(R.id.linearLayoutDetail);
 
-        relativecompanyList = (RelativeLayout) itemView.findViewById(R.id.relativecompanyList);
+//        relativecompanyList = (RelativeLayout) itemView.findViewById(R.id.relativecompanyList);
 
-        imgNext = (ImageView) itemView.findViewById(R.id.imgNext);
-
-        imgEdtCompanyName = (ImageView) itemView.findViewById(R.id.imgEdit);
-
-        tvCompanyname = (TextView) itemView.findViewById(R.id.tvCompanyname);
-
-        tvDate = (TextView) itemView.findViewById(R.id.tvDate);
-
-        imgDeleteCompany = (ImageView)  itemView.findViewById(R.id.imgDelete);
-
-        tvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
-
-        tvAddress = (TextView) itemView.findViewById(R.id.tvAddress);
-
-        tvDescription = (TextView) itemView.findViewById(R.id.tvDescription) ;
+//        imgNext = (ImageView) itemView.findViewById(R.id.imgNext);
+//
+//        imgEdtCompanyName = (ImageView) itemView.findViewById(R.id.imgEdit);
+//
+//        tvCompanyname = (TextView) itemView.findViewById(R.id.tvCompanyname);
+//
+//        tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+//
+//        imgDeleteCompany = (ImageView)  itemView.findViewById(R.id.imgDelete);
+//
+//        tvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
+//
+//        tvAddress = (TextView) itemView.findViewById(R.id.tvAddress);
+//
+//        tvDescription = (TextView) itemView.findViewById(R.id.tvDescription) ;
 
 
         view = itemView;
