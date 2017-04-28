@@ -7,11 +7,7 @@
     <string name="save">बचाना</string>
     <string name="aapka_data">आपका <font color='white'>ट्रेड</font></string>
     <string name="login">लॉग इन करें</string>
-    <string name="my_company_profile_heading">मेरे कंपनी प्रोफाइल</string>
     <string name="change_password_heading">पासवर्ड बदलें</string>
-    <string name="add_company_heading">कंपनी जोड़ें</string>
-    <string name="user_name"></string>
-    <string name="compant_list_heading">कंपनी सूची</string>
 
 
     <string name="forgotpassword">पासवर्ड भूल गए?</string>
@@ -23,10 +19,6 @@
     <string name="drawer_close">
 दराज बंद</string>
     <string name="language">भाषा</string>
-
-
-    <string name="product_list_heading">सूची उत्पाद</string>
-    <string name="add_product_heading">उत्पादों को जोड़ने</string>
 
 
     <string name="product_name">एलईडी टीवी</string>

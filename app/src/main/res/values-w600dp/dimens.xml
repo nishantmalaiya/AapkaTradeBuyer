@@ -39,5 +39,4 @@
     <dimen name="thirty_dip">39dp</dimen>
     <dimen name="twelve_dip">16dp</dimen>
     <dimen name="two_hundreds_fifty_dip">325dp</dimen>
-    <dimen name="two_hundreds_dip">260dp</dimen>
 </resources>

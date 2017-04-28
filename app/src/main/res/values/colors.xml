@@ -7,7 +7,6 @@
     <color name="color_voilet">#FF6600</color>
     <color name="green">#63BEAC</color>
     <color name="green_transparent">#0063BEAC</color>
-    <color name="green_line">#05DB61</color>
     <color name="teal">#008080</color>
     <color name="purple">#800080</color>
     <color name="cherry_red">#C24641</color>
@@ -24,7 +23,6 @@
     <color name="bg_product_title">#F2F2F2</color>
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
-    <color name="grey__more_light">#faf8f8</color>
     <color name="grey_gradient2">#737C7A</color>
     <color name="item_details_color">#585858</color>
     <color name="green_gradient2">#1C7B67</color>
@@ -33,7 +31,6 @@
     <color name="filter_col1_bg">#f9f9f9</color>
     <color name="selected_filter_col1_bg">#f9f0ea</color>
 
-    <color name="stroke_bg">#707070</color>
     <color name="brown_light">#F1EEE4</color>
     <color name="cardview_background">#EEEEEE</color>
     <color name="black_overlay">#66000000</color>
@@ -42,21 +39,10 @@
     <color name="list_strip">#E1E1E1</color>
     <color name="white_shade">#E9E9E9</color>
     <color name="text_order_tab">#066C57</color>
-    <color name="sky_blue_color">#6EB9F0</color>
-
-    <color name="yellow">#FEF200</color>
 
     <color name="red">#FA2B33</color>
 
-    <color name="black_line">#4B4B4B</color>
     <color name="dark_green_color">#3c763d</color>
-    <color name="gradient_dialog1">#FBAF5D</color>
-    <color name="gradient_dialog2">#fa97b1</color>
-    <color name="gradient_dialog3">#4cb8ed</color>
-    <color name="gradient_dialog4">#5db507</color>
-    <color name="gradient_dialog5">#454e99</color>
-    <color name="gradient_dialog6">#fdc689</color>
-    <color name="gradient_dialog7">#9c7355</color>
 
     <color name="open_shop_day_color1">#4ab2d6</color>
     <color name="open_shop_day_color2">#fc795b</color>
