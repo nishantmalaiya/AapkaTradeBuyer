@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -23,10 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
@@ -38,8 +34,8 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
-import com.example.pat.aapkatrade.productdetail.open_shop.OpenShopAdapter;
-import com.example.pat.aapkatrade.productdetail.open_shop.OpenShopData;
+import com.example.pat.aapkatrade.productdetail.opening_closing_days.OpenCloseDaysRecyclerAdapter;
+import com.example.pat.aapkatrade.productdetail.opening_closing_days.OpenCloseShopData;
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListAdapter;
 
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListData;
@@ -50,8 +46,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.shehabic.droppy.DroppyClickCallbackInterface;
-import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -66,6 +60,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class ShopDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private LinearLayout viewpagerindicator, linearlayoutShare, linearlayoutLocation;
+    private RelativeLayout shopProductsLayout, openingClosingRelativeLayout;
     private Spinner spinner;
     private int max = 10;
     private ArrayList<String> imageList;
@@ -109,12 +104,10 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
    
     ReviewListAdapter reviewListAdapter;
-    OpenShopAdapter openShopAdapter;
-    ArrayList<OpenShopData> openShopDatas = new ArrayList<>();
+    OpenCloseDaysRecyclerAdapter openCloseDaysRecyclerAdapter;
     ArrayList<ReviewListData> reviewListDatas = new ArrayList<>();
-    ArrayList<Integer> color_openshop = new ArrayList<>();
     CommomAdapter  commomAdapter_latestpost;
-
+    private ArrayList<OpenCloseShopData> openCloseDayArrayList = new ArrayList<>();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +115,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
         Log.e("time  Product Detail", String.valueOf(System.currentTimeMillis()));
 
-        setContentView(R.layout.activity_product_detail);
+        setContentView(R.layout.activity_shop_detail);
 
         app_sharedpreference = new AppSharedPreference(ShopDetailActivity.this);
 
@@ -143,202 +136,67 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         progressBarHandler = new ProgressBarHandler(context);
         circleIndicator=(CircleIndicator)findViewById(R.id.indicator_product_detail) ;
         setUpToolBar();
-
-        color_openshop.add(R.color.open_shop_day_color1);
-        color_openshop.add(R.color.open_shop_day_color2);
-        color_openshop.add(R.color.open_shop_day_color3);
-        color_openshop.add(R.color.open_shop_day_color4);
-        color_openshop.add(R.color.open_shop_day_color5);
-        color_openshop.add(R.color.open_shop_day_color6);
-        color_openshop.add(R.color.open_shop_day_color7);
-
         initView();
 
-        get_data();
-
-    }
-
-    private void Init_droppy() {
-        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(this, linearLayoutQuantity);
-        droppyMenu = droppyBuilder.build();
-        droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
-                .addMenuItem(new DroppyMenuItem("2"))
-                .addMenuItem(new DroppyMenuItem("3"))
-                .addMenuItem(new DroppyMenuItem("4"))
-                .addMenuItem(new DroppyMenuItem("5"))
-                .addSeparator()
-                .addMenuItem(new DroppyMenuItem("More"));
-        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
-            @Override
-            public void call(View v, int id) {
-                switch (id) {
-                    case 0:
-                        textViewQuantity.setText("1");
-                        break;
-                    case 1:
-                        textViewQuantity.setText("2");
-                        break;
-                    case 2:
-                        textViewQuantity.setText("3");
-                        break;
-                    case 3:
-                        textViewQuantity.setText("4");
-                        break;
-                    case 4:
-                        textViewQuantity.setText("5");
-                        break;
-                    case 5:
-                        showPopup("Quantity");
-                        break;
-
-
-                }
-            }
-        });
-        linearLayoutQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-        droppyMenu = droppyBuilder.build();
-
-
-    }
-
-    private void showPopup(String description) {
-        boolean wrapInScrollView = true;
-        MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .title("Quantity")
-                .customView(R.layout.more, wrapInScrollView)
-                .positiveText(R.string.ok)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (editText.getText().length() <= 0) {
-                            showMessage("Nothing done");
-                        } else {
-                            showMessage(editText.getText().toString());
-                            textViewQuantity.setText(editText.getText().toString());
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-        editText = (EditText) dialog.findViewById(R.id.editText);
+        getShopDetailsData();
 
     }
 
 
-    private void get_data() {
+    private void getShopDetailsData() {
         relativeBuyNow.setVisibility(View.INVISIBLE);
         linearProductDetail.setVisibility(View.INVISIBLE);
         progress_handler.show();
-        Log.e("data_productdeatil", getResources().getString(R.string.webservice_base_url) + "     " + product_id);
+        AndroidUtils.showErrorLog(context, "data_productdetail", getResources().getString(R.string.webservice_base_url) + "     " + product_id);
 
         Ion.with(getApplicationContext())
                 .load(getResources().getString(R.string.webservice_base_url) + "/shop_detail/" + product_id)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", "0")
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-
                         if (result != null) {
-
                             Log.e("result---------", result.toString());
-
                             JsonObject jsonObject = result.getAsJsonObject();
-
                             JsonObject json_result = jsonObject.getAsJsonObject("result");
-
                             JsonObject json_total_rating = jsonObject.getAsJsonObject("total_rating");
-
                             String avg_rating = json_total_rating.get("avg_rating").getAsString();
-
                             tvRatingAverage.setText(avg_rating);
-
                             String total_review = json_total_rating.get("countreviews").getAsString();
-
                             tvTotal_rating_review.setText(total_review + " rating and " + "review " + total_review);
-
                             JsonArray jsonArray_image = json_result.getAsJsonArray("product_images");
-
-
                             JsonArray jsonArray_review = result.getAsJsonArray("reviews");
-
-
-
                             if (jsonArray_review.size() == 0) {
-
                             } else {
                                 for (int j = 0; j < jsonArray_review.size(); j++) {
-
                                     JsonObject jsonreview_data = (JsonObject) jsonArray_review.get(j);
-
                                     String email = jsonreview_data.get("email").getAsString();
-
                                     String name = jsonreview_data.get("name").getAsString();
-
                                     String message = jsonreview_data.get("message").getAsString();
-
                                     String rating = jsonreview_data.get("rating").getAsString();
-
                                     String title = jsonreview_data.get("title").getAsString();
-
                                     String created_date = jsonreview_data.get("created_at").getAsString();
-
-                                    Log.e("jsonreview---", title.toString());
-
+                                    Log.e("jsonreview---", title);
                                     reviewListDatas.add(new ReviewListData(email, name, message, rating, title, created_date));
-
-
-
-
-
-
                                 }
-
-
                                 reviewListAdapter = new ReviewListAdapter(ShopDetailActivity.this, reviewListDatas);
                                 reviewList.setAdapter(reviewListAdapter);
-
                             }
-
-
-
-
-
-                            System.out.println("jsonArray_image------" + jsonArray_review.toString());
-
+                            AndroidUtils.showErrorLog(context, "jsonArray_image------" + jsonArray_review.toString());
                             for (int i = 0; i < jsonArray_image.size(); i++) {
                                 JsonObject jsonimage = (JsonObject) jsonArray_image.get(i);
-
                                 String image_url = jsonimage.get("image_url").getAsString();
-
-                                System.out.println("image_url---------" + image_url);
+                                AndroidUtils.showErrorLog(context, "image_url---------" + image_url);
                                 imageList.add(image_url);
-
                             }
-
-
-
-
-
                             product_name = json_result.get("name").getAsString();
-
                             categoryName = json_result.get("catname").getAsString();
-
                             String product_price = json_result.get("price").getAsString();
-
                             String product_cross_price = json_result.get("cross_price").getAsString();
-
                             String description = json_result.get("short_des").getAsString();
-
                             String duration = json_result.get("deliverday").getAsString();
                             String pincode = json_result.get("pincode").getAsString();
                             String address = json_result.get("address").getAsString() + "," + pincode;
@@ -346,29 +204,23 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                             String phone = json_result.get("phone").getAsString();
 
 
-
                             JsonArray jsonProductList = json_result.getAsJsonArray("associate_product");
-
-
-                            for (int i = 0; i < jsonProductList.size(); i++) {
-                                JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
-
-                                String product_id = jsonproduct.get("id").getAsString();
-                                String product_name = jsonproduct.get("name").getAsString();
-                                String product_short_description = jsonproduct.get("short_des").getAsString();
-                                String price = jsonproduct.get("price").getAsString();
-                                String product_image = jsonproduct.get("image_url").getAsString();
-
-
-
-                                productlist.add(new CommomData(product_id, product_name, price, product_image, address));
-
-
-
-
+                            if(jsonProductList!=null && jsonProductList.size()>0){
+                                shopProductsLayout.setVisibility(View.VISIBLE);
+                                for (int i = 0; i < jsonProductList.size(); i++) {
+                                    JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
+                                    String product_id = jsonproduct.get("id").getAsString();
+                                    String product_name = jsonproduct.get("name").getAsString();
+                                    String product_short_description = jsonproduct.get("short_des").getAsString();
+                                    String price = jsonproduct.get("price").getAsString();
+                                    String product_image = jsonproduct.get("image_url").getAsString();
+                                    productlist.add(new CommomData(product_id, product_name, price, product_image, address));
+                                }
+                                commomAdapter_latestpost = new CommomAdapter(context, productlist, "list_product", "latestdeals");
+                                recyclerProduct.setAdapter(commomAdapter_latestpost);
+                            } else {
+                                shopProductsLayout.setVisibility(View.GONE);
                             }
-                            commomAdapter_latestpost = new CommomAdapter(context, productlist, "list_product", "latestdeals");
-                            recyclerProduct.setAdapter(commomAdapter_latestpost);
 
                             tvShopAddress.setText(address);
                             tvPhone.setText(phone);
@@ -384,10 +236,36 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                                 tvServiceBuy.setText("Service Enquiry");
                             }
 
-                            tvshopName.setText(product_name);
+
+                            JsonArray openCloseDayArray = json_result.getAsJsonArray("opening_time");
+
+                            if(openCloseDayArray!=null && openCloseDayArray.size()>0){
+                                openingClosingRelativeLayout.setVisibility(View.VISIBLE);
+//                                for(int i = 0; i < openCloseDayArray.size(); i++){
+//                                    JsonObject jsonObjectDays = (JsonObject) openCloseDayArray.get(i);
+//                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString(), jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time").getAsString());
+//                                    openCloseDayArrayList.add(openCloseShopData);
 //
+//                                }
+
+
+
+                                for(int i = 0; i < 7; i++){
+                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData("Sunday", "600AM", "900PM");
+                                    openCloseDayArrayList.add(openCloseShopData);
+
+                                }
+
+                                openShopList.setLayoutManager(mLayoutManagerShoplist);
+                                openCloseDaysRecyclerAdapter = new OpenCloseDaysRecyclerAdapter(context, openCloseDayArrayList);
+                                openShopList.setAdapter(openCloseDaysRecyclerAdapter);
+                            } else {
+                                openingClosingRelativeLayout.setVisibility(View.GONE);
+                            }
+
+                            tvshopName.setText(product_name);
                             tvDiscription.setText(description);
-                            setupviewpager();
+                            setUpViewPager();
 
                             progress_handler.hide();
 
@@ -432,7 +310,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
     }
 
 
-    private void setupviewpager() {
+    private void setUpViewPager() {
 
         viewpageradapter = new ProductViewPagerAdapter(ShopDetailActivity.this, imageList);
         vp.setAdapter(viewpageradapter);
@@ -493,15 +371,13 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
     private void initView() {
         context = ShopDetailActivity.this;
-
-        //linearLayoutQuantity = (LinearLayout) findViewById(R.id.linearlayoutQuantity);
-
-
+        shopProductsLayout = (RelativeLayout) findViewById(R.id.shop_products_relative_layout);
         progress_handler = new ProgressBarHandler(this);
 
         imageList = new ArrayList<>();
 
         relativeRateReview = (RelativeLayout) findViewById(R.id.relativeRateReview);
+        openingClosingRelativeLayout = (RelativeLayout) findViewById(R.id.opening_closing_relative_layout);
 
         linearlayoutShare = (LinearLayout) findViewById(R.id.linearlayoutShare);
 
@@ -528,11 +404,9 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         llmanagerProductList = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerProduct.setLayoutManager(llmanagerProductList);
 
-        mLayoutManagerShoplist = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        openShopList.setLayoutManager(mLayoutManagerShoplist);
-        openShopAdapter = new OpenShopAdapter(ShopDetailActivity.this, openShopDatas, color_openshop);
-        openShopList.setAdapter(openShopAdapter);
+
+
 
 
         relativeRateReview.setOnClickListener(new View.OnClickListener() {
@@ -549,7 +423,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
 
                     rate_us.putExtra("product_price", tvProPrice.getText().toString());
-                    rate_us.putExtra("product_image", imageList.get(0).toString());
+                    rate_us.putExtra("product_image", imageList.get(0));
                     startActivity(rate_us);
                 }
 
@@ -704,9 +578,5 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         }
     }
 
-
-    private void showMessage(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-    }
 
 }

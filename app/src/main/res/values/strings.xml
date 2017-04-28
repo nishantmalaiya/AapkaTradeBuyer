@@ -161,5 +161,7 @@
     <string name="trackorder">Track Your Order</string>
     <string name="tracking_text">Enter 14 digit tracking no.</string>
     <string name="trackorder_heading">We will send you a otp to track your order status.</string>
+    <string name="opening_closing_shop">Opening Closing Shop</string>
+    <string name="buy_now">Buy Now</string>
 
 </resources>

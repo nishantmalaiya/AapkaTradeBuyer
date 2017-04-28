@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.categories_tab;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
@@ -17,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
@@ -25,12 +25,9 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.filter.FilterDialog;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
-import com.example.pat.aapkatrade.location.MyAsyncTask_location;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -98,7 +95,7 @@ public class CategoryListActivity extends AppCompatActivity {
         Ion.with(CategoryListActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "product_list")
+                .setBodyParameter("type", "category")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("category_id", category_id)
                 .setBodyParameter("apply", "1")
@@ -111,7 +108,14 @@ public class CategoryListActivity extends AppCompatActivity {
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
-                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result-->" + result);
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result1-->" + result.toString().substring(0, 4000));
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result2-->" + result.toString().substring(4000, 8000));
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result3-->" + result.toString().substring(8000, 12000));
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result4-->" + result.toString().substring(12000, 16000));
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result5-->" + result.toString().substring(16000, 20000));
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result6-->" + result.toString().substring(20000, 24000));
+//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result7-->" + result.toString().substring(24000, 28000));
+                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result8-->" + result.toString().substring(24000, result.toString().length()-1));
                             if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
                                 toolbarRightText.setVisibility(View.VISIBLE);
                                 Log.e(AndroidUtils.getTag(context), "total_result" + result);
@@ -136,8 +140,12 @@ public class CategoryListActivity extends AppCompatActivity {
                                 if (filterArray != null) {
                                     loadFilterDataInHashMap(filterArray);
                                 }
+
+
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
+                                    AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result-->cITY"+i+jsonObject2.toString() );
+
 
                                     String shopId = jsonObject2.get("id").getAsString();
 

@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeOpenShop"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/one_hundred_five_dip"
-    android:background="@drawable/orange_background"
-    android:padding="5dp"
-    android:layout_marginRight="2dp"
-    >
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/twenty_dip">
 
-    <TextView
-        android:id="@+id/tvdays"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativeOpenShop"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SUN"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        />
+        android:layout_height="@dimen/one_hundred_five_dip"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/orange_background"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tvdays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="SUN"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
 
+        <TextView
+            android:id="@+id/tvopentime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvdays"
+            android:text="Open Time: 06:00AM"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
-    <TextView
-        android:id="@+id/tvopentime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open Time: 06:00AM"
-        android:layout_below="@+id/tvdays"
-        android:textColor="@color/white"
-        android:textSize="16dp"
-        />
-
-    <TextView
-        android:id="@+id/tvclosetime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open Time: 06:00AM"
-        android:layout_below="@+id/tvopentime"
-        android:textColor="@color/white"
-        android:textSize="16dp"
-        android:layout_marginTop="3dp"
-        />
+        <TextView
+            android:id="@+id/tvclosetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvopentime"
+            android:layout_marginTop="3dp"
+            android:text="Open Time: 06:00AM"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
 
+    </RelativeLayout>
 
-</RelativeLayout>
+</android.support.v7.widget.CardView>
