@@ -264,84 +264,12 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
     private void call_search_webservice(String location_text, final String product_name1, final String id, String stateid, String cityid, final String type) {
 
-        Log.e("callback_state", id + "***" + type);
+
 
 
         String search_url = (getResources().getString(R.string.webservice_base_url)) + "/search";
         progressBarHandler.show();
-        if (type.contains("category")) {
 
-            Ion.with(Search.this)
-                    .load(search_url)
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("name", product_name1)
-                    .setBodyParameter("category_id", id)
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-
-                            Log.e("first---", result.toString());
-
-                            if (result != null) {
-
-                                set_webservice_data(result, type);
-
-                                Log.e("call 2_sending", product_name1 + "**" + id + "");
-                                // Log.e("call 2_receiving",result.toString());
-
-
-                            } else {
-                                progressBarHandler.hide();
-                            }
-
-
-//
-                        }
-
-
-                    });
-
-
-        } else if (type.contains("state")) {
-
-            Ion.with(Search.this)
-                    .load(search_url)
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-
-                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("name", product_name1)
-                    .setBodyParameter("state_id ", id)
-                    .setBodyParameter("category_id", "")
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-
-                            Log.e("second---", result.toString());
-
-                            if (result != null) {
-
-                                set_webservice_data(result, type);
-
-                                Log.e("call 2_state", product_name1 + "**" + id + "");
-                                // Log.e("call 2_receiving",result.toString());
-
-
-                            } else {
-                                progressBarHandler.hide();
-                            }
-
-
-//
-                        }
-
-
-                    });
-
-
-        } else {
 
             Ion.with(Search.this)
                     .load(search_url)
@@ -371,7 +299,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
                     });
 
 
-        }
+
 
 
     }

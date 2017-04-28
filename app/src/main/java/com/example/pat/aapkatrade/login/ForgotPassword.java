@@ -43,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity {
     Forgot_password_fragment forgot_password_fragment;
     Reset_password_fragment reset_password_fragment;
 
-    String class_index;
+    String class_index,otp_id;
 
 
     @Override
@@ -52,6 +52,8 @@ public class ForgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot__password);
         context=ForgotPassword.this;
         app_sharedpreference = new AppSharedPreference(this);
+
+
         class_index = getIntent().getStringExtra("forgot_index");
         Log.e("class_index", "" + class_index);
         forgot_password_fragment = new Forgot_password_fragment();
@@ -82,9 +84,12 @@ public class ForgotPassword extends AppCompatActivity {
 
         } else {
 
-
+            otp_id = getIntent().getStringExtra("otp_id");
             if (reset_password_fragment == null) {
                 reset_password_fragment = new Reset_password_fragment();
+                Bundle b=new Bundle();
+                b.putString("otp_id",otp_id);
+                reset_password_fragment.setArguments(b);
             }
             String tagName = reset_password_fragment.getClass().getName();
 
