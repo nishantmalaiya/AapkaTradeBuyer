@@ -281,7 +281,7 @@ public class HomeActivity extends AppCompatActivity {
         User_DashboardFragment showuserdashboardfragment = (User_DashboardFragment) fm.findFragmentByTag(user_dashboardFragment.getClass().getName());
 
 
-        if (dashboardFragment.isVisible()) {
+        if (dashboardFragment!=null && dashboardFragment.isVisible()) {
 
             double_back_pressed("finish");
             //finish();

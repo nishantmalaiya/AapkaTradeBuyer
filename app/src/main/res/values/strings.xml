@@ -159,7 +159,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="trackorder">Track Your Order</string>
+
     <string name="tracking_text">Enter 14 digit tracking no./Order id.</string>
     <string name="trackorder_heading">We will send you a OTP to track your order status.</string>
+
+   
+    <string name="trackorder_heading">We will send you a otp to track your order status.</string>
+    <string name="opening_closing_shop">Opening Closing Shop</string>
+    <string name="buy_now">Buy Now</string>
+
 
 </resources>
