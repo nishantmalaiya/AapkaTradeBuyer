@@ -38,7 +38,7 @@ public class Reset_password_fragment extends Fragment implements View.OnClickLis
     private CoordinatorLayout activity_forgot__password;
     private String usertype;
     String user_id;
-
+String otp_id;
     String classname;
     Forgot_password_fragment forgot_password_fragment;
     Reset_password_fragment reset_password_fragment;
@@ -59,6 +59,7 @@ LinearLayout reset_password_container;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        otp_id= getArguments().getString("otp_id");
 
         View v = inflater.inflate(R.layout.fragment_reset_password, container, false);
 
@@ -162,20 +163,7 @@ LinearLayout reset_password_container;
          String webservice_reset_password = getResources().getString(R.string.webservice_base_url) + "/resetPwd";
 
 
-        if (app_sharedpreference.shared_pref != null) {
-            if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                usertype = "business";
-            } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
-                usertype = "seller";
-
-            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                usertype = "business";
-
-            }
-        } else {
-            Log.e("null_sharedPreferences", "sharedPreferences");
-        }
 
         Log.e("user_id",user_id);
 
@@ -185,6 +173,7 @@ LinearLayout reset_password_container;
                 .setBodyParameter("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id ", user_id)
                 .setBodyParameter("password", et_confirm_password.getText().toString())
+                .setBodyParameter("otp_id", otp_id)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override

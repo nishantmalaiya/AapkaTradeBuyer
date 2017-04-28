@@ -47,12 +47,13 @@ public class ActivityOTPVerify extends AppCompatActivity {
     BroadcastReceiver receiver;
     LocalBroadcastManager bManager;
     String class_name, etEmail, etFirstName, etPassword, etMobileNo, cityID, etLastName, state_id, address;
-
+String otp_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpverify);
         class_name = getIntent().getStringExtra("class_name");
+        otp_id= getIntent().getStringExtra("otp_id");
         if (class_name.contains("RegistrationActivity")) {
             etEmail = getIntent().getStringExtra("email");
 
@@ -330,6 +331,8 @@ public class ActivityOTPVerify extends AppCompatActivity {
                             appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, ForgotPassword.class);
                             intent.putExtra("forgot_index", "2");
+                            intent.putExtra("otp_id", otp_id);
+
 
 
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -146,9 +146,11 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
                 if (data != null) {
                     String error = data.get("error").getAsString();
                     if (error.contains("false")) {
+                        Log.e("data",data.toString());
 
                         Intent go_to_activity_otp_verify = new Intent(getActivity(), ActivityOTPVerify.class);
                         go_to_activity_otp_verify.putExtra("class_name", getActivity().getClass().getName());
+                        go_to_activity_otp_verify.putExtra("otp_id",data.get("otp_id").getAsString());
                         startActivity(go_to_activity_otp_verify);
                     }
                     String message = data.get("message").getAsString();
