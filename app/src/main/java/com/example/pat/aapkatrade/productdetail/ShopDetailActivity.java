@@ -238,7 +238,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         Log.e("data_productdeatil", getResources().getString(R.string.webservice_base_url) + "     " + product_id);
 
         Ion.with(getApplicationContext())
-                .load(getResources().getString(R.string.webservice_base_url) + "/product_detail/" + product_id)
+                .load(getResources().getString(R.string.webservice_base_url) + "/shop_detail/" + product_id)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", "0")

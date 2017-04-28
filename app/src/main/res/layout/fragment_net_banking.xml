@@ -13,7 +13,7 @@
         android:layout_height="160dp"
         android:orientation="horizontal"
         android:background="#F2F2F2"
-        ></android.support.v7.widget.RecyclerView>
+        />
 
 
 
