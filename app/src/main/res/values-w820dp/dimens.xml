@@ -42,7 +42,6 @@
     <dimen name="thirty_dip">60dp</dimen>
     <dimen name="twelve_dip">24dp</dimen>
     <dimen name="two_hundreds_fifty_dip">500dp</dimen>
-    <dimen name="two_hundreds_dip">400dp</dimen>
 
 
 </resources>

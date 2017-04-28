@@ -6,11 +6,7 @@
     <string name="save">Save</string>
     <string name="aapka_data">AAPKA <font color='white'>TRADE</font></string>
     <string name="login">LOGIN</string>
-    <string name="my_company_profile_heading">My Company Profile</string>
     <string name="change_password_heading">Change Password</string>
-    <string name="add_company_heading">Add Company</string>
-    <string name="user_name">Pawan</string>
-    <string name="compant_list_heading">Company List</string>
 
 
     <string name="forgotpassword">Forget Password?</string>
@@ -20,10 +16,6 @@
     <string name="drawer_open">draweropen</string>
     <string name="drawer_close">drawerclose</string>
     <string name="language">language</string>
-
-
-    <string name="product_list_heading">List Product</string>
-    <string name="add_product_heading">Add Products</string>
 
 
     <string name="product_name">LED TV</string>
