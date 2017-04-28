@@ -44,6 +44,7 @@ import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
+import com.example.pat.aapkatrade.dialogs.Track_order_dialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.CheckPermission;
@@ -352,7 +353,7 @@ public class HomeActivity extends AppCompatActivity {
         scrollView = (NestedScrollView) findViewById(R.id.scroll_main);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.ic_navigation_home, R.color.dark_green);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.ic_home_dashboard_aboutus, R.color.orange);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_home_dashboard_rate_us, R.color.dark_green);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.track, R.color.dark_green);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab_4, R.drawable.ic_home_bottom_account, R.color.dark_green);
         AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.tab_5, R.drawable.ic_about_us, R.color.dark_green);
 
@@ -410,7 +411,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
                     case 2:
-                        goToMyApp(true);
+
+                        FragmentManager fm = getSupportFragmentManager();
+                        Track_order_dialog track_order_dialog=new Track_order_dialog();
+                        track_order_dialog.show(fm,"Track Order");
+
+                        //goToMyApp(true);
 
 
                         break;

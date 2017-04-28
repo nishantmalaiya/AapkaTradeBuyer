@@ -29,7 +29,7 @@
     <string name="category" translatable="false">Category</string>
     <string name="tab_1" translatable="false">Home</string>
     <string name="tab_2" translatable="false">About Us</string>
-    <string name="tab_3" translatable="false">Rate Us</string>
+    <string name="tab_3" translatable="false">Track Order</string>
     <string name="tab_4" translatable="false">Account</string>
     <string name="tab_5" translatable="false">Contact Us</string>
     <string name="welcomeguest" translatable="false">Welcome Guest</string>
@@ -155,6 +155,11 @@
     <string name="check">Check</string>
 
     <string name="usertype">1</string>
-
+    <string name="continue_order">CONTINUE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trackorder">Track Your Order</string>
+    <string name="tracking_text">Enter 14 digit tracking no.</string>
+    <string name="trackorder_heading">We will send you a otp to track your order status.</string>
 
 </resources>

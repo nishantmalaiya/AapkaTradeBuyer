@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -94,9 +95,6 @@ String AddressAsync;
 
         }
 
-
-
-
         locationManager = (LocationManager) ContextAsync
                 .getSystemService(LOCATION_SERVICE);
 
@@ -124,38 +122,59 @@ String AddressAsync;
                     // for ActivityCompat#requestPermissions for more details.
                     return null;
                 }
+
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                criteria.setAltitudeRequired(false);
+                criteria.setBearingRequired(false);
+                criteria.setCostAllowed(true);
+                criteria.setPowerRequirement(Criteria.POWER_LOW);
+                String provider = locationManager.getBestProvider(criteria, true);
+                Log.e("provider",provider);
+
+
                 locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,
+                        provider,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                 Log.e("Network", "Network");
-                if (locationManager != null) {
-                    location = locationManager
-                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//                       
 
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
 
-                    Log.e("latlng_asynctask", latitude + "**" + longitude + "");
-                }
+
+
             }
             // if GPS Enabled get lat/long using GPS Services
             if (isGPSEnabled) {
                 if (location == null) {
+
+                    Criteria criteria = new Criteria();
+                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                    criteria.setAltitudeRequired(false);
+                    criteria.setBearingRequired(false);
+                    criteria.setCostAllowed(true);
+                    criteria.setPowerRequirement(Criteria.POWER_LOW);
+                    String provider = locationManager.getBestProvider(criteria, true);
+                    Log.e("provider",provider);
+
+
                     locationManager.requestLocationUpdates(
-                            LocationManager.GPS_PROVIDER,
+                            provider,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     Log.e("GPS Enabled", "GPS Enabled");
-                    if (locationManager != null) {
-                        location = locationManager
-                                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                            Log.e("latlng_asynctask", latitude + "**" + longitude + "");
-                        }
-                    }
+//                            if (locationManager != null) {
+//                                location = locationManager
+//                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                                if (location != null) {
+//                                    latitude = location.getLatitude();
+//                                    longitude = location.getLongitude();
+//                                }
+//                            }
+                }
+                else {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
                 }
             }
 
@@ -328,6 +347,12 @@ else
             return;
         }
         locationManagerAsync.requestLocationUpdates(location.getProvider(), 0, 0, this);
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
     }
 
     @Override

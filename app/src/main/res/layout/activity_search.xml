@@ -153,102 +153,11 @@ android:textSize="@dimen/textsize_small"
 
         </LinearLayout>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_below="@+id/ll_search_container"
-    android:id="@+id/search_category_state_container"
-android:visibility="gone"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:text="CATEGORIES"
-        android:textAllCaps="true"
-        android:id="@+id/tv_categories"
-        android:textColor="@color/color_voilet"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/category_names_recycler"
-        android:clipToPadding="false"
-        android:background="#FFFFFF"
-        android:layout_height="50dp"
-
-        android:layout_below="@+id/tv_categories"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        >
-
-
-
-    </android.support.v7.widget.RecyclerView>
-
-
-
-
-
-
-
-
-
-
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/green"
-        android:layout_below="@+id/category_names_recycler"
-        >
-
-    </View>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:text="LOCATION"
-        android:id="@+id/tv_state"
-        android:textColor="@color/color_voilet"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/category_names_recycler"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/state_names_recycler"
-        android:clipToPadding="false"
-        android:background="#FFFFFF"
-        android:layout_height="50dp"
-
-        android:layout_below="@+id/tv_state"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        >
-
-
-
-    </android.support.v7.widget.RecyclerView>
-
-
-
-
-
-
-
-
-
-
-
-</RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@+id/search_category_state_container"
+            android:layout_below="@+id/ll_search_container"
             android:layout_height="match_parent">
 
 
