@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -31,6 +32,8 @@ import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.filter.FilterDialog;
+import com.example.pat.aapkatrade.filter.entity.FilterObject;
 import com.example.pat.aapkatrade.general.interfaces.Adapter_callback_interface;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -78,7 +81,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
     String currentlocation_statename;
     int current_state_index;
     String class_name;
-
+    private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
     String selected_categoryid;
     ViewPager viewpager_state;
     FloatingActionButton fab_filter;
@@ -134,8 +137,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         autocomplete_textview_product.setThreshold(1);
         setup_state_spinner();
 
-        setup_state_Recycleview();
-        setup_category_Recycleview();
+
         setup_search_Recyclewview();
 
 
@@ -144,18 +146,14 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         fab_filter.setBackgroundTintList(getResources().getColorStateList(R.color.color_voilet));
 
 
-      /*  fab_filter.setOnClickListener(new View.OnClickListener() {
+        fab_filter.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-//                FilterDialog filterDialog = new FilterDialog(Search.this, autocomplete_textview_product.getText().toString(), common_category_searchlist, "search");
-//                filterDialog.show();
-                // Click action
-//                Intent intent = new Intent(MainActivity.this, NewMessageActivity.class);
-//                startActivity(intent);
+     FilterDialog filterDialog = new FilterDialog(Search.this, "", filterHashMap);
+                filterDialog.show();
             }
         });
-*/
 
 
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
@@ -200,7 +198,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
                     if (autocomplete_textview_product.getText().length() != 0) {
                         // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
                         call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(), "", "", "", "");
-
+                        autocomplete_textview_product.setHint("");
                         App_config.hideKeyboard(Search.this);
 
 
@@ -228,29 +226,6 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
     }
 
-    private void setup_category_Recycleview() {
-
-
-        category_names_recycler = (RecyclerView) findViewById(R.id.category_names_recycler);
-        mLayoutManager_category = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-        category_names_recycler.setLayoutManager(mLayoutManager_category);
-        searchResults_category_Adapter = new SearchcategoryAdapter(Search.this, common_category_searchlist, state_list_spinner.getItemAtPosition(current_state_index).toString(),
-                autocomplete_textview_product.getText().toString());
-        category_names_recycler.setAdapter(searchResults_category_Adapter);
-
-
-    }
-
-    private void setup_state_Recycleview() {
-
-        state_names_recycler = (RecyclerView) findViewById(R.id.state_names_recycler);
-        mLayoutManager_state = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-        state_names_recycler.setLayoutManager(mLayoutManager_state);
-        searchResults_state_Adapter = new SearchStateAdapter(Search.this, common_state_searchlist);
-        state_names_recycler.setAdapter(searchResults_state_Adapter);
-
-
-    }
 
     private void setup_state_spinner() {
 
@@ -429,6 +404,12 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
 
             JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+
+            JsonArray filterArray = result.getAsJsonArray("filter");
+            if (filterArray != null) {
+                loadFilterDataInHashMap(filterArray);
+            }
+
             Log.e("data_jsonarray", jsonarray_result.toString());
 
 
@@ -476,7 +457,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
 
             JsonArray jsonarray_states = jsonObject.getAsJsonArray("states");
-            if(jsonarray_states!=null) {
+            if (jsonarray_states != null) {
 
                 for (int l = 0; l < jsonarray_states.size(); l++) {
 
@@ -502,7 +483,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
             JsonArray jsonarray_cities = jsonObject.getAsJsonArray("cities");
 
-            if(jsonarray_cities!=null) {
+            if (jsonarray_cities != null) {
                 for (int l = 0; l < jsonarray_cities.size(); l++) {
 
                     JsonObject jsonObject_result = (JsonObject) jsonarray_cities.get(l);
@@ -518,7 +499,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
             }
             progressBarHandler.hide();
             fab_filter.setVisibility(View.VISIBLE);
-            findViewById(R.id.search_category_state_container).setVisibility(View.VISIBLE);
+
 
         }
 
@@ -666,6 +647,52 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         }
 
     }
+
+    private void loadFilterDataInHashMap(JsonArray filterArray) {
+        filterHashMap = new ArrayMap<>();
+        if (filterArray.size() > 0) {
+            AndroidUtils.showErrorLog(Search.this, "size of filter Array is  :  " + filterArray.size());
+            for (int i = 0; i < filterArray.size(); i++) {
+                JsonObject filterObject = (JsonObject) filterArray.get(i);
+                String filterName = filterObject.get("name").getAsString();
+                JsonArray valueJsonArray = filterObject.get("values").getAsJsonArray();
+                ArrayList<FilterObject> valueArrayList = new ArrayList<>();
+
+                if (valueJsonArray != null) {
+
+                    for (int j = 0; j < valueJsonArray.size(); j++) {
+                        FilterObject filterObjectData = new FilterObject();
+                        JsonObject filterValueObject = (JsonObject) valueJsonArray.get(j);
+                        String[] filterValueObjectArray = filterValueObject.toString().replaceAll("\\{", "").replaceAll("\\}", "").trim().split(",");
+                        AndroidUtils.showErrorLog(Search.this, "Length of filter value array is : ******" + filterValueObjectArray.length);
+
+                        for (int k = 0; k < filterValueObjectArray.length; k++) {
+                            AndroidUtils.showErrorLog(Search.this, "filterValueObjectArray[k]"+ filterValueObjectArray[k]);
+                            String key = filterValueObjectArray[k].split(":")[0].replaceAll("\"", "");
+                            String value = filterValueObjectArray[k].split(":")[1].replaceAll("\"", "");
+                            if(key.contains("id")){
+                                filterObjectData.id.key = key;
+                                filterObjectData.id.value = value;
+                            } else  if(key.contains("name")){
+                                filterObjectData.name.key = key;
+                                filterObjectData.name.value = value;
+                            }else  if(key.contains("count")){
+                                filterObjectData.count.key = key;
+                                filterObjectData.count.value = value;
+                            }
+                        }
+
+                        valueArrayList.add(filterObjectData);
+                    }
+                }
+                filterHashMap.put(filterName, valueArrayList);
+            }
+        }
+    }
+
+
+
+
 }
 
 
