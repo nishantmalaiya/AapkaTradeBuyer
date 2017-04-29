@@ -31,6 +31,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
@@ -199,7 +200,10 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                             String description = json_result.get("short_des").getAsString();
                             String duration = json_result.get("deliverday").getAsString();
                             String pincode = json_result.get("pincode").getAsString();
-                            String address = json_result.get("address").getAsString() + "," + pincode;
+                            String address = json_result.get("address").getAsString();
+                            if(Validation.isNonEmptyStr(address)  && Validation.isNonEmptyStr(pincode)){
+                                address = new StringBuilder(address).append(", PINCODE - ").append(pincode).toString();
+                            }
                             String mobile = json_result.get("mobile").getAsString();
                             String phone = json_result.get("phone").getAsString();
 
@@ -237,25 +241,18 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                             }
 
 
-                            JsonArray openCloseDayArray = json_result.getAsJsonArray("opening_time");
+                            JsonArray openCloseDayArray = result.getAsJsonArray("opening_time");
 
                             if(openCloseDayArray!=null && openCloseDayArray.size()>0){
                                 openingClosingRelativeLayout.setVisibility(View.VISIBLE);
-//                                for(int i = 0; i < openCloseDayArray.size(); i++){
-//                                    JsonObject jsonObjectDays = (JsonObject) openCloseDayArray.get(i);
-//                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString(), jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time").getAsString());
-//                                    openCloseDayArrayList.add(openCloseShopData);
-//
-//                                }
-
-
-
-                                for(int i = 0; i < 7; i++){
-                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData("Sunday", "600AM", "900PM");
+                                for(int i = 0; i < openCloseDayArray.size(); i++){
+                                    JsonObject jsonObjectDays = (JsonObject) openCloseDayArray.get(i);
+                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString().substring(0,3), jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time").getAsString());
                                     openCloseDayArrayList.add(openCloseShopData);
 
                                 }
 
+                                mLayoutManagerShoplist = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                                 openShopList.setLayoutManager(mLayoutManagerShoplist);
                                 openCloseDaysRecyclerAdapter = new OpenCloseDaysRecyclerAdapter(context, openCloseDayArrayList);
                                 openShopList.setAdapter(openCloseDaysRecyclerAdapter);

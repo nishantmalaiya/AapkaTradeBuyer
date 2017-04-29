@@ -14,4 +14,13 @@ public class OpenCloseShopData {
         this.openingTime = openingTime;
         this.closingTime = closingTime;
     }
+
+    @Override
+    public String toString() {
+        return "OpenCloseShopData{" +
+                "dayName='" + dayName + '\'' +
+                ", openingTime='" + openingTime + '\'' +
+                ", closingTime='" + closingTime + '\'' +
+                '}';
+    }
 }
