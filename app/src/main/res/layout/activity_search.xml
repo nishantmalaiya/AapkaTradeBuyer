@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:fitsSystemWindows="true"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinate_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
 
     >
 
@@ -15,56 +14,53 @@ android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.pat.aapkatrade.search.Search"
-        >
+        tools:context="com.example.pat.aapkatrade.search.Search">
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
             android:id="@+id/ll_search_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/green"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
 
-                <include
-                    android:id="@+id/toolbar"
-                    layout="@layout/toolbar_search" />
-
-
-
-
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_search" />
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_margin="5dp"
-                android:visibility="gone"
-
+                android:layout_height="40dp"
                 android:layout_below="@+id/rl_autocomplete_textview"
+
+                android:layout_margin="5dp"
                 android:background="@drawable/edit_text_grey_back"
-                android:layout_height="40dp">
+                android:visibility="gone">
 
                 <requestFocus />
 
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="5dp"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_pen"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
 
-                    android:layout_height="15dp" />
+                    app:srcCompat="@drawable/ic_pen" />
+
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/location_hint"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:textSize="@dimen/textsize_small"
-
                     android:background="@android:color/transparent"
+                    android:hint="@string/location_hint"
+
+                    android:textSize="@dimen/textsize_small"
 
                     >
 
@@ -74,105 +70,100 @@ android:fitsSystemWindows="true"
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="15dp"
+                    android:layout_height="15dp"
+
                     android:layout_alignParentLeft="true"
-
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_map"
-
                     android:layout_marginLeft="10dp"
-                    android:layout_height="15dp" />
+                    android:gravity="center_vertical"
+
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_map" />
 
             </RelativeLayout>
 
 
-        <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/rl_autocomplete_textview"
-        android:layout_margin="5dp"
+            <RelativeLayout
+                android:id="@+id/rl_autocomplete_textview"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
 
-        android:layout_below="@+id/toolbar"
-        android:background="@drawable/edit_text_grey_back"
-        android:layout_height="40dp">
+                android:layout_below="@+id/toolbar"
+                android:layout_margin="5dp"
+                android:background="@drawable/edit_text_grey_back">
 
-            <TextView
-            android:layout_width="wrap_content"
-            android:text="@string/search_data"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
 
-    android:visibility="gone"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content" />
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            app:srcCompat="@drawable/ic_pen"
-            android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/search_data"
+                    android:visibility="gone" />
 
-            android:layout_height="15dp" />
-    <android.support.v7.widget.AppCompatAutoCompleteTextView
-        android:layout_width="match_parent"
-        android:id="@+id/search_autocompletetext_products"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="@string/search_data"
-android:textSize="@dimen/textsize_small"
-        android:imeOptions="actionSearch"
-        android:inputType="textAutoComplete|textAutoCorrect"
-        android:background="@android:color/transparent"
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:id="@+id/voice_input"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_voice" />
 
-        >
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/search_autocompletetext_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search_data"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textAutoComplete|textAutoCorrect"
+                    android:textSize="@dimen/textsize_small"
 
-        <requestFocus />
-    </android.support.v7.widget.AppCompatAutoCompleteTextView>
+                    >
 
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="15dp"
+                    <requestFocus />
+                </android.support.v7.widget.AppCompatAutoCompleteTextView>
 
-                android:layout_alignParentLeft="true"
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="15dp"
 
-                android:layout_centerVertical="true"
+                    android:layout_height="15dp"
 
-                android:scaleType="fitCenter"
-                android:gravity="center_vertical"
-                app:srcCompat="@drawable/ic_at"
-                android:layout_marginLeft="10dp"
-                android:layout_height="15dp"
-             />
-        </RelativeLayout>
+                    android:layout_alignParentLeft="true"
 
-
-
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_at" />
+            </RelativeLayout>
 
 
         </LinearLayout>
 
 
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@+id/ll_search_container"
-            android:layout_height="match_parent">
-
-
-
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleview_search"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:dividerHeight="5dp"
+            android:layout_below="@+id/ll_search_container">
 
 
-            android:divider="#E6E6E6"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:divider="#E6E6E6"
+
+
+                android:dividerHeight="5dp" />
 
         </RelativeLayout>
 
@@ -184,11 +175,9 @@ android:textSize="@dimen/textsize_small"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_filter"
         android:visibility="gone"
-     app:rippleColor="@color/color_voilet"
-        android:src="@drawable/ic_filter" />
-
-
+        app:rippleColor="@color/color_voilet" />
 
 
 </android.support.design.widget.CoordinatorLayout>

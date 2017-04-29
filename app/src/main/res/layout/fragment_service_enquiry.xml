@@ -119,30 +119,6 @@
                                     android:layout_marginTop="@dimen/ten_dip"
                                     android:orientation="vertical">
 
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content">
-
-
-                                        <TextView
-                                            android:id="@+id/tvCategoryName"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
-                                            android:textColor="@color/black"
-                                            android:textSize="@dimen/textsize_medium"/>
-
-                                        <TextView
-                                            android:id="@+id/tvProductname"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_marginTop="@dimen/twenty_dip"
-                                            android:textColor="@color/black"
-                                            android:textSize="@dimen/textsize_medium" />
-
-                                    </RelativeLayout>
-
 
                                 </LinearLayout>
                             </LinearLayout>
@@ -182,7 +158,7 @@
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="@string/first_name"
+                                        android:hint="@string/fullname"
                                         android:inputType="text"
                                         android:paddingLeft="@dimen/ten_dip"
                                         android:textColorHint="@color/green"
@@ -205,7 +181,7 @@
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="@string/first_name"
+                                        android:hint="@string/email"
                                         android:inputType="text"
                                         android:paddingLeft="@dimen/ten_dip"
                                         android:textColorHint="@color/green"
@@ -228,7 +204,7 @@
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="@string/price1"
+                                        android:hint="@string/mobile"
                                         android:inputType="numberDecimal"
                                         android:paddingLeft="@dimen/ten_dip"
                                         android:textColorHint="@color/green"
@@ -250,143 +226,7 @@
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="@string/mobile"
-                                        android:inputType="number"
-                                        android:paddingLeft="@dimen/ten_dip"
-                                        android:textColorHint="@color/green"
-                                        android:theme="@style/myedittext" />
-
-
-                                </android.support.design.widget.TextInputLayout>
-
-
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/twenty_dip"
-                                    android:layout_marginRight="@dimen/twenty_dip"
-                                    android:layout_marginTop="@dimen/ten_dip"
-                                    android:textColorHint="@color/hint_color">
-
-                                    <EditText
-                                        android:id="@+id/et_layout_email"
-                                        style="@style/myedittext"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="@string/emailId"
-                                        android:inputType="textEmailAddress"
-                                        android:paddingLeft="@dimen/ten_dip"
-                                        android:textColorHint="@color/green"
-                                        android:theme="@style/myedittext" />
-
-
-                                </android.support.design.widget.TextInputLayout>
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_start_date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/twenty_dip"
-                                    android:layout_marginRight="@dimen/twenty_dip"
-                                    android:layout_marginTop="@dimen/ten_dip"
-                                    android:clickable="false"
-                                    android:focusable="true"
-                                    android:textColorHint="@color/hint_color"
-                                    app:hintAnimationEnabled="true"
-                                    app:hintEnabled="true"
-                                    app:hintTextAppearance="@style/nofocus_edittext_theme">
-
-                                    <RelativeLayout
-                                        android:id="@+id/startDateLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center_vertical|center_horizontal">
-
-                                        <EditText
-                                            android:id="@+id/etStartDate"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:enabled="false"
-                                            android:focusableInTouchMode="true"
-                                            android:hint="@string/startDate"
-                                            android:inputType="text"
-                                            android:paddingLeft="@dimen/ten_dip"
-                                            android:theme="@style/nofocus_edittext_theme" />
-
-
-                                        <ImageView
-                                            android:id="@+id/openStartDateCal"
-                                            android:layout_width="@dimen/thirty_five_dip"
-                                            android:layout_height="@dimen/thirty_five_dip"
-                                            android:layout_alignParentRight="true"
-                                            android:padding="@dimen/five_dip"
-                                            android:src="@drawable/ic_calendar" />
-
-
-                                    </RelativeLayout>
-
-                                </android.support.design.widget.TextInputLayout>
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/input_layout_end_date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/twenty_dip"
-                                    android:layout_marginRight="@dimen/twenty_dip"
-                                    android:layout_marginTop="@dimen/ten_dip"
-                                    android:clickable="false"
-                                    android:focusable="true"
-                                    android:textColorHint="@color/hint_color"
-                                    app:hintAnimationEnabled="true"
-                                    app:hintEnabled="true"
-                                    app:hintTextAppearance="@style/nofocus_edittext_theme">
-
-                                    <RelativeLayout
-                                        android:id="@+id/endDateLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center_vertical|center_horizontal">
-
-                                        <EditText
-                                            android:id="@+id/etEndDate"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:enabled="false"
-                                            android:focusableInTouchMode="true"
-                                            android:hint="@string/endDate"
-                                            android:inputType="text"
-                                            android:paddingLeft="@dimen/ten_dip"
-                                            android:theme="@style/nofocus_edittext_theme" />
-
-
-                                        <ImageView
-                                            android:id="@+id/openEndDateCal"
-                                            android:layout_width="@dimen/thirty_five_dip"
-                                            android:layout_height="@dimen/thirty_five_dip"
-                                            android:layout_alignParentRight="true"
-                                            android:padding="@dimen/five_dip"
-                                            android:src="@drawable/ic_calendar" />
-
-
-                                    </RelativeLayout>
-
-                                </android.support.design.widget.TextInputLayout>
-
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/twenty_dip"
-                                    android:layout_marginRight="@dimen/twenty_dip"
-                                    android:layout_marginTop="@dimen/ten_dip"
-                                    android:textColorHint="@color/hint_color">
-
-                                    <EditText
-                                        android:id="@+id/et_layout_description"
-                                        style="@style/myedittext"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="@string/description_heading"
+                                        android:hint="@string/customer_enquiry"
                                         android:inputType="text"
                                         android:paddingLeft="@dimen/ten_dip"
                                         android:textColorHint="@color/green"
@@ -394,6 +234,10 @@
 
 
                                 </android.support.design.widget.TextInputLayout>
+
+
+
+
 
 
                             </LinearLayout>

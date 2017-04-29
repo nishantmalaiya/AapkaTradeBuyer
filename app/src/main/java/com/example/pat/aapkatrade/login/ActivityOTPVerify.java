@@ -73,6 +73,7 @@ String otp_id;
         }
 
 
+
         context = ActivityOTPVerify.this;
         appSharedPreference = new AppSharedPreference(context);
         setUpToolBar();
@@ -337,7 +338,27 @@ String otp_id;
 
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                        } else {
+                        }
+                        else if(class_name.contains("Track_order_dialog"))
+                        {
+
+                            appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+                            Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+
+
+
+
+
+                        }
+
+
+                        else {
+
+
+
+
                             appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
