@@ -108,14 +108,7 @@ public class CategoryListActivity extends AppCompatActivity {
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result1-->" + result.toString().substring(0, 4000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result2-->" + result.toString().substring(4000, 8000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result3-->" + result.toString().substring(8000, 12000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result4-->" + result.toString().substring(12000, 16000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result5-->" + result.toString().substring(16000, 20000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result6-->" + result.toString().substring(20000, 24000));
-////                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result7-->" + result.toString().substring(24000, 28000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result8-->" + result.toString().substring(24000, result.toString().length()-1));
+
                             if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
                                 toolbarRightText.setVisibility(View.VISIBLE);
                                 Log.e(AndroidUtils.getTag(context), "total_result" + result);

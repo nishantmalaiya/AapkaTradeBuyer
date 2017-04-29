@@ -41,13 +41,7 @@
 
                     >
 
-                    <!--<android.support.v7.widget.CardView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_marginTop="@dimen/ten_dip"-->
-                    <!--android:layout_marginLeft="@dimen/ten_dip"-->
-                    <!--android:layout_marginRight="@dimen/ten_dip"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--&gt;-->
+
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -958,13 +952,13 @@
 
 
         <RelativeLayout
-            android:id="@+id/relativeBuyNow"
+            android:id="@+id/relativeService_enquiry"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/orange"
             android:padding="@dimen/fifteen_dip"
             android:layout_weight="1.5"
-            android:visibility="gone">
+          >
 
             <TextView
                 android:id="@+id/tvServiceBuy"
@@ -973,7 +967,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="@string/buy_now"
+                android:text="@string/service_enquiry"
                 android:textSize="@dimen/textsize_medium"
                 android:textColor="@color/white"
                 android:textStyle="bold" />

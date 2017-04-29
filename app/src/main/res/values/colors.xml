@@ -27,7 +27,7 @@
     <color name="item_details_color">#585858</color>
     <color name="green_gradient2">#1C7B67</color>
     <color name="transparent">#40d1cece</color>
-
+    <color name="transparent_new">#80000000</color>
     <color name="filter_col1_bg">#f9f9f9</color>
     <color name="selected_filter_col1_bg">#f9f0ea</color>
 
