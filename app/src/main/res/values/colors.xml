@@ -24,6 +24,9 @@
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
     <color name="grey_gradient2">#737C7A</color>
+
+    <color name="dark_purple">#6445b5</color>
+    <color name="green_light">#7dbd00</color>
     <color name="item_details_color">#585858</color>
     <color name="green_gradient2">#1C7B67</color>
     <color name="transparent">#40d1cece</color>

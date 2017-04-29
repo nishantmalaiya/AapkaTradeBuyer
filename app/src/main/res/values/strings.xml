@@ -82,7 +82,6 @@
     <string name="save_and_next" translatable="false">Save &amp; Next</string>
 
     <string name="search_data" translatable="false">What?e.g. Dairy</string>
-    <string name="ok">OK</string>
     <string name="aacount_no" translatable="false">Account No.*</string>
     <string name="branch_code" translatable="false">Branch Code*</string>
     <string name="branch_name" translatable="false">Branch Name</string>
@@ -157,15 +156,13 @@
     <string name="usertype">1</string>
     <string name="continue_order">CONTINUE</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="trackorder">Track Your Order</string>
 
     <string name="tracking_text">Enter 14 digit tracking no./Order id.</string>
     <string name="trackorder_heading">We will send you a OTP to track your order status.</string>
 
-   
 
-    <string name="opening_closing_shop">Opening Closing Shop</string>
+   <string name="opening_closing_shop">Opening Closing Shop</string>
     <string name="buy_now">Buy Now</string>
     <string name="fullname">Full Name</string>
     <string name="customer_enquiry">Customer Enquiry</string>

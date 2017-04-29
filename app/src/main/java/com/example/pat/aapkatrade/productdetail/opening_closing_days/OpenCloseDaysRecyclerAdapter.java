@@ -21,11 +21,12 @@ public class OpenCloseDaysRecyclerAdapter extends RecyclerView.Adapter<OpenClose
     private Context context;
     private ArrayList<OpenCloseShopData> openCloseShopDataArrayList = new ArrayList<>();
     private LayoutInflater inflater;
-    private int colorArray[] = {R.color.open_shop_day_color1, R.color.open_shop_day_color2, R.color.open_shop_day_color3, R.color.open_shop_day_color4, R.color.open_shop_day_color5, R.color.open_shop_day_color6, R.color.open_shop_day_color7};
+    private int colorArray[] = {R.color.open_shop_day_color1, R.color.dark_purple, R.color.open_shop_day_color3, R.color.open_shop_day_color4, R.color.open_shop_day_color5, R.color.green_light, R.color.open_shop_day_color7};
 
     public OpenCloseDaysRecyclerAdapter(Context context, ArrayList<OpenCloseShopData> openCloseShopDataArrayList) {
         this.openCloseShopDataArrayList = openCloseShopDataArrayList;
         this.context = context;
+        inflater = LayoutInflater.from(context);
     }
 
 
@@ -36,11 +37,11 @@ public class OpenCloseDaysRecyclerAdapter extends RecyclerView.Adapter<OpenClose
 
     @Override
     public void onBindViewHolder(OpenCloseDaysViewHolder holder, final int position) {
-        AndroidUtils.setBackgroundSolid(holder.relativeOpenShop, context, colorArray[position], 20, GradientDrawable.RECTANGLE);
+        AndroidUtils.setBackgroundSolid(holder.relativeOpenShop, context, colorArray[position], 0, GradientDrawable.RECTANGLE);
 
-        holder.tvDayName.setText(openCloseShopDataArrayList.get(position).dayName.substring(0,2));
-        holder.tvOpeningTime.setText(openCloseShopDataArrayList.get(position).openingTime);
-        holder.tvClosingTime.setText(openCloseShopDataArrayList.get(position).closingTime);
+        holder.tvDayName.setText(openCloseShopDataArrayList.get(position).dayName);
+        holder.tvOpeningTime.setText(new StringBuilder("Opening Time : ").append(openCloseShopDataArrayList.get(position).openingTime));
+        holder.tvClosingTime.setText(new StringBuilder("Closing Time : ").append(openCloseShopDataArrayList.get(position).closingTime));
     }
 
     @Override

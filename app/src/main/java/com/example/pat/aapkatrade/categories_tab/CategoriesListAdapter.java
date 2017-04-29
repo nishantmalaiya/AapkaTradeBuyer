@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.categories_tab;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
@@ -36,8 +38,8 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final LayoutInflater inflater;
     private List<CategoriesListData> itemList;
     public Activity context;
-    CategoriesListHolder viewHolder;
-    ProgressBarHandler progressBarHandler;
+    private CategoriesListHolder viewHolder;
+    private ProgressBarHandler progressBarHandler;
 
 
     public CategoriesListAdapter(Activity context, List<CategoriesListData> itemList) {
@@ -63,8 +65,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         CategoriesListHolder homeHolder = (CategoriesListHolder) holder;
 
         homeHolder.tvProductName.setText(itemList.get(position).shopName);
-
-
 
 
         if(Tabletsize.isTablet(context))
@@ -179,6 +179,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     }
+
 
     @Override
     public int getItemCount() {
