@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
@@ -52,6 +51,9 @@ public class CategoryListActivity extends AppCompatActivity {
     private TextView toolbarRightText;
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
     ViewGroup view;
+    private LinearLayoutManager linearLayoutManager;
+    private int lastItemVisible;
+    int count = 0;
 
 
     @Override
@@ -70,10 +72,18 @@ public class CategoryListActivity extends AppCompatActivity {
         appSharedPreference = new AppSharedPreference(this);
         setUpToolBar();
         initView();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        lastItemVisible = linearLayoutManager.findLastVisibleItemPosition();
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         StikkyHeaderBuilder.stickTo(mRecyclerView).setHeader(R.id.header_simple, view).minHeightHeaderDim(R.dimen.min_header_height).build();
-        get_web_data();
+        if(isLastItem(lastItemVisible) && productListDatas.size()>0){
+            AndroidUtils.showErrorLog(context, "IFFFFFFFF123");
+            getShopListData(String.valueOf(++count));
+        } else {
+            AndroidUtils.showErrorLog(context, "ELSEEEEEEEEE123");
+            getShopListData("0");
+        }
     }
 
     private void initView() {
@@ -83,14 +93,14 @@ public class CategoryListActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
-    private void get_web_data() {
+    private void getShopListData(String pageNumber) {
 
 
         productListDatas.clear();
         State state = new State("-1", "Select State", "0");
         productAvailableStateList.add(state);
 
-        Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : "+category_id);
+        Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : " + category_id);
         progress_handler.show();
         Ion.with(CategoryListActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
@@ -99,6 +109,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("category_id", category_id)
                 .setBodyParameter("apply", "1")
+                .setBodyParameter("page", pageNumber)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -108,14 +119,7 @@ public class CategoryListActivity extends AppCompatActivity {
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result1-->" + result.toString().substring(0, 4000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result2-->" + result.toString().substring(4000, 8000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result3-->" + result.toString().substring(8000, 12000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result4-->" + result.toString().substring(12000, 16000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result5-->" + result.toString().substring(16000, 20000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result6-->" + result.toString().substring(20000, 24000));
-////                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result7-->" + result.toString().substring(24000, 28000));
-//                            AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result8-->" + result.toString().substring(24000, result.toString().length()-1));
+
                             if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
                                 toolbarRightText.setVisibility(View.VISIBLE);
                                 Log.e(AndroidUtils.getTag(context), "total_result" + result);
@@ -135,33 +139,21 @@ public class CategoryListActivity extends AppCompatActivity {
                             if (message_data.equals("No record found")) {
                                 layout_container.setVisibility(View.INVISIBLE);
                             } else {
-                                JsonArray jsonArray = result.getAsJsonArray("result");
+                                JsonArray resultJsonArray = result.getAsJsonArray("result");
                                 JsonArray filterArray = result.getAsJsonArray("filter");
                                 if (filterArray != null) {
                                     loadFilterDataInHashMap(filterArray);
                                 }
 
-
-                                for (int i = 0; i < jsonArray.size(); i++) {
-                                    JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
-                                    AndroidUtils.showErrorLog(context, result.get("message").toString() + "<--result-->cITY"+i+jsonObject2.toString() );
-
-
-                                    String shopId = jsonObject2.get("id").getAsString();
-
-                                    String shopName = jsonObject2.get("name").getAsString();
-                                    String shopImage = jsonObject2.get("image_url").getAsString();
-                                    String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
-                                            jsonObject2.get("country_name").getAsString();
-
-                                    productListDatas.add(new CategoriesListData(shopId, shopName,shopImage,shopLocation));
-                                    AndroidUtils.showErrorLog(context, "productListDatas : "+productListDatas.get(i).shopImage);
-
+                                if(resultJsonArray != null){
+                                    loadResultData(resultJsonArray);
                                 }
+
                                 categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
                                 mRecyclerView.setAdapter(categoriesListAdapter);
                                 categoriesListAdapter.notifyDataSetChanged();
                                 progress_handler.hide();
+
                             }
 
                         }
@@ -169,6 +161,29 @@ public class CategoryListActivity extends AppCompatActivity {
 
                 });
 
+    }
+
+
+
+    private boolean isLastItem(int num){
+        if(num%20 == 0){
+            return true;
+        }
+        return false;
+    }
+
+    private void loadResultData(JsonArray resultJsonArray) {
+        for (int i = 0; i < resultJsonArray.size(); i++) {
+            JsonObject jsonObject2 = (JsonObject) resultJsonArray.get(i);
+            AndroidUtils.showErrorLog(context, "<--result-->cITY" + i + jsonObject2.toString());
+            String shopId = jsonObject2.get("id").getAsString();
+            String shopName = jsonObject2.get("name").getAsString();
+            String shopImage = jsonObject2.get("image_url").getAsString();
+            String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
+            productListDatas.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation));
+            AndroidUtils.showErrorLog(context, "productListDatas : " + productListDatas.get(i).shopImage);
+
+        }
     }
 
     private void setUpToolBar() {
@@ -239,16 +254,16 @@ public class CategoryListActivity extends AppCompatActivity {
                         AndroidUtils.showErrorLog(context, "Length of filter value array is : ******" + filterValueObjectArray.length);
 
                         for (int k = 0; k < filterValueObjectArray.length; k++) {
-                            AndroidUtils.showErrorLog(context, "filterValueObjectArray[k]"+ filterValueObjectArray[k]);
+                            AndroidUtils.showErrorLog(context, "filterValueObjectArray[k]" + filterValueObjectArray[k]);
                             String key = filterValueObjectArray[k].split(":")[0].replaceAll("\"", "");
                             String value = filterValueObjectArray[k].split(":")[1].replaceAll("\"", "");
-                            if(key.contains("id")){
+                            if (key.contains("id")) {
                                 filterObjectData.id.key = key;
                                 filterObjectData.id.value = value;
-                            } else  if(key.contains("name")){
+                            } else if (key.contains("name")) {
                                 filterObjectData.name.key = key;
                                 filterObjectData.name.value = value;
-                            }else  if(key.contains("count")){
+                            } else if (key.contains("count")) {
                                 filterObjectData.count.key = key;
                                 filterObjectData.count.value = value;
                             }
