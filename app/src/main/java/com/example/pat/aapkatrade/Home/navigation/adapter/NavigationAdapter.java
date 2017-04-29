@@ -1,9 +1,11 @@
 package com.example.pat.aapkatrade.Home.navigation.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,9 @@ import com.example.pat.aapkatrade.Home.navigation.viewholder.NavigationViewHolde
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.location.Mylocation;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -26,11 +31,14 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
     private Context context;
     private ArrayList<CategoryHome> listDataHeader;
     private View view;
+    private Mylocation mylocation;
 
 
     public NavigationAdapter(Context context, ArrayList<CategoryHome> listDataHeader) {
         this.context = context;
         this.listDataHeader = listDataHeader;
+
+
     }
 
     @Override
@@ -41,6 +49,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
     @Override
     public void onBindViewHolder(NavigationViewHolder viewHolder, int position) {
+
+
+
         final int currentPosition = position;
         final ImageView imageView = viewHolder.imageViewIcon;
 
@@ -62,9 +73,42 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
         viewHolder.rl_category_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, CategoryListActivity.class);
-                i.putExtra("category_id", listDataHeader.get(currentPosition).getCategoryId());
-                context.startActivity(i);
+
+
+                boolean permission_status = CheckPermission.checkPermissions((Activity)context);
+
+
+                if (permission_status)
+
+                { mylocation = new Mylocation(context);
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            context);
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable())
+                    {
+
+
+                        double latitude = mylocation.getLatitude();
+                        double longitude = mylocation.getLongitude();
+
+
+                        Intent i = new Intent(context, CategoryListActivity.class);
+                        i.putExtra("category_id", listDataHeader.get(currentPosition).getCategoryId());
+                        context.startActivity(i);
+
+                    }
+                    else
+                    {
+                        locationManagerCheck.createLocationServiceError((Activity) context);
+                    }
+
+                }
+
+
+
+
+
+
 
             }
         });

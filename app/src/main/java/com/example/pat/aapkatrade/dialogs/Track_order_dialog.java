@@ -1,7 +1,11 @@
 package com.example.pat.aapkatrade.dialogs;
 
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,14 +15,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -28,6 +40,8 @@ public class Track_order_dialog extends DialogFragment {
     ImageView dialog_close;
     EditText tracking_id;
     Button validate_order_id;
+    ProgressBarHandler progressBarHandler;
+    TextToSpeech t1;
 
     public Track_order_dialog() {
         // Required empty public constructor
@@ -51,6 +65,9 @@ public class Track_order_dialog extends DialogFragment {
         validate_order_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
              if(Validation.validateEdittext(tracking_id))
              {
                  call_Validate_order_webservice();
@@ -60,11 +77,29 @@ public class Track_order_dialog extends DialogFragment {
             }
         });
 
+
+
+
+
+
+
+
         return v;
     }
 
+
+
+
+
+
     private void call_Validate_order_webservice() {
+
+
+
+
+
         String track_order_url=getString(R.string.webservice_base_url)+"/track_order";
+
 
 //                .setBodyParameter("ORDER_ID ", tracking_id.getText().toString().trim())
 //                .setBodyParameter("client_id", App_config.getCurrentDeviceId(getActivity()))
@@ -78,6 +113,39 @@ public class Track_order_dialog extends DialogFragment {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
 
+
+                if(result!=null)
+                {
+                  String error =result.get("error").getAsString();
+                    if(error.contains("false"))
+                    {
+                        progressBarHandler.hide();
+
+
+
+                       String otp_id=result.get("result").getAsJsonObject().get("otp_id").getAsString();
+
+
+                        Intent go_to_activity_otp_verify = new Intent(getActivity(), ActivityOTPVerify.class);
+                        go_to_activity_otp_verify.putExtra("class_name", getActivity().getClass().getName());
+                        go_to_activity_otp_verify.putExtra("otp_id",otp_id);
+                        startActivity(go_to_activity_otp_verify);
+
+
+
+                        Log.e("otp_id",otp_id);
+
+
+                    }
+                    else{
+                        progressBarHandler.hide();
+                    }
+
+
+
+                }
+
+progressBarHandler.hide();
 
                 Log.e("result",result.toString());
 //               JsonObject res result.get("otp_id").getAsString();
@@ -96,6 +164,7 @@ public class Track_order_dialog extends DialogFragment {
     }
 
     private void initview(View v) {
+        progressBarHandler=new ProgressBarHandler(getActivity());
 
         dialog_close = (ImageView) v.findViewById(R.id.dialog_close);
 
@@ -104,5 +173,8 @@ public class Track_order_dialog extends DialogFragment {
 
 
     }
+
+
+
 
 }

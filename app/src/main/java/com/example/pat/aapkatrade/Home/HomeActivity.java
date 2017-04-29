@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     float initialX, initialY;
     public static RelativeLayout rl_main_content, rl_searchview_dashboard;
     AppSharedPreference app_sharedpreference;
-
+    private final int SPEECH_RECOGNITION_CODE = 1;
     Mylocation mylocation;
     boolean doubleBackToExitPressedOnce = false;
     LinearLayout linearlayout_home;
@@ -546,20 +546,16 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches != null && matches.size() > 0) {
-                String searchWrd = matches.get(0);
-                if (!TextUtils.isEmpty(searchWrd)) {
-                    DashboardFragment.searchView.setQuery(searchWrd, false);
-
-                    //DashboardFragment.searchView.setSuggestionsAdapter(getResources().getStringArray(R.array.search_suggestion));
-
-
+        switch (requestCode) {
+            case SPEECH_RECOGNITION_CODE: {
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String text = result.get(0);
+                    Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
                 }
+                break;
             }
-
-            return;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
