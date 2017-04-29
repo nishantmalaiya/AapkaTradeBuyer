@@ -97,27 +97,27 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
 
     private void initView()
     {
-        dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
-        startDateLayout = (RelativeLayout) findViewById(R.id.startDateLayout);
-        endDateLayout = (RelativeLayout) findViewById(R.id.endDateLayout);
-        imgCLose = (Button) findViewById(R.id.imgCLose);
-        firstName = (EditText) findViewById(R.id.etFirstName);
-        quantity = (EditText) findViewById(R.id.et_layout_quantity);
-        price = (EditText) findViewById(R.id.et_layout_price);
-        mobile = (EditText) findViewById(R.id.et_layout_mobile);
-        email = (EditText) findViewById(R.id.et_layout_email);
-        etEndDate = (EditText) findViewById(R.id.etEndDate);
-        etStartDate = (EditText) findViewById(R.id.etStartDate);
-        input_layout_start_date = (TextInputLayout) findViewById(R.id.input_layout_start_date);
-        input_layout_end_date = (TextInputLayout) findViewById(R.id.input_layout_end_date);
-        description = (EditText) findViewById(R.id.et_layout_description);
-        submit = (TextView) findViewById(R.id.buttonSubmit);
-        AndroidUtils.setBackgroundSolid(submit, context, R.color.orange, 8, GradientDrawable.OVAL);
-        AndroidUtils.setBackgroundSolid(dialogue_toolbar, context, R.color.green, 15, GradientDrawable.OVAL);
-        openStartDateCal = (ImageView) findViewById(R.id.openStartDateCal);
-        openEndDateCal = (ImageView) findViewById(R.id.openEndDateCal);
-        tvProductname = (TextView) findViewById(R.id.tvProductname);
-        tvCategoryName = (TextView) findViewById(R.id.tvCategoryName);
+//        dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
+//        startDateLayout = (RelativeLayout) findViewById(R.id.startDateLayout);
+//        endDateLayout = (RelativeLayout) findViewById(R.id.endDateLayout);
+//        imgCLose = (Button) findViewById(R.id.imgCLose);
+//        firstName = (EditText) findViewById(R.id.etFirstName);
+//        quantity = (EditText) findViewById(R.id.et_layout_quantity);
+//        price = (EditText) findViewById(R.id.et_layout_price);
+//        mobile = (EditText) findViewById(R.id.et_layout_mobile);
+//        email = (EditText) findViewById(R.id.et_layout_email);
+//        etEndDate = (EditText) findViewById(R.id.etEndDate);
+//        etStartDate = (EditText) findViewById(R.id.etStartDate);
+//        input_layout_start_date = (TextInputLayout) findViewById(R.id.input_layout_start_date);
+//        input_layout_end_date = (TextInputLayout) findViewById(R.id.input_layout_end_date);
+//        description = (EditText) findViewById(R.id.et_layout_description);
+//        submit = (TextView) findViewById(R.id.buttonSubmit);
+//        AndroidUtils.setBackgroundSolid(submit, context, R.color.orange, 8, GradientDrawable.OVAL);
+//        AndroidUtils.setBackgroundSolid(dialogue_toolbar, context, R.color.green, 15, GradientDrawable.OVAL);
+//        openStartDateCal = (ImageView) findViewById(R.id.openStartDateCal);
+//        openEndDateCal = (ImageView) findViewById(R.id.openEndDateCal);
+//        tvProductname = (TextView) findViewById(R.id.tvProductname);
+//        tvCategoryName = (TextView) findViewById(R.id.tvCategoryName);
     }
 
 
