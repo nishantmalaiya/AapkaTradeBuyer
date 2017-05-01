@@ -3,7 +3,9 @@ package com.example.pat.aapkatrade.general.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroupOverlay;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -154,5 +157,10 @@ public class AndroidUtils {
         int dp = (int) (px / (metrics.densityDpi / 160f));
         return dp;
     }
+
+
+
+
+
 
 }
