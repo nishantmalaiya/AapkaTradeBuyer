@@ -183,7 +183,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
                 if (text.length() > 0) {
 
 
-                    String product_search_url = (getResources().getString(R.string.webservice_base_url)) + "/product_search";
+                    String product_search_url = (getResources().getString(R.string.webservice_base_url)) + "/search_suggesion";
 
 
                     call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
@@ -452,9 +452,10 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         Ion.with(Search.this)
                 .load(product_search_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("location", location_text.trim())
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", product_search_text.trim())
+                .setBodyParameter("lat", "0.0")
+                .setBodyParameter("long", "0.0")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override

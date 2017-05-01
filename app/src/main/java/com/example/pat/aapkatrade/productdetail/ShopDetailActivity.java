@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -40,9 +41,8 @@ import com.example.pat.aapkatrade.productdetail.opening_closing_days.OpenCloseSh
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListAdapter;
 
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListData;
-import com.example.pat.aapkatrade.productdetail.shop_all_product.ShopAllProductActivity;
 import com.example.pat.aapkatrade.rateus.RateusActivity;
-import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
+import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -503,11 +503,11 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         relativeBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
                 //Dialog d=new Dialog(context,R.style.NewDialog);
-                ServiceEnquiry serviceEnquiry=new ServiceEnquiry(context);
+                ServiceEnquiry serviceEnquiry=new ServiceEnquiry();
 
-                serviceEnquiry.show();
+               serviceEnquiry.show(fm,serviceEnquiry.getClass().getSimpleName());
 
 //                Intent i = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
 //                startActivity(i);
