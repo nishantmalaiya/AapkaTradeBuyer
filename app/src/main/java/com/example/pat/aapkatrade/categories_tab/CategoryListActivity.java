@@ -41,7 +41,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private CategoriesListAdapter categoriesListAdapter;
-    private ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
+    private ArrayList<CategoriesListData> shopArrayListByCategory = new ArrayList<>();
     private ProgressBarHandler progress_handler;
     private FrameLayout layout_container;
     private String category_id;
@@ -52,8 +52,7 @@ public class CategoryListActivity extends AppCompatActivity {
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
     ViewGroup view;
     private LinearLayoutManager linearLayoutManager;
-    private int lastItemVisible;
-    int count = 0;
+    private int page = 1;
 
 
     @Override
@@ -73,17 +72,33 @@ public class CategoryListActivity extends AppCompatActivity {
         setUpToolBar();
         initView();
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        lastItemVisible = linearLayoutManager.findLastVisibleItemPosition();
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         StikkyHeaderBuilder.stickTo(mRecyclerView).setHeader(R.id.header_simple, view).minHeightHeaderDim(R.dimen.min_header_height).build();
-        if(isLastItem(lastItemVisible) && productListDatas.size()>0){
-            AndroidUtils.showErrorLog(context, "IFFFFFFFF123");
-            getShopListData(String.valueOf(++count));
-        } else {
-            AndroidUtils.showErrorLog(context, "ELSEEEEEEEEE123");
-            getShopListData("0");
-        }
+        getShopListData("0");
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+
+                int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+
+                int lastVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition();
+
+                if (totalItemCount > 0) {
+                    if ((totalItemCount - 1) == lastVisibleItemCount) {
+                        page = page + 1;
+                        getShopListData(String.valueOf(page));
+                    } else {
+                        //loadingProgress.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+        });
+
     }
 
     private void initView() {
@@ -93,15 +108,13 @@ public class CategoryListActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
-    private void getShopListData(String pageNumber) {
-
-
-        productListDatas.clear();
+    private void getShopListData(final String pageNumber) {
         State state = new State("-1", "Select State", "0");
         productAvailableStateList.add(state);
+        AndroidUtils.showErrorLog(context, shopArrayListByCategory.size() + "^^^^^^^^^");
 
         Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : " + category_id);
-        progress_handler.show();
+
         Ion.with(CategoryListActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -114,7 +127,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        progress_handler.hide();
+
 
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
@@ -145,13 +158,19 @@ public class CategoryListActivity extends AppCompatActivity {
                                     loadFilterDataInHashMap(filterArray);
                                 }
 
-                                if(resultJsonArray != null){
+                                if (resultJsonArray != null) {
                                     loadResultData(resultJsonArray);
                                 }
+                                if (categoriesListAdapter == null) {
+                                    categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
+                                    mRecyclerView.setAdapter(categoriesListAdapter);
+                                }else{
+                                    categoriesListAdapter.notifyDataSetChanged();
+//                                    mRecyclerView.smoothScrollToPosition(21);
+                                }
 
-                                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
-                                mRecyclerView.setAdapter(categoriesListAdapter);
-                                categoriesListAdapter.notifyDataSetChanged();
+
+
                                 progress_handler.hide();
 
                             }
@@ -163,15 +182,6 @@ public class CategoryListActivity extends AppCompatActivity {
 
     }
 
-
-
-    private boolean isLastItem(int num){
-        if(num%20 == 0){
-            return true;
-        }
-        return false;
-    }
-
     private void loadResultData(JsonArray resultJsonArray) {
         for (int i = 0; i < resultJsonArray.size(); i++) {
             JsonObject jsonObject2 = (JsonObject) resultJsonArray.get(i);
@@ -179,9 +189,9 @@ public class CategoryListActivity extends AppCompatActivity {
             String shopId = jsonObject2.get("id").getAsString();
             String shopName = jsonObject2.get("name").getAsString();
             String shopImage = jsonObject2.get("image_url").getAsString();
-            String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
-            productListDatas.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation));
-            AndroidUtils.showErrorLog(context, "productListDatas : " + productListDatas.get(i).shopImage);
+            String shopLocation = /*jsonObject2.get("city_name").getAsString() + "," +*/ jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
+            shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation));
+            AndroidUtils.showErrorLog(context, "shopArrayListByCategory : " + shopArrayListByCategory.get(i).shopImage);
 
         }
     }
