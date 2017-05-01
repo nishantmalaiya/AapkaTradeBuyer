@@ -166,6 +166,7 @@
     <string name="buy_now">Buy Now</string>
     <string name="fullname">Full Name</string>
     <string name="customer_enquiry">Customer Enquiry</string>
+    <string name="service_enquiry">Service Enquiry</string>
 
 
 </resources>

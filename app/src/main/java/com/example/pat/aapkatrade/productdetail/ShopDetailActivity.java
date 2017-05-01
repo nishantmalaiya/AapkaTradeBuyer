@@ -234,11 +234,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
                             productlocation = json_result.get("city_name").getAsString() + "," + json_result.get("state_name").getAsString() + "," + json_result.get("country_name").getAsString();
 
-                            if (enquiry.equals("1")) {
-                                tvServiceBuy.setText("Buy Now");
-                            } else {
-                                tvServiceBuy.setText("Service Enquiry");
-                            }
+
 
 
                             JsonArray openCloseDayArray = result.getAsJsonArray("opening_time");
@@ -475,7 +471,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         tvSpecification = (TextView) findViewById(R.id.tvSpecification);
 
 
-        relativeBuyNow = (RelativeLayout) findViewById(R.id.relativeBuyNow);
+        relativeBuyNow = (RelativeLayout) findViewById(R.id.relativeService_enquiry);
         vp = (ViewPager) findViewById(R.id.viewpager_custom);
         viewpagerindicator = (LinearLayout) findViewById(R.id.viewpagerindicator);
 
@@ -508,8 +504,13 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
-                startActivity(i);
+                //Dialog d=new Dialog(context,R.style.NewDialog);
+                ServiceEnquiry serviceEnquiry=new ServiceEnquiry(context);
+
+                serviceEnquiry.show();
+
+//                Intent i = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
+//                startActivity(i);
 
 
             }
