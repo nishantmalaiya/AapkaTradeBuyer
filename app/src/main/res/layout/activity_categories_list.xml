@@ -10,6 +10,6 @@
         layout="@layout/toolbar_layout" />
 
     <include
-        layout="@layout/fragment_categories_product" />
+        layout="@layout/fragment_categories_shop" />
 
 </LinearLayout>

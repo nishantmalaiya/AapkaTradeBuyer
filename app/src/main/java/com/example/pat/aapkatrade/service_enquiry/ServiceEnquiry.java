@@ -90,6 +90,7 @@ public class ServiceEnquiry extends Dialog
 
     private void initView()
     {
+
         dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
 
         imgCLose = (Button) findViewById(R.id.imgCLose);
@@ -104,6 +105,7 @@ public class ServiceEnquiry extends Dialog
 
         tvProductname = (TextView) findViewById(R.id.tvProductname);
         tvCategoryName = (TextView) findViewById(R.id.tvCategoryName);
+
     }
 
 
