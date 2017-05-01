@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:id="@+id/cardview_trackorder"
+    android:id="@+id/cardview_trackorder"
     app:cardBackgroundColor="@color/green"
     app:cardCornerRadius="@dimen/ten_dip"
-
-    tools:context="com.example.pat.aapkatrade.dialogs.Track_order_dialog">
+    android:layout_margin="10dp"
+    tools:context="com.example.pat.aapkatrade.dialogs.Track_order_dialog"
+    >
 
 
     <RelativeLayout
@@ -138,7 +139,8 @@ android:id="@+id/et_orderid"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_weight="1"
-                    android:gravity="bottom">
+                    android:gravity="bottom"
+                    >
 
 
                     <Button
@@ -146,10 +148,12 @@ android:id="@+id/et_orderid"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/twenty_dip"
                         android:id="@+id/btn_trackorder"
-                        android:background="#04956D"
                         android:text="@string/continue_order"
                         android:textAllCaps="true"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/track_order_continue_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        />
 
                 </RelativeLayout>
 
