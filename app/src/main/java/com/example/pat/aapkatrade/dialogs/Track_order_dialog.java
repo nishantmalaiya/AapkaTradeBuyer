@@ -49,8 +49,8 @@ public class Track_order_dialog extends DialogFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState)
+    {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
         getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         initview(v);
@@ -78,15 +78,8 @@ public class Track_order_dialog extends DialogFragment {
         });
 
 
-
-
-
-
-
-
         return v;
     }
-
 
 
 
