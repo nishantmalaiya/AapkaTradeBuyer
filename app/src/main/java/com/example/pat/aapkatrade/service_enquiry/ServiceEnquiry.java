@@ -55,7 +55,7 @@ public class ServiceEnquiry extends Dialog
         if(getWindow()!=null)
            getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
 
-        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -79,7 +79,7 @@ public class ServiceEnquiry extends Dialog
         imgCLose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+             
             }
         });
 
