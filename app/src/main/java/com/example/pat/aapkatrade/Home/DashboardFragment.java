@@ -29,17 +29,12 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
-import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
-import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.location.AddressEnum;
-import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.MyAsyncTask_location;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -396,7 +391,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         if(home_result!=null)
 
         {
-            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
             go_to_product_listactivity.putExtra("url",getResources().getString(R.string.webservice_base_url)+"/latestpost");
 
             startActivity(go_to_product_listactivity);
@@ -413,7 +408,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     {
         if(home_result!=null)
         {
-            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
             go_to_product_listactivity.putExtra("url",getResources().getString(R.string.webservice_base_url)+"/latestupdate");
             startActivity(go_to_product_listactivity);
             ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);

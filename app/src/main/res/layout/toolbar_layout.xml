@@ -80,7 +80,6 @@
             >
 
             <RelativeLayout
-                android:id="@+id/cart_counter"
                 android:layout_width="@dimen/twenty_dip"
                 android:layout_height="@dimen/twenty_dip"
                 android:layout_alignParentRight="true"
@@ -112,7 +111,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/cart_layout"
                 android:layout_width="@dimen/fourty_dip"
                 android:layout_height="@dimen/fourty_dip"
                 android:layout_alignParentBottom="true"

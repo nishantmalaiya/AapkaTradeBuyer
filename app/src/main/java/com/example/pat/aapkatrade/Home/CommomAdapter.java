@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.productdetail.ShopDetailActivity;
+import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 

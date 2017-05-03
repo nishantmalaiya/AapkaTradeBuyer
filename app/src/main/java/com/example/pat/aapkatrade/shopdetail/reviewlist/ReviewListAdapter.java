@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail.reviewlist;
+package com.example.pat.aapkatrade.shopdetail.reviewlist;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +14,6 @@ import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
