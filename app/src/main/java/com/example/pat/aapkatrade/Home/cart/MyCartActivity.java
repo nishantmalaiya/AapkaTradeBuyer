@@ -39,6 +39,8 @@ public class MyCartActivity extends AppCompatActivity
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,6 +51,7 @@ public class MyCartActivity extends AppCompatActivity
         setuptoolbar();
 
          initView();
+
 
         setup_layout();
 
@@ -88,6 +91,15 @@ public class MyCartActivity extends AppCompatActivity
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         mycartRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","500"));
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","700"));
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","800"));
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","900"));
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","1000"));
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","1100"));
+
 
         cartAdapter = new CartAdapter(MyCartActivity.this, cartDataArrayList);
 
