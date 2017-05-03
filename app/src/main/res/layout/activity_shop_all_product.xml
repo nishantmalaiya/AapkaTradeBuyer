@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity"
     android:background="@color/white"
     >
 
@@ -22,24 +21,22 @@
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:background="@color/bg_product_title"
             >
 
             <LinearLayout
                 android:id="@+id/layout_container"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:descendantFocusability="blocksDescendants"
-                android:background="@color/white"
                 >
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/order_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="match_parent"
                     >
 
                 </android.support.v7.widget.RecyclerView>

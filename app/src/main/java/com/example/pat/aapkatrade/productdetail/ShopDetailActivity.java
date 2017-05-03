@@ -41,6 +41,7 @@ import com.example.pat.aapkatrade.productdetail.opening_closing_days.OpenCloseSh
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListAdapter;
 
 import com.example.pat.aapkatrade.productdetail.reviewlist.ReviewListData;
+import com.example.pat.aapkatrade.productdetail.shop_all_product.ShopAllProductActivity;
 import com.example.pat.aapkatrade.rateus.RateusActivity;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.google.gson.JsonArray;
@@ -87,10 +88,8 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
     private String productlocation, categoryName;
     private LinearLayout linearLayoutQuantity;
     private EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description, editText;
+    TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone,tvViewAll;
 
-    TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone;
-
-  
 
     // TextView tvDurationHeading,tvDuration;
     Dialog dialog;
@@ -388,6 +387,8 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
         reviewList = (RecyclerView) findViewById(R.id.reviewList);
 
+        tvViewAll = (TextView) findViewById(R.id.tvViewAll);
+
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         reviewList.setLayoutManager(mLayoutManager);
@@ -398,6 +399,17 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         recyclerProduct.setLayoutManager(llmanagerProductList);
 
 
+        tvViewAll.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent shopProduct = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
+                startActivity(shopProduct);
+
+            }
+        });
 
 
 

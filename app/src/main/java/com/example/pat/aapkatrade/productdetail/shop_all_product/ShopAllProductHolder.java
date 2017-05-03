@@ -30,8 +30,7 @@ public class ShopAllProductHolder extends RecyclerView.ViewHolder {
         tvProductUnit = (TextView) itemView.findViewById(R.id.tvProductUnit);
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
         buttonAddtoCart = (Button) itemView.findViewById(R.id.buttonAddtoCart);
-        relativeViewPlus = (RelativeLayout) itemView.findViewById(R.id.relativeViewPlus);
-        relativeViewMinus = (RelativeLayout) itemView.findViewById(R.id.relativeViewMinus);
+
         view = itemView;
     }
 }

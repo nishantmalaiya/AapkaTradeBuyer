@@ -30,6 +30,8 @@
     <dimen name="thirty_dip">30dp</dimen>
     <dimen name="twelve_dip">12dp</dimen>
     <dimen name="two_hundreds_fifty_dip">250dp</dimen>
+    <dimen name="one_hundred_dip">100dp</dimen>
+    <dimen name="one_hundred_thirty">130dp</dimen>
     <!-- view* 1 -->
 
 </resources>

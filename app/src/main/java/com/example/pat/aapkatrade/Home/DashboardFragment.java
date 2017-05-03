@@ -56,7 +56,8 @@ import me.relex.circleindicator.CircleIndicator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements View.OnClickListener {
+public class DashboardFragment extends Fragment implements View.OnClickListener
+{
 
     Context context;
     int currentPage = 0;
@@ -105,9 +106,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
-
-
-
     private void setupviewpager(ArrayList<String> imageIdList) {
 
         viewpageradapter = new viewpageradapter_home(getActivity(), imageIdList);
@@ -148,9 +146,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
         home_ads = (ImageView) v.findViewById(R.id.home_ads);
-//        home_ads.setImageResource(R.drawable.ic_home_ads2);
-
-
+        // home_ads.setImageResource(R.drawable.ic_home_ads2);
 
         circleIndicator=(CircleIndicator)view.findViewById(R.id.indicator_custom) ;
         vp = (ViewPager) view.findViewById(R.id.viewpager_custom);
@@ -188,11 +184,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         view_all_latest_update = (RelativeLayout) view.findViewById(R.id.rl_viewall_latest_update);
         view_all_latest_update.setOnClickListener(this);
 
-
-
         get_home_data();
-
-
 
         rl_searchview_dashboard = (RelativeLayout)v.findViewById(R.id.rl_searchview);
 
@@ -209,8 +201,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                             MyAsyncTask_location myAsyncTask_location = new MyAsyncTask_location(getActivity(),"homeactivity");
                             myAsyncTask_location.execute();
-
-
                         }
 
                         else {
@@ -227,11 +217,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     public void get_home_data()
     {
-
-
         progress_handler.show();
         coordinatorLayout.setVisibility(View.INVISIBLE);
-
 
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url)+"/home")
