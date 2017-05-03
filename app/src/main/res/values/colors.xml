@@ -21,16 +21,17 @@
     <color name="blue_gradient">#415673</color>
     <color name="blue_gradient_dark">#FF212B39</color>
     <color name="bg_product_title">#F2F2F2</color>
+    <color name="text_color_product_detail">#2E2E2E</color>
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
     <color name="grey_gradient2">#737C7A</color>
+    <color name="grey_buy_now">#797574</color>
 
     <color name="dark_purple">#6445b5</color>
     <color name="green_light">#7dbd00</color>
     <color name="item_details_color">#585858</color>
     <color name="green_gradient2">#1C7B67</color>
     <color name="transparent">#40d1cece</color>
-    <color name="transparent_new">#80000000</color>
     <color name="filter_col1_bg">#f9f9f9</color>
     <color name="selected_filter_col1_bg">#f9f0ea</color>
 
@@ -48,11 +49,9 @@
     <color name="dark_green_color">#3c763d</color>
 
     <color name="open_shop_day_color1">#4ab2d6</color>
-    <color name="open_shop_day_color2">#fc795b</color>
     <color name="open_shop_day_color3">#ff6eb0</color>
     <color name="open_shop_day_color4">#6599ff</color>
     <color name="open_shop_day_color5">#4ecdc4</color>
-    <color name="open_shop_day_color6">#ff6b6b</color>
     <color name="open_shop_day_color7">#012f6a</color>
 
     <color name="color_progress1">#88d365</color>

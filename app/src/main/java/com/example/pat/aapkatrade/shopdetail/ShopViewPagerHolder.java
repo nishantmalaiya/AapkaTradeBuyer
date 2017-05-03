@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.shopdetail;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,13 +12,13 @@ import com.example.pat.aapkatrade.R;
  * Created by PPC16 on 10-Feb-17.
  */
 
-public class ProductViewPagerHolder extends RecyclerView.ViewHolder {
+public class ShopViewPagerHolder extends RecyclerView.ViewHolder {
 
     View view;
     ImageView imageView;
     LinearLayout linearlayout;
 
-    public ProductViewPagerHolder(View itemView)
+    public ShopViewPagerHolder(View itemView)
     {
 
         super(itemView);

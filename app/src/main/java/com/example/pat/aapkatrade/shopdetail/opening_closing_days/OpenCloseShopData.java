@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail.opening_closing_days;
+package com.example.pat.aapkatrade.shopdetail.opening_closing_days;
 
 /**
  * Created by PPC16 on 4/10/2017.

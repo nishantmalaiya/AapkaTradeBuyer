@@ -80,7 +80,7 @@ public class CategoryListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         StikkyHeaderBuilder.stickTo(mRecyclerView).setHeader(R.id.header_simple, view).minHeightHeaderDim(R.dimen.min_header_height).build();
         getShopListData("0");
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -95,8 +95,6 @@ public class CategoryListActivity extends AppCompatActivity {
                     if ((totalItemCount - 1) == lastVisibleItemCount) {
                         page = page + 1;
                         getShopListData(String.valueOf(page));
-                    } else {
-                        //loadingProgress.setVisibility(View.GONE);
                     }
                 }
             }

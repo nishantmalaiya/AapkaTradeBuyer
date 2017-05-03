@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.categories_tab;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
-import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
@@ -21,12 +18,10 @@ import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
-import com.example.pat.aapkatrade.productdetail.ShopDetailActivity;
+import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

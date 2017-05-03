@@ -108,11 +108,8 @@
     <string name="title_activity_bank_management" translatable="false">BankManagementActivity</string>
 
     <string name="title_activity_payout">PayoutActivity</string>
-    <string name="startDate">Start Date</string>
-    <string name="endDate">End Date</string>
     <string name="select_state">your state</string>
     <string name="setvice_enquiry">Service Enquiry</string>
-    <string name="price1">Price*</string>
 
 
     <string name="about_us_data1">Aapka trade is indias unique business platform where everybody can do the business. We are taking your services and products no matter how small or big to all over india from individual services to small scale businesses, startups or large corporations. </string>
@@ -162,11 +159,17 @@
     <string name="trackorder_heading">We will send you a OTP to track your order status.</string>
 
 
-   <string name="opening_closing_shop">Opening Closing Shop</string>
-    <string name="buy_now">Buy Now</string>
+    <string name="opening_closing_shop">Opening Closing Shop</string>
     <string name="fullname">Full Name</string>
     <string name="customer_enquiry">Customer Enquiry</string>
     <string name="service_enquiry">Service Enquiry</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="rupay">₹ 1055</string>
+    <string name="order_details">ORDER DETAILS</string>
+    <string name="discount">Discount</string>
+    <string name="unit">Unit</string>
+    <string name="amount_paid">Amount Paid</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail.reviewlist;
+package com.example.pat.aapkatrade.shopdetail.reviewlist;
 
 /**
  * Created by PPC16 on 4/8/2017.

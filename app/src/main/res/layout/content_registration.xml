@@ -145,7 +145,6 @@
                         app:hintTextAppearance="@style/nofocus_edittext_theme">
 
                         <RelativeLayout
-                            android:id="@+id/dobLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical|center_horizontal">
@@ -287,7 +286,6 @@
                         android:layout_height="@dimen/ten_dip" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
@@ -447,7 +445,6 @@
 
 
                     <LinearLayout
-                        android:id="@+id/input_layout_agreement"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"

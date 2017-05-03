@@ -111,7 +111,6 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/relativeQuantity"
                     android:layout_width="@dimen/twenty_five_dip"
                     android:layout_height="@dimen/thirty_dip"
                     android:padding="2dp"

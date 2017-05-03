@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail.opening_closing_days;
+package com.example.pat.aapkatrade.shopdetail.opening_closing_days;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;

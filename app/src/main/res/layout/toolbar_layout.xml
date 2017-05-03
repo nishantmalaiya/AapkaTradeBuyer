@@ -77,10 +77,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/twenty_dip"
             android:padding="@dimen/five_dip"
-            android:visibility="gone">
+            >
 
             <RelativeLayout
-                android:id="@+id/cart_counter"
                 android:layout_width="@dimen/twenty_dip"
                 android:layout_height="@dimen/twenty_dip"
                 android:layout_alignParentRight="true"
@@ -112,7 +111,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/cart_layout"
                 android:layout_width="@dimen/fourty_dip"
                 android:layout_height="@dimen/fourty_dip"
                 android:layout_alignParentBottom="true"
@@ -126,7 +124,6 @@
                     android:paddingRight="@dimen/five_dip"
                     android:paddingTop="@dimen/five_dip"
                     android:src="@drawable/ic_cart" />
-
 
             </RelativeLayout>
 

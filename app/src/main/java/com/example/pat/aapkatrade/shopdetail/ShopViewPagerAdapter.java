@@ -1,33 +1,21 @@
-package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.shopdetail;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.ZoomImage.ZoomImageDialog;
-import com.example.pat.aapkatrade.ZoomImage.ZoomViewPagerAdapter;
-import com.example.pat.aapkatrade.general.CustomImageVIew;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.koushikdutta.ion.Ion;
-import com.theartofdev.fastimageloader.target.TargetImageView;
 
 import java.util.ArrayList;
 
@@ -36,13 +24,13 @@ import java.util.ArrayList;
  */
 
 
-public class ProductViewPagerAdapter extends PagerAdapter {
+public class ShopViewPagerAdapter extends PagerAdapter {
 
     Context mContext;
     ArrayList<String> imageurl = new ArrayList<>();
 
 
-    public ProductViewPagerAdapter(Context mContext, ArrayList<String> productImage_url) {
+    public ShopViewPagerAdapter(Context mContext, ArrayList<String> productImage_url) {
 
         this.imageurl = productImage_url;
         this.mContext = mContext;
