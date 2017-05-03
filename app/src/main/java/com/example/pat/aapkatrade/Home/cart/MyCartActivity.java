@@ -94,15 +94,15 @@ public class MyCartActivity extends AppCompatActivity
 
 
         cartDataArrayList.add(new CartData("1","Nokia Mobile","1","500"));
+        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","600"));
         cartDataArrayList.add(new CartData("1","Nokia Mobile","1","700"));
         cartDataArrayList.add(new CartData("1","Nokia Mobile","1","800"));
         cartDataArrayList.add(new CartData("1","Nokia Mobile","1","900"));
         cartDataArrayList.add(new CartData("1","Nokia Mobile","1","1000"));
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","1100"));
+
 
 
         cartAdapter = new CartAdapter(MyCartActivity.this, cartDataArrayList);
-
 
         mycartRecyclerView.setAdapter(cartAdapter);
     }

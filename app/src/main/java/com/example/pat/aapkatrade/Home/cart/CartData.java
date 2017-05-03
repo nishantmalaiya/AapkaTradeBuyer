@@ -16,5 +16,37 @@ public class CartData
         this.price=price;
     }
 
+    public String getProductName() {
+        return productName;
+    }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+
+    public String getPrice() {
+        return price;
+    }
 }
