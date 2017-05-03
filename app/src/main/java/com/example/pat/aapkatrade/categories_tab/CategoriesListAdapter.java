@@ -75,7 +75,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
         else if(Tabletsize.isMedium(context))
         {
-            String product_imageurl=itemList.get(position).shopImage.replace("small","medium");
+            String product_imageurl=itemList.get(position).shopImage==null?"":itemList.get(position).shopImage.replace("small","medium");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
