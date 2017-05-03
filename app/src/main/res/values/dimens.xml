@@ -44,6 +44,7 @@
     <dimen name="three_hundred_dip">300dp</dimen>
     <dimen name="sixty_dip">60dp</dimen>
     <dimen name="fifty_five_dip">55dp</dimen>
+    <dimen name="one_hundred_thirty">130dp</dimen>
 
 
 </resources>

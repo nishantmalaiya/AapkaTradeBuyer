@@ -42,4 +42,5 @@
     <dimen name="four_hundred_dip">520dp</dimen>
     <dimen name="three_hundred_dip">390dp</dimen>
     <dimen name="sixty_dip">72dp</dimen>
+    <dimen name="one_hundred_thirty">169dp</dimen>
 </resources>
