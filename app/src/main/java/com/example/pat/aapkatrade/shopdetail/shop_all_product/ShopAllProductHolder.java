@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail.shop_all_product;
+package com.example.pat.aapkatrade.shopdetail.shop_all_product;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,18 +18,18 @@ public class ShopAllProductHolder extends RecyclerView.ViewHolder {
 
     public View view;
     public TextView tvProductName, tvProductUnit, tvProductPrice;
-    public ImageView imgProduct;
-    public Button buttonAddtoCart;
+    public ImageView productImage;
+    public Button addToCartButton;
     public RelativeLayout relativeViewPlus, relativeViewMinus;
 
 
     public ShopAllProductHolder(View itemView) {
         super(itemView);
-        imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
+        productImage = (ImageView) itemView.findViewById(R.id.imgProduct);
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
         tvProductUnit = (TextView) itemView.findViewById(R.id.tvProductUnit);
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
-        buttonAddtoCart = (Button) itemView.findViewById(R.id.buttonAddtoCart);
+        addToCartButton = (Button) itemView.findViewById(R.id.buttonAddtoCart);
         relativeViewPlus = (RelativeLayout) itemView.findViewById(R.id.relativeViewPlus);
         relativeViewMinus = (RelativeLayout) itemView.findViewById(R.id.relativeViewMinus);
         view = itemView;

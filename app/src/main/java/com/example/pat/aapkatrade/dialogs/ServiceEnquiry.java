@@ -59,15 +59,12 @@ public class ServiceEnquiry extends DialogFragment {
     }
 
 
-
-
-
     private void initView(View v) {
 
         dialogue_toolbar = (RelativeLayout) v.findViewById(R.id.dialogue_toolbar);
 
         imgCLose = (Button) v.findViewById(R.id.imgCLose);
-        etFullName = (EditText) v.findViewById(R.id.etFullName);
+//        etFullName = (EditText) v.findViewById(R.id.etFullName);
         quantity = (EditText) v.findViewById(R.id.et_layout_quantity);
         price = (EditText) v.findViewById(R.id.et_layout_price);
         mobile = (EditText) v.findViewById(R.id.et_layout_mobile);

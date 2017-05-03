@@ -63,7 +63,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity
-            android:name=".productdetail.ShopDetailActivity"
+            android:name=".shopdetail.ShopDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Home.registration.RegistrationActivity"
@@ -120,12 +120,13 @@
         <activity android:name=".filter.FilterScreenActivity" />
         <activity android:name=".payment.PaymentActivity" />
         <activity android:name=".rateus.RateusActivity" />
-        <activity android:name=".productdetail.shop_all_product.ShopAllProductActivity" />
+        <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
         <activity android:name=".add_to_cart.AddToCartActivity" />
         <activity
             android:name=".Home.cart.MyCartActivity"
             android:label="@string/title_activity_my_cart"
             android:theme="@style/AppTheme" />
+
 
         <service
             android:name=".service.LocationService"
@@ -136,6 +137,9 @@
             android:name=".Receiver.MyReceiver"
             android:enabled="true"
             android:exported="true"></receiver>
+
+        <activity android:name=".shopdetail.productdetail.ProductDetailActivity"></activity>
+
     </application>
 
 </manifest>

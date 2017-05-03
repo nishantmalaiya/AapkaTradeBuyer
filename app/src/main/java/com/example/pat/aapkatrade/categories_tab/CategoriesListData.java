@@ -8,12 +8,12 @@ public class CategoriesListData {
 
     String shopId, shopName, shopImage, shopLocation, distance;
 
+
     public CategoriesListData(String shopId, String shopName, String shopImage, String shopLocation, String distance) {
 
         this.shopId = shopId;
         this.shopName = shopName;
         this.distance = distance;
-        this.shopImage = shopImage;
-        this.shopLocation = shopLocation;
-    }
+
+   
 }

@@ -31,7 +31,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/etPincodeContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -86,11 +85,9 @@
         />
 
     <RelativeLayout
-        android:id="@+id/deliveryEstimateContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_product_title"
-
         >
 
         <TextView
@@ -100,6 +97,19 @@
             android:textSize="@dimen/textsize_small"
             android:textStyle="bold"/>
 
+
+
     </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mycartRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_product_title"
+        >
+
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

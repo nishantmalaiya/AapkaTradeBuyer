@@ -185,7 +185,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void saveDataInSharedPreference(JsonObject webservice_returndata) {
+    private void saveDataInSharedPreference(JsonObject webservice_returndata)
+    {
 
 
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
