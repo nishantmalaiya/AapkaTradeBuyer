@@ -166,11 +166,13 @@
     <string name="buy_now">Buy Now</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="rupay">₹ 1055</string>
+    <string name="rupay_text">₹</string>
     <string name="order_details">ORDER DETAILS</string>
     <string name="discount">Discount</string>
     <string name="unit">Unit</string>
     <string name="amount_paid">Amount Paid</string>
     <string name="check_availability_and_delivery">Check availability and delivery option</string>
+    <string name="postal_code">Postal Code</string>
 
 
 </resources>
