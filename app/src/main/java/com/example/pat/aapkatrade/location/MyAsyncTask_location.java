@@ -28,10 +28,10 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by PPC17 on 24-Mar-17.
  */
 
-public class MyAsyncTask_location extends AsyncTask<Void, Void, Void> implements LocationListener {
+public class MyAsyncTask_location extends AsyncTask<Void, Void, Void>  {
     Dialog progress;
     private String providerAsync;
-    int clicked_item=0;
+    int clicked_item = 0;
     private LocationManager locationManagerAsync;
 
     String thikanaAsync = "Scan sms for location";
@@ -40,8 +40,8 @@ public class MyAsyncTask_location extends AsyncTask<Void, Void, Void> implements
     GeoCoderAddress geoCoderAddressAsync;
 
 
-String AddressAsync;
-    private  Context ContextAsync;
+    String AddressAsync;
+    private Context ContextAsync;
 
     // Flag for GPS status
     boolean isGPSEnabled = false;
@@ -53,14 +53,14 @@ String AddressAsync;
     boolean canGetLocation = false;
 
     Location location; // Location
-   public static double latitude; // Latitude
-    public static double longitude; // Longitude
+    public  double latitude; // Latitude
+    public  double longitude; // Longitude
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 0; // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -70,20 +70,18 @@ String AddressAsync;
     String class_name;
 
 
-    public MyAsyncTask_location(Context context,String class_name) {
+    public MyAsyncTask_location(Context context, String class_name) {
         this.ContextAsync = context;
-        this.class_name=class_name;
-        progressBarHandler=new ProgressBarHandler(ContextAsync);
+        this.class_name = class_name;
+        progressBarHandler = new ProgressBarHandler(ContextAsync);
     }
-
-
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         progressBarHandler.show();
-       // progress = ProgressDialog.show(ContextAsync, "Loading data", "Please wait...");
+        // progress = ProgressDialog.show(ContextAsync, "Loading data", "Please wait...");
 
     }
 
@@ -107,6 +105,11 @@ String AddressAsync;
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (!isGPSEnabled && !isNetworkEnabled) {
+
+
+
+            Log.e("Network", "no network found");
+
             // no network provider is enabled
         } else {
             this.canGetLocation = true;
@@ -130,17 +133,44 @@ String AddressAsync;
                 criteria.setCostAllowed(true);
                 criteria.setPowerRequirement(Criteria.POWER_LOW);
                 String provider = locationManager.getBestProvider(criteria, true);
-                Log.e("provider",provider);
+                Log.e("provider", provider);
 
 
                 locationManager.requestLocationUpdates(
                         provider,
                         MIN_TIME_BW_UPDATES,
-                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                Log.e("Network", "Network");
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES, new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+
+                                    latitude = location.getLatitude();
+                                    longitude = location.getLongitude();
+                                    Log.e("latitude2_network",""+latitude);
+                                    Log.e("longitude2_network",""+longitude);
+
+
+                            }
+
+                            @Override
+                            public void onStatusChanged(String provider, int status, Bundle extras) {
+                                Log.e("latitude_status_changes",provider+"***"+status+"***"+extras.toString());
+
+                            }
+
+                            @Override
+                            public void onProviderEnabled(String provider) {
+                                Log.e("onProviderEnabled",""+provider);
+
+                            }
+
+                            @Override
+                            public void onProviderDisabled(String provider) {
+                                Log.e("onProviderDisabled",""+provider);
+
+                            }
+                        });
+
 //                       
-
-
 
 
             }
@@ -155,24 +185,44 @@ String AddressAsync;
                     criteria.setCostAllowed(true);
                     criteria.setPowerRequirement(Criteria.POWER_LOW);
                     String provider = locationManager.getBestProvider(criteria, true);
-                    Log.e("provider",provider);
+                    Log.e("provider", provider);
 
 
                     locationManager.requestLocationUpdates(
                             provider,
                             MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, new LocationListener() {
+                                @Override
+                                public void onLocationChanged(Location location) {
+
+                                        latitude = location.getLatitude();
+                                        longitude = location.getLongitude();
+                                        Log.e("latitude2_gps",""+latitude);
+                                        Log.e("longitude2_gps",""+longitude);
+
+
+
+                                }
+
+                                @Override
+                                public void onStatusChanged(String provider, int status, Bundle extras) {
+                                    Log.e("latitude_status_changes",provider+"***"+status+"***"+extras.toString());
+                                }
+
+                                @Override
+                                public void onProviderEnabled(String provider) {
+                                    Log.e("onProviderEnabled",""+provider);
+                                }
+
+                                @Override
+                                public void onProviderDisabled(String provider) {
+                                    Log.e("onProviderDisabled",""+provider);
+
+                                }
+                            });
                     Log.e("GPS Enabled", "GPS Enabled");
-//                            if (locationManager != null) {
-//                                location = locationManager
-//                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                                if (location != null) {
-//                                    latitude = location.getLatitude();
-//                                    longitude = location.getLongitude();
-//                                }
-//                            }
-                }
-                else {
+
+                } else {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                 }
@@ -195,9 +245,8 @@ String AddressAsync;
                     Log.e("Exception_geocoder", e.toString());
 
                 }
-            }
-            else{
-                AddressAsync = "Haryana";
+            } else {
+               // AddressAsync = "Haryana";
             }
 
 
@@ -205,83 +254,6 @@ String AddressAsync;
 
 
 
-
-
-//
-//        // TODO Auto-generated method stub
-//        locationManagerAsync = (LocationManager) ContextAsync.getSystemService(ContextAsync.LOCATION_SERVICE);
-//
-//
-//        Criteria criteria = new Criteria();
-//        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-//        criteria.setCostAllowed(false);
-//        criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-//        providerAsync = locationManagerAsync.getBestProvider(criteria, false);
-//
-//
-//        if (locationManagerAsync.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//            providerAsync = LocationManager.GPS_PROVIDER;
-//
-//            Log.e("providerAsync_gps",providerAsync.toString());
-//        } else if (locationManagerAsync.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//            providerAsync = LocationManager.NETWORK_PROVIDER;
-//            AlertDialog.Builder alert = new AlertDialog.Builder(ContextAsync);
-//            alert.setTitle("GPS is disabled in the settings!");
-//            alert.setMessage("It is recomended that you turn on your device's GPS and restart the app so the app can determine your location more accurately!");
-//            alert.setPositiveButton("OK", null);
-//            alert.show();
-//            Log.e("providerAsync_network",providerAsync.toString());
-//        } else if (locationManagerAsync.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
-//            providerAsync = LocationManager.PASSIVE_PROVIDER;
-//            Log.e("providerAsync_passive",providerAsync.toString());
-//
-//            location = locationManagerAsync.getLastKnownLocation(providerAsync);
-//            // Initialize the location fields
-//            if (location != null) {
-//                //  System.out.println("Provider " + provider + " has been selected.");
-//                latAsync = location.getLatitude();
-//                lonAsync = location.getLongitude();
-//
-//
-//            } else {
-//                //Toast.makeText(ContextAsync, " Locationnot available", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            //Toast.makeText(ContextAsync, "Switch On Data Connection!!!!", Toast.LENGTH_LONG).show();
-//        }
-//
-//        if (ActivityCompat.checkSelfPermission(ContextAsync, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ContextAsync, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return null;
-//        }
-//        location = locationManagerAsync.getLastKnownLocation(providerAsync);
-//        // Initialize the location fields
-//        if (location != null) {
-//            //  System.out.println("Provider " + provider + " has been selected.");
-//            latAsync = location.getLatitude();
-//            lonAsync = location.getLongitude();
-//
-//
-//        } else {
-//            //Toast.makeText(ContextAsync, " Locationnot available", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        Log.e("latlng_asynctask",latAsync+"**"+lonAsync+"");
-//        List<Address> addresses = null;
-//        geoCoderAddressAsync = new GeoCoderAddress(ContextAsync, latAsync,lonAsync);
-//
-//        try {
-//            String AddressAsync=geoCoderAddressAsync.get_state_name();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            AddressAsync = "Refresh for the address";
-//        }
 
 
         return null;
@@ -297,79 +269,61 @@ String AddressAsync;
 
 
 
-       // onLocationChanged(location);
-        Log.e("latAsync_lonAsync_post", latitude + "_" + longitude);
-//        Intent intentAsync = new Intent(ContextAsync,Search.class);
-//        intentAsync.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intentAsync.putExtra("calculated_Lat", latAsync);
-//        intentAsync.putExtra("calculated_Lon", lonAsync);
-//        intentAsync.putExtra("calculated_address", AddressAsync);
-//
-//        ContextAsync.startActivity(intentAsync);
 
     }
 
     private void Goto_search(String class_name) {
 
-if(class_name.contains("homeactivity"))
-{
+        if (class_name.contains("homeactivity")) {
 
-    Intent intentAsync = new Intent(ContextAsync,Search.class);
-    intentAsync.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    intentAsync.putExtra("classname","homeactivity");
-    intentAsync.putExtra("state_name",AddressAsync);
-
-    ContextAsync.startActivity(intentAsync);
-
-    ((Activity)ContextAsync).finish();
-
-
-}
-else
-{
-    Log.e("class not found","class not found");
-}
-
-    }
+//            Intent intentAsync = new Intent(ContextAsync, Search.class);
+//            intentAsync.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            intentAsync.putExtra("classname", "homeactivity");
+//            intentAsync.putExtra("state_name", AddressAsync);
+//            intentAsync.putExtra("latitude",latitude);
+//            intentAsync.putExtra("longitude",longitude);
+//            ContextAsync.startActivity(intentAsync);
+//
+//            ((Activity) ContextAsync).finish();
 
 
-    @Override
-    public void onLocationChanged(Location location) {
-        // TODO Auto-generated method stub
-        if (ActivityCompat.checkSelfPermission(ContextAsync, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ContextAsync, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManagerAsync.requestLocationUpdates(location.getProvider(), 0, 0, this);
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
+        } else {
+            Log.e("class not found", "class not found");
         }
 
     }
 
-    @Override
-    public void onProviderDisabled(String provider) {
-        // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
-
-    }
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        // TODO Auto-generated method stub
+//        if (ActivityCompat.checkSelfPermission(ContextAsync, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ContextAsync, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//
+//            return;
+//        }
+//        //locationManagerAsync.requestLocationUpdates(location.getProvider(), 0, 0, this);
+//
+//
+//
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String provider) {
+//        Log.e("latitude2 onProviderDisabled",""+latitude+"error");
+//        // TODO Auto-generated method stub
+//
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(String provider) {
+//        // TODO Auto-generated method stub
+//
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras) {
+//        // TODO Auto-generated method stub
+//
+//    }
 }
