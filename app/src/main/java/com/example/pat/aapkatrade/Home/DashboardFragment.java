@@ -1,8 +1,11 @@
 package com.example.pat.aapkatrade.Home;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,18 +32,30 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
+import com.example.pat.aapkatrade.Receiver.MyReceiver;
+import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
+import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.location.AddressEnum;
+import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.MyAsyncTask_location;
 import com.example.pat.aapkatrade.location.Mylocation;
+import com.example.pat.aapkatrade.search.Search;
+import com.example.pat.aapkatrade.service.LocationService;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,8 +66,7 @@ import me.relex.circleindicator.CircleIndicator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements View.OnClickListener
-{
+public class DashboardFragment extends Fragment implements View.OnClickListener {
 
     Context context;
     int currentPage = 0;
@@ -62,12 +76,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     ArrayList<CommomData> commomDatas = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestpost = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
-    private CommomAdapter commomAdapter_latestpost,commomAdapter_latestproduct;
+    private CommomAdapter commomAdapter_latestpost, commomAdapter_latestproduct;
     //  public latestproductadapter latestproductadapter;
     ProgressBarHandler progress_handler;
     private int dotsCount;
     private ArrayList<String> imageIdList;
     private ImageView[] dots;
+    private MyReceiver mReceiver;
     public static SearchView searchView;
     ImageView home_ads;
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
@@ -83,7 +98,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     CircleIndicator circleIndicator;
     View view;
     Mylocation mylocation;
-
+    private GeoCoderAddress geoCoderAddressAsync;
+    private String AddressAsync,currentLatitude,currentLongitude,stateName;
+AppSharedPreference appSharedPreference;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -96,10 +113,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
             initializeview(view, container);
         }
-
+        appSharedPreference=new AppSharedPreference(getActivity());
 
         return view;
     }
+
 
     private void setupviewpager(ArrayList<String> imageIdList) {
 
@@ -141,16 +159,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
         home_ads = (ImageView) v.findViewById(R.id.home_ads);
-        // home_ads.setImageResource(R.drawable.ic_home_ads2);
+//        home_ads.setImageResource(R.drawable.ic_home_ads2);
 
-        circleIndicator=(CircleIndicator)view.findViewById(R.id.indicator_custom) ;
+
+        circleIndicator = (CircleIndicator) view.findViewById(R.id.indicator_custom);
         vp = (ViewPager) view.findViewById(R.id.viewpager_custom);
         context = getActivity();
 
         llManagerEclipseCollection = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
         viewpagerindicator = (LinearLayout) view.findViewById(R.id.viewpagerindicator);
-       // latestproductadapter = new latestproductadapter(context, commomDatas);
+        // latestproductadapter = new latestproductadapter(context, commomDatas);
         recyclerlatestpost = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
         recyclerlatestpost.setLayoutManager(llManagerEclipseCollection);
 
@@ -158,12 +177,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
 
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
-        if(Tabletsize.isTablet(getActivity()))
-        {
+        if (Tabletsize.isTablet(getActivity())) {
             gridLayoutManager = new GridLayoutManager(context, 3);
-        }
-        else
-        {
+        } else {
 
             gridLayoutManager = new GridLayoutManager(context, 2);
         }
@@ -179,44 +195,63 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         view_all_latest_update = (RelativeLayout) view.findViewById(R.id.rl_viewall_latest_update);
         view_all_latest_update.setOnClickListener(this);
 
+
         get_home_data();
 
-        rl_searchview_dashboard = (RelativeLayout)v.findViewById(R.id.rl_searchview);
-
-                rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
 
 
-                    @Override
-                    public void onClick(View v) {
+        rl_searchview_dashboard = (RelativeLayout) v.findViewById(R.id.rl_searchview);
 
-                        LocationManager_check locationManagerCheck = new LocationManager_check(
-                                getActivity());
-                        Location location = null;
-                        if (locationManagerCheck.isLocationServiceAvailable()) {
-
-                            MyAsyncTask_location myAsyncTask_location = new MyAsyncTask_location(getActivity(),"homeactivity");
-                            myAsyncTask_location.execute();
-                        }
-
-                        else {
-                            locationManagerCheck.createLocationServiceError(getActivity());
-                        }
+        rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
 
 
+            @Override
+            public void onClick(View v) {
 
-                    }
+                LocationManager_check locationManagerCheck = new LocationManager_check(
+                        getActivity());
+                Location location = null;
+                if (locationManagerCheck.isLocationServiceAvailable()) {
+
+                    currentLatitude=appSharedPreference.getsharedpref("CurrentLatitude");
+                    currentLongitude=appSharedPreference.getsharedpref("CurrentLongitude");
+                    stateName=appSharedPreference.getsharedpref("CurrentStateName");
 
 
-                });
+                    Intent intentAsync = new Intent(getActivity(), Search.class);
+                    intentAsync.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intentAsync.putExtra("classname", "homeactivity");
+                    intentAsync.putExtra("state_name", stateName);
+                    intentAsync.putExtra("latitude", currentLatitude);
+                    intentAsync.putExtra("longitude", currentLongitude);
+                    getActivity().startActivity(intentAsync);
+
+
+
+
+
+
+
+                } else {
+                    locationManagerCheck.createLocationServiceError(getActivity());
+                }
+
+
+            }
+
+
+        });
     }
 
-    public void get_home_data()
-    {
+    public void get_home_data() {
+
+
         progress_handler.show();
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
+
         Ion.with(getActivity())
-                .load(getResources().getString(R.string.webservice_base_url)+"/home")
+                .load(getResources().getString(R.string.webservice_base_url) + "/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("city_id", "")
@@ -225,10 +260,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
-                            home_result=result;
+                            home_result = result;
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
@@ -241,7 +275,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                             for (int l = 0; l < jsonarray_top_banner.size(); l++) {
 
                                 JsonObject jsonObject_top_banner = (JsonObject) jsonarray_top_banner.get(l);
-                                String banner_imageurl=jsonObject_top_banner.get("image_url").getAsString();
+                                String banner_imageurl = jsonObject_top_banner.get("image_url").getAsString();
 
                                 imageIdList.add(banner_imageurl);
 
@@ -266,11 +300,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
                                 String product_name = jsonObject_latest_post.get("prodname").getAsString();
                                 String imageurl = jsonObject_latest_post.get("image_url").getAsString();
-                                String productlocation=jsonObject_latest_post.get("city_name").getAsString()+","+
-                                        jsonObject_latest_post.get("state_name").getAsString()+","+
+                                String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
+                                        jsonObject_latest_post.get("state_name").getAsString() + "," +
                                         jsonObject_latest_post.get("country_name").getAsString();
                                 String categoryName = jsonObject_latest_post.get("category_name").getAsString();
-                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl,productlocation, categoryName));
+                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl, productlocation, categoryName));
 
                             }
 
@@ -291,13 +325,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                                 String imageurl = jsonObject_latest_update.get("image_url").getAsString();
 
 
-                                String productlocation=jsonObject_latest_update.get("city_name").getAsString()+","+
-                                        jsonObject_latest_update.get("state_name").getAsString()+","+
+                                String productlocation = jsonObject_latest_update.get("city_name").getAsString() + "," +
+                                        jsonObject_latest_update.get("state_name").getAsString() + "," +
                                         jsonObject_latest_update.get("country_name").getAsString();
 
 
                                 String categoryName = jsonObject_latest_update.get("category_name").getAsString();
-                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "",imageurl,productlocation, categoryName));
+                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "", imageurl, productlocation, categoryName));
 
                             }
 
@@ -311,10 +345,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                             progress_handler.hide();
                             coordinatorLayout.setVisibility(View.VISIBLE);
 
-                        }
-
-                        else
-                        {
+                        } else {
 
 
                             progress_handler.hide();
@@ -359,8 +390,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void replaceFragment(Fragment newFragment, String tag)
-    {
+    private void replaceFragment(Fragment newFragment, String tag) {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
@@ -370,10 +400,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.rl_viewall_latest_post:
                 go_to_product_list_activity();
                 break;
@@ -384,46 +412,37 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         }
 
 
-
     }
 
     private void go_to_product_list_activity() {
-        if(home_result!=null)
+        if (home_result != null)
 
         {
-            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
-            go_to_product_listactivity.putExtra("url",getResources().getString(R.string.webservice_base_url)+"/latestpost");
+            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            go_to_product_listactivity.putExtra("url", getResources().getString(R.string.webservice_base_url) + "/latestpost");
 
             startActivity(go_to_product_listactivity);
             ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
-        }
-        else{
+        } else {
 
         }
     }
 
 
-
-    private void go_to_latest_update_list_activity()
-    {
-        if(home_result!=null)
-        {
-            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
-            go_to_product_listactivity.putExtra("url",getResources().getString(R.string.webservice_base_url)+"/latestupdate");
+    private void go_to_latest_update_list_activity() {
+        if (home_result != null) {
+            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            go_to_product_listactivity.putExtra("url", getResources().getString(R.string.webservice_base_url) + "/latestupdate");
             startActivity(go_to_product_listactivity);
             ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
-        }
-        else
-        {
+        } else {
 
 
         }
     }
 
 
-
-    public void connection_problem_message()
-    {
+    public void connection_problem_message() {
 
         Snackbar snackbar = Snackbar
                 .make(getActivity().findViewById(R.id.rl_main_content), "No internet connection!", Snackbar.LENGTH_LONG)
@@ -446,7 +465,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         snackbar.show();
 
     }
-
 
 
 }
