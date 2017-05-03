@@ -33,13 +33,47 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/three_hundred_dip"
-                        android:adjustViewBounds="true"
-                        android:clickable="false"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/product_img" />
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
+
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager_custom"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/ten_dip"
+
+                            />
+
+                        <me.relex.circleindicator.CircleIndicator
+                            android:id="@+id/indicator_product_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/fourty_dip"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/hundred_dip"
+                            android:layout_marginLeft="@dimen/fifteen_dip"
+                            app:ci_animator="@anim/indicator_animator"
+                            app:ci_drawable="@drawable/selecteditem_dot"
+                            app:ci_drawable_unselected="@drawable/nonselected_item"
+                            app:ci_height="@dimen/three_dip"
+                            app:ci_margin="@dimen/three_dip"
+                            app:ci_width="@dimen/ten_dip" />
+
+                        <LinearLayout
+                            android:id="@+id/viewpagerindicator"
+                            android:layout_width="@dimen/fourty_dip"
+                            android:layout_height="@dimen/twenty_dip"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/ten_dip"
+                            android:orientation="horizontal">
+
+                        </LinearLayout>
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -48,6 +82,7 @@
                         android:weightSum="3">
 
                         <TextView
+                            android:id="@+id/tvProductName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
@@ -60,6 +95,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvProductPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/fifty_five_dip"
                             android:layout_gravity="center_horizontal|center_vertical"
@@ -320,9 +356,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/ten_dip"
                         android:layout_marginLeft="@dimen/ten_dip"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:layout_marginBottom="@dimen/ten_dip"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:weightSum="3">
@@ -345,8 +381,7 @@
                                 android:inputType="number"
                                 android:maxLength="6"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/text_color_product_detail"
-                                />
+                                android:textColorHint="@color/text_color_product_detail" />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -676,7 +711,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_marginTop="@dimen/ten_dip"
-                                android:background="#BDBAB5"></View>
+                                android:background="#BDBAB5" />
 
                             <RelativeLayout
                                 android:id="@+id/relativeRateReview"

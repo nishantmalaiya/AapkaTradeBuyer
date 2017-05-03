@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -89,7 +90,6 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
     private TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone;
 
 
-
     // TextView tvDurationHeading,tvDuration;
     Dialog dialog;
     private Context context;
@@ -123,7 +123,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
         context = ShopDetailActivity.this;
 
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
 
         Bundle b = intent.getExtras();
 
@@ -143,7 +143,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onClick(View v) {
                 Intent intentViewAllProducts = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
-                intentViewAllProducts.putExtra("shopId",shopId);
+                intentViewAllProducts.putExtra("shopId", shopId);
                 startActivity(intentViewAllProducts);
             }
         });
@@ -291,7 +291,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getApplicationContext());
-            dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
+            dots[i].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nonselected_item));
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -303,7 +303,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             viewpagerindicator.addView(dots[i], params);
         }
 
-        dots[0].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
+        dots[0].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.selecteditem_dot));
 
     }
 
@@ -336,7 +336,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         }, 0, 3000);
 
 
-        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 
             @Override
@@ -346,14 +346,12 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
             @Override
             public void onPageSelected(int position) {
-                try {
-                    for (int i = 0; i < dotsCount; i++) {
-                        dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
-                    }
-
-                    dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-                } catch (Exception e) {
+                for (int i = 0; i < dotsCount; i++) {
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nonselected_item));
                 }
+
+                dots[position].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.selecteditem_dot));
+
             }
 
             @Override

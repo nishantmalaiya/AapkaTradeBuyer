@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Tabletsize;
@@ -103,64 +104,14 @@ public class ZoomViewPagerAdapter extends PagerAdapter implements GestureDetecto
             Log.e("image_small","image_small");
         }
 
-
-//        int deviceWidthInPixels = mContext.getResources().getDisplayMetrics().widthPixels;
-//        int deviceHeightInPixels = mContext.getResources().getDisplayMetrics().heightPixels;
-//        imageView.getLayoutParams().width = deviceWidthInPixels;
-//        imageView.getLayoutParams().height = deviceHeightInPixels;
-
-
-//        Ion.with(imageView)
-//                .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-//                .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-//                .load(imageurl.get(position));
-        // imageView.setImageResource(R.drawable.banner_home);
-
         container.addView(itemView);
-
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent goto_zoom_imageview=new Intent(mContext,ZoomImageDialog.class);
-//
-//                goto_zoom_imageview.putStringArrayListExtra("imageurl",imageurl);
-//                mContext.startActivity(goto_zoom_imageview);
-//                /*imageView.setDrawingCacheEnabled(true);
-//                imageView.buildDrawingCache();
-//                final Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
-//
-//                Dialog normalDialog = new Dialog(mContext, R.style.DialogTheme);
-//
-//
-//                normalDialog.setContentView(R.layout.zoom_image_dialog_layout);
-//                CustomImageVIew img = (CustomImageVIew)normalDialog.findViewById(R.id.customImageVIew1);
-//                img.setImageResource(R.drawable.banner_home);
-//                img.setMaxZoom(4f);
-//
-//                normalDialog.show();*/
-//
-//
-//
-//
-//
-//
-//              // ZoomImageDialog editNameDialogFragment = new ZoomImageDialog(mContext,bitmap);
-////
-////                editNameDialogFragment.show();
-//
-//                //showEditDialog(bitmap);
-//
-//
-//            }
-//        });
         return itemView;
 
     }
 
 
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        container.removeView((RelativeLayout) object);
     }
 
     @Override
