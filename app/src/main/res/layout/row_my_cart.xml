@@ -44,7 +44,7 @@
                 android:weightSum="2"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:background="@mipmap/box_dropdown"
+
                 android:layout_height="30dp">
                 <TextView
                     android:layout_width="0dp"

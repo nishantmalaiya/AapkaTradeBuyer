@@ -29,9 +29,10 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 {
 
     private final LayoutInflater inflater;
-    private List<CartData> itemList;
+  List<CartData> itemList;
     private Context context;
     CartHolder viewHolder;
+    CartHolder homeHolder;
     TextView  textViewQuantity;
     DroppyMenuPopup droppyMenu;
     LinearLayout linearLayoutQuantity;
@@ -58,13 +59,15 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
-        CartHolder homeHolder = (CartHolder) holder;
+         homeHolder = (CartHolder) holder;
 
         linearLayoutQuantity=homeHolder.dropdown_ll;
 
         textViewQuantity=homeHolder.textView64;
 
-        linearLayoutQuantity.setOnClickListener(this);
+        textViewQuantity.setText(itemList.get(position).quantity.toString());
+
+        //linearLayoutQuantity.setOnClickListener(this);
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
                 .addMenuItem(new DroppyMenuItem("2"))
@@ -78,24 +81,34 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             public void call(View v, int id) {
                 switch (id) {
                     case 0:
-                        textViewQuantity.setText("1");
+                        itemList.get(position).setQuantity("1");
+                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        notifyDataSetChanged();
                         break;
                     case 1:
-                        textViewQuantity.setText("2");
+                        itemList.get(position).setQuantity("2");
+                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        notifyDataSetChanged();
                         break;
                     case 2:
-                        textViewQuantity.setText("3");
+                        itemList.get(position).setQuantity("3");
+                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        notifyDataSetChanged();
+
                         break;
                     case 3:
-                        textViewQuantity.setText("4");
+                        itemList.get(position).setQuantity("4");
+                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        notifyDataSetChanged();
                         break;
                     case 4:
-                        textViewQuantity.setText("5");
+                        itemList.get(position).setQuantity("5");
+                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        notifyDataSetChanged();
                         break;
                     case 5:
-                        showPopup("Quantity");
+                        showPopup("Quantity",position);
                         break;
-
 
                 }
             }
@@ -120,9 +133,6 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         dataAdapter.setDropDownViewResource(R.layout.row_spinner);
         homeHolder.spinner.setAdapter(dataAdapter);
 
-
-
-
     }
 
 
@@ -136,14 +146,11 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onClick(View v)
     {
 
-
-
     }
 
-
-
-    private void showPopup(String description)
+    public void showPopup(String description, final int pos)
     {
+
         boolean wrapInScrollView = true;
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title("Quantity")
@@ -156,7 +163,9 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             showMessage("Nothing done");
                         } else {
                             showMessage(editText.getText().toString());
+                            itemList.get(pos).setQuantity(editText.getText().toString());
                             textViewQuantity.setText(editText.getText().toString());
+                            notifyDataSetChanged();
                         }
                         dialog.dismiss();
                     }
