@@ -130,7 +130,7 @@ public class CategoryListActivity extends AppCompatActivity {
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
-
+                            AndroidUtils.showErrorLog(context, result.toString());
                             if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
                                 toolbarRightText.setVisibility(View.VISIBLE);
                                 Log.e(AndroidUtils.getTag(context), "total_result" + result);
