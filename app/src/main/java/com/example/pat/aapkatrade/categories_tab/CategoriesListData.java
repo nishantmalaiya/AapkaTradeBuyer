@@ -16,4 +16,4 @@ public class CategoriesListData {
         this.distance = distance;
 
    
-}
+}}
