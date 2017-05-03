@@ -41,7 +41,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        progressBarHandler=new ProgressBarHandler(context);
+        progressBarHandler = new ProgressBarHandler(context);
     }
 
     @Override
@@ -62,44 +62,34 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         homeHolder.tvProductName.setText(itemList.get(position).shopName);
 
 
-        if(Tabletsize.isTablet(context))
-        {
-            String product_imageurl=itemList.get(position).shopImage.replace("small","large");
+        if (Tabletsize.isTablet(context)) {
+            String product_imageurl = itemList.get(position).shopImage.replace("small", "large");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
-            Log.e("image_large","image_large");
+            Log.e("image_large", "image_large");
 
-        }
-        else if(Tabletsize.isMedium(context))
-        {
-            String product_imageurl=itemList.get(position).shopImage==null?"":itemList.get(position).shopImage.replace("small","medium");
+        } else if (Tabletsize.isMedium(context)) {
+            String product_imageurl = itemList.get(position).shopImage == null ? "" : itemList.get(position).shopImage.replace("small", "medium");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
-            Log.e("image_medium","image_medium"+product_imageurl);
+            Log.e("image_medium", "image_medium" + product_imageurl);
 
-        }
-        else if(Tabletsize.isSmall(context))
-        {
-            String product_imageurl=itemList.get(position).shopImage.replace("small","medium");
+        } else if (Tabletsize.isSmall(context)) {
+            String product_imageurl = itemList.get(position).shopImage.replace("small", "medium");
 
             Ion.with(homeHolder.productimage)
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
 
-            Log.e("image_small","image_small");
+            Log.e("image_small", "image_small");
         }
-
-
-
-
-
 
 
         Picasso.with(context).load(itemList.get(position).shopImage)
@@ -109,13 +99,12 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 //
 
-homeHolder.distance.setText(itemList.get(position).distance);
+        homeHolder.distance.setText(itemList.get(position).distance);
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                AndroidUtils.showErrorLog(context, "product_id",itemList.get(position).shopId);
+                AndroidUtils.showErrorLog(context, "product_id", itemList.get(position).shopId);
 
                 Intent intent = new Intent(context, ShopDetailActivity.class);
                 intent.putExtra("product_id", itemList.get(position).shopId);
@@ -126,7 +115,6 @@ homeHolder.distance.setText(itemList.get(position).distance);
 
             }
         });
-
 
 
         homeHolder.linearlayoutMap.setOnClickListener(new View.OnClickListener() {
@@ -144,14 +132,13 @@ homeHolder.distance.setText(itemList.get(position).distance);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
                             context);
                     Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
 
                         if (Looper.myLooper() == null) {
                             Looper.prepare();
 
                         }
-                        Log.e("time_taken 1",(System.currentTimeMillis()/1000)+"");
+                        Log.e("time_taken 1", (System.currentTimeMillis() / 1000) + "");
                         progressBarHandler.show();
                         Intent intent = new Intent(context, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -159,11 +146,9 @@ homeHolder.distance.setText(itemList.get(position).distance);
                         context.startActivity(intent);
 
                         progressBarHandler.hide();
-                        Log.e("time_taken 2",(System.currentTimeMillis()/1000)+"");
+                        Log.e("time_taken 2", (System.currentTimeMillis() / 1000) + "");
 
-                    }
-                    else
-                        {
+                    } else {
                         locationManagerCheck.createLocationServiceError(context);
                     }
 

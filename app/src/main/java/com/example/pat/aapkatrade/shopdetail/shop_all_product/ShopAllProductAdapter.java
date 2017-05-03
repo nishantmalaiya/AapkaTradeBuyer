@@ -39,7 +39,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
     }
 
     @Override
-    public void onBindViewHolder(final ShopAllProductHolder holder, int position) {
+    public void onBindViewHolder(final ShopAllProductHolder holder, final int position) {
         holder.tvProductName.setText(itemList.get(position).productName);
         holder.tvProductPrice.setText(itemList.get(position).productPrice);
         Picasso.with(context).load(itemList.get(position).productImage)
@@ -73,7 +73,9 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ProductDetailActivity.class));
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productId", itemList.get(position).productId);
+                context.startActivity(intent);
             }
         });
 
