@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
 
+
     <permission
         android:name="com.example.pat.aapkatrade.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
