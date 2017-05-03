@@ -59,6 +59,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
         CartHolder homeHolder = (CartHolder) holder;
+
         linearLayoutQuantity=homeHolder.dropdown_ll;
 
         textViewQuantity=homeHolder.textView64;
@@ -119,77 +120,6 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         dataAdapter.setDropDownViewResource(R.layout.row_spinner);
         homeHolder.spinner.setAdapter(dataAdapter);
 
-
-//        CartHolder homeHolder = (CartHolder) holder;
-//
-//
-//        linearLayoutQuantity=homeHolder.dropdown_ll;
-//
-//        textViewQuantity = homeHolder.textView64;
-//
-//        droppyBuilder = new DroppyMenuPopup.Builder(context,linearLayoutQuantity);
-//
-//        droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
-//                .addMenuItem(new DroppyMenuItem("2"))
-//                .addMenuItem(new DroppyMenuItem("3"))
-//                .addMenuItem(new DroppyMenuItem("4"))
-//                .addMenuItem(new DroppyMenuItem("5"))
-//                .addSeparator()
-//                .addMenuItem(new DroppyMenuItem("More"));
-//
-//
-//        droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
-//        {
-//            @Override
-//            public void call(View v, int id) {
-//
-//
-//               switch (id) {
-//                    case 0:
-//                        textViewQuantity.setText("1");
-//                        break;
-//                    case 1:
-//                        textViewQuantity.setText("2");
-//                        break;
-//                    case 2:
-//                        textViewQuantity.setText("3");
-//                        break;
-//                    case 3:
-//                        textViewQuantity.setText("4");
-//                        break;
-//                    case 4:
-//                        textViewQuantity.setText("5");
-//                        break;
-//                    case 5:
-//                        //showPopup("Quantity");
-//                        break;
-//
-//
-//                }
-//            }
-//        });
-//
-//        droppyMenu = droppyBuilder.build();
-//
-//
-//     /*   List<String> count = new ArrayList<String>();
-//        count.add("1");
-//        count.add("2");
-//        count.add("3");
-//        count.add("4");
-//        count.add("5");
-//        count.add("6");
-//        count.add("7");
-//        count.add("8");
-//        count.add("9");
-//        count.add("10");
-//        count.add("More");
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,R.layout.row_spinner,count );
-//
-//        dataAdapter.setDropDownViewResource(R.layout.row_spinner);
-//
-//        homeHolder.spinner.setAdapter(dataAdapter);
-//*/
 
 
 

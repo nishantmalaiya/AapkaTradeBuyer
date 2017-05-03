@@ -57,8 +57,6 @@
                     android:id="@+id/textView34"
                     android:textSize="12sp"
 
-
-
                     />
 
                 <Spinner
