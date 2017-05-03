@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.categories_tab.PurticularDataActivity;
+package com.example.pat.aapkatrade.categories_tab.ParticularDataActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class PurticularActivity extends AppCompatActivity
+public class ParticularActivity extends AppCompatActivity
 {
 
     RecyclerView mRecyclerView;
@@ -60,7 +60,7 @@ public class PurticularActivity extends AppCompatActivity
     {
 
         super.onCreate(savedInstanceState);
-        context = PurticularActivity.this;
+        context = ParticularActivity.this;
 
         Intent intent = getIntent();
 
@@ -94,14 +94,14 @@ public class PurticularActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                boolean permission_status = CheckPermission.checkPermissions(PurticularActivity.this);
+                boolean permission_status = CheckPermission.checkPermissions(ParticularActivity.this);
 
 
                 if (permission_status)
 
-                { mylocation = new Mylocation(PurticularActivity.this);
+                { mylocation = new Mylocation(ParticularActivity.this);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
-                            PurticularActivity.this);
+                            ParticularActivity.this);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable())
                     {
@@ -109,10 +109,10 @@ public class PurticularActivity extends AppCompatActivity
 
                             double latitude = mylocation.getLatitude();
                             double longitude = mylocation.getLongitude();
-                            GeoCoderAddress geoCoderAddress_statename = new GeoCoderAddress(PurticularActivity.this, latitude, longitude);
+                            GeoCoderAddress geoCoderAddress_statename = new GeoCoderAddress(ParticularActivity.this, latitude, longitude);
                             String state_name = geoCoderAddress_statename.get_state_name().get(AddressEnum.STATE);
                         if(state_name!=null) {
-                            Intent goto_search = new Intent(PurticularActivity.this, Search.class);
+                            Intent goto_search = new Intent(ParticularActivity.this, Search.class);
                             goto_search.putExtra("latitude", latitude);
                             goto_search.putExtra("longitude", longitude);
                             goto_search.putExtra("state_name", state_name);
@@ -126,7 +126,7 @@ public class PurticularActivity extends AppCompatActivity
                     }
                     else
                     {
-                        locationManagerCheck.createLocationServiceError(PurticularActivity.this);
+                        locationManagerCheck.createLocationServiceError(ParticularActivity.this);
                     }
 
                 }
@@ -164,7 +164,7 @@ public class PurticularActivity extends AppCompatActivity
         shopListDatas.clear();
         progress_handler.show();
 
-        Ion.with(PurticularActivity.this)
+        Ion.with(ParticularActivity.this)
                 .load(url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -213,13 +213,13 @@ public class PurticularActivity extends AppCompatActivity
                                     shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage,shopLocation,""));
 
                                     }
-                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, shopListDatas);
-                                    myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
+                                    categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, shopListDatas);
+                                    myRecyclerViewEffect = new MyRecyclerViewEffect(ParticularActivity.this);
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 
                                 }
-////                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
-////                                myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
+////                                categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, productListDatas);
+////                                myRecyclerViewEffect = new MyRecyclerViewEffect(ParticularActivity.this);
 ////                                mRecyclerView.setAdapter(categoriesListAdapter);
 //
 //                                categoriesListAdapter.notifyDataSetChanged();

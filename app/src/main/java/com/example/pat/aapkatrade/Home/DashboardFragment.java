@@ -1,11 +1,8 @@
 package com.example.pat.aapkatrade.Home;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
-import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,29 +30,20 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.Receiver.MyReceiver;
-import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
+import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
-import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
-import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.location.AddressEnum;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
-import com.example.pat.aapkatrade.location.MyAsyncTask_location;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
-import com.example.pat.aapkatrade.service.LocationService;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -418,7 +406,7 @@ AppSharedPreference appSharedPreference;
         if (home_result != null)
 
         {
-            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
             go_to_product_listactivity.putExtra("url", getResources().getString(R.string.webservice_base_url) + "/latestpost");
 
             startActivity(go_to_product_listactivity);
@@ -431,7 +419,7 @@ AppSharedPreference appSharedPreference;
 
     private void go_to_latest_update_list_activity() {
         if (home_result != null) {
-            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
             go_to_product_listactivity.putExtra("url", getResources().getString(R.string.webservice_base_url) + "/latestupdate");
             startActivity(go_to_product_listactivity);
             ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
