@@ -42,11 +42,9 @@
     <dimen name="thirty_dip">60dp</dimen>
     <dimen name="twelve_dip">24dp</dimen>
     <dimen name="two_hundreds_fifty_dip">500dp</dimen>
-    <dimen name="four_hundred_dip">800dp</dimen>
     <dimen name="three_hundred_dip">600dp</dimen>
-    <dimen name="sixty_dip">120dp</dimen>
     <dimen name="fifty_five_dip">110dp</dimen>
-    <dimen name="one_hundred_thirty">260dp</dimen>
+    <dimen name="seventy_dip">140dp</dimen>
 
 
 </resources>

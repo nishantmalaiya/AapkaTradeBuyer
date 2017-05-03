@@ -44,7 +44,9 @@ public class CategoryListActivity extends AppCompatActivity {
     private ArrayList<CategoriesListData> shopArrayListByCategory = new ArrayList<>();
     private ProgressBarHandler progress_handler;
     private FrameLayout layout_container;
+
     private String category_id, latitude = "0.0", longitude = "0.0";
+
     private AppSharedPreference appSharedPreference;
     private ArrayList<State> productAvailableStateList = new ArrayList<>();
     private Context context;
@@ -137,10 +139,8 @@ public class CategoryListActivity extends AppCompatActivity {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
 
-
                             Log.e(AndroidUtils.getTag(context), result.toString());
-
-
+                            if (result.get("error").getAsString().contains("false")) {
                                 if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
                                     toolbarRightText.setVisibility(View.VISIBLE);
 
@@ -166,14 +166,10 @@ public class CategoryListActivity extends AppCompatActivity {
                                         }
 
                                         if (resultJsonArray != null) {
-
                                             loadResultData(resultJsonArray);
-                                            AndroidUtils.showErrorLog(context, "*******", resultJsonArray.toString());
                                         }
                                         if (categoriesListAdapter == null) {
                                             categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
-
-
                                             mRecyclerView.setAdapter(categoriesListAdapter);
                                         } else {
                                             categoriesListAdapter.notifyDataSetChanged();
@@ -189,6 +185,11 @@ public class CategoryListActivity extends AppCompatActivity {
                             }
                         }
 
+
+
+                    }
+
+
                 });
 
     }
@@ -203,8 +204,11 @@ public class CategoryListActivity extends AppCompatActivity {
             String distance = jsonObject2.get("distance").getAsString();
             String shopLocation = /*jsonObject2.get("city_name").getAsString() + "," +*/ jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
 
+
             Log.e("shop_list", shopImage);
             shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, distance));
+
+
             AndroidUtils.showErrorLog(context, "shopArrayListByCategory : " + shopArrayListByCategory.get(i).shopImage);
 
         }

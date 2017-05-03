@@ -87,24 +87,30 @@ public class HomeActivity extends AppCompatActivity
     boolean doubleBackToExitPressedOnce = false;
     LinearLayout linearlayout_home;
     ProgressBarHandler progressBarHandler;
-
+    public static TextView tvCartCount ;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
-
         rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
+
         progressBarHandler = new ProgressBarHandler(this);
 
         linearlayout_home = (LinearLayout) findViewById(R.id.ll_toolbar_container_home);
+
         app_sharedpreference = new AppSharedPreference(HomeActivity.this);
 
         App_config.set_defaultfont(HomeActivity.this);
+
         aboutUsFragment = new AboutUsFragment();
+
         contactUsFragment = new ContactUsFragment();
+
         user_dashboardFragment = new User_DashboardFragment();
+
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
         if (permission_status)
@@ -122,11 +128,10 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             App_config.deleteCache(HomeActivity.this);
 
+
         }
         else
         {
-
-
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -146,20 +151,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void checked_wifispeed()
     {
 
@@ -169,22 +160,35 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void setupNavigationCustom() {
+    private void setupNavigationCustom()
+    {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
+
+
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        View view = menu.findItem(R.id.cart_total_item).getActionView();
+
+       // tvCartCount = (TextView) view.findViewById(R.id.tvCartCount);
+
         return true;
+
+
     }
 
 
     private void setupToolBar()
     {
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -192,7 +196,7 @@ public class HomeActivity extends AppCompatActivity
         ImageView home_link = (ImageView) toolbar.findViewById(R.id.iconHome);
         AndroidUtils.setImageColor(home_link, context, R.color.white);
         home_link.setVisibility(View.GONE);
-        RelativeLayout cartContainer = (RelativeLayout) toolbar.findViewById(R.id.cart_container);
+       /* RelativeLayout cartContainer = (RelativeLayout) toolbar.findViewById(R.id.cart_container);
         TextView textView = (TextView) toolbar.findViewById(R.id.tvCart);
 
         if(Integer.parseInt(textView.getText().toString())>0)
@@ -209,8 +213,7 @@ public class HomeActivity extends AppCompatActivity
                 Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                 startActivity(intent);
             }
-        });
-
+        });*/
 
     }
 
@@ -230,38 +233,52 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.login:
+        int id = item.getItemId();
+        switch (id)
+        {
+
+            case R.id.cart_total_item:
+
+                Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
+
+                 Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
+                 startActivity(intent);
+
+                break;
+
+        /*    case R.id.login:
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                     Intent i = new Intent(HomeActivity.this, LoginActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-                    return true;
-                } else
-
+                    break;
+                }
+                else
                 {
                     Intent i = new Intent(HomeActivity.this, ProfilePreviewActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-                    return true;
-                }
+
+                    break;
+                }*/
                 //finish();
 
-
-            case R.id.language:
+           /* case R.id.language:
                 View menuItemView = findViewById(R.id.language);
                 PopupMenu popup = new PopupMenu(HomeActivity.this.context, menuItemView);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.menu_language_list, popup.getMenu());
 
-
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
+                    public boolean onMenuItemClick(MenuItem item)
+                    {
+                        switch (item.getItemId())
+                        {
                             case R.id.english_language:
                                 saveLocale("en");
 
@@ -273,7 +290,6 @@ public class HomeActivity extends AppCompatActivity
 
                                 return true;
                         }
-
 
                         return true;
                     }
@@ -287,14 +303,15 @@ public class HomeActivity extends AppCompatActivity
 //               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
 //               transaction.commit();
 
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+               break;*/
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
 
         FragmentManager fm = getSupportFragmentManager();
         DashboardFragment dashboardFragment = (DashboardFragment) fm.findFragmentByTag(homeFragment.getClass().getName());
@@ -304,7 +321,8 @@ public class HomeActivity extends AppCompatActivity
         User_DashboardFragment showuserdashboardfragment = (User_DashboardFragment) fm.findFragmentByTag(user_dashboardFragment.getClass().getName());
 
 
-        if (dashboardFragment!=null && dashboardFragment.isVisible()) {
+        if (dashboardFragment!=null && dashboardFragment.isVisible())
+        {
 
             double_back_pressed("finish");
             //finish();
@@ -341,24 +359,32 @@ public class HomeActivity extends AppCompatActivity
         // changeLang(language);
     }
 
-    public void saveLocale(String lang) {
+    public void saveLocale(String lang)
+    {
         String langPref = "Language";
         app_sharedpreference.setsharedpref(langPref, lang);
         Log.e("language_pref", langPref + "****" + lang);
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+
     }
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case CheckPermission.MULTIPLE_PERMISSIONS: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case CheckPermission.MULTIPLE_PERMISSIONS:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
                     Log.e("permission_granted", "permission_granted");
                     // permissions granted.
-                } else {
+                }
+                else
+                {
                     Log.e("permission_requried", "permission_requried");
                     // no permissions granted.
                 }
@@ -368,7 +394,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void setup_bottomNavigation() {
+    private void setup_bottomNavigation()
+    {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordination_home_activity);
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
@@ -407,7 +434,6 @@ public class HomeActivity extends AppCompatActivity
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-
 
                 switch (position) {
                     case 0:
@@ -501,11 +527,7 @@ public class HomeActivity extends AppCompatActivity
 
                         showOrHideBottomNavigation(true);
 //                    setForceTitleHide(true);
-
-
 //                    setForceTitleHide(true);
-
-
                     } else {
                         showOrHideBottomNavigation(false);
                     }
@@ -518,8 +540,9 @@ public class HomeActivity extends AppCompatActivity
 
                 }
             });
-        } else {
-
+        }
+        else
+        {
 
             scrollView.setOnTouchListener(new View.OnTouchListener() {
                 float height;
@@ -559,22 +582,27 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    public void showOrHideBottomNavigation(boolean show) {
-        if (show) {
+    public void showOrHideBottomNavigation(boolean show)
+    {
+        if (show)
+        {
             bottomNavigation.restoreBottomNavigation(true);
-        } else {
+        }
+        else
+        {
             bottomNavigation.hideBottomNavigation(true);
         }
 
-
     }
 
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         switch (requestCode) {
-            case SPEECH_RECOGNITION_CODE: {
-                if (resultCode == RESULT_OK && null != data) {
+            case SPEECH_RECOGNITION_CODE:
+                {
+                if (resultCode == RESULT_OK && null != data)
+                {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String text = result.get(0);
@@ -586,7 +614,8 @@ public class HomeActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void double_back_pressed(String type) {
+    public void double_back_pressed(String type)
+    {
         if (type.contains("finish")) {
             if (doubleBackToExitPressedOnce) {
 
@@ -630,7 +659,9 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    public void goToMyApp(boolean googlePlay) {//true if Google Play, false if Amazone Store
+    public void goToMyApp(boolean googlePlay)
+    {
+        //true if Google Play, false if Amazone Store
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse((googlePlay ? "market://details?id=" : "amzn://apps/android?p=") + getPackageName())));
         } catch (ActivityNotFoundException e1) {

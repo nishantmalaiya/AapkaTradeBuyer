@@ -19,6 +19,7 @@
     <string name="drawer_open" translatable="false">draweropen</string>
     <string name="drawer_close" translatable="false">drawerclose</string>
     <string name="language" translatable="false">language</string>
+    <string name="cart" translatable="false">cart</string>
     <string name="product" translatable="false">Product:</string>
     <string name="qty" translatable="false">QTY:</string>
 
@@ -166,12 +167,17 @@
     <string name="buy_now">Buy Now</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="rupay">₹ 1055</string>
+    <string name="rupay_text">₹</string>
     <string name="order_details">ORDER DETAILS</string>
     <string name="discount">Discount</string>
     <string name="unit">Unit</string>
     <string name="amount_paid">Amount Paid</string>
     <string name="check_availability_and_delivery">Check availability and delivery option</string>
+
     <string name="select_payment_mode_title">select payment mode</string>
+
+    <string name="postal_code">Postal Code</string>
+
 
 
 </resources>
