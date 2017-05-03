@@ -47,21 +47,16 @@
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".user_dashboard.add_product.Dialog.Timing_dialog"
-            android:screenOrientation="portrait" />
+
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
-        <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
+
         <activity android:name=".user_dashboard.changepassword.ChangePassword" />
-        <activity
-            android:name=".user_dashboard.addcompany.AddCompany"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity android:name=".user_dashboard.companylist.CompanyList" />
+
         <activity
             android:name=".Home.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".user_dashboard.add_product.AddProductActivity" />
+
         <activity
             android:name=".shopdetail.ShopDetailActivity"
             android:screenOrientation="portrait" />
@@ -79,8 +74,7 @@
         <activity android:name=".categories_tab.FilterActivity" />
         <activity android:name=".user_dashboard.address.AddressActivity" />
         <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity" />
-        <activity android:name=".user_dashboard.companylist.compant_details.CompanyDetailActivity" />
-        <activity android:name=".user_dashboard.product_list.listproduct_detail.ListProductDetailActivity" />
+
 
         <receiver
             android:name=".general.IncomingSms"
@@ -93,35 +87,24 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".parallax_recyclerview.ParallaxActivity" />
+
         <activity android:name=".user_dashboard.address.add_address.AddAddressActivity" />
         <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity" />
         <activity android:name=".search.Search" />
-        <activity android:name=".user_dashboard.vender_detail.VendorActivity" />
+
         <activity android:name=".map.GoogleMapActivity" />
         <activity android:name=".user_dashboard.order_list.OrderManagementActivity" />
-        <activity
-            android:name=".user_dashboard.bankmanagement.BankManagementActivity"
-            android:label="@string/title_activity_bank_management"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".user_dashboard.network.NetworkActivity" />
-        <activity
-            android:name=".user_dashboard.payout.PayoutActivity"
-            android:label="@string/title_activity_payout" />
-        <activity android:name=".user_dashboard.editcompany.EditCompanyActivity" />
+
+
         <activity android:name=".ZoomImage.ZoomImageDialog" />
-        <activity android:name=".user_dashboard.edit_product.EditProductActivity" />
-        <activity android:name=".user_dashboard.service_enquirylist.ServiceEnquiryActivity" />
-        <activity
-            android:name=".user_dashboard.add_vendor.AddVendorActivity"
-            android:label="@string/title_activity_add_vendor"
-            android:theme="@style/AppTheme" />
+
+
         <activity android:name=".payment.PaymentActivity" />
-        <activity android:name=".filter.FilterScreenActivity" />
-        <activity android:name=".payment.PaymentActivity" />
+
+
         <activity android:name=".rateus.RateusActivity" />
         <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
-        <activity android:name=".add_to_cart.AddToCartActivity" />
+
         <activity
             android:name=".Home.cart.MyCartActivity"
             android:label="@string/title_activity_my_cart"
@@ -132,11 +115,6 @@
             android:name=".service.LocationService"
             android:enabled="true"
             android:exported="true" />
-
-        <receiver
-            android:name=".Receiver.MyReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
 
         <activity android:name=".shopdetail.productdetail.ProductDetailActivity"></activity>
 

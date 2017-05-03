@@ -44,7 +44,7 @@ public class CategoryListActivity extends AppCompatActivity {
     private ArrayList<CategoriesListData> shopArrayListByCategory = new ArrayList<>();
     private ProgressBarHandler progress_handler;
     private FrameLayout layout_container;
-    private String category_id,latitude,longitude;
+    private String category_id, latitude = "0.0", longitude = "0.0";
     private AppSharedPreference appSharedPreference;
     private ArrayList<State> productAvailableStateList = new ArrayList<>();
     private Context context;
@@ -67,8 +67,8 @@ public class CategoryListActivity extends AppCompatActivity {
 
         Bundle b = intent.getExtras();
         if (b != null) {
-            latitude=b.getString("latitude");
-            longitude=b.getString("longitude");
+            latitude = b.getString("latitude");
+            longitude = b.getString("longitude");
 
             category_id = b.getString("category_id");
         }
@@ -115,7 +115,7 @@ public class CategoryListActivity extends AppCompatActivity {
         productAvailableStateList.add(state);
         AndroidUtils.showErrorLog(context, shopArrayListByCategory.size() + "^^^^^^^^^");
 
-        Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : " + category_id+"**"+latitude+"*****"+longitude);
+        Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : " + category_id + "**" + latitude + "*****" + longitude);
 
         Ion.with(CategoryListActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
@@ -136,54 +136,58 @@ public class CategoryListActivity extends AppCompatActivity {
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
-                            Log.e(AndroidUtils.getTag(context),  result.toString());
-                        }
-                        Log.e(AndroidUtils.getTag(context),  result.toString());
 
-if(result.get("error").getAsString().contains("false")) {
-    if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
-        toolbarRightText.setVisibility(View.VISIBLE);
 
-        JsonArray statesArray1 = result.get("filter").getAsJsonArray();
-        for (int i = 0; i < statesArray1.size(); i++) {
-            JsonObject stateObject = (JsonObject) statesArray1.get(i);
-            Log.e("stateobject", stateObject.toString());
-        }
+                            Log.e(AndroidUtils.getTag(context), result.toString());
 
-        String message = result.get("message").toString();
 
-        String message_data = message.replace("\"", "");
-        AndroidUtils.showErrorLog(context, "message_data " + message_data);
-        Log.e("message_product_list", result.toString());
+                                if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
+                                    toolbarRightText.setVisibility(View.VISIBLE);
 
-        if (message_data.equals("No record found")) {
-            layout_container.setVisibility(View.INVISIBLE);
-        } else {
-            JsonArray resultJsonArray = result.getAsJsonArray("result");
-            JsonArray filterArray = result.getAsJsonArray("filter");
-            if (filterArray != null) {
-                loadFilterDataInHashMap(filterArray);
-            }
+                                    JsonArray statesArray1 = result.get("filter").getAsJsonArray();
+                                    for (int i = 0; i < statesArray1.size(); i++) {
+                                        JsonObject stateObject = (JsonObject) statesArray1.get(i);
+                                        Log.e("stateobject", stateObject.toString());
+                                    }
 
-            if (resultJsonArray != null) {
-                loadResultData(resultJsonArray);
-            }
-            if (categoriesListAdapter == null) {
-                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
-                mRecyclerView.setAdapter(categoriesListAdapter);
-            } else {
-                categoriesListAdapter.notifyDataSetChanged();
+                                    String message = result.get("message").toString();
+
+                                    String message_data = message.replace("\"", "");
+                                    AndroidUtils.showErrorLog(context, "message_data " + message_data);
+                                    Log.e("message_product_list", result.toString());
+
+                                    if (message_data.equals("No record found")) {
+                                        layout_container.setVisibility(View.INVISIBLE);
+                                    } else {
+                                        JsonArray resultJsonArray = result.getAsJsonArray("result");
+                                        JsonArray filterArray = result.getAsJsonArray("filter");
+                                        if (filterArray != null) {
+                                            loadFilterDataInHashMap(filterArray);
+                                        }
+
+                                        if (resultJsonArray != null) {
+
+                                            loadResultData(resultJsonArray);
+                                            AndroidUtils.showErrorLog(context, "*******", resultJsonArray.toString());
+                                        }
+                                        if (categoriesListAdapter == null) {
+                                            categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
+
+
+                                            mRecyclerView.setAdapter(categoriesListAdapter);
+                                        } else {
+                                            categoriesListAdapter.notifyDataSetChanged();
 //                                    mRecyclerView.smoothScrollToPosition(21);
-            }
+                                        }
 
 
-            progress_handler.hide();
+                                        progress_handler.hide();
 
-        }
+                                    }
 
-    }
-}
-                    }
+                                }
+                            }
+                        }
 
                 });
 
@@ -198,7 +202,9 @@ if(result.get("error").getAsString().contains("false")) {
             String shopImage = jsonObject2.get("image_url").getAsString();
             String distance = jsonObject2.get("distance").getAsString();
             String shopLocation = /*jsonObject2.get("city_name").getAsString() + "," +*/ jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
-            shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation,distance));
+
+            Log.e("shop_list", shopImage);
+            shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, distance));
             AndroidUtils.showErrorLog(context, "shopArrayListByCategory : " + shopArrayListByCategory.get(i).shopImage);
 
         }

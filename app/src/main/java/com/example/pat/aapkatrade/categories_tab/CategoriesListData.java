@@ -14,6 +14,7 @@ public class CategoriesListData {
         this.shopId = shopId;
         this.shopName = shopName;
         this.distance = distance;
+        this.shopImage = shopImage;
 
-   
+    }
 }
