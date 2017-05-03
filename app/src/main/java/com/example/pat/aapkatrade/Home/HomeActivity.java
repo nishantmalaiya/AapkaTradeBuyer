@@ -60,13 +60,13 @@ import com.mikepenz.actionitembadge.library.ActionItemBadge;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private DashboardFragment homeFragment;
     private AboutUsFragment aboutUsFragment;
-
     Context context;
     public static String shared_pref_name = "aapkatrade";
     App_config aa;
@@ -87,6 +87,8 @@ public class HomeActivity extends AppCompatActivity {
     LinearLayout linearlayout_home;
     ProgressBarHandler progressBarHandler;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,10 +106,9 @@ public class HomeActivity extends AppCompatActivity {
         user_dashboardFragment = new User_DashboardFragment();
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status) {
-
+        if (permission_status)
+        {
             setContentView(R.layout.activity_homeactivity);
-
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -118,15 +119,14 @@ public class HomeActivity extends AppCompatActivity {
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
-
-
             App_config.deleteCache(HomeActivity.this);
 
-        } else {
+        }
+        else
+        {
+
 
             setContentView(R.layout.activity_homeactivity);
-
-
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -139,15 +139,31 @@ public class HomeActivity extends AppCompatActivity {
             setup_bottomNavigation();
             checked_wifispeed();
             App_config.deleteCache(HomeActivity.this);
+
+
         }
     }
 
 
-    private void checked_wifispeed() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void checked_wifispeed()
+    {
 
         int a = ConnetivityCheck.get_wifi_speed(this);
         Log.e("a", a + "");
-
 
     }
 
@@ -166,7 +182,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -176,18 +193,23 @@ public class HomeActivity extends AppCompatActivity {
         home_link.setVisibility(View.GONE);
         RelativeLayout cartContainer = (RelativeLayout) toolbar.findViewById(R.id.cart_container);
         TextView textView = (TextView) toolbar.findViewById(R.id.tvCart);
-        if(Integer.parseInt(textView.getText().toString())>0){
+
+        if(Integer.parseInt(textView.getText().toString())>0)
+        {
             cartContainer.setVisibility(View.VISIBLE);
         }
 
-        cartContainer.setOnClickListener(new View.OnClickListener() {
+        cartContainer.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MyCartActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            public void onClick(View v)
+            {
+
+                Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                 startActivity(intent);
             }
         });
+
 
     }
 
@@ -601,7 +623,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
         }
-
 
     }
 

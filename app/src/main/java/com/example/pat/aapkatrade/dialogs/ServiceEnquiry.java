@@ -59,9 +59,6 @@ public class ServiceEnquiry extends DialogFragment {
     }
 
 
-
-
-
     private void initView(View v) {
 
         dialogue_toolbar = (RelativeLayout) v.findViewById(R.id.dialogue_toolbar);

@@ -30,11 +30,44 @@
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="@dimen/one_hundred_five_dip"
-                android:layout_height="130dp"
+                android:layout_height="@dimen/one_hundred_thirty"
                 android:src="@drawable/demo_review_pic"
                 android:scaleType="fitCenter"
                 android:layout_marginRight="5dp"
                 />
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:visibility="gone"
+                android:weightSum="2"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:background="@mipmap/box_dropdown"
+                android:layout_height="30dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Qty:"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:id="@+id/textView34"
+                    android:textSize="12sp"
+
+
+
+                    />
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_addto_card"
+
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvProductName"
@@ -76,34 +109,34 @@
 
             <Button
                 android:id="@+id/buttonAddtoCart"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/thirty_dip"
                 android:layout_height="@dimen/thirty_dip"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/button_add_to_cart_back"
-                android:text="Add to Cart"
+                android:background="@drawable/ic_delete"
                 android:padding="@dimen/five_dip"
                 android:textSize="@dimen/twelve_dip"
                 android:layout_below="@+id/tvProductUnit"
                 android:textAllCaps="false"
                 android:textColor="@color/green"
+                android:layout_marginRight="@dimen/ten_dip"
                 />
 
             <LinearLayout
                 android:id="@+id/dropdown_ll"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvProductPrice"
                 android:background="@drawable/border_bg_grey"
                 android:layout_toRightOf="@+id/imgProduct"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:padding="3dp" >
+                android:layout_marginTop="@dimen/ten_dip"
+                android:layout_marginLeft="@dimen/five_dip"
+                android:padding="@dimen/three_dip" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginLeft="@dimen/three_dip"
                     android:text="Qty:"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
@@ -120,16 +153,17 @@
                         android:id="@+id/textView64"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
-                        android:padding="3dp"
+                        android:layout_marginLeft="@dimen/three_dip"
+                        android:layout_marginRight="@dimen/three_dip"
+                        android:padding="@dimen/three_dip"
                         android:text="1"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/twenty_dip"
+                        android:layout_height="@dimen/twenty_five_dip"
                         android:background="#787575"
                         android:src="@drawable/ic_chevron_white" />
 
@@ -147,3 +181,5 @@
 
 
 </android.support.v7.widget.CardView>
+
+
