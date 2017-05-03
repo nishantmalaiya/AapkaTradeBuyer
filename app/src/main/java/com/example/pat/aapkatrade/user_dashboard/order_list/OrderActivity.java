@@ -114,9 +114,6 @@ public class OrderActivity extends AppCompatActivity
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-
-
-
                         System.out.println("jsonObject-------------" + result.toString());
 
 
@@ -137,7 +134,9 @@ public class OrderActivity extends AppCompatActivity
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            } else {
+                            }
+                            else
+                                {
 
                                 JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
 
