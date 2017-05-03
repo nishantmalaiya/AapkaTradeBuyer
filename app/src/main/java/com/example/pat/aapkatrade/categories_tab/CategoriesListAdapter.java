@@ -114,7 +114,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 //
 
-
+homeHolder.distance.setText(itemList.get(position).distance);
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -131,6 +131,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             }
         });
+
 
 
         homeHolder.linearlayoutMap.setOnClickListener(new View.OnClickListener() {

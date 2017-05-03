@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home.navigation.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -16,9 +17,11 @@ import com.example.pat.aapkatrade.Home.navigation.viewholder.NavigationViewHolde
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.location.Mylocation;
+import com.example.pat.aapkatrade.service.LocationService;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -32,11 +35,13 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
     private ArrayList<CategoryHome> listDataHeader;
     private View view;
     private Mylocation mylocation;
+    AppSharedPreference appSharedPreference;
 
 
     public NavigationAdapter(Context context, ArrayList<CategoryHome> listDataHeader) {
         this.context = context;
         this.listDataHeader = listDataHeader;
+        appSharedPreference = new AppSharedPreference(context);
 
 
     }
@@ -49,7 +54,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
     @Override
     public void onBindViewHolder(NavigationViewHolder viewHolder, int position) {
-
 
 
         final int currentPosition = position;
@@ -75,39 +79,34 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
             public void onClick(View v) {
 
 
-                boolean permission_status = CheckPermission.checkPermissions((Activity)context);
+                boolean permission_status = CheckPermission.checkPermissions((Activity) context);
 
 
                 if (permission_status)
 
-                { mylocation = new Mylocation(context);
+                {
+                    mylocation = new Mylocation(context);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
                             context);
                     Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
+                        String CurrentLatitude=appSharedPreference.getsharedpref("CurrentLatitude", "0.0");
 
-
-                        double latitude = mylocation.getLatitude();
-                        double longitude = mylocation.getLongitude();
-
+                        String CurrentLongitude= appSharedPreference.getsharedpref("CurrentLongitude", "0.0");
+                        appSharedPreference.getsharedpref("CurrentStateName", "Haryana");
 
                         Intent i = new Intent(context, CategoryListActivity.class);
                         i.putExtra("category_id", listDataHeader.get(currentPosition).getCategoryId());
+                        i.putExtra("latitude", CurrentLatitude);
+                        i.putExtra("longitude", CurrentLongitude);
+
                         context.startActivity(i);
 
-                    }
-                    else
-                    {
+                    } else {
                         locationManagerCheck.createLocationServiceError((Activity) context);
                     }
 
                 }
-
-
-
-
-
 
 
             }

@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.entity.KeyValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,16 +23,18 @@ import java.util.HashMap;
 public class Webservice_search_autocompleteadapter extends BaseAdapter implements Filterable {
     Context context;
     ArrayList<String> names_data;
+    ArrayList<String> distance_data;
     LayoutInflater inflter;
 
     private ArrayList<String> originalData;
     private ArrayList<String> filteredData;
     private ValueFilter valueFilter;
 
-    public Webservice_search_autocompleteadapter(Context applicationContext, ArrayList<String> names_data) {
+    public Webservice_search_autocompleteadapter(Context applicationContext, ArrayList<String> names_data,ArrayList<String> distance_data) {
         this.context = applicationContext;
 
         this.names_data = names_data;
+        this.distance_data=distance_data;
 
         inflter = (LayoutInflater.from(applicationContext));
     }
@@ -55,11 +58,12 @@ public class Webservice_search_autocompleteadapter extends BaseAdapter implement
 
 
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.row_spinner, null);
-        TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
+        view = inflter.inflate(R.layout.search_suggestion_row, null);
+        TextView names = (TextView) view.findViewById(R.id.tv_shop_name);
+        TextView distance = (TextView) view.findViewById(R.id.tvDistance);
         Log.e("names", names_data.get(i));
         names.setText(names_data.get(i));
-
+        distance.setText(distance_data.get(i));
         return view;
     }
 
@@ -67,6 +71,7 @@ public class Webservice_search_autocompleteadapter extends BaseAdapter implement
     public Filter getFilter() {
         if (valueFilter == null) {
             valueFilter = new ValueFilter();
+
         }
         return valueFilter;
     }

@@ -210,7 +210,7 @@ public class PurticularActivity extends AppCompatActivity
                                             jsonObject2.get("country_name").getAsString();
                                     String shopImage = jsonObject2.get("image_url").getAsString();
 
-                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage,shopLocation));
+                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage,shopLocation,""));
 
                                     }
                                     categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, shopListDatas);

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
-    card_view:cardElevation="10dp"
+    android:layout_marginRight="10dp"
     card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="10dp"
 
     >
 
@@ -16,17 +16,15 @@
         android:id="@+id/linearlayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="10"
-        android:orientation="horizontal"
         android:background="@color/white"
-        >
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3.5"
             android:layout_gravity="center"
-            >
+            android:layout_weight="3.5">
 
             <ImageView
                 android:id="@+id/productImage"
@@ -41,20 +39,20 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5.5"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <io.techery.properratingbar.ProperRatingBar
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:layout_centerHorizontal="true"
+                app:prb_clickable="false"
                 app:prb_defaultRating="3"
                 app:prb_tickNormalDrawable="@drawable/ic_white_star"
                 app:prb_tickSelectedDrawable="@drawable/ic_orange_star"
-                app:prb_totalTicks="5"
-                app:prb_clickable="false"
                 app:prb_tickSpacing="0dp"
+                app:prb_totalTicks="5"
 
                 />
 
@@ -64,11 +62,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:maxLines="1"
                 android:text="Music Art Galaxy"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:maxLines="1"
-                />
+                android:textStyle="bold" />
 
 
             <TextView
@@ -76,57 +73,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Groceries"
                 android:maxLines="1"
-                android:textColor="@color/item_details_color"
-                />
+                android:text="Groceries"
+                android:textColor="@color/item_details_color" />
 
 
-
-
-
-
-            
-            
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
+
                 <TextView
                     android:id="@+id/tvQtyHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Qty."
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                    android:text="Qty."
                     android:textColor="@color/black"
-                    android:gravity="left"
                     android:textSize="@dimen/textsize_medium" />
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:background="@drawable/spinner_black_border"
-                    android:padding="7dp"
                     android:layout_alignTop="@+id/tvQtyHeading"
-                    android:layout_toRightOf="@+id/tvQtyHeading"
-                    android:layout_toEndOf="@+id/tvQtyHeading"
                     android:layout_marginRight="20dp"
-                    >
+                    android:layout_toEndOf="@+id/tvQtyHeading"
+                    android:layout_toRightOf="@+id/tvQtyHeading"
+                    android:background="@drawable/spinner_black_border"
+                    android:padding="7dp">
 
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
                         android:layout_margin="1dp"
                         android:layout_toLeftOf="@+id/imgView"
-                        ></Spinner>
+                        android:background="@drawable/simple_spinner_back"></Spinner>
 
 
                     <ImageView
@@ -135,9 +123,8 @@
                         android:layout_height="20dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/ic_arrow" />
 
                 </RelativeLayout>
 
@@ -147,21 +134,34 @@
         </LinearLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearlayoutMap"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:weightSum="1">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="2.5"
+            android:gravity="center_horizontal|center_vertical"
+            android:weightSum="3.5">
 
             <ImageView
+                android:id="@+id/product_location_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/ten_dip"
                 android:layout_marginTop="10dp"
-                android:gravity="right"
+                android:gravity="right|center_vertical"
                 android:src="@drawable/location_green" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/product_distance"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:textSize="@dimen/textsize_small"
+                android:layout_below="@+id/product_location_icon" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
