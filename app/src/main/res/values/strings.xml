@@ -90,7 +90,7 @@
     <string name="account_holder_name" translatable="false">Account Holder Name*</string>
     <string name="registered_mobile" translatable="false">Registered Mobile*</string>
     <string name="new_user_signup" translatable="false">New User Signup</string>
-    <string name="description_heading" translatable="false">Description*</string>
+    <string name="description_heading" translatable="false">Description</string>
     <string name="description" translatable="false">Department Stores, Chocolate Retailers, Soft Drink Retailers,Grocery Stores, Beverage Dealers, General Stores, Deparmental Stores Home Delivery</string>
     <string name="review_heading" translatable="false">Ratings &amp; Review</string>
     <string name="selected_place" translatable="false">Selected Place</string>
@@ -170,6 +170,7 @@
     <string name="discount">Discount</string>
     <string name="unit">Unit</string>
     <string name="amount_paid">Amount Paid</string>
+    <string name="check_availability_and_delivery">Check availability and delivery option</string>
 
 
 </resources>
