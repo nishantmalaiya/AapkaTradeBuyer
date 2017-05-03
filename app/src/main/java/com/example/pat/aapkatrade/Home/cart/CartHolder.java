@@ -30,7 +30,7 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         dropdown_ll = (LinearLayout) itemView.findViewById(R.id.dropdown_ll);
 
-        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
+//        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
         productimage = (ImageView) itemView.findViewById(R.id.imgProduct);

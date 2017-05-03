@@ -127,7 +127,20 @@
             android:name=".Home.cart.MyCartActivity"
             android:label="@string/title_activity_my_cart"
             android:theme="@style/AppTheme" />
+
+
+        <service
+            android:name=".service.LocationService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".Receiver.MyReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <activity android:name=".shopdetail.productdetail.ProductDetailActivity"></activity>
+
     </application>
 
 </manifest>
