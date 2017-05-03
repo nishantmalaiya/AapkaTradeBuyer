@@ -39,6 +39,8 @@ public class MyCartActivity extends AppCompatActivity
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,6 +51,7 @@ public class MyCartActivity extends AppCompatActivity
         setuptoolbar();
 
          initView();
+
 
         setup_layout();
 

@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -38,6 +39,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.filter.FilterDialog;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
+import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.interfaces.Adapter_callback_interface;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -67,7 +69,8 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
     common_state_search common_state_search;
     Adapter_callback_interface callback_interface;
     ArrayList<String> state_names = new ArrayList<>();
-    ArrayList<String> product_names = new ArrayList<>();
+    ArrayList<String> SearchSuggestionList = new ArrayList<>();
+    ArrayList<String> DistanceList = new ArrayList<>();
     ArrayList<CommomData> search_productlist = new ArrayList<>();
     ArrayList<common_category_search> common_category_searchlist = new ArrayList<>();
     ArrayList<common_state_search> common_state_searchlist = new ArrayList<>();
@@ -78,12 +81,13 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
     CoordinatorLayout coordinate_search;
     private Adapter_callback_interface callback_listener;
     private final int SPEECH_RECOGNITION_CODE = 1;
+    private final int SearchSuggestioncode = 2;
     private ArrayList<String> stateList = new ArrayList<>();
     SearchResultsAdapter searchResultsAdapter;
     SearchcategoryAdapter searchResults_category_Adapter;
     SearchStateAdapter searchResults_state_Adapter, searchResults_city_Adapter;
     HashMap<String, String> webservice_header_type = new HashMap<>();
-    String currentlocation_statename;
+    String currentlocation_statename,latitude,longitude;
     int current_state_index;
     String class_name;
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
@@ -100,6 +104,9 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         c = Search.this;
         Intent i = getIntent();
         currentlocation_statename = i.getStringExtra("state_name");
+
+        latitude=i.getStringExtra("latitude");
+        longitude=i.getStringExtra("longitude");
         Log.e("current_statename_", currentlocation_statename);
 
         class_name = i.getStringExtra("classname");
@@ -187,6 +194,17 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
 
                     call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
+
+
+                    autocomplete_textview_product.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> p, View v, int pos, long id) {
+
+
+                            Log.e("search_click_data", p.getItemAtPosition(pos).toString());
+
+                        }
+                    });
 
 
                 } else {
@@ -283,20 +301,22 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         String search_url = (getResources().getString(R.string.webservice_base_url)) + "/search";
         progressBarHandler.show();
 
-
+Log.e("lat_search",latitude+""+longitude);
         Ion.with(Search.this)
                 .load(search_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("location", location_text)
+               // .setBodyParameter("location", location_text)
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", product_name1)
+                .setBodyParameter("lat",latitude)
+                .setBodyParameter("long",longitude)
                 .setBodyParameter("apply", "1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
-                            set_webservice_data(result, "");
+                            //set_webservice_data(result, "");
 
                             Log.e("call 3", result.toString());
 
@@ -461,8 +481,9 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
-                            product_names.clear();
-                            product_names = new ArrayList<String>();
+                            SearchSuggestionList.clear();
+                            SearchSuggestionList = new ArrayList<String>();
+                            DistanceList = new ArrayList<String>();
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             String error = jsonObject.get("error").getAsString();
@@ -487,18 +508,18 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
                                     JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
                                     String productname = jsonObject_result.get("name").getAsString();
-
-                                    product_names.add(productname);
-
+                                    String distance = jsonObject_result.get("distance").getAsString();
+                                    SearchSuggestionList.add(productname);
+                                    DistanceList.add(String.valueOf(distance));
                                 }
 
 
                                 if (error.contains("false")) {
 
 
-                                    product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, product_names);
+                                    product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, SearchSuggestionList,DistanceList);
 
-                                    if (product_names.size() != 0)
+                                    if (SearchSuggestionList.size() != 0)
                                         autocomplete_textview_product.setAdapter(product_autocompleteadapter);
 
 
@@ -649,6 +670,8 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
             }
         }
     }
+
+
 }
 
 

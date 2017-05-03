@@ -312,10 +312,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
                         listDataHeader.add(categoryHome);
 
-                        Log.e("listDataHeader_cate", categoryHome.toString()+"----------------->"+categoryHome.getCategoryId()+"----------------->"+categoryHome.getCategoryName());
+                        Log.e("listDataHeader_cate", categoryHome.toString() + "----------------->" + categoryHome.getCategoryId() + "----------------->" + categoryHome.getCategoryName());
                     }
 
-                    if(listDataHeader!=null) {
+                    if (listDataHeader != null) {
                         Collections.sort(listDataHeader, new Comparator<CategoryHome>() {
                             @Override
                             public int compare(CategoryHome o1, CategoryHome o2) {
