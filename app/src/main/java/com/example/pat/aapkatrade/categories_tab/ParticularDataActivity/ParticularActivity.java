@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.categories_tab.PurticularDataActivity;
+package com.example.pat.aapkatrade.categories_tab.ParticularDataActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.location.AddressEnum;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
@@ -40,44 +39,29 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class PurticularActivity extends AppCompatActivity
-{
+public class ParticularActivity extends AppCompatActivity {
 
-    RecyclerView mRecyclerView;
-    CategoriesListAdapter categoriesListAdapter;
-    ArrayList<CategoriesListData> shopListDatas = new ArrayList<>();
-    ProgressBarHandler progress_handler;
-    FrameLayout layout_container, layout_container_relativeSearch;
-    MyRecyclerViewEffect myRecyclerViewEffect;
-    JsonObject home_data;
-    String url;
-    Mylocation mylocation;
+    private RecyclerView mRecyclerView;
+    private CategoriesListAdapter categoriesListAdapter;
+    private ArrayList<CategoriesListData> shopListDatas = new ArrayList<>();
+    private ProgressBarHandler progress_handler;
+    private FrameLayout layout_container;
+    private String url;
+    private Mylocation mylocation;
     private Context context;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        context = PurticularActivity.this;
+        context = ParticularActivity.this;
 
         Intent intent = getIntent();
 
-         url = intent.getStringExtra("url");
+        url = intent.getStringExtra("url");
 
-         System.out.println("url---------------"+url);
-
-//        Intent i = this.getIntent();
-//        ArrayList commomDatas_latestpost =  i.getParcelableArrayListExtra("commomDatas_latestpost");
-//        for(int j = 0; j < commomDatas_latestpost.size(); j++){
-//            CommomData commomData = (CommomData) commomDatas_latestpost.get(j);
-//            Log.e("getData1", commomData.toString());
-//
-//        }
-//
-//        productListDatas = commomDatas_latestpost;
-
+        System.out.println("url---------------" + url);
         setContentView(R.layout.activity_categories_list);
 
         setUpToolBar();
@@ -90,58 +74,42 @@ public class PurticularActivity extends AppCompatActivity
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
-        findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                boolean permission_status = CheckPermission.checkPermissions(PurticularActivity.this);
+                boolean permission_status = CheckPermission.checkPermissions(ParticularActivity.this);
 
 
                 if (permission_status)
 
-                { mylocation = new Mylocation(PurticularActivity.this);
+                {
+                    mylocation = new Mylocation(ParticularActivity.this);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
-                            PurticularActivity.this);
+                            ParticularActivity.this);
                     Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
 
 
-                            double latitude = mylocation.getLatitude();
-                            double longitude = mylocation.getLongitude();
-                            GeoCoderAddress geoCoderAddress_statename = new GeoCoderAddress(PurticularActivity.this, latitude, longitude);
-                            String state_name = geoCoderAddress_statename.get_state_name().get(AddressEnum.STATE);
-                        if(state_name!=null) {
-                            Intent goto_search = new Intent(PurticularActivity.this, Search.class);
+                        double latitude = mylocation.getLatitude();
+                        double longitude = mylocation.getLongitude();
+                        GeoCoderAddress geoCoderAddress_statename = new GeoCoderAddress(ParticularActivity.this, latitude, longitude);
+                        String state_name = geoCoderAddress_statename.get_state_name().get(AddressEnum.STATE);
+                        if (state_name != null) {
+                            Intent goto_search = new Intent(ParticularActivity.this, Search.class);
                             goto_search.putExtra("latitude", latitude);
                             goto_search.putExtra("longitude", longitude);
                             goto_search.putExtra("state_name", state_name);
                             startActivity(goto_search);
                             finish();
+                        } else {
+                            Log.e("statenotfound", "" + "statenotfound");
                         }
-
-                        else{
-                            Log.e("statenotfound",""+"statenotfound");
-                        }
-                    }
-                    else
-                    {
-                        locationManagerCheck.createLocationServiceError(PurticularActivity.this);
+                    } else {
+                        locationManagerCheck.createLocationServiceError(ParticularActivity.this);
                     }
 
                 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             }
@@ -164,7 +132,7 @@ public class PurticularActivity extends AppCompatActivity
         shopListDatas.clear();
         progress_handler.show();
 
-        Ion.with(PurticularActivity.this)
+        Ion.with(ParticularActivity.this)
                 .load(url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -190,9 +158,7 @@ public class PurticularActivity extends AppCompatActivity
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            }
-                            else
-                            {
+                            } else {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
                                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -202,41 +168,32 @@ public class PurticularActivity extends AppCompatActivity
 
                                     String shopName = jsonObject2.get("prodname").getAsString();
 
-                                  //  String shopPrice = jsonObject2.get("price").getAsString();
+                                    //  String shopPrice = jsonObject2.get("price").getAsString();
 
                                     //String product_cross_price = jsonObject2.get("cross_price").getAsString();
 
-                                    String shopLocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
+                                    String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
                                             jsonObject2.get("country_name").getAsString();
                                     String shopImage = jsonObject2.get("image_url").getAsString();
 
-                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage,shopLocation));
-
-                                    }
-                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, shopListDatas);
-                                    myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
-                                    mRecyclerView.setAdapter(categoriesListAdapter);
+                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation));
 
                                 }
-////                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
-////                                myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
-////                                mRecyclerView.setAdapter(categoriesListAdapter);
-//
-//                                categoriesListAdapter.notifyDataSetChanged();
+                                categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, shopListDatas);
+                                mRecyclerView.setAdapter(categoriesListAdapter);
 
-                                progress_handler.hide();
                             }
-
+                            progress_handler.hide();
                         }
 
+                    }
 
 
                 });
-
     }
 
     private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
         back_imagview.setVisibility(View.VISIBLE);
         back_imagview.setOnClickListener(new View.OnClickListener() {

@@ -63,12 +63,12 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity
-            android:name=".productdetail.ShopDetailActivity"
+            android:name=".shopdetail.ShopDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Home.registration.RegistrationActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".categories_tab.PurticularDataActivity.PurticularActivity" />
+        <activity android:name=".categories_tab.ParticularDataActivity.ParticularActivity" />
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
@@ -120,12 +120,13 @@
         <activity android:name=".filter.FilterScreenActivity" />
         <activity android:name=".payment.PaymentActivity" />
         <activity android:name=".rateus.RateusActivity" />
-        <activity android:name=".productdetail.shop_all_product.ShopAllProductActivity" />
+        <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
         <activity android:name=".add_to_cart.AddToCartActivity" />
         <activity
             android:name=".Home.cart.MyCartActivity"
             android:label="@string/title_activity_my_cart"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".shopdetail.productdetail.ProductDetailActivity"></activity>
     </application>
 
 </manifest>

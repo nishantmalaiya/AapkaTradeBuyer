@@ -17,9 +17,9 @@
             android:id="@+id/RelativeProductDetail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:layout_weight="13.5"
-            tools:context="com.example.pat.aapkatrade.productdetail.ShopDetailActivity">
+            android:orientation="vertical"
+            tools:context="com.example.pat.aapkatrade.shopdetail.ShopDetailActivity">
 
             <include layout="@layout/toolbar_layout" />
 
@@ -40,7 +40,6 @@
                     android:orientation="vertical"
 
                     >
-
 
 
                     <android.support.v7.widget.CardView
@@ -472,7 +471,7 @@
                                         android:textColor="@color/white" />
 
                                     <RelativeLayout
-                                        android:id="@+id/rl_viewall_latest_post"
+                                        android:id="@+id/rl_viewall_products"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
@@ -955,21 +954,20 @@
             android:id="@+id/relativeService_enquiry"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/orange"
-            android:padding="@dimen/fifteen_dip"
             android:layout_weight="1.5"
-          >
+            android:background="@color/orange"
+            android:padding="@dimen/fifteen_dip">
 
             <TextView
                 android:id="@+id/tvServiceBuy"
-                android:gravity="center_horizontal|center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="@string/service_enquiry"
-                android:textSize="@dimen/textsize_medium"
                 android:textColor="@color/white"
+                android:textSize="@dimen/textsize_medium"
                 android:textStyle="bold" />
 
         </RelativeLayout>
