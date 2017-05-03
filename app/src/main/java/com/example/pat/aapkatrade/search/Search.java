@@ -305,7 +305,7 @@ Log.e("lat_search",latitude+""+longitude);
         Ion.with(Search.this)
                 .load(search_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-               // .setBodyParameter("location", location_text)
+                .setBodyParameter("location", location_text)
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", product_name1)
                 .setBodyParameter("lat",latitude)
@@ -316,7 +316,8 @@ Log.e("lat_search",latitude+""+longitude);
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
-                            //set_webservice_data(result, "");
+                            progressBarHandler.hide();
+                            set_webservice_data(result, "");
 
                             Log.e("call 3", result.toString());
 
@@ -474,8 +475,12 @@ Log.e("lat_search",latitude+""+longitude);
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", product_search_text.trim())
-                .setBodyParameter("lat", "0.0")
-                .setBodyParameter("long", "0.0")
+                .setBodyParameter("lat", latitude)
+                .setBodyParameter("long", longitude)
+
+                .setBodyParameter("location", state_list_spinner.getSelectedItem().toString())
+
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override

@@ -14,5 +14,8 @@ public class CategoriesListData {
         this.shopImage = shopImage;
         this.shopLocation = shopLocation;
         this.distance = distance;
+
+
     }
 }
+

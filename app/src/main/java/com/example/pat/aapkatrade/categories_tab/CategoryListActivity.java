@@ -44,7 +44,9 @@ public class CategoryListActivity extends AppCompatActivity {
     private ArrayList<CategoriesListData> shopArrayListByCategory = new ArrayList<>();
     private ProgressBarHandler progress_handler;
     private FrameLayout layout_container;
-    private String category_id, latitude, longitude;
+
+    private String category_id, latitude = "0.0", longitude = "0.0";
+
     private AppSharedPreference appSharedPreference;
     private ArrayList<State> productAvailableStateList = new ArrayList<>();
     private Context context;
@@ -136,6 +138,7 @@ public class CategoryListActivity extends AppCompatActivity {
                         if (result == null) {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
+
                             Log.e(AndroidUtils.getTag(context), result.toString());
                             if (result.get("error").getAsString().contains("false")) {
                                 if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
@@ -186,6 +189,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
                     }
 
+
                 });
 
     }
@@ -199,7 +203,12 @@ public class CategoryListActivity extends AppCompatActivity {
             String shopImage = jsonObject2.get("image_url").getAsString();
             String distance = jsonObject2.get("distance").getAsString();
             String shopLocation = /*jsonObject2.get("city_name").getAsString() + "," +*/ jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
-            shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, "", distance));
+
+
+            Log.e("shop_list", shopImage);
+            shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, distance));
+
+
             AndroidUtils.showErrorLog(context, "shopArrayListByCategory : " + shopArrayListByCategory.get(i).shopImage);
 
         }

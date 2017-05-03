@@ -53,6 +53,7 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
+import com.example.pat.aapkatrade.payment.PaymentActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
@@ -459,10 +460,13 @@ public class HomeActivity extends AppCompatActivity
 
 
                     case 2:
+                        Intent i =new Intent(HomeActivity.this,PaymentActivity.class);
+                        startActivity(i);
 
-                        FragmentManager fm = getSupportFragmentManager();
-                        Track_order_dialog track_order_dialog=new Track_order_dialog();
-                        track_order_dialog.show(fm,"Track Order");
+
+//                        FragmentManager fm = getSupportFragmentManager();
+//                        Track_order_dialog track_order_dialog=new Track_order_dialog();
+//                        track_order_dialog.show(fm,"Track Order");
 
                         //goToMyApp(true);
 
