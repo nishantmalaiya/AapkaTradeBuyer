@@ -33,6 +33,7 @@
     <dimen name="three_hundred_dip">300dp</dimen>
     <dimen name="fifty_five_dip">55dp</dimen>
     <dimen name="seventy_dip">70dp</dimen>
+    <dimen name="one_dip">1dp</dimen>
     <!-- view* 1 -->
 
 </resources>

@@ -163,11 +163,6 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
-
-        View view_menu = menu.findItem(R.id.cart_total_item).getActionView();
-
-         tvCartCount = (TextView) view_menu.findViewById(R.id.tvCartCount);
-
         return true;
     }
 
@@ -221,7 +216,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         int id = item.getItemId();
-        switch (id) {
+        switch (id) {/*
 
             case R.id.cart_total_item:
 
@@ -231,7 +226,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 break;
-
+*/
             case R.id.login:
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
