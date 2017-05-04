@@ -40,7 +40,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     private EditText editText;
 
 
-    public CartAdapter(Context context, List<CartData> itemList) {
+
+    public CartAdapter(Context context, List<CartData> itemList)
+    {
+
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -58,6 +61,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
         textViewQuantity = holder.textView64;
 
+        //linearLayoutQuantity.setOnClickListener(this);
+
         textViewQuantity.setText(itemList.get(position).quantity);
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
@@ -67,6 +72,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                 .addMenuItem(new DroppyMenuItem("5"))
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
+
+
+
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
             public void call(View v, int id) {

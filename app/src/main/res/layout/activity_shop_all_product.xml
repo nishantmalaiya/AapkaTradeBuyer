@@ -3,7 +3,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F1F5F8"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -16,13 +16,12 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@color/white">
+            android:background="#F1F5F8">
 
             <LinearLayout
                 android:id="@+id/layout_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
                 android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
@@ -30,7 +29,7 @@
                     android:id="@+id/order_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                   >
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>

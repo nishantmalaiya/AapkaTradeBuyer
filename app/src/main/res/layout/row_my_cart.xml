@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:layout_marginTop="@dimen/ten_dip"
     android:layout_marginLeft="@dimen/ten_dip"
     android:layout_marginRight="@dimen/ten_dip"
-    android:layout_marginBottom="@dimen/ten_dip"
     >
 
     <RelativeLayout
@@ -118,6 +118,7 @@
                 android:textColor="@color/green"
                 android:layout_marginRight="@dimen/ten_dip"
                 />
+
 
             <LinearLayout
                 android:id="@+id/dropdown_ll"

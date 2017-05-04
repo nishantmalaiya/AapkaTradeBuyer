@@ -30,6 +30,9 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         dropdown_ll = (LinearLayout) itemView.findViewById(R.id.dropdown_ll);
 
+        textView64 = (TextView) itemView.findViewById(R.id.textView64);
+
+
 //        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
@@ -43,7 +46,6 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         buttonAddtoCart = (Button) itemView.findViewById(R.id.buttonAddtoCart);
 
-        textView64 = (TextView) itemView.findViewById(R.id.textView64);
 
 
         view = itemView;

@@ -112,7 +112,8 @@ public class ShopAllProductActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getAllShopProducts(String pageNumber) {
+    private void getAllShopProducts(String pageNumber)
+    {
         progressBarHandler.show();
 
 
@@ -137,7 +138,7 @@ public class ShopAllProductActivity extends AppCompatActivity {
                                     String productShortDescription = jsonproduct.get("short_des").getAsString();
                                     String price = jsonproduct.get("price").getAsString();
                                     String productImage = jsonproduct.get("image_url").getAsString();
-                                    shopAllProductDatas.add(new ShopAllProductData(productId, productName, productShortDescription, price, productImage));
+                                    shopAllProductDatas.add(new ShopAllProductData(productId, productName, productShortDescription, price, productImage,""));
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mRecyclerView.setLayoutManager(mLayoutManager);

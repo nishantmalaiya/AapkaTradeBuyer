@@ -6,14 +6,15 @@ package com.example.pat.aapkatrade.shopdetail.shop_all_product;
 
 public class ShopAllProductData {
 
-    public String productId, productName, productShortDescription, productPrice, productImage;
+    public String productId, productName, productShortDescription, productPrice, productImage,product_qty;
 
-    public ShopAllProductData(String productId, String productName, String productShortDescription, String productPrice, String productImage) {
+    public ShopAllProductData(String productId, String productName, String productShortDescription, String productPrice, String productImage,String product_qty) {
         this.productId = productId;
         this.productName = productName;
         this.productShortDescription = productShortDescription;
         this.productPrice = productPrice;
         this.productImage = productImage;
+        this.product_qty = product_qty;
     }
 
 }

@@ -18,9 +18,9 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
 {
 
     View view;
-    LinearLayout linearlayout1;
-    RelativeLayout linearlayoutMap;
-    TextView tvProductName, tvProductPrice,tvProductCrossPrice, tvProductCategoryname,distance;
+
+    RelativeLayout relativeLayout1, linearlayoutMap;
+    TextView tvProductName, tvProductCategoryname,distance;
     ImageView productimage;
 
 
@@ -31,7 +31,7 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
 
         super(itemView);
 
-        linearlayout1 = (LinearLayout) itemView.findViewById(R.id.linearlayout1) ;
+        relativeLayout1 = (RelativeLayout) itemView.findViewById(R.id.relativeProductDetail) ;
 
         linearlayoutMap = (RelativeLayout) itemView.findViewById(R.id.linearlayoutMap);
 

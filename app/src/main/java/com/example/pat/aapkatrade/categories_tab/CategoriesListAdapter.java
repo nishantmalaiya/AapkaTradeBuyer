@@ -47,7 +47,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.product_list_item, parent, false);
+        View view = inflater.inflate(R.layout.product_list_item2, parent, false);
 
         viewHolder = new CategoriesListHolder(view);
 
@@ -100,17 +100,18 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 //
 
         homeHolder.distance.setText(itemList.get(position).distance);
-        homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
+
+        homeHolder.relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AndroidUtils.showErrorLog(context, "product_id", itemList.get(position).shopId);
-
                 Intent intent = new Intent(context, ShopDetailActivity.class);
                 intent.putExtra("product_id", itemList.get(position).shopId);
                 intent.putExtra("product_location", itemList.get(position).shopLocation);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+
 
 
             }
@@ -126,7 +127,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
                 if (permission_status)
-
                 {
 
                     LocationManager_check locationManagerCheck = new LocationManager_check(
