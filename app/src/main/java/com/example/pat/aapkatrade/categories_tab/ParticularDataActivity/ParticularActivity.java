@@ -90,62 +90,7 @@ public class ParticularActivity extends AppCompatActivity
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
-        findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                boolean permission_status = CheckPermission.checkPermissions(ParticularActivity.this);
-
-
-                if (permission_status)
-
-                { mylocation = new Mylocation(ParticularActivity.this);
-                    LocationManager_check locationManagerCheck = new LocationManager_check(
-                            ParticularActivity.this);
-                    Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
-
-
-                            double latitude = mylocation.getLatitude();
-                            double longitude = mylocation.getLongitude();
-                            GeoCoderAddress geoCoderAddress_statename = new GeoCoderAddress(ParticularActivity.this, latitude, longitude);
-                            String state_name = geoCoderAddress_statename.get_state_name().get(AddressEnum.STATE);
-                        if(state_name!=null) {
-                            Intent goto_search = new Intent(ParticularActivity.this, Search.class);
-                            goto_search.putExtra("latitude", latitude);
-                            goto_search.putExtra("longitude", longitude);
-                            goto_search.putExtra("state_name", state_name);
-                            startActivity(goto_search);
-                            finish();
-                        }
-
-                        else{
-                            Log.e("statenotfound",""+"statenotfound");
-                        }
-                    }
-                    else
-                    {
-                        locationManagerCheck.createLocationServiceError(ParticularActivity.this);
-                    }
-
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
