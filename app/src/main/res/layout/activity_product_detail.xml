@@ -104,7 +104,8 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:text="@string/rupay"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/textsize_medium" />
+                            android:textSize="@dimen/textsize_medium"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -220,7 +221,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/discount"
                         android:textColor="@color/text_color_product_detail"
-                        android:textSize="@dimen/textsize_medium"
+                        android:textSize="@dimen/textsize"
                         android:textStyle="bold" />
 
                     <TextView
@@ -231,7 +232,7 @@
                         android:gravity="left|center_vertical"
                         android:text="12.51"
                         android:textColor="@color/text_color_product_detail"
-                        android:textSize="@dimen/textsize_medium" />
+                        android:textSize="@dimen/textsize" />
 
 
                 </RelativeLayout>
@@ -265,7 +266,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/unit"
                         android:textColor="@color/text_color_product_detail"
-                        android:textSize="@dimen/textsize_medium"
+                        android:textSize="@dimen/textsize"
                         android:textStyle="bold" />
 
                     <TextView
@@ -276,7 +277,7 @@
                         android:gravity="left|center_vertical"
                         android:text="k/g"
                         android:textColor="@color/text_color_product_detail"
-                        android:textSize="@dimen/textsize_medium"
+                        android:textSize="@dimen/textsize"
                         android:textStyle="bold" />
 
 
@@ -311,7 +312,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/amount_paid"
                         android:textColor="@color/text_color_product_detail"
-                        android:textSize="@dimen/textsize_medium"
+                        android:textSize="@dimen/textsize"
                         android:textStyle="bold" />
 
                     <TextView
@@ -322,7 +323,7 @@
                         android:gravity="left|center_vertical"
                         android:text="2594"
                         android:textColor="@color/red"
-                        android:textSize="@dimen/textsize_medium"
+                        android:textSize="@dimen/textsize"
                         android:textStyle="bold" />
 
 
@@ -375,12 +376,14 @@
 
 
                             <EditText
+                                android:id="@+id/editText2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:inputType="number"
                                 android:maxLength="6"
                                 android:paddingLeft="@dimen/ten_dip"
+                                android:backgroundTint="@color/grey_light2"
                                 android:textColorHint="@color/text_color_product_detail" />
 
                         </android.support.design.widget.TextInputLayout>

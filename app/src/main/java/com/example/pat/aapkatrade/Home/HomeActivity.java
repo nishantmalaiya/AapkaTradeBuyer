@@ -175,11 +175,6 @@ public class HomeActivity extends AppCompatActivity
     {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
-
-        View view = menu.findItem(R.id.cart_total_item).getActionView();
-
-       // tvCartCount = (TextView) view.findViewById(R.id.tvCartCount);
-
         return true;
 
 
@@ -240,14 +235,14 @@ public class HomeActivity extends AppCompatActivity
         switch (id)
         {
 
-            case R.id.cart_total_item:
+           /* case R.id.cart_total_item:
 
                 Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
 
                  Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                  startActivity(intent);
 
-                break;
+                break;*/
 
         /*    case R.id.login:
 
