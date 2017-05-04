@@ -49,8 +49,7 @@ public class Track_order_dialog extends DialogFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
         getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         initview(v);
@@ -67,12 +66,11 @@ public class Track_order_dialog extends DialogFragment {
             public void onClick(View v) {
 
 
-
-             if(Validation.validateEdittext(tracking_id))
-             {
-                 call_Validate_order_webservice();
-             }
-             else{AndroidUtils.showSnackBar(container,"!Enter correct Order id");}
+                if (Validation.validateEdittext(tracking_id)) {
+                    call_Validate_order_webservice();
+                } else {
+                    AndroidUtils.showSnackBar(container, "!Enter correct Order id");
+                }
 
             }
         });
@@ -82,16 +80,10 @@ public class Track_order_dialog extends DialogFragment {
     }
 
 
-
-
-
     private void call_Validate_order_webservice() {
 
 
-
-
-
-        String track_order_url=getString(R.string.webservice_base_url)+"/track_order";
+        String track_order_url = getString(R.string.webservice_base_url) + "/track_order";
 
 
 //                .setBodyParameter("ORDER_ID ", tracking_id.getText().toString().trim())
@@ -99,48 +91,42 @@ public class Track_order_dialog extends DialogFragment {
         Ion.with(getActivity())
                 .load(track_order_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("ORDER_ID","AT210417060350")
-                .setBodyParameter("client_id","12")
-              .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("ORDER_ID", "AT210417060350")
+                .setBodyParameter("client_id", "12")
+                .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
 
 
-                if(result!=null)
-                {
-                  String error =result.get("error").getAsString();
-                    if(error.contains("false"))
-                    {
+                if (result != null) {
+                    String error = result.get("error").getAsString();
+                    if (error.contains("false")) {
                         progressBarHandler.hide();
 
 
-
-                       String otp_id=result.get("result").getAsJsonObject().get("otp_id").getAsString();
+                        String otp_id = result.get("result").getAsJsonObject().get("otp_id").getAsString();
 
 
                         Intent go_to_activity_otp_verify = new Intent(getActivity(), ActivityOTPVerify.class);
                         go_to_activity_otp_verify.putExtra("class_name", getActivity().getClass().getName());
-                        go_to_activity_otp_verify.putExtra("otp_id",otp_id);
+                        go_to_activity_otp_verify.putExtra("otp_id", otp_id);
                         startActivity(go_to_activity_otp_verify);
 
 
+                        Log.e("otp_id", otp_id);
 
-                        Log.e("otp_id",otp_id);
 
-
-                    }
-                    else{
+                    } else {
                         progressBarHandler.hide();
                     }
 
 
-
                 }
 
-progressBarHandler.hide();
+                progressBarHandler.hide();
 
-                Log.e("result",result.toString());
+                Log.e("result", result.toString());
 //               JsonObject res result.get("otp_id").getAsString();
 
 
@@ -148,26 +134,18 @@ progressBarHandler.hide();
         });
 
 
-
-
-
-
-
-
     }
 
     private void initview(View v) {
-        progressBarHandler=new ProgressBarHandler(getActivity());
+        progressBarHandler = new ProgressBarHandler(getActivity());
 
         dialog_close = (ImageView) v.findViewById(R.id.dialog_close);
 
-        tracking_id=(EditText)v.findViewById(R.id.et_orderid) ;
-        validate_order_id=(Button)v.findViewById(R.id.btn_trackorder);
+        tracking_id = (EditText) v.findViewById(R.id.et_orderid);
+        validate_order_id = (Button) v.findViewById(R.id.btn_trackorder);
 
 
     }
-
-
 
 
 }

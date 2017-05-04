@@ -294,7 +294,7 @@ public class HomeActivity extends AppCompatActivity {
                transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
                transaction.commit();
 */
-                break;
+                //break;
         }
 
         return super.onOptionsItemSelected(item);
