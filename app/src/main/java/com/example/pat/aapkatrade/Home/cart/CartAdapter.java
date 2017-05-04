@@ -29,7 +29,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 {
 
     private final LayoutInflater inflater;
-  List<CartData> itemList;
+    List<CartData> itemList;
     private Context context;
     CartHolder viewHolder;
     CartHolder homeHolder;
@@ -37,6 +37,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     DroppyMenuPopup droppyMenu;
     LinearLayout linearLayoutQuantity;
     EditText editText;
+
 
 
     public CartAdapter(Context context, List<CartData> itemList)
@@ -116,7 +117,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         droppyMenu = droppyBuilder.build();
 
-        List<String> count = new ArrayList<String>();
+      /*  List<String> count = new ArrayList<String>();
         count.add("1");
         count.add("2");
         count.add("3");
@@ -132,6 +133,11 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         dataAdapter.setDropDownViewResource(R.layout.row_spinner);
         homeHolder.spinner.setAdapter(dataAdapter);
+*/
+
+
+
+
 
     }
 
