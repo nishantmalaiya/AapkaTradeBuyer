@@ -137,7 +137,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        AndroidUtils.showErrorLog(MainActivity.this,"work while on Resume");
 
-
+//        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
+//        startActivity(mainIntent);
+//        finish();
     }
 }
