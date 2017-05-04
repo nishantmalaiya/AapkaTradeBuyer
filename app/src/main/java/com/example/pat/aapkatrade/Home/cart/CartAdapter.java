@@ -12,63 +12,58 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
+
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by PPC16 on 4/25/2017.
  */
 
 
-public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener
-{
+public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements View.OnClickListener {
 
     private final LayoutInflater inflater;
-    List<CartData> itemList;
+    private List<CartData> itemList;
     private Context context;
-    CartHolder viewHolder;
-    CartHolder homeHolder;
-    TextView  textViewQuantity;
-    DroppyMenuPopup droppyMenu;
-    LinearLayout linearLayoutQuantity;
-    EditText editText;
+    private TextView textViewQuantity;
+    private DroppyMenuPopup droppyMenu;
+    private LinearLayout linearLayoutQuantity;
+    private EditText editText;
+
 
 
     public CartAdapter(Context context, List<CartData> itemList)
     {
+
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
-
-        View view = inflater.inflate(R.layout.row_my_cart, parent, false);
-        viewHolder = new CartHolder(view);
-
-        return viewHolder;
+    public CartHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new CartHolder(inflater.inflate(R.layout.row_my_cart, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
-    {
-         homeHolder = (CartHolder) holder;
+    public void onBindViewHolder(final CartHolder holder, final int position) {
 
-        linearLayoutQuantity=homeHolder.dropdown_ll;
+        linearLayoutQuantity = holder.dropdown_ll;
 
-        textViewQuantity=homeHolder.textView64;
-
-        textViewQuantity.setText(itemList.get(position).quantity.toString());
+        textViewQuantity = holder.textView64;
 
         //linearLayoutQuantity.setOnClickListener(this);
 
+        textViewQuantity.setText(itemList.get(position).quantity);
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
                 .addMenuItem(new DroppyMenuItem("2"))
@@ -86,32 +81,32 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 switch (id) {
                     case 0:
                         itemList.get(position).setQuantity("1");
-                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        holder.textView64.setText(itemList.get(position).quantity);
                         notifyDataSetChanged();
                         break;
                     case 1:
                         itemList.get(position).setQuantity("2");
-                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        holder.textView64.setText(itemList.get(position).quantity);
                         notifyDataSetChanged();
                         break;
                     case 2:
                         itemList.get(position).setQuantity("3");
-                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        holder.textView64.setText(itemList.get(position).quantity);
                         notifyDataSetChanged();
 
                         break;
                     case 3:
                         itemList.get(position).setQuantity("4");
-                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        holder.textView64.setText(itemList.get(position).quantity);
                         notifyDataSetChanged();
                         break;
                     case 4:
                         itemList.get(position).setQuantity("5");
-                        homeHolder.textView64.setText(itemList.get(position).quantity.toString());
+                        holder.textView64.setText(itemList.get(position).quantity);
                         notifyDataSetChanged();
                         break;
                     case 5:
-                        showPopup("Quantity",position);
+                        showPopup("Quantity", position);
                         break;
 
                 }
@@ -119,46 +114,20 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });
 
         droppyMenu = droppyBuilder.build();
-
-      /*  List<String> count = new ArrayList<String>();
-        count.add("1");
-        count.add("2");
-        count.add("3");
-        count.add("4");
-        count.add("5");
-        count.add("6");
-        count.add("7");
-        count.add("8");
-        count.add("9");
-        count.add("10");
-        count.add("More");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,R.layout.row_spinner,count );
-
-        dataAdapter.setDropDownViewResource(R.layout.row_spinner);
-        homeHolder.spinner.setAdapter(dataAdapter);
-*/
-
-
-
-
-
     }
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return 6;
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
 
     }
 
-    public void showPopup(String description, final int pos)
-    {
+    public void showPopup(String description, final int pos) {
 
         boolean wrapInScrollView = true;
         MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -184,13 +153,9 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
-    private void showMessage(String s)
-    {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+    private void showMessage(String s) {
+        AndroidUtils.showErrorLog(context, s, Toast.LENGTH_SHORT);
     }
-
-
-
 
 
 }

@@ -27,6 +27,8 @@
     <color name="grey_light2">#D2CECD</color>
     <color name="grey_gradient2">#737C7A</color>
     <color name="grey_buy_now">#797574</color>
+    <color name="grey_quantity_spinner">#787575</color>
+
 
     <color name="dark_purple">#6445b5</color>
     <color name="green_light">#7dbd00</color>

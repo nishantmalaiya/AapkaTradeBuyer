@@ -74,7 +74,14 @@ public class AndroidUtils {
     public static void setBackgroundSolid(View layout, Context context, int bgColor, int cornerRadius, int oval) {
         GradientDrawable shape = new GradientDrawable();
         shape.setCornerRadius(cornerRadius);
+        shape.setColor(ContextCompat.getColor(context, bgColor));
+        shape.setShape(oval);
+        layout.setBackground(shape);
+    }
 
+    public static void setBackgroundSolidEachRadius(View layout, Context context, int bgColor, int leftTopRadius, int rightTopRadius, int rightBottomRadius, int leftBottomRadius, int oval) {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setCornerRadii(new float[]{leftTopRadius, leftTopRadius, rightTopRadius, rightTopRadius, rightBottomRadius, rightBottomRadius, leftBottomRadius, leftBottomRadius});
         shape.setColor(ContextCompat.getColor(context, bgColor));
         shape.setShape(oval);
         layout.setBackground(shape);
@@ -94,7 +101,14 @@ public class AndroidUtils {
         GradientDrawable shape = new GradientDrawable();
         shape.setStroke(strokeWidth, ContextCompat.getColor(context, bgColor));
         shape.setCornerRadius(cornerRadius);
+        layout.setBackground(shape);
+    }
 
+
+    public static void setBackgroundStrokeEachRadius(View layout, Context context, int bgColor, int leftTopRadius, int rightTopRadius, int rightBottomRadius, int leftBottomRadius, int strokeWidth) {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setStroke(strokeWidth, ContextCompat.getColor(context, bgColor));
+        shape.setCornerRadii(new float[]{leftTopRadius, leftTopRadius, rightTopRadius, rightTopRadius, rightBottomRadius, rightBottomRadius, leftBottomRadius, leftBottomRadius});
         layout.setBackground(shape);
     }
 
@@ -104,7 +118,6 @@ public class AndroidUtils {
         shape.setStroke(strokeWidth, ContextCompat.getColor(context, bgColor));
         shape.setCornerRadius(cornerRadius);
         layout.setBackground(shape);
-
     }
 
 
@@ -126,7 +139,7 @@ public class AndroidUtils {
     }
 
     public static String getTag(Context context) {
-        return context.getClass().getSimpleName();
+        return context== null?"":context.getClass().getSimpleName();
     }
 
     public static Drawable setImageColor(Context context, int imageDrawable, int color) {
@@ -157,10 +170,6 @@ public class AndroidUtils {
         int dp = (int) (px / (metrics.densityDpi / 160f));
         return dp;
     }
-
-
-
-
 
 
 }

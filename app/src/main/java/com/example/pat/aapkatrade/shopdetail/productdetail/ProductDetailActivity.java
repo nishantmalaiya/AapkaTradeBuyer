@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.shopdetail.productdetail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +21,6 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
 import com.example.pat.aapkatrade.shopdetail.ShopViewPagerAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -37,7 +38,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ProgressBarHandler progressBarHandler;
     ViewPager viewPager;
     private String productId = "0", quantity = "1";
-    private TextView tvProductName, tvProductPrice, tvDiscountValue, tvUnitValue, tvAmountPaidValue, tvDescriptionValue;
+    private EditText editTextPostalCode;
+    private TextView tvProductName, tvProductPrice, tvDiscountValue, tvUnitValue, tvAmountPaidValue, tvDescriptionValue, tvPinCodeCheck;
     private LinearLayout viewPagerIndicator;
     private int dotsCount;
     private CircleIndicator circleIndicator;
@@ -45,7 +47,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private Timer banner_timer = new Timer();
     private int currentPage = 0;
     private ShopViewPagerAdapter viewPagerAdapter;
-    private ArrayList<String> imageList;
+    private ArrayList<String> imageUrlArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +61,25 @@ public class ProductDetailActivity extends AppCompatActivity {
         setUpToolBar();
         initView();
 
-//        getProductDetailData(productId);
+        getProductDetailData(productId);
 
     }
 
     private void initView() {
         tvProductName = (TextView) findViewById(R.id.tvProductName);
         tvProductPrice = (TextView) findViewById(R.id.tvProductPrice);
+        AndroidUtils.setBackgroundSolid(tvProductPrice, context, R.color.orange, 10, GradientDrawable.RECTANGLE);
         tvDiscountValue = (TextView) findViewById(R.id.tv_discount_value);
         tvUnitValue = (TextView) findViewById(R.id.tv_unit_value);
         tvAmountPaidValue = (TextView) findViewById(R.id.tv_amount_paid_value);
         tvDescriptionValue = (TextView) findViewById(R.id.tvDescriptionValue);
         viewPager = (ViewPager) findViewById(R.id.viewpager_custom);
         viewPagerIndicator = (LinearLayout) findViewById(R.id.viewpagerindicator);
+        editTextPostalCode = (EditText) findViewById(R.id.editTextPostalCode);
+        AndroidUtils.setBackgroundSolidEachRadius(editTextPostalCode, context, R.color.grey_light2, 10,0,0,10, GradientDrawable.RECTANGLE);
+        tvPinCodeCheck = (TextView) findViewById(R.id.tvPinCodeCheck);
+        AndroidUtils.setBackgroundSolidEachRadius(tvPinCodeCheck, context, R.color.grey_buy_now, 0,10,10,0, GradientDrawable.RECTANGLE);
+        circleIndicator = (CircleIndicator) findViewById(R.id.indicator_product_detail);
 
     }
 
@@ -92,10 +100,17 @@ public class ProductDetailActivity extends AppCompatActivity {
                             AndroidUtils.showErrorLog(context, " getProductDetailData webservice result is --> ", result.toString());
                             if (result.get("error").getAsString().equals("false")) {
                                 AndroidUtils.showErrorLog(context, " getProductDetailData webservice error is false.");
-                                JsonObject resultJsonObject = result.get("result").getAsJsonObject();
+                                JsonArray resultJsonArray = result.get("result").getAsJsonArray();
+                                JsonObject resultJsonObject = resultJsonArray.get(0).getAsJsonObject();
                                 if (resultJsonObject != null) {
                                     loadProductDetailWithData(resultJsonObject);
                                 }
+
+                                JsonArray jsonImageUrlArray = result.get("product_images").getAsJsonArray();
+                                if (jsonImageUrlArray != null) {
+                                    loadImageUrlArrayList(jsonImageUrlArray);
+                                }
+
 
                             } else {
                                 AndroidUtils.showErrorLog(context, " getProductDetailData webservice error is true.");
@@ -105,15 +120,20 @@ public class ProductDetailActivity extends AppCompatActivity {
                 });
     }
 
+    private void loadImageUrlArrayList(JsonArray jsonImageUrlArray) {
+        for(int i = 0; i < jsonImageUrlArray.size(); i++){
+            JsonObject jsonUrlObject = (JsonObject) jsonImageUrlArray.get(i);
+            imageUrlArrayList.add(jsonUrlObject.get("image_url").getAsString());
+        }
+        setUpViewPager();
+    }
+
     private void loadProductDetailWithData(JsonObject resultJsonObject) {
         tvProductName.setText(resultJsonObject.get("name").getAsString());
-        tvProductPrice.setText(resultJsonObject.get("price").getAsString());
+        tvProductPrice.setText(new StringBuilder(getString(R.string.rupay_text)).append(" ").append(resultJsonObject.get("price").getAsString()));
         tvDiscountValue.setText(resultJsonObject.get("discount").getAsString());
-        tvUnitValue.setText(resultJsonObject.get("price").getAsString());
-//        tvAmountPaidValue.setText();
-        tvProductPrice.setText(resultJsonObject.get("price").getAsString());
-
-        setUpViewPager();
+        tvUnitValue.setText(resultJsonObject.get("unit_name").getAsString());
+        tvDescriptionValue.setText(resultJsonObject.get("short_des").getAsString());
     }
 
 
@@ -135,24 +155,24 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     private void setUpViewPager() {
-        viewPagerAdapter = new ShopViewPagerAdapter(context, imageList);
+        viewPagerAdapter = new ShopViewPagerAdapter(context, imageUrlArrayList);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setCurrentItem(currentPage);
         setUiPageViewController();
 
-        banner_timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                new Handler().post(new Runnable() {
-                    public void run() {
-                        if (currentPage == viewPagerAdapter.getCount() - 1) {
-                            currentPage = 0;
-                        }
-                        viewPager.setCurrentItem(currentPage++, true);
-                    }
-                });
-            }
-        }, 0, 3000);
+//        banner_timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                new Handler().post(new Runnable() {
+//                    public void run() {
+//                        if (currentPage == viewPagerAdapter.getCount() - 1) {
+//                            currentPage = 0;
+//                        }
+//                        viewPager.setCurrentItem(currentPage++, true);
+//                    }
+//                });
+//            }
+//        }, 0, 3000);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
