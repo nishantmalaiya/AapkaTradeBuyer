@@ -89,7 +89,7 @@ public class ChangePassword extends AppCompatActivity
                     .load(getResources().getString(R.string.webservice_base_url)+"/changePassword")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("type", userType)
+                    .setBodyParameter("type", "buyer")
                     .setBodyParameter("old_password", OldPassword.getText().toString())
                     .setBodyParameter("new_password", NewPassword.getText().toString())
                     .setBodyParameter("confirm_password", ConfirmPassword.getText().toString())

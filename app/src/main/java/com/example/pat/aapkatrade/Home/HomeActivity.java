@@ -163,13 +163,6 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
-
-
-//         View view_menu = menu.findItem(R.id.cart_total_item).getActionView();
-
-//          tvCartCount = (TextView) view_menu.findViewById(R.id.tvCartCount);
-
-
         return true;
     }
 
@@ -223,13 +216,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         int id = item.getItemId();
-
-        switch (id)
-        {/*
-
         switch (id) {
-
-
             case R.id.cart_total_item:
 
                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
@@ -238,11 +225,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 break;
-
-*/
-        /*    case R.id.login:
-
-
             case R.id.login:
 
 
@@ -258,7 +240,6 @@ public class HomeActivity extends AppCompatActivity {
 
                     break;
                 }
-//                finish();
 
             case R.id.language:
                 View menuItemView = findViewById(R.id.language);
@@ -288,13 +269,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 popup.show();//showing popup menu
 
-
-             /*  User_DashboardFragment dashboardFragment = new User_DashboardFragment();
-               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
-               transaction.commit();
-*/
-                //break;
         }
 
         return super.onOptionsItemSelected(item);

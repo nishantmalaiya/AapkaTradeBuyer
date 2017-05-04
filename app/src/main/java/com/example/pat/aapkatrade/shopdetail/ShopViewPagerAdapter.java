@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.ZoomImage.ZoomImageDialog;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
@@ -26,123 +27,76 @@ import java.util.ArrayList;
 
 public class ShopViewPagerAdapter extends PagerAdapter {
 
-    Context mContext;
-    ArrayList<String> imageurl = new ArrayList<>();
+    private Context context;
+    private ArrayList<String> imageUrlArrayList = new ArrayList<>();
 
 
-    public ShopViewPagerAdapter(Context mContext, ArrayList<String> productImage_url) {
-
-        this.imageurl = productImage_url;
-        this.mContext = mContext;
+    public ShopViewPagerAdapter(Context context, ArrayList<String> imageUrlArrayList) {
+        this.imageUrlArrayList = imageUrlArrayList;
+        this.context = context;
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-
     }
 
-
+    @Override
     public int getCount() {
-
-        return imageurl.size();
-
+        return imageUrlArrayList.size();
     }
 
+    @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
 
+    @Override
     public Object instantiateItem(final ViewGroup container, int position) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.viewpager_product_detail, container, false);
-
+        View itemView = LayoutInflater.from(context).inflate(R.layout.viewpager_product_detail, container, false);
         final ImageView imageView = (ImageView) itemView.findViewById(R.id.img_viewpager_detail);
 
-        System.out.println("position============" + position);
-        if (Tabletsize.isTablet(mContext)) {
-            String product_imageurl = imageurl.get(position).replace("small", "large");
+        AndroidUtils.showErrorLog(context, "position============" + position);
+        if (Tabletsize.isTablet(context)) {
+            String product_imageurl = imageUrlArrayList.get(position).replace("small", "large");
 
             Ion.with(imageView)
-                    .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-                    .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
             Log.e("image_large", "image_large");
 
-        } else if (Tabletsize.isMedium(mContext)) {
-            String product_imageurl = imageurl.get(position).replace("small", "medium");
+        } else if (Tabletsize.isMedium(context)) {
+            String product_imageurl = imageUrlArrayList.get(position).replace("small", "medium");
 
             Ion.with(imageView)
-                    .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-                    .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
 
             Log.e("image_medium", "image_medium");
 
-        } else if (Tabletsize.isSmall(mContext)) {
+        } else if (Tabletsize.isSmall(context)) {
 
 
             Ion.with(imageView)
-                    .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-                    .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-                    .load(imageurl.get(position));
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .load(imageUrlArrayList.get(position));
 
             Log.e("image_small", "image_small");
         }
-
-
-//        Ion.with(imageView)
-//                .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-//                .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
-//                .load(imageurl.get(position));
-        // imageView.setImageResource(R.drawable.banner_home);
-
         container.addView(itemView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
-                //ZoomImageDialog zoomImageDialog=new ZoomImageDialog();
-                Intent goto_zoomimageview = new Intent(mContext, ZoomImageDialog.class);
-                goto_zoomimageview.putStringArrayListExtra("imageurl", imageurl);
-
-                mContext.startActivity(goto_zoomimageview);
-//                imageView.setDrawingCacheEnabled(true);
-//                imageView.buildDrawingCache();
-//                final Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
-//
-//                Dialog normalDialog = new Dialog(mContext, R.style.DialogTheme);
-//
-//
-//                normalDialog.setContentView(R.layout.zoom_image_dialog_layout);
-//                CustomImageVIew img = (CustomImageVIew)normalDialog.findViewById(R.id.customImageVIew1);
-//                img.setImageResource(R.drawable.banner_home);
-//                img.setMaxZoom(4f);
-//
-//                normalDialog.show();
-
-
-                // ZoomImageDialog editNameDialogFragment = new ZoomImageDialog(mContext,bitmap);
-//
-//                editNameDialogFragment.show();
-
-                //showEditDialog(bitmap);
-
-
+                Intent intentZoomImageView = new Intent(context, ZoomImageDialog.class);
+                intentZoomImageView.putStringArrayListExtra("imageUrlArrayList", imageUrlArrayList);
+                context.startActivity(intentZoomImageView);
             }
         });
         return itemView;
-
     }
 
-
+    @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout) object);
     }
-//    private void showEditDialog(Bitmap bitmap) {
-//        FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
-//
-//ZoomImageDialog editNameDialogFragment = ZoomImageDialog.newInstance(bitmap);
-//        editNameDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
-//        editNameDialogFragment.show(fm, "fragment_edit_name");
-//    }
-
-
 }

@@ -40,8 +40,7 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class ParticularActivity extends AppCompatActivity
-{
+public class ParticularActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
@@ -56,28 +55,16 @@ public class ParticularActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         context = ParticularActivity.this;
 
         Intent intent = getIntent();
 
-         url = intent.getStringExtra("url");
+        url = intent.getStringExtra("url");
 
-         System.out.println("url---------------"+url);
-
-//        Intent i = this.getIntent();
-//        ArrayList commomDatas_latestpost =  i.getParcelableArrayListExtra("commomDatas_latestpost");
-//        for(int j = 0; j < commomDatas_latestpost.size(); j++){
-//            CommomData commomData = (CommomData) commomDatas_latestpost.get(j);
-//            Log.e("getData1", commomData.toString());
-//
-//        }
-//
-//        productListDatas = commomDatas_latestpost;
-
+        System.out.println("url---------------" + url);
         setContentView(R.layout.activity_categories_list);
 
         setUpToolBar();
@@ -89,9 +76,6 @@ public class ParticularActivity extends AppCompatActivity
         layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-
-
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
         mRecyclerView.setHasFixedSize(true);
@@ -135,9 +119,7 @@ public class ParticularActivity extends AppCompatActivity
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            }
-                            else
-                            {
+                            } else {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
                                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -147,33 +129,32 @@ public class ParticularActivity extends AppCompatActivity
 
                                     String shopName = jsonObject2.get("prodname").getAsString();
 
-                                  //  String shopPrice = jsonObject2.get("price").getAsString();
+                                    //  String shopPrice = jsonObject2.get("price").getAsString();
 
                                     //String product_cross_price = jsonObject2.get("cross_price").getAsString();
 
-                                    String shopLocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
+                                    String shopLocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
                                             jsonObject2.get("country_name").getAsString();
                                     String shopImage = jsonObject2.get("image_url").getAsString();
 
-                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage,shopLocation,""));
-
-                                    }
-                                    categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, shopListDatas);
-                                    myRecyclerViewEffect = new MyRecyclerViewEffect(ParticularActivity.this);
-                                    mRecyclerView.setAdapter(categoriesListAdapter);
+                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, ""));
 
                                 }
+                                categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, shopListDatas);
+                                myRecyclerViewEffect = new MyRecyclerViewEffect(ParticularActivity.this);
+                                mRecyclerView.setAdapter(categoriesListAdapter);
+
+                            }
 ////                                categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, productListDatas);
 ////                                myRecyclerViewEffect = new MyRecyclerViewEffect(ParticularActivity.this);
 ////                                mRecyclerView.setAdapter(categoriesListAdapter);
 //
 //                                categoriesListAdapter.notifyDataSetChanged();
 
-                                progress_handler.hide();
-                            }
-
+                            progress_handler.hide();
                         }
 
+                    }
 
 
                 });
@@ -181,7 +162,7 @@ public class ParticularActivity extends AppCompatActivity
     }
 
     private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
         back_imagview.setVisibility(View.VISIBLE);
         back_imagview.setOnClickListener(new View.OnClickListener() {
