@@ -62,9 +62,12 @@ public class LocationManager_check {
                 .setPositiveButton("Settings",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Intent intent = new Intent(
-                                        Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                activityObj.startActivity(intent);
+
+                                activityObj. startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1);
+
+//                                Intent intent = new Intent(
+//                                        Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //activityObj.startActivity(intent);
                                 alert.dismiss();
                             }
                         })
@@ -77,7 +80,6 @@ public class LocationManager_check {
         alert = builder.create();
         alert.show();
     }
-
 
 
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
+import com.example.pat.aapkatrade.dialogs.Track_order_dialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
@@ -493,13 +495,12 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onClick(View v) {
 
-                //Dialog d=new Dialog(context,R.style.NewDialog);
-                ServiceEnquiry serviceEnquiry = new ServiceEnquiry();
 
-//                serviceEnquiry.show();
+                ServiceEnquiry serviceEnquiry = new ServiceEnquiry(product_id);
+                FragmentManager fm = getSupportFragmentManager();
+                serviceEnquiry.show(fm,"enquiry");
 
-                Intent i = new Intent(ShopDetailActivity.this, ShopAllProductActivity.class);
-                startActivity(i);
+
 
 
             }

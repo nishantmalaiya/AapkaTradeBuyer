@@ -69,7 +69,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private int dotsCount;
     private ArrayList<String> imageIdList;
     private ImageView[] dots;
-//    private MyReceiver mReceiver;
     public static SearchView searchView;
     ImageView home_ads;
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
