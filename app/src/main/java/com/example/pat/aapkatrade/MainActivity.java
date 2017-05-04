@@ -143,4 +143,74 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(mainIntent);
 //        finish();
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        AndroidUtils.showErrorLog(MainActivity.this,"work while on postResume");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AndroidUtils.showErrorLog(MainActivity.this,"work while on start");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AndroidUtils.showErrorLog(MainActivity.this,"work while on stop");
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        AndroidUtils.showErrorLog(MainActivity.this,"work while on onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AndroidUtils.showErrorLog(MainActivity.this,"onPause");
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+        AndroidUtils.showErrorLog(MainActivity.this,"onActivityResult"+requestCode+"***"+resultCode);
+        if (resultCode == 0) {
+            switch (requestCode) {
+
+                case 1:
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            MainActivity.this);
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
+                        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+                        if (pd != null) {
+                            pd.dismiss();
+                        }
+
+                        Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
+                        startService(serviceIntent);
+
+
+                    } else {
+                        locationManagerCheck.createLocationServiceError(MainActivity.this);
+                    }
+
+
+
+                    break;
+            }
+        }
+    }
+
+
+
+
 }
