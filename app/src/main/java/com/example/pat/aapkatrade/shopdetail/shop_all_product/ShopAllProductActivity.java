@@ -141,7 +141,7 @@ public class ShopAllProductActivity extends AppCompatActivity {
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mRecyclerView.setLayoutManager(mLayoutManager);
-                                shopAllProductAdapter = new ShopAllProductAdapter(getApplicationContext(), shopAllProductDatas);
+                                shopAllProductAdapter = new ShopAllProductAdapter(context, shopAllProductDatas);
                                 mRecyclerView.setAdapter(shopAllProductAdapter);
                             }
                         } else {
