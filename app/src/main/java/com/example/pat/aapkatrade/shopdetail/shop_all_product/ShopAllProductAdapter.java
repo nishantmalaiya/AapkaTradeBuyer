@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.shopdetail.shop_all_product;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -39,7 +40,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
     }
 
     @Override
-    public void onBindViewHolder(final ShopAllProductHolder holder, int position) {
+    public void onBindViewHolder(final ShopAllProductHolder holder, final int position) {
         holder.tvProductName.setText(itemList.get(position).productName);
         holder.tvProductPrice.setText(itemList.get(position).productPrice);
         Picasso.with(context).load(itemList.get(position).productImage)
@@ -73,7 +74,9 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ProductDetailActivity.class));
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productId", itemList.get(position).productId);
+                context.startActivity(intent);
             }
         });
 
