@@ -59,7 +59,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         setUpToolBar();
         initView();
 
-        getProductDetailData(productId);
+//        getProductDetailData(productId);
 
     }
 
