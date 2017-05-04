@@ -454,7 +454,7 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/one_dip">
+                android:layout_marginBottom="@dimen/one_dip" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
