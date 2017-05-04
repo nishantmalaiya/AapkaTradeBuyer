@@ -29,7 +29,7 @@
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/one_hundred_five_dip"
                 android:scaleType="fitXY"
                 android:src="@drawable/footweer" />
 
@@ -41,11 +41,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/ten_dip">
 
             <io.techery.properratingbar.ProperRatingBar
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="@dimen/fifteen_dip"
                 android:layout_centerHorizontal="true"
                 app:prb_clickable="false"
                 app:prb_defaultRating="3"
@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:maxLines="1"
+                android:layout_marginTop="@dimen/five_dip"
                 android:text="Music Art Galaxy"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -73,12 +74,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:layout_marginTop="@dimen/five_dip"
                 android:maxLines="1"
                 android:text="Groceries"
                 android:textColor="@color/item_details_color" />
 
 
-            <RelativeLayout
+           <!-- <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone">
@@ -129,7 +131,7 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-
+-->
 
         </LinearLayout>
 
@@ -148,16 +150,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/ten_dip"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/ten_dip"
                 android:gravity="right|center_vertical"
                 android:src="@drawable/location_green" />
 
             <TextView
                 android:id="@+id/product_distance"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:textSize="@dimen/textsize_small"
                 android:layout_below="@+id/product_location_icon" />
 

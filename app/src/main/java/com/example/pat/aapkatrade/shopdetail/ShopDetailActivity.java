@@ -58,7 +58,8 @@ import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 import me.relex.circleindicator.CircleIndicator;
 
 
-public class ShopDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ShopDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
+{
 
     private LinearLayout viewpagerindicator, linearlayoutShare, linearlayoutLocation;
     private RelativeLayout shopProductsLayout, openingClosingRelativeLayout, relativeLayoutlViewAllProducts;
@@ -147,6 +148,8 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                 startActivity(intentViewAllProducts);
             }
         });
+
+
 
     }
 

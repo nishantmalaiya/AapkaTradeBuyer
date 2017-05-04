@@ -39,7 +39,6 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     EditText editText;
 
 
-
     public CartAdapter(Context context, List<CartData> itemList)
     {
         this.itemList = itemList;
@@ -69,6 +68,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         textViewQuantity.setText(itemList.get(position).quantity.toString());
 
         //linearLayoutQuantity.setOnClickListener(this);
+
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
                 .addMenuItem(new DroppyMenuItem("2"))
@@ -77,6 +77,9 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .addMenuItem(new DroppyMenuItem("5"))
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
+
+
+
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
             public void call(View v, int id) {

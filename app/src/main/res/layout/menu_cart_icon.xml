@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="35dp"
     android:layout_height="wrap_content"
     android:clickable="false"
     android:gravity="center"
     android:orientation="vertical"
-
     >
+
+<!-- <RelativeLayout
+       android:id="@+id/cart_container"
+       android:layout_width="@dimen/fifty_dip"
+       android:layout_height="@dimen/fifty_dip"
+       android:layout_alignParentRight="true"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:padding="@dimen/five_dip"
+       xmlns:android="http://schemas.android.com/apk/res/android">
+
+      <RelativeLayout
+          android:id="@+id/cart_counter"
+          android:layout_width="@dimen/twenty_dip"
+          android:layout_height="@dimen/twenty_dip"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentTop="true"
+          android:layout_marginRight="0.5dp"
+          android:padding="@dimen/two_dip"
+          android:background="@color/green_transparent">
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_margin="1dp"
+             android:layout_centerHorizontal="true"
+             android:layout_centerVertical="true"
+             android:background="@drawable/circle_white_transparent">
+
+            <TextView
+                android:id="@+id/tvCart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="10"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ten_dip"
+                android:textStyle="bold" />
+         </RelativeLayout>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/cart_layout"
+          android:layout_width="@dimen/fourty_dip"
+          android:layout_height="@dimen/fourty_dip"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentLeft="true"
+          android:padding="@dimen/five_dip">
+
+         <ImageView
+             android:layout_width="@dimen/thirty_five_dip"
+             android:layout_height="@dimen/thirty_five_dip"
+             android:clickable="true"
+             android:paddingRight="@dimen/five_dip"
+             android:paddingTop="@dimen/five_dip"
+             android:src="@drawable/ic_cart" />
+
+
+      </RelativeLayout>
+
+   </RelativeLayout>-->
+
+
+
 
     <ImageView
         android:id="@+id/ivCart"
@@ -15,6 +81,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:src="@drawable/ic_cart"
+        android:padding="@dimen/five_dip"
         />
 
 
@@ -23,16 +90,19 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="1"
-        android:background="@drawable/bg_cart_count"
+        android:padding="2dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/circle_white_transparent"
         android:layout_marginLeft="6dp"
         android:layout_marginStart="6dp"
         android:textColor="@android:color/white"
-        android:textSize="11dp"
-        android:textStyle="bold" />
+        android:textSize="10dp"
+         />
 
 
 

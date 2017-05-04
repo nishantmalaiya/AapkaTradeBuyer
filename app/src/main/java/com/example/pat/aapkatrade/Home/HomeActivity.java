@@ -29,6 +29,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -51,14 +52,12 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
-import com.example.pat.aapkatrade.payment.PaymentActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
-
-
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -83,7 +82,9 @@ public class HomeActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     LinearLayout linearlayout_home;
     ProgressBarHandler progressBarHandler;
-    public  TextView tvCartCount;
+    public  TextView countTextView;
+    FrameLayout redCircle;
+
 
 
     @Override
@@ -108,7 +109,8 @@ public class HomeActivity extends AppCompatActivity {
 
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status) {
+        if (permission_status)
+        {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -123,7 +125,9 @@ public class HomeActivity extends AppCompatActivity {
             App_config.deleteCache(HomeActivity.this);
 
 
-        } else {
+        }
+        else
+        {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -164,15 +168,44 @@ public class HomeActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
-        View view_menu = menu.findItem(R.id.cart_total_item).getActionView();
+        final MenuItem alertMenuItem = menu.findItem(R.id.cart_total_item);
 
-         tvCartCount = (TextView) view_menu.findViewById(R.id.tvCartCount);
+         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
+
+        badgeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
+
+                onOptionsItemSelected(alertMenuItem);
+
+
+            }
+        });
 
         return true;
+
+
+        /*getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
+
+        redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
+        countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
+
+        return true;*/
+
+
     }
 
 
-    private void setupToolBar() {
+
+
+
+
+    private void setupToolBar()
+    {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -181,6 +214,8 @@ public class HomeActivity extends AppCompatActivity {
         ImageView home_link = (ImageView) toolbar.findViewById(R.id.iconHome);
         AndroidUtils.setImageColor(home_link, context, R.color.white);
         home_link.setVisibility(View.GONE);
+
+
        /* RelativeLayout cartContainer = (RelativeLayout) toolbar.findViewById(R.id.cart_container);
         TextView textView = (TextView) toolbar.findViewById(R.id.tvCart);
 
@@ -199,6 +234,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });*/
+
+
+
 
     }
 
@@ -430,14 +468,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
                     case 2:
-                        Intent i =new Intent(HomeActivity.this,PaymentActivity.class);
-                        startActivity(i);
-
 
                         FragmentManager fm = getSupportFragmentManager();
                         Track_order_dialog track_order_dialog = new Track_order_dialog();
                         track_order_dialog.show(fm, "Track Order");
-
 
                         //goToMyApp(true);
 
