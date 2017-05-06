@@ -39,7 +39,6 @@ public class ShopAllProductActivity extends AppCompatActivity
     private LinearLayoutManager linearLayoutManager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +154,8 @@ public class ShopAllProductActivity extends AppCompatActivity
 
                     }
                 });
-
     }
+
+
+
 }

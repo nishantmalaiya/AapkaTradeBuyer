@@ -152,11 +152,11 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
                 /*holder.addToCartButton.setTextColor(ContextCompat.getColor(context, R.color.white));
                 holder.addToCartButton.setBackground(ContextCompat.getDrawable(context, R.drawable.add_to_cart_selected));
                 */
-
                 String product_id = itemList.get(position).productId;
                 String product_name = itemList.get(position).productName;
-                String price = homeHolder.tvProductPrice.toString();
+                String price = itemList.get(position).productPrice;
                 String quantity = homeHolder.tv_qty.toString();
+
                 callwebservice__add_tocart(product_id,"",product_name,price,quantity);
 
 
@@ -184,6 +184,8 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
     private void callwebservice__add_tocart(String product_id, String device_id, String product_name,String price, String qty)
     {
 
+        System.out.println("price-----------------------"+price);
+
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
 
         String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -198,7 +200,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
                 .setBodyParameter("device_id", android_id)
                 .setBodyParameter("name",product_name)
                 .setBodyParameter("price",price)
-                .setBodyParameter("quantity",qty)
+                .setBodyParameter("quantity","1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {

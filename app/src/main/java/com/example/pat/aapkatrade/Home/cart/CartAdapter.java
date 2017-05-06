@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.Home.cart;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,10 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
@@ -29,7 +34,8 @@ import java.util.List;
  */
 
 
-public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements View.OnClickListener {
+public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements View.OnClickListener
+{
 
     private final LayoutInflater inflater;
     private List<CartData> itemList;
@@ -38,7 +44,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     private DroppyMenuPopup droppyMenu;
     private LinearLayout linearLayoutQuantity;
     private EditText editText;
-
 
 
     public CartAdapter(Context context, List<CartData> itemList)
@@ -55,7 +60,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     }
 
     @Override
-    public void onBindViewHolder(final CartHolder holder, final int position) {
+    public void onBindViewHolder(final CartHolder holder, final int position)
+    {
 
         linearLayoutQuantity = holder.dropdown_ll;
 
@@ -64,6 +70,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
         //linearLayoutQuantity.setOnClickListener(this);
 
         textViewQuantity.setText(itemList.get(position).quantity);
+
+        holder.tvProductName.setText(itemList.get(position).productName);
+
+        holder.tvProductPrice.setText(itemList.get(position).price);
+
+        System.out.println("itemlist-------------"+itemList.get(position).price);
+
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
                 .addMenuItem(new DroppyMenuItem("2"))
@@ -75,51 +88,84 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
 
 
-        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
+        droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
+        {
+
             @Override
-            public void call(View v, int id) {
-                switch (id) {
+            public void call(View v, int id)
+            {
+                double cart_price= 0;
+
+                switch (id)
+                {
                     case 0:
                         itemList.get(position).setQuantity("1");
                         holder.textView64.setText(itemList.get(position).quantity);
-                        notifyDataSetChanged();
+                        cart_price = Double.valueOf(itemList.get(position).price) *1;
+                       /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
+                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+
                         break;
                     case 1:
                         itemList.get(position).setQuantity("2");
                         holder.textView64.setText(itemList.get(position).quantity);
-                        notifyDataSetChanged();
+                        cart_price = Double.valueOf(itemList.get(position).price) *2;
+                        System.out.println("cart_price----------"+cart_price);
+                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+
                         break;
                     case 2:
                         itemList.get(position).setQuantity("3");
                         holder.textView64.setText(itemList.get(position).quantity);
-                        notifyDataSetChanged();
+                        cart_price = Double.valueOf(itemList.get(position).price) *3;
+                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+
 
                         break;
                     case 3:
                         itemList.get(position).setQuantity("4");
                         holder.textView64.setText(itemList.get(position).quantity);
-                        notifyDataSetChanged();
+                        cart_price = Double.valueOf(itemList.get(position).price) *4;
+                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+
                         break;
                     case 4:
                         itemList.get(position).setQuantity("5");
                         holder.textView64.setText(itemList.get(position).quantity);
-                        notifyDataSetChanged();
+                        cart_price = Double.valueOf(itemList.get(position).price) *5;
+                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+
                         break;
                     case 5:
                         showPopup("Quantity", position);
                         break;
+
+
 
                 }
             }
         });
 
         droppyMenu = droppyBuilder.build();
+
+        holder.buttonAddtoCart.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String id = itemList.get(position).id;
+                callwebservice__delete_cart(id,position);
+
+            }
+        });
+
+
     }
 
 
     @Override
     public int getItemCount() {
-        return 6;
+        return itemList.size();
     }
 
     @Override
@@ -127,7 +173,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
     }
 
-    public void showPopup(String description, final int pos) {
+    public void showPopup(String description, final int pos)
+    {
 
         boolean wrapInScrollView = true;
         MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -155,6 +202,38 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
     private void showMessage(String s) {
         AndroidUtils.showErrorLog(context, s, Toast.LENGTH_SHORT);
+    }
+
+
+    private void callwebservice__delete_cart(String product_id, final int position)
+    {
+
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_remove";
+
+        String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        System.out.println("devece_id------------"+android_id);
+
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("id", product_id)
+                .setBodyParameter("device_id", android_id)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        System.out.println("result--------------"+ result);
+                        itemList.remove(position);
+                        notifyDataSetChanged();
+
+                    }
+                });
+
     }
 
 
