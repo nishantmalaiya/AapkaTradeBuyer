@@ -160,19 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewPager.setCurrentItem(currentPage);
         setUiPageViewController();
 
-//        banner_timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                new Handler().post(new Runnable() {
-//                    public void run() {
-//                        if (currentPage == viewPagerAdapter.getCount() - 1) {
-//                            currentPage = 0;
-//                        }
-//                        viewPager.setCurrentItem(currentPage++, true);
-//                    }
-//                });
-//            }
-//        }, 0, 3000);
+//
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -20,7 +20,7 @@
     <string name="drawer_close" translatable="false">drawerclose</string>
     <string name="language" translatable="false">language</string>
     <string name="cart" translatable="false">cart</string>
-    <string name="product" translatable="false">Product:</string>
+    <string name="product" translatable="false">PRODUCTS:</string>
     <string name="qty" translatable="false">QTY:</string>
 
     <string name="qty_def" translatable="false">05</string>
@@ -177,7 +177,16 @@
     <string name="select_payment_mode_title">select payment mode</string>
 
     <string name="postal_code">Postal Code</string>
-
+    <string name="order_id">Order Id</string>
+    <string name="order_date">Order Date</string>
+    <string name="manage_order">MANAGE ORDER</string>
+    <string name="request_invoice">Request Invoice</string>
+    <string name="help">Need Help?</string>
+    <string name="delivery_update">GST Delivery  Update</string>
+    <string name="ordered_status_one">Ordered</string>
+    <string name="ordered_status_two">Packaged</string>
+    <string name="ordered_status_three">Shipped</string>
+    <string name="ordered_status_four">Delivered</string>
 
 
 </resources>

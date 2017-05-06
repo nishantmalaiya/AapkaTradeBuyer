@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.track_order.singleproductdetail.SingleproductDetail;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
@@ -61,11 +62,21 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return viewHolder2;
 
 
-        } else if (arrangementtype == "list_product") {
+        }
+
+        else if (arrangementtype == "list_product") {
+            v = inflater.inflate(R.layout.row_dashboard_product_track_list, parent, false);
+            viewHolder_listProduct = new CommonHolder_listProduct(v);
+            return viewHolder_listProduct;
+        }
+        else if (arrangementtype == "OrderedProductList") {
             v = inflater.inflate(R.layout.row_dashboard_productlist, parent, false);
             viewHolder_listProduct = new CommonHolder_listProduct(v);
             return viewHolder_listProduct;
-        } else {
+        }
+
+
+        else {
             v = inflater.inflate(R.layout.row_dashboard_grid, parent, false);
             viewHolder1 = new CommomHolder(v);
             return viewHolder1;
@@ -135,7 +146,80 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             holder.tvProductName.setText(commomDatas.get(position).name);
 
-        } else if (arrangementtype == "list_product") {
+        }
+
+        else if (arrangementtype == "OrderedProductList") {
+
+
+
+            final CommomHolder holder = new CommomHolder(v);
+
+
+            if (Tabletsize.isTablet(context)) {
+                Picasso.with(context)
+                        .load(commomDatas.get(position).imageurl)
+                        .error(R.drawable.banner)
+                        .placeholder(R.drawable.default_noimage)
+                        .error(R.drawable.default_noimage)
+                        .into(holder.cimageview);
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "large");
+
+                Ion.with(holder.cimageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+                Log.e("image_large", "image_large");
+
+            } else if (Tabletsize.isMedium(context)) {
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
+
+                Ion.with(holder.cimageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+                Log.e("image_medium", "image_medium" + product_imageurl);
+
+            } else if (Tabletsize.isSmall(context)) {
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
+
+                Ion.with(holder.cimageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+
+                Log.e("image_small", "image_small");
+            }
+
+
+            Log.e("imageurl", commomDatas.get(0).imageurl);
+
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Log.e("time Adapter", String.valueOf(System.currentTimeMillis()));
+
+                    Intent intent = new Intent(context, SingleproductDetail.class);
+                    intent.putExtra("product_id", commomDatas.get(position).id);
+                    context.startActivity(intent);
+                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
+                }
+            });
+            holder.tvProductName.setText(commomDatas.get(position).name);
+
+        }
+
+
+
+
+
+
+
+
+
+
+        else if (arrangementtype == "list_product") {
 
             final CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
 

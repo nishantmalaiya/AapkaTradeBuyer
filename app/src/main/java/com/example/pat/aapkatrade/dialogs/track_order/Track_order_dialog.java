@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.dialogs;
+package com.example.pat.aapkatrade.dialogs.track_order;
 
 
 import android.content.ActivityNotFoundException;
@@ -86,8 +86,7 @@ public class Track_order_dialog extends DialogFragment {
         String track_order_url = getString(R.string.webservice_base_url) + "/track_order";
 
 
-//                .setBodyParameter("ORDER_ID ", tracking_id.getText().toString().trim())
-//                .setBodyParameter("client_id", App_config.getCurrentDeviceId(getActivity()))
+
         Ion.with(getActivity())
                 .load(track_order_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -102,6 +101,10 @@ public class Track_order_dialog extends DialogFragment {
                 if (result != null) {
                     String error = result.get("error").getAsString();
                     if (error.contains("false")) {
+
+
+
+
                         progressBarHandler.hide();
 
 
@@ -109,12 +112,12 @@ public class Track_order_dialog extends DialogFragment {
 
 
                         Intent go_to_activity_otp_verify = new Intent(getActivity(), ActivityOTPVerify.class);
-                        go_to_activity_otp_verify.putExtra("class_name", getActivity().getClass().getName());
+                        go_to_activity_otp_verify.putExtra("class_name", "Track_order_dialog");
                         go_to_activity_otp_verify.putExtra("otp_id", otp_id);
                         startActivity(go_to_activity_otp_verify);
 
 
-                        Log.e("otp_id", otp_id);
+                        Log.e("otp_id",  getActivity().getClass().getName());
 
 
                     } else {
@@ -125,6 +128,11 @@ public class Track_order_dialog extends DialogFragment {
                 }
 
                 progressBarHandler.hide();
+
+
+
+
+
 
                 Log.e("result", result.toString());
 //               JsonObject res result.get("otp_id").getAsString();

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
@@ -30,6 +31,8 @@ import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.HashMap;
 
@@ -47,13 +50,14 @@ public class ActivityOTPVerify extends AppCompatActivity {
     BroadcastReceiver receiver;
     LocalBroadcastManager bManager;
     String class_name, etEmail, etFirstName, etPassword, etMobileNo, cityID, etLastName, state_id, address;
-String otp_id;
+    String otp_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpverify);
         class_name = getIntent().getStringExtra("class_name");
-        otp_id= getIntent().getStringExtra("otp_id");
+        otp_id = getIntent().getStringExtra("otp_id");
         if (class_name.contains("RegistrationActivity")) {
             etEmail = getIntent().getStringExtra("email");
 
@@ -71,7 +75,6 @@ String otp_id;
 
 
         }
-
 
 
         context = ActivityOTPVerify.this;
@@ -178,10 +181,21 @@ String otp_id;
             public void onClick(View v) {
 
                 if (editText1.getText().length() != 0) {
-                    String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
+                    if (class_name.contains("Track_order_dialog")) {
+                        String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
 
-                    Log.e("otp ", otp);
-                    call_verifyotp_webservice(otp);
+                        call_verifyotp_track_order(otp);
+
+
+                        AndroidUtils.showErrorLog(context,"working 1");
+                    } else {
+
+                        AndroidUtils.showErrorLog(context,"working 2");
+                        String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
+
+                        Log.e("otp ", otp);
+                        call_verifyotp_webservice(otp);
+                    }
                 } else {
 
                     Log.e("otp null", "*****");
@@ -286,6 +300,71 @@ String otp_id;
 
     }
 
+    private void call_verifyotp_track_order(String otp) {
+        progressBarHandler.show();
+
+        String track_order_url = getString(R.string.webservice_base_url) + "/varify_track_num";
+
+
+//                .setBodyParameter("ORDER_ID ", tracking_id.getText().toString().trim())
+//                .setBodyParameter("client_id", App_config.getCurrentDeviceId(getActivity()))
+        Ion.with(ActivityOTPVerify.this)
+                .load(track_order_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("ORDER_ID", "AT210417060350")
+                .setBodyParameter("client_id", "12")
+                .setBodyParameter("otp", otp)
+
+
+                .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+
+
+                if (result != null) {
+                    String error = result.get("error").getAsString();
+                    if (error.contains("false")) {
+                        progressBarHandler.hide();
+
+
+                        AndroidUtils.showErrorLog(context, result.toString());
+
+
+
+
+
+
+
+
+                        Intent go_to_activity_otp_verify = new Intent(ActivityOTPVerify.this, Order_detail.class);
+                        go_to_activity_otp_verify.putExtra("class_name", ActivityOTPVerify.this.getClass().getName());
+                        go_to_activity_otp_verify.putExtra("result", result.toString());
+                        startActivity(go_to_activity_otp_verify);
+
+
+                        Log.e("otp_id", otp_id);
+
+
+                    } else {
+                        progressBarHandler.hide();
+                    }
+
+
+                }
+
+                progressBarHandler.hide();
+
+                Log.e("result", result.toString());
+//               JsonObject res result.get("otp_id").getAsString();
+
+
+            }
+        });
+
+
+    }
+
     private void call_verifyotp_webservice(String otp) {
         progressBarHandler.show();
 
@@ -295,7 +374,7 @@ String otp_id;
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("client_id", getCurrentDeviceId);
         webservice_body_parameter.put("otp", otp);
-        webservice_body_parameter.put("email",etEmail );
+        webservice_body_parameter.put("email", etEmail);
         webservice_body_parameter.put("name", etFirstName);
         webservice_body_parameter.put("password", etPassword);
         webservice_body_parameter.put("mobile", etMobileNo);
@@ -335,12 +414,9 @@ String otp_id;
                             intent.putExtra("otp_id", otp_id);
 
 
-
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                        }
-                        else if(class_name.contains("Track_order_dialog"))
-                        {
+                        } else if (class_name.contains("Track_order_dialog")) {
 
                             appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
@@ -348,15 +424,7 @@ String otp_id;
                             startActivity(intent);
 
 
-
-
-
-                        }
-
-
-                        else {
-
-
+                        } else {
 
 
                             appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
