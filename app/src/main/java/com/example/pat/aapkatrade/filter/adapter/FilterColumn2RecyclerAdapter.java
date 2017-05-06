@@ -34,37 +34,39 @@ public class FilterColumn2RecyclerAdapter extends RecyclerView.Adapter<FilterCol
 
     @Override
     public FilterColumn2ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new FilterColumn2ViewHolder(inflater.inflate(R.layout.custom_check_box_layout, parent, false));
+        return new FilterColumn2ViewHolder(inflater.inflate(R.layout.row_filter_column2, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final FilterColumn2ViewHolder holder, final int position) {
-        if (Validation.isNonEmptyStr(filterValueList.get(position).name.value.toString())) {
-            holder.checkFilterValue.setChecked(filterValueList.get(position).isChecked);
-            holder.filterValue.setText(filterValueList.get(position).name.value.toString());
-            holder.filterValue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!holder.checkFilterValue.isChecked()){
-                        holder.checkFilterValue.setChecked(true);
-                    } else {
-                        holder.checkFilterValue.setChecked(false);
+        if(holder!=null) {
+            if (Validation.isNonEmptyStr(filterValueList.get(position).name.value.toString())) {
+                holder.checkFilterValue.setChecked(filterValueList.get(position).isChecked);
+                holder.filterValue.setText(filterValueList.get(position).name.value.toString());
+                holder.filterValue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!holder.checkFilterValue.isChecked()) {
+                            holder.checkFilterValue.setChecked(true);
+                        } else {
+                            holder.checkFilterValue.setChecked(false);
+                        }
                     }
-                }
-            });
-            holder.checkFilterValue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    filterValueList.get(position).isChecked = isChecked;
-                    if(isChecked){
-                        addItemsToList(position);
-                    } else {
-                        removeItemsFromList(position);
+                });
+                holder.checkFilterValue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        filterValueList.get(position).isChecked = isChecked;
+                        if (isChecked) {
+                            addItemsToList(position);
+                        } else {
+                            removeItemsFromList(position);
+                        }
+                        commonInterface.getData(selectedValueList.size() > 0 ? new KeyValue(key, selectedValueList) : new KeyValue(key, filterValueList));
                     }
-                    commonInterface.getData(selectedValueList.size()>0?new KeyValue(key, selectedValueList):new KeyValue(key, filterValueList));
-                }
-            });
+                });
 
+            }
         }
     }
 

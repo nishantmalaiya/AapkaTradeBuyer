@@ -26,6 +26,8 @@ public class FilterColumn2ViewHolder extends RecyclerView.ViewHolder {
         checkFilterValue = (CheckBox) view.findViewById(R.id.check_filter_value);
         filterValue = (TextView) view.findViewById(R.id.filter_value);
         ll_filter_coloumn2_container=(LinearLayout)view.findViewById(R.id.ll_filter_coloumn2_container);
+        checkFilterValue.setVisibility(View.VISIBLE);
+        filterValue.setVisibility(View.VISIBLE);
     }
     public FilterColumn2ViewHolder(View view, boolean isRadio){
         super(view);
