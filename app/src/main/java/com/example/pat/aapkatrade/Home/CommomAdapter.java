@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -186,6 +187,11 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
             viewHolder_listProduct.tvProductName.setText(commomDatas.get(position).name);
+
+            AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_addtocart, context, R.color.white, 15, GradientDrawable.OVAL);
+            AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_description,context, R.color.white, 15, GradientDrawable.OVAL);
+
+
             AndroidUtils.setImageColor(viewHolder_listProduct.product_addcard, context, R.color.color_voilet);
             AndroidUtils.setImageColor(viewHolder_listProduct.product_description, context, R.color.color_voilet);
             viewHolder_listProduct.product_description.setOnClickListener(new View.OnClickListener() {

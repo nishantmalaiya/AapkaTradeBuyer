@@ -76,8 +76,9 @@ public class ZoomImageDialog extends AppCompatActivity {
 
         setContentView(R.layout.zoom_image_dialog_layout);
        // goto_zoom_imageview.putStringArrayListExtra("imageurl",imageurl);
-        imageurl= getIntent().getStringArrayListExtra("imageurl");
-        Log.e(AndroidUtils.getTag(this),imageurl.toString());
+        imageurl= getIntent().getStringArrayListExtra("imageUrlArrayList");
+        if(imageurl!=null)
+        AndroidUtils.showErrorLog(context,imageurl.toString());
         initView();
 
         setupviewpager(imageurl);

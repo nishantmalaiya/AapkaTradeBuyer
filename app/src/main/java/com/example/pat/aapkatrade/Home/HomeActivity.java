@@ -169,6 +169,7 @@ public class HomeActivity extends AppCompatActivity
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
+
         final MenuItem alertMenuItem = menu.findItem(R.id.cart_total_item);
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
@@ -185,6 +186,7 @@ public class HomeActivity extends AppCompatActivity
                 onOptionsItemSelected(alertMenuItem);
             }
         });
+
 
         return true;
 
@@ -259,7 +261,6 @@ public class HomeActivity extends AppCompatActivity
         // Handle item selection
         int id = item.getItemId();
         switch (id) {
-
             case R.id.cart_total_item:
 
                 // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
@@ -268,8 +269,8 @@ public class HomeActivity extends AppCompatActivity
 
 
                 break;
-
             case R.id.login:
+
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                     Intent i = new Intent(HomeActivity.this, LoginActivity.class);
@@ -283,7 +284,6 @@ public class HomeActivity extends AppCompatActivity
 
                     break;
                 }
-//                finish();
 
             case R.id.language:
                 View menuItemView = findViewById(R.id.language);
@@ -313,13 +313,6 @@ public class HomeActivity extends AppCompatActivity
 
                 popup.show();//showing popup menu
 
-
-             /*  User_DashboardFragment dashboardFragment = new User_DashboardFragment();
-               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
-               transaction.commit();
-*/
-                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rl_dialog_enquiry_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparent"
+
     android:layout_marginBottom="@dimen/ten_dip"
 
     >
@@ -33,9 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/ten_dip"
-        android:layout_marginRight="@dimen/ten_dip"
-        android:layout_marginTop="@dimen/ten_dip"
+
         android:background="@drawable/bg_dialog" >
 
         <RelativeLayout
@@ -75,43 +74,62 @@
 
                 <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
+                    android:background="#eeeeee"
                     android:layout_height="match_parent">
 
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:descendantFocusability="beforeDescendants"
                         android:focusableInTouchMode="true"
-                        android:layout_gravity="center_vertical"
+android:layout_gravity="center_vertical"
                         android:orientation="vertical"
 
 
                         >
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:id="@+id/rl_imgview_enquiry"
+    android:layout_centerHorizontal="true"
 
+    android:layout_margin="@dimen/ten_dip"
+    android:background="@drawable/circle_white_transparent"
+    android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:id="@+id/imgview_enquiry_icon"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/ten_dip"
+                            android:background="@drawable/circle_green_back"
+                            android:src="@drawable/ic_svr_enquiry"  />
+</RelativeLayout>
                         <android.support.v7.widget.CardView
                             android:id="@+id/step1aLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginRight="@dimen/ten_dip"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            android:padding="@dimen/ten_dip"
+                            android:layout_below="@+id/rl_imgview_enquiry"
                             android:layout_marginTop="@dimen/ten_dip"
                             android:layout_marginBottom="@dimen/ten_dip"
+
+                            app:cardElevation="0dp"
                             >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                app:cardBackgroundColor="@color/transparent"
                                 android:orientation="vertical">
 
 
-                                <ImageView
-                                    android:layout_width="80dp"
-                                    android:layout_height="80dp"
-                                    android:layout_gravity="center_horizontal|center_vertical"
-                                    android:layout_margin="@dimen/ten_dip"
-                                    android:background="@drawable/circle_green_back"
-                                    android:src="@drawable/ic_svr_enquiry"  />
+
 
 
                                 <android.support.design.widget.TextInputLayout
@@ -146,12 +164,12 @@
                                     android:textColorHint="@color/hint_color">
 
                                     <EditText
-                                        android:id="@+id/et_layout_quantity"
+                                        android:id="@+id/et_email"
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:hint="@string/email"
-                                        android:inputType="text"
+                                        android:inputType="textEmailAddress"
                                         android:paddingLeft="@dimen/ten_dip"
                                         android:textColorHint="@color/green"
                                         android:theme="@style/myedittext" />
@@ -169,7 +187,7 @@
                                     android:textColorHint="@color/hint_color">
 
                                     <EditText
-                                        android:id="@+id/et_layout_price"
+                                        android:id="@+id/et_mobile"
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -192,7 +210,7 @@
                                     android:textColorHint="@color/hint_color">
 
                                     <EditText
-                                        android:id="@+id/et_layout_mobile"
+                                        android:id="@+id/et_service_enquiry"
                                         style="@style/myedittext"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
