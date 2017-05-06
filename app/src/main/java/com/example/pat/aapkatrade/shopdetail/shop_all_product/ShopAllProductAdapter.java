@@ -3,29 +3,41 @@ package com.example.pat.aapkatrade.shopdetail.shop_all_product;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.cart.CartHolder;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.shopdetail.productdetail.ProductDetailActivity;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by PPC16 on 4/21/2017.
  */
 
-public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHolder> {
+public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHolder>
+{
 
     final LayoutInflater inflater;
     List<ShopAllProductData> itemList;
@@ -34,19 +46,27 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
     TextView textViewQuantity;
     LinearLayout linearLayoutQuantity;
     DroppyMenuPopup droppyMenu;
+    AppSharedPreference appSharedPreference;
 
 
-    public ShopAllProductAdapter(Context context, List<ShopAllProductData> itemList) {
+    public ShopAllProductAdapter(Context context, List<ShopAllProductData> itemList)
+    {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
 
+        appSharedPreference = new AppSharedPreference(context);
     }
 
+
+
     @Override
-    public ShopAllProductHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ShopAllProductHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         return new ShopAllProductHolder(inflater.inflate(R.layout.row_shop_service_list, parent, false));
     }
+
+
 
     @Override
     public void onBindViewHolder(final ShopAllProductHolder holder, final int position)
@@ -79,6 +99,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
                 .addMenuItem(new DroppyMenuItem("5"))
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
+
 
 
 
@@ -125,11 +146,19 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
 
         holder.addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 /*holder.addToCartButton.setTextColor(ContextCompat.getColor(context, R.color.white));
                 holder.addToCartButton.setBackground(ContextCompat.getDrawable(context, R.drawable.add_to_cart_selected));
                 */
+
+                String product_id = itemList.get(position).productId;
+                String product_name = itemList.get(position).productName;
+                String price = homeHolder.tvProductPrice.toString();
+                String quantity = homeHolder.tv_qty.toString();
+                callwebservice__add_tocart(product_id,"",product_name,price,quantity);
+
 
             }
         });
@@ -146,8 +175,48 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return itemList.size();
+    }
+
+
+    private void callwebservice__add_tocart(String product_id, String device_id, String product_name,String price, String qty)
+    {
+
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
+
+        String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        System.out.println("devece_id------------"+android_id);
+
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("product_id", product_id)
+                .setBodyParameter("device_id", android_id)
+                .setBodyParameter("name",product_name)
+                .setBodyParameter("price",price)
+                .setBodyParameter("quantity",qty)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        System.out.println("result--------------"+ result);
+                        JsonObject jsonObject = result.getAsJsonObject("result");
+                        JsonArray jsonArray = jsonObject.getAsJsonArray("items");
+                        appSharedPreference.setShared_pref_int("cart_count",jsonArray.size());
+
+
+                    }
+                });
+
+
+
     }
 
 

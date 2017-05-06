@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home.cart;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,15 +23,24 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductAdapter;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductData;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
 
 public class MyCartActivity extends AppCompatActivity
 {
+
     ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
@@ -38,27 +48,29 @@ public class MyCartActivity extends AppCompatActivity
     RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
-
-
+    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_my_cart);
+
         context = MyCartActivity.this;
+
+        progressBarHandler = new ProgressBarHandler(context);
 
         setuptoolbar();
 
          initView();
 
-
         setup_layout();
-
 
     }
 
-    private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -66,8 +78,6 @@ public class MyCartActivity extends AppCompatActivity
         getSupportActionBar().setTitle(null);
 
     }
-
-
 
     private void initView()
     {
@@ -78,8 +88,8 @@ public class MyCartActivity extends AppCompatActivity
         checkDeliveryButton = (TextView) findViewById(R.id.checkDeliveryButton);
 
         buttonContainer = (RelativeLayout) findViewById(R.id.buttonContainer);
-        AndroidUtils.setBackgroundSolid(buttonContainer, context, R.color.orange, 25, GradientDrawable.RECTANGLE);
 
+        AndroidUtils.setBackgroundSolid(buttonContainer, context, R.color.orange, 25, GradientDrawable.RECTANGLE);
 
     }
 
@@ -88,33 +98,20 @@ public class MyCartActivity extends AppCompatActivity
 
         mycartRecyclerView = (RecyclerView) findViewById(R.id.mycartRecyclerView);
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        getAllShopProducts("");
 
-        mycartRecyclerView.setLayoutManager(mLayoutManager);
-
-
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","500"));
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","600"));
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","700"));
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","800"));
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","900"));
-        cartDataArrayList.add(new CartData("1","Nokia Mobile","1","1000"));
-
-
-
-        cartAdapter = new CartAdapter(MyCartActivity.this, cartDataArrayList);
-
-        mycartRecyclerView.setAdapter(cartAdapter);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -125,6 +122,58 @@ public class MyCartActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    private void getAllShopProducts(String pageNumber)
+    {
+
+        progressBarHandler.show();
+        String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        Ion.with(MyCartActivity.this)
+                .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("device_id", android_id)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if (result != null) {
+                            AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
+
+                            JsonObject jsonObject = result.getAsJsonObject("result");
+
+                            JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
+                            if (jsonProductList != null && jsonProductList.size() > 0)
+                            {
+                                for (int i = 0; i < jsonProductList.size(); i++)
+                                {
+                                    JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
+                                    String productId = jsonproduct.get("id").getAsString();
+                                    String productName = jsonproduct.get("name").getAsString();
+                                    String productQty = jsonproduct.get("quantity").getAsString();
+                                    String price = jsonproduct.get("price").getAsString();
+                                    String productImage = jsonproduct.get("image_url").getAsString();
+                                    String product_id = jsonproduct.get("product_id").getAsString();
+                                    cartDataArrayList.add(new CartData(productId, productName, productQty, price, productImage,product_id));
+                                }
+                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                mycartRecyclerView.setLayoutManager(mLayoutManager);
+                                cartAdapter = new CartAdapter(context, cartDataArrayList);
+                                mycartRecyclerView.setAdapter(cartAdapter);
+                            }
+                        }
+                        else
+                        {
+                            AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
+                        }
+
+                    }
+                });
+
+    }
 
 
 

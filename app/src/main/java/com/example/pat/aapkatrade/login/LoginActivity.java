@@ -169,7 +169,9 @@ public class LoginActivity extends AppCompatActivity {
                         showMessage(message);
                     }
 
-                    else {
+                    else
+                    {
+
                         showMessage(getResources().getString(R.string.welcomebuyer));
                         Log.e("webservice_returndata", webservice_returndata.toString());
                          saveDataInSharedPreference(webservice_returndata);
@@ -209,6 +211,7 @@ public class LoginActivity extends AppCompatActivity {
         appSharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
         appSharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
         appSharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
+
 
 
     }

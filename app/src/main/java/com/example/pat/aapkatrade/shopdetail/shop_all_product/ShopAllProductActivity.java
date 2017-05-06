@@ -25,7 +25,8 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-public class ShopAllProductActivity extends AppCompatActivity {
+public class ShopAllProductActivity extends AppCompatActivity
+{
 
     private ArrayList<ShopAllProductData> shopAllProductDatas = new ArrayList<>();
     private RecyclerView mRecyclerView;
@@ -36,6 +37,7 @@ public class ShopAllProductActivity extends AppCompatActivity {
     private String shopId;
     private int page = 1;
     private LinearLayoutManager linearLayoutManager;
+
 
 
     @Override
@@ -130,8 +132,10 @@ public class ShopAllProductActivity extends AppCompatActivity {
                         if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
                             JsonArray jsonProductList = result.getAsJsonArray("all_products");
-                            if (jsonProductList != null && jsonProductList.size() > 0) {
-                                for (int i = 0; i < jsonProductList.size(); i++) {
+                            if (jsonProductList != null && jsonProductList.size() > 0)
+                            {
+                                for (int i = 0; i < jsonProductList.size(); i++)
+                                {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String productId = jsonproduct.get("id").getAsString();
                                     String productName = jsonproduct.get("name").getAsString();

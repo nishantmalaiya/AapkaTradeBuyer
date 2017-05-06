@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.Home.cart;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,10 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
@@ -37,6 +42,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     DroppyMenuPopup droppyMenu;
     LinearLayout linearLayoutQuantity;
     EditText editText;
+
 
 
     public CartAdapter(Context context, List<CartData> itemList)
@@ -67,6 +73,10 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         textViewQuantity.setText(itemList.get(position).quantity.toString());
 
+        homeHolder.tvProductName.setText(itemList.get(position).productName);
+
+        homeHolder.tvProductPrice.setText(itemList.get(position).price);
+
         //linearLayoutQuantity.setOnClickListener(this);
 
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
@@ -77,8 +87,6 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .addMenuItem(new DroppyMenuItem("5"))
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
-
-
 
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
@@ -120,6 +128,22 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         droppyMenu = droppyBuilder.build();
 
+
+        homeHolder.buttonAddtoCart.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                callwebservice__cart_remove(itemList.get(position).id,position);
+
+                Toast.makeText(context,itemList.get(position).id,Toast.LENGTH_SHORT).show();
+
+
+
+            }
+        });
+
       /*  List<String> count = new ArrayList<String>();
         count.add("1");
         count.add("2");
@@ -136,10 +160,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         dataAdapter.setDropDownViewResource(R.layout.row_spinner);
         homeHolder.spinner.setAdapter(dataAdapter);
-*/
-
-
-
+    */
 
 
     }
@@ -148,7 +169,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemCount()
     {
-        return 6;
+        return itemList.size();
     }
 
     @Override
@@ -171,7 +192,7 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         if (editText.getText().length() <= 0) {
                             showMessage("Nothing done");
                         } else {
-                            showMessage(editText.getText().toString());
+                           // showMessage(editText.getText().toString());
                             itemList.get(pos).setQuantity(editText.getText().toString());
                             textViewQuantity.setText(editText.getText().toString());
                             notifyDataSetChanged();
@@ -189,6 +210,37 @@ public class  CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
+
+
+    private void callwebservice__cart_remove(String product_id, int position)
+    {
+        final int po = position;
+
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_remove";
+
+        String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("id", product_id)
+                .setBodyParameter("device_id", android_id)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        System.out.println("result--------"+result.toString());
+                        itemList.remove(po);
+                        notifyDataSetChanged();
+
+                    }
+                });
+
+    }
 
 
 

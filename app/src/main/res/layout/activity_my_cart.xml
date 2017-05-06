@@ -13,8 +13,6 @@
         android:id="@+id/relativePincode"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fifty_dip"
-        android:layout_marginRight="@dimen/ten_dip"
-        android:layout_marginLeft="@dimen/ten_dip"
         android:layout_below="@+id/toolbar"
         android:background="@color/white"
         >
