@@ -332,23 +332,24 @@ public class ProductDetailActivity extends AppCompatActivity {
 //                    }
 //                })
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_more_quantity, null, false);
 
         etManualQuantity = (EditText) dialog.findViewById(R.id.editText);
-        okButton = (TextView) view.findViewById(R.id.okDialog);
-        cancelButton = (TextView) view.findViewById(R.id.cancelDialog);
+        okButton = (TextView) dialog.findViewById(R.id.okDialog);
+        cancelButton = (TextView) dialog.findViewById(R.id.cancelDialog);
         disableButton(okButton);
         disableButton(cancelButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.isEnabled()){
+                if(okButton.isEnabled()){
                     if(Integer.parseInt(etManualQuantity.getText().toString()) > 0){
                         enableButton(okButton);
                     }
                 } else {
                     enableButton(okButton);
                 }
+                AndroidUtils.showErrorLog(context, "ok button");
+                dialog.hide();
             }
         });
 
@@ -356,7 +357,8 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 enableButton(cancelButton);
-                dialog.dismiss();
+                AndroidUtils.showErrorLog(context, "cancel button");
+                dialog.hide();
             }
         });
 
