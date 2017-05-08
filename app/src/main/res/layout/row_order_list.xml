@@ -79,7 +79,7 @@
 
 
                 <TextView
-                    android:id="@+id/tvUserName"
+                    android:id="@+id/tvShopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rajeev"
@@ -104,26 +104,26 @@
                     />
 
                 <TextView
-                    android:id="@+id/tvMobileNo"
+                    android:id="@+id/tvProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="9811531065"
                     android:layout_toRightOf="@+id/linearLayoutImage"
                     android:layout_marginLeft="5dp"
-                    android:layout_below="@+id/tvUserName"
+                    android:layout_below="@+id/tvShopName"
                     android:textColor="#066C57"
                     android:layout_marginTop="2dp"
                     />
 
 
                 <TextView
-                    android:id="@+id/tvCreatedDate"
+                    android:id="@+id/tvProductPrize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25 Feb 2017, 12:05pm"
                     android:layout_toRightOf="@+id/linearLayoutImage"
                     android:layout_marginLeft="5dp"
-                    android:layout_below="@+id/tvMobileNo"
+                    android:layout_below="@+id/tvProductName"
                     android:layout_marginTop="2dp"
                     />
 
@@ -134,7 +134,7 @@
                     android:text="arvindkumaryadav937@gmail.com"
                     android:layout_toRightOf="@+id/linearLayoutImage"
                     android:layout_marginLeft="5dp"
-                    android:layout_below="@+id/tvCreatedDate"
+                    android:layout_below="@+id/tvProductPrize"
                     android:layout_marginTop="2dp"
 
                     />

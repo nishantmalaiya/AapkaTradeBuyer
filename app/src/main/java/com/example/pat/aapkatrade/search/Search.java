@@ -501,9 +501,9 @@ Log.e("lat_search",latitude+""+longitude);
                             } else {
 
                                 Log.e("data2", result.toString());
-                                if (jsonObject.get("result").isJsonNull()) {
-
-                                }
+//                                if (jsonObject.get("result").isJsonNull()) {
+//
+//                                }
 
 
                                 JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");

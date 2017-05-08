@@ -14,8 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
+import com.example.pat.aapkatrade.Home.CommomHolder;
+import com.example.pat.aapkatrade.dialogs.track_order.CommonHolderOrderListAdapter;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -39,11 +40,11 @@ public class Order_detail extends AppCompatActivity {
     ArrayList<CommomData> commomDatas_products = new ArrayList<>();
     ViewPager view_pager_products;
     private ShopViewPagerAdapter viewPagerAdapter;
-    ArrayList<CommomData> commomDatas_order = new ArrayList<>();
+    ArrayList<CommomDataTrackingList> commomDatas_order = new ArrayList<>();
     private CircleIndicator circleIndicator;
     ArrayList<OrderDetailsDatas> orderDetailsDatas = new ArrayList<>();
     ArrayList<ProductDatas> productDatasArrayList = new ArrayList<>();
-    private CommomAdapter commomAdapter_latestpost;
+    private CommonHolderOrderListAdapter commomAdapter_latestpost;
     LinearLayoutManager llmanager_productlist;
 
     TextView tvOrderid,tvOrderDate,tvAmountPaid,tvAddress,tvMobile;
@@ -69,7 +70,7 @@ public class Order_detail extends AppCompatActivity {
 
     private void initview() {
 
-        llmanager_productlist = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        llmanager_productlist = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
         recyclerProductList = (RecyclerView) findViewById(R.id.recycleviewProductList);
         recyclerProductList.setLayoutManager(llmanager_productlist);
@@ -148,10 +149,12 @@ public class Order_detail extends AppCompatActivity {
                     imageUrlArrayList.add(image_url);
 
 
-                    commomDatas_order.add(new CommomData(product_id, product_name, product_net_price, image_url));
+                    commomDatas_order.add(new CommomDataTrackingList(image_url, product_price_order, product_name, product_id, "demo", Address, "demo",
+                            "demo"));
 
-                    commomAdapter_latestpost = new CommomAdapter(context, commomDatas_order, "list", "latestdeals");
+                    commomAdapter_latestpost = new CommonHolderOrderListAdapter(context, commomDatas_order, "OrderedProductList", "latestdeals");
                     recyclerProductList.setAdapter(commomAdapter_latestpost);
+                    recyclerProductList.setNestedScrollingEnabled(false);
 
                     productDatasArrayList.add(new ProductDatas(product_name, product_qty_order, product_price_order, product_net_price, discount, image_url));
 
