@@ -344,6 +344,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 if(okButton.isEnabled()){
                     if(Integer.parseInt(etManualQuantity.getText().toString()) > 0){
                         enableButton(okButton);
+
                     }
                 } else {
                     enableButton(okButton);
