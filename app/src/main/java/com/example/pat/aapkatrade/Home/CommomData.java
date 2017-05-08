@@ -23,6 +23,11 @@ public class CommomData implements Parcelable{
         this.product_location=product_location;
     }
 
+
+
+
+
+
     public CommomData(String id, String name, String price, String imageurl,String product_location, String categoryName){
         this.id=id;
         this.imageurl=imageurl;

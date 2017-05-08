@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
 
-
     <permission
         android:name="com.example.pat.aapkatrade.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -48,16 +47,12 @@
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
-
         <activity android:name=".user_dashboard.changepassword.ChangePassword" />
-
         <activity
             android:name=".Home.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".shopdetail.ShopDetailActivity"
             android:screenOrientation="portrait" />
@@ -76,7 +71,6 @@
         <activity android:name=".user_dashboard.address.AddressActivity" />
         <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity" />
 
-
         <receiver
             android:name=".general.IncomingSms"
             android:enabled="true"
@@ -88,37 +82,30 @@
             </intent-filter>
         </receiver>
 
-
         <activity android:name=".user_dashboard.address.add_address.AddAddressActivity" />
         <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity" />
         <activity android:name=".search.Search" />
-
         <activity android:name=".map.GoogleMapActivity" />
         <activity android:name=".user_dashboard.order_list.OrderManagementActivity" />
-
-
         <activity android:name=".ZoomImage.ZoomImageDialog" />
-
-
         <activity android:name=".payment.PaymentActivity" />
-
+        <activity android:name=".rateus.RateusActivity" />
 
         <activity android:name=".rateus.RateUsActivity" />
         <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
-
         <activity
             android:name=".Home.cart.MyCartActivity"
             android:label="@string/title_activity_my_cart"
             android:theme="@style/AppTheme" />
-
 
         <service
             android:name=".service.LocationService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".shopdetail.productdetail.ProductDetailActivity"></activity>
-
+        <activity android:name=".shopdetail.productdetail.ProductDetailActivity" />
+        <activity android:name=".dialogs.track_order.orderdetail.Order_detail" />
+        <activity android:name=".dialogs.track_order.singleproductdetail.SingleproductDetail"></activity>
     </application>
 
 </manifest>

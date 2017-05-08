@@ -11,21 +11,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.support.annotation.IntegerRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,7 +39,7 @@ import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
-import com.example.pat.aapkatrade.dialogs.Track_order_dialog;
+import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.CheckPermission;
@@ -462,9 +458,15 @@ public class HomeActivity extends AppCompatActivity
                     case 2:
 
                         FragmentManager fm = getSupportFragmentManager();
-                        Track_order_dialog track_order_dialog = new Track_order_dialog();
-                        track_order_dialog.show(fm, "Track Order");
+//                        Track_order_dialog track_order_dialog = new Track_order_dialog();
+//                        track_order_dialog.show(fm, "Track Order");
 
+
+
+                        Intent i =new Intent(HomeActivity.this, Order_detail.class);
+                       i.putExtra("class_name", "");
+                       i.putExtra("result","");
+                        startActivity(i);
                         //goToMyApp(true);
 
 
