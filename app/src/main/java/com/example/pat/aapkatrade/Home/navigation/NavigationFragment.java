@@ -29,6 +29,7 @@ import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
@@ -102,7 +103,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         rl_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save_shared_pref("notlogin", "notlogin", "notlogin", "");
+                save_shared_pref("notlogin", "notlogin", "notlogin", "notlogin");
 
 
                 Intent Homedashboard = new Intent(getActivity(), HomeActivity.class);
@@ -135,14 +136,15 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             String Username = app_sharedpreference.getsharedpref("name", "notlogin");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "notlogin");
-            String user_image = app_sharedpreference.getsharedpref("profile_pic", "");
+            String user_image = app_sharedpreference.getsharedpref("profile_pic", "notlogin");
+            Log.e("Shared_pref2", "null" + Username);
 
-
-            if (Username.equals("notlogin")) {
+            if (Username.contains("notlogin")) {
 
                 rl_logout.setVisibility(View.GONE);
+                setdata(getString(R.string.welcomeguest), "");
 
-                Log.e("Shared_pref2", "null" + Username);
+
             } else {
 
                 set_visibility_logout();
@@ -159,7 +161,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             }
         } else {
-            Log.e("Shared_pref1", "null");
+            AndroidUtils.showErrorLog(getActivity(),"sharedpref null");
         }
     }
 
@@ -349,6 +351,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
         app_sharedpreference.setsharedpref("profile_pic", profile_pic);
+
     }
 
 
@@ -356,13 +359,14 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
 
-        if (app_sharedpreference.getsharedpref("username", "not") != null) {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
 
-            String userName = app_sharedpreference.getsharedpref("name", "not");
-            String emailId = app_sharedpreference.getsharedpref("emailid", "not");
+            String userName = app_sharedpreference.getsharedpref("username", "notlogin");
+            String emailId = app_sharedpreference.getsharedpref("emailid", "notlogin");
 
 
-            if (userName.contains("not")) {
+            if (userName.contains("notlogin")) {
+                setdata(getString(R.string.welcomeguest), "");
 
                 rl_logout.setVisibility(View.GONE);
 

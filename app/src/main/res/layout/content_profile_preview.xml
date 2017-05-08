@@ -93,7 +93,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <com.balysv.materialripple.MaterialRippleLayout
+             <!--   <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -142,9 +142,9 @@
                     android:background="#E1E1E1"
                     android:layout_below="@+id/relativedata"
                     android:layout_marginLeft="65dp"
-                    ></View>
+                    />
 
-
+-->
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="match_parent"
                     android:layout_marginLeft="10dp"
@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/linearLayoutLagout"
+                        android:id="@+id/linearLayoutLogout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

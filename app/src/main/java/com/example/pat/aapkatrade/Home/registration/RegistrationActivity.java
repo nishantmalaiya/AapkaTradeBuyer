@@ -2,13 +2,8 @@ package com.example.pat.aapkatrade.Home.registration;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,27 +37,21 @@ import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity {
 
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
     private Spinner spState, spCity;
-    private EditText etFirstName, etLastName, etDOB, etEmail, etMobileNo, etAddress, etPassword, etReenterPassword;
+    private EditText etFirstName, etLastName, etEmail, etMobileNo, etAddress, etPassword, etReenterPassword;
     private TextView tvSave, tv_agreement;
     private LinearLayout registrationLayout;
     private ArrayList<String> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-    private ImageView openCalander;
     private AppSharedPreference appSharedPreference;
     private String stateID = "", cityID = "";
     private DatePickerDialog datePickerDialog;
@@ -100,31 +88,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
         });
 
-        openCalander.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = DatePickerDialog.newInstance(
-                        RegistrationActivity.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );
-                dpd.setMaxDate(now);
-                dpd.show(getFragmentManager(), "DatePickerDialog");
-
-            }
-        });
-
 
     }
-
-    private void showDate(int year, int month, int day) {
-        etDOB.setTextColor(getResources().getColor(R.color.black));
-        etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
-    }
-
 
     private void callWebServiceForBuyerRegistration() {
         Log.e("reach", " Buyer Data--------->\n" + formBuyerData.toString());
@@ -179,7 +144,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         } else {
 
                             Log.e("result_seller_error", e.toString());
-                            showmessage(e.toString());
+                            showMessage(e.toString());
                         }
                     }
 
@@ -254,7 +219,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                 }
                             });
                         } else {
-                            showmessage("No City Found");
+                            showMessage("No City Found");
                         }
                     }
 
@@ -312,14 +277,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
-        etDOB = (EditText) findViewById(R.id.etDOB);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etMobileNo = (EditText) findViewById(R.id.etMobileNo);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etAddress = (EditText) findViewById(R.id.etAddress);
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
 
-        openCalander = (ImageView) findViewById(R.id.openCalander);
         agreement_check = (CheckBox) findViewById(R.id.agreement_check);
         tv_agreement = (TextView) findViewById(R.id.tv_agreement);
         tv_agreement.setOnClickListener(new View.OnClickListener() {
@@ -351,17 +314,14 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
             } else if (Validation.isEmptyStr(formBuyerData.getLastName())) {
                 putError(1);
                 isAllFieldSet++;
-            } else if (!Validation.isValidDOB(etDOB.getText().toString())) {
-                putError(6);
-                isAllFieldSet++;
             } else if (!Validation.isValidNumber(formBuyerData.getMobile(), Validation.getNumberPrefix(formBuyerData.getMobile()))) {
                 putError(3);
                 isAllFieldSet++;
             } else if (spState != null && spState.getSelectedItemPosition() == 0) {
-                showmessage("Please Select State");
+                showMessage("Please Select State");
                 isAllFieldSet++;
             } else if (spCity.getSelectedItemPosition() == 0) {
-                showmessage("Please Select City");
+                showMessage("Please Select City");
                 isAllFieldSet++;
             } else if (Validation.isEmptyStr(formBuyerData.getAddress())) {
                 putError(9);
@@ -393,45 +353,42 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         switch (id) {
             case 0:
                 etFirstName.setError("First Name Can't be empty");
-                showmessage("First Name Can't be empty");
+                showMessage("First Name Can't be empty");
                 break;
             case 1:
                 etLastName.setError("Last Name Can't be empty");
-                showmessage("Last Name Can't be empty");
+                showMessage("Last Name Can't be empty");
                 break;
             case 2:
                 etEmail.setError("Please Enter Valid Email");
-                showmessage("Please Enter Valid Email");
+                showMessage("Please Enter Valid Email");
                 break;
             case 3:
                 etMobileNo.setError("Please Enter Valid Mobile Number");
-                showmessage("Please Enter Valid Mobile Number");
+                showMessage("Please Enter Valid Mobile Number");
                 break;
             case 4:
                 etPassword.setError(getResources().getString(R.string.password_validing_text));
-                showmessage(getResources().getString(R.string.password_validing_text));
+                showMessage(getResources().getString(R.string.password_validing_text));
                 break;
             case 5:
                 etReenterPassword.setError("Password did not match");
-                showmessage("Password did not match");
-                break;
-            case 6:
-                showmessage("Please Select Date");
+                showMessage("Password did not match");
                 break;
             case 9:
                 etAddress.setError("Address Can't be empty");
-                showmessage("Address Can't be empty");
+                showMessage("Address Can't be empty");
                 break;
             case 10:
-                showmessage("Please Enter Valid UserName");
+                showMessage("Please Enter Valid UserName");
                 break;
 
             case 15:
                 etReenterPassword.setError(getResources().getString(R.string.password_validing_text));
-                showmessage(getResources().getString(R.string.password_validing_text));
+                showMessage(getResources().getString(R.string.password_validing_text));
                 break;
             case 16:
-                showmessage("Please Check the Agreement");
+                showMessage("Please Check the Agreement");
                 break;
 
             default:
@@ -439,7 +396,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
     }
 
-    public void showmessage(String message) {
+    public void showMessage(String message) {
         AndroidUtils.showSnackBar(registrationLayout, message);
     }
 
@@ -457,13 +414,5 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
     }
 
-    @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
 
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        showDate(year, monthOfYear + 1, dayOfMonth);
-    }
 }

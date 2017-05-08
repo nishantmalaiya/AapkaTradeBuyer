@@ -25,7 +25,7 @@ public class ReviewListHolder extends RecyclerView.ViewHolder
 
         message_description = (TextView) itemView.findViewById(R.id.tvMessage) ;
 
-        username = (TextView) itemView.findViewById(R.id.tvUserName);
+        username = (TextView) itemView.findViewById(R.id.tvShopName);
 
         deliver_date = (TextView) itemView.findViewById(R.id.deliver_date);
 

@@ -16,9 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+
 import com.example.pat.aapkatrade.dialogs.track_order.singleproductdetail.SingleproductDetail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
+
+
+import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.CommonHolder_listProduct;
+
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -78,21 +83,15 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return viewHolder2;
 
 
-        }
-
-        else if (arrangementtype == "list_product") {
+        } else if (arrangementtype == "list_product") {
             v = inflater.inflate(R.layout.row_dashboard_product_track_list, parent, false);
             viewHolder_listProduct = new CommonHolder_listProduct(v);
             return viewHolder_listProduct;
-        }
-        else if (arrangementtype == "OrderedProductList") {
-            v = inflater.inflate(R.layout.row_dashboard_productlist, parent, false);
+        } else if (arrangementtype == "OrderedProductList") {
+            v = inflater.inflate(R.layout.activity_order, parent, false);
             viewHolder_listProduct = new CommonHolder_listProduct(v);
             return viewHolder_listProduct;
-        }
-
-
-        else {
+        } else {
             v = inflater.inflate(R.layout.row_dashboard_grid, parent, false);
             viewHolder1 = new CommomHolder(v);
             return viewHolder1;
@@ -163,6 +162,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.tvProductName.setText(commomDatas.get(position).name);
 
         }
+
 
         else if (arrangementtype == "OrderedProductList") {
 
@@ -332,6 +332,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         } else {
 
+    
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
             Picasso.with(context).load(commomDatas.get(position).imageurl)

@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.order_list;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,35 +22,33 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class OrderActivity extends AppCompatActivity
-{
+public class OrderActivity extends AppCompatActivity {
 
-    ArrayList<OrderListData> orderListDatas = new ArrayList<>();
-    RecyclerView order_list;
-    OrderListAdapter orderListAdapter;
-    ProgressBarHandler progress_handler;
-    LinearLayout layout_container;
-    AppSharedPreference app_sharedpreference;
-    String user_id;
-
+    private ArrayList<OrderListData> orderListDatas = new ArrayList<>();
+    private RecyclerView order_list;
+    private OrderListAdapter orderListAdapter;
+    private ProgressBarHandler progress_handler;
+    private LinearLayout layout_container;
+    private AppSharedPreference appSharedPreference;
+    private String user_id;
+    private Context context;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_order);
-
+        context = OrderActivity.this;
         Log.e("hi////", "ghuygubgiugvuyuuihguogyuygukyvgbuk");
 
         setuptoolbar();
 
-        progress_handler = new ProgressBarHandler(this);
+        progress_handler = new ProgressBarHandler(context);
 
-        app_sharedpreference = new AppSharedPreference(this);
+        appSharedPreference = new AppSharedPreference(context);
 
-        user_id = app_sharedpreference.getsharedpref("userid", "");
+        user_id = appSharedPreference.getsharedpref("userid", "");
 
         setup_layout();
 
@@ -59,20 +58,20 @@ public class OrderActivity extends AppCompatActivity
 
     private void setup_layout() {
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
-
         order_list = (RecyclerView) findViewById(R.id.order_list);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
         order_list.setLayoutManager(mLayoutManager);
     }
 
     private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-        app_sharedpreference = new AppSharedPreference(OrderActivity.this);
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+        }
+        appSharedPreference = new AppSharedPreference(context);
     }
 
     @Override
@@ -98,16 +97,16 @@ public class OrderActivity extends AppCompatActivity
         orderListDatas.clear();
         progress_handler.show();
 
-        Log.e("hi////", app_sharedpreference.getsharedpref("userid", user_id)+"GGGGGGG"+app_sharedpreference.getsharedpref("usertype","1"));
+        Log.e("hi////", appSharedPreference.getsharedpref("userid", user_id) + "GGGGGGG" + appSharedPreference.getsharedpref("usertype", "1"));
 
-        Ion.with(OrderActivity.this)
-                .load(getResources().getString(R.string.webservice_base_url)+"/seller_order_list")
+        Ion.with(context)
+                .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
 
 
-                .setBodyParameter("seller_id", app_sharedpreference.getsharedpref("userid", user_id))
-                .setBodyParameter("type", app_sharedpreference.getsharedpref("usertype","1"))
+                .setBodyParameter("seller_id", appSharedPreference.getsharedpref("userid", user_id))
+                .setBodyParameter("type", appSharedPreference.getsharedpref("usertype", "1"))
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -134,9 +133,7 @@ public class OrderActivity extends AppCompatActivity
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            }
-                            else
-                                {
+                            } else {
 
                                 JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
 
@@ -144,8 +141,7 @@ public class OrderActivity extends AppCompatActivity
 
                                 JsonArray jsonArray = jsonObject1.getAsJsonArray("list");
 
-                                for (int i = 0; i < jsonArray.size(); i++)
-                                {
+                                for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                     String order_id = jsonObject2.get("id").getAsString();
@@ -170,9 +166,9 @@ public class OrderActivity extends AppCompatActivity
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
-                                    String product_image= jsonObject2.get("image_url").getAsString();
+                                    String product_image = jsonObject2.get("image_url").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at,product_image));
+                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at, product_image));
 
 
                                 }

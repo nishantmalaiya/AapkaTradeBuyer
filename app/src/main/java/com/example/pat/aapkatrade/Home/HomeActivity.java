@@ -39,6 +39,7 @@ import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
+import com.example.pat.aapkatrade.dialogs.track_order.Track_order_dialog;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
@@ -176,7 +177,6 @@ public class HomeActivity extends AppCompatActivity
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
                 onOptionsItemSelected(alertMenuItem);
             }
@@ -459,15 +459,15 @@ public class HomeActivity extends AppCompatActivity
                     case 2:
 
                         FragmentManager fm = getSupportFragmentManager();
-//                        Track_order_dialog track_order_dialog = new Track_order_dialog();
-//                        track_order_dialog.show(fm, "Track Order");
+                        Track_order_dialog track_order_dialog = new Track_order_dialog();
+                        track_order_dialog.show(fm, "Track Order");
 
 
 
-                        Intent i =new Intent(HomeActivity.this, Order_detail.class);
-                       i.putExtra("class_name", "");
-                       i.putExtra("result","");
-                        startActivity(i);
+//                        Intent i =new Intent(HomeActivity.this, Order_detail.class);
+//                       i.putExtra("class_name", "");
+//                       i.putExtra("result","");
+//                        startActivity(i);
                         //goToMyApp(true);
 
 

@@ -132,7 +132,7 @@ LinearLayout reset_password_container;
 //                call_reset_webservice();
 //            }
 //            else {
-//                showmessage("! password not matched");
+//                showMessage("! password not matched");
 //
 //            }
 //
@@ -144,7 +144,7 @@ LinearLayout reset_password_container;
        /* else
         {
 
-            showmessage(getResources().getString(R.string.password_validing_text));
+            showMessage(getResources().getString(R.string.password_validing_text));
 
         }
 

@@ -105,7 +105,7 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
 
     private void Validatefields() {
 
-        if (Validation.validateEdittext(et_email_forgot)) {
+        if (Validation.isValidEmail(et_email_forgot.getText().toString())) {
             call_forgotpasswod_webservice();
 
         } else if (Validation.validateEdittext(et_mobile_no)) {

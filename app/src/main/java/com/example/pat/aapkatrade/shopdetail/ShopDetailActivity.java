@@ -252,7 +252,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                                 openingClosingRelativeLayout.setVisibility(View.VISIBLE);
                                 for (int i = 0; i < openCloseDayArray.size(); i++) {
                                     JsonObject jsonObjectDays = (JsonObject) openCloseDayArray.get(i);
-                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString().substring(0, 3), jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time").getAsString());
+                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString().substring(0, 3), jsonObjectDays.get("open_time")==null?"":jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time")==null?"":jsonObjectDays.get("close_time").getAsString());
                                     openCloseDayArrayList.add(openCloseShopData);
 
                                 }
@@ -498,7 +498,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             public void onClick(View v) {
 
 
-                ServiceEnquiry serviceEnquiry = new ServiceEnquiry(product_id);
+                ServiceEnquiry serviceEnquiry = new ServiceEnquiry(product_id, context);
                 FragmentManager fm = getSupportFragmentManager();
                 serviceEnquiry.show(fm, "enquiry");
 
