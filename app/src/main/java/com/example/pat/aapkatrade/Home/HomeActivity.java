@@ -177,7 +177,6 @@ public class HomeActivity extends AppCompatActivity
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
                 onOptionsItemSelected(alertMenuItem);
             }

@@ -147,7 +147,7 @@ public class FilterDialog extends Dialog {
             }
         }
         if (count == tempList.size()) {
-            selectedHashMap.put(key, tempList);
+            selectedHashMap.remove(key);
         }
     }
 
