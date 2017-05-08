@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.shopdetail.shop_all_product;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.cart.CartHolder;
@@ -19,6 +21,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.productdetail.ProductDetailActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -29,6 +32,9 @@ import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
 import com.squareup.picasso.Picasso;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,11 +48,13 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
     final LayoutInflater inflater;
     List<ShopAllProductData> itemList;
     Context context;
-    ShopAllProductHolder viewHolder,homeHolder;
+    ShopAllProductHolder homeHolder;
     TextView textViewQuantity;
     LinearLayout linearLayoutQuantity;
     DroppyMenuPopup droppyMenu;
+    private ProgressBarHandler progressBarHandler;
     AppSharedPreference appSharedPreference;
+
 
 
     public ShopAllProductAdapter(Context context, List<ShopAllProductData> itemList)
@@ -54,10 +62,10 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-
         appSharedPreference = new AppSharedPreference(context);
-    }
+        progressBarHandler = new ProgressBarHandler(context);
 
+    }
 
 
     @Override
@@ -76,6 +84,8 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
 
         holder.tvProductName.setText(itemList.get(position).productName);
         holder.tvProductPrice.setText(itemList.get(position).productPrice);
+
+        System.out.println("itemlist------------"+itemList.get(position).productImage);
 
         Picasso.with(context).load(itemList.get(position).productImage)
                 .placeholder(R.drawable.default_noimage)
@@ -99,9 +109,6 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
                 .addMenuItem(new DroppyMenuItem("5"))
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
-
-
-
 
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
@@ -183,7 +190,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
 
     private void callwebservice__add_tocart(String product_id, String device_id, String product_name,String price, String qty)
     {
-
+        progressBarHandler.show();
         System.out.println("price-----------------------"+price);
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
@@ -208,16 +215,41 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        System.out.println("result--------------"+ result);
-                        JsonObject jsonObject = result.getAsJsonObject("result");
-                        JsonArray jsonArray = jsonObject.getAsJsonArray("items");
-                        appSharedPreference.setShared_pref_int("cart_count",jsonArray.size());
+                        if (result.isJsonNull())
+                        {
 
+                            Toast.makeText(context,"Server is not responding please try again",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                               System.out.println("result--------------" + result);
+                               String message = result.get("message").getAsString();
+                               JsonObject jsonObject = result.getAsJsonObject("result");
+
+                               if (message.equals("This Item Already Exist....."))
+                               {
+                                   progressBarHandler.hide();
+                                   Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
+
+                               }
+                               else
+                               {
+
+                                   Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
+                                   String cart_count = jsonObject.get("total_qty").getAsString();
+                                   appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                                   //int j = appSharedPreference.getsharedpref_int("cart_count",0);
+                                   ShopAllProductActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
+                                   progressBarHandler.hide();
+
+
+
+                               }
+
+                           }
 
                     }
                 });
-
-
 
     }
 

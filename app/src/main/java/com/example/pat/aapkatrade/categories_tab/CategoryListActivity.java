@@ -16,9 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
+import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.filter.FilterDialog;
@@ -27,6 +29,8 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -41,7 +45,8 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class CategoryListActivity extends AppCompatActivity {
+public class CategoryListActivity extends AppCompatActivity
+{
 
     private RecyclerView mRecyclerView;
     private CategoriesListAdapter categoriesListAdapter;
@@ -49,25 +54,30 @@ public class CategoryListActivity extends AppCompatActivity {
     private ProgressBarHandler progress_handler;
     private FrameLayout layout_container;
     private static String category_id, latitude = "0.0", longitude = "0.0";
-
     private AppSharedPreference appSharedPreference;
     private ArrayList<State> productAvailableStateList = new ArrayList<>();
     private Context context;
     private TextView toolbarRightText;
-
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
     ViewGroup view;
     private LinearLayoutManager linearLayoutManager;
     private int page = 1;
+    AppSharedPreference app_sharedpreference;
+    TextView tvCartCount;
+    int category_list_activity = 1;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_categories_list);
 
+        app_sharedpreference = new AppSharedPreference(CategoryListActivity.this);
+
         context = CategoryListActivity.this;
+
         Intent intent = getIntent();
 //        FilterDialog.filterString = "";
         Bundle b = intent.getExtras();
@@ -97,8 +107,10 @@ public class CategoryListActivity extends AppCompatActivity {
 
                 int lastVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition();
 
-                if (totalItemCount > 0) {
-                    if ((totalItemCount - 1) == lastVisibleItemCount) {
+                if (totalItemCount > 0)
+                {
+                    if ((totalItemCount - 1) == lastVisibleItemCount)
+                    {
                         page = page + 1;
                         getShopListData(String.valueOf(page));
                     }
@@ -116,7 +128,8 @@ public class CategoryListActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
-    private void getShopListData(final String pageNumber) {
+    private void getShopListData(final String pageNumber)
+    {
         State state = new State("-1", "Select State", "0");
         productAvailableStateList.add(state);
         AndroidUtils.showErrorLog(context, shopArrayListByCategory.size() + "^^^^^^^^^");
@@ -142,7 +155,6 @@ public class CategoryListActivity extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
 
-
                             if (result == null) {
                                 layout_container.setVisibility(View.INVISIBLE);
                             } else {
@@ -150,7 +162,7 @@ public class CategoryListActivity extends AppCompatActivity {
                                 Log.e(AndroidUtils.getTag(context), result.toString());
                                 if (result.get("error").getAsString().contains("false")) {
                                     if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
-                                        toolbarRightText.setVisibility(View.VISIBLE);
+                                        //toolbarRightText.setVisibility(View.VISIBLE);
 
                                         JsonArray statesArray1 = result.get("filter").getAsJsonArray();
                                         for (int i = 0; i < statesArray1.size(); i++) {
@@ -294,6 +306,12 @@ public class CategoryListActivity extends AppCompatActivity {
 
     }
 
+
+    private void loadResultData(JsonArray resultJsonArray)
+    {
+        for (int i = 0; i < resultJsonArray.size(); i++)
+        {
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -309,6 +327,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
     private void loadResultData(JsonArray resultJsonArray) {
         for (int i = 0; i < resultJsonArray.size(); i++) {
+
             JsonObject jsonObject2 = (JsonObject) resultJsonArray.get(i);
             AndroidUtils.showErrorLog(context, "<--result-->cITY" + i + jsonObject2.toString());
             String shopId = jsonObject2.get("id").getAsString();
@@ -317,17 +336,19 @@ public class CategoryListActivity extends AppCompatActivity {
             String distance = jsonObject2.get("distance").getAsString();
             String shopLocation = /*jsonObject2.get("city_name").getAsString() + "," +*/ jsonObject2.get("state_name").getAsString() + "," + jsonObject2.get("country_name").getAsString();
 
-
             Log.e("shop_list", shopImage);
             shopArrayListByCategory.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, distance));
 
-
             AndroidUtils.showErrorLog(context, "shopArrayListByCategory : " + shopArrayListByCategory.get(i).shopImage);
-
         }
+
+
+
     }
 
-    private void setUpToolBar() {
+    private void setUpToolBar()
+    {
+
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
@@ -340,61 +361,120 @@ public class CategoryListActivity extends AppCompatActivity {
             }
         });
         toolbarRightText = (TextView) findViewById(R.id.toolbarRightText);
-        toolbarRightText.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_filter));
+        toolbarRightText.setVisibility(View.GONE);
+        //toolbarRightText.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_filter));
         toolbarRightText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterDialog filterDialog = new FilterDialog(context, category_id, filterHashMap);
-                filterDialog.show();
+               /* FilterDialog filterDialog = new FilterDialog(context, category_id, filterHashMap);
+                filterDialog.show();*/
             }
         });
         setSupportActionBar(toolbar);
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
             getSupportActionBar().setElevation(0);
         }
+
+
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        getMenuInflater().inflate(R.menu.user, menu);
+
+        final MenuItem alertMenuItem = menu.findItem(R.id.cart_total_item);
+
+
+        RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
+
+         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+
+        // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
+
+        tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count",0)));
+
+        badgeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
+                onOptionsItemSelected(alertMenuItem);
+            }
+        });
         return true;
+
+        /*getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
+
+        redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
+        countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
+
+        return true;*/
+
+
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.cart_total_item:
+                Intent intent = new Intent(CategoryListActivity.this, MyCartActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.filter:
+                FilterDialog filterDialog = new FilterDialog(context, category_id, filterHashMap);
+                filterDialog.show();
+                break;
+
             case android.R.id.home:
                 finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-    private void loadFilterDataInHashMap(JsonArray filterArray) {
+    private void loadFilterDataInHashMap(JsonArray filterArray)
+    {
         filterHashMap = new ArrayMap<>();
-        if (filterArray.size() > 0) {
+        if (filterArray.size() > 0)
+        {
             AndroidUtils.showErrorLog(context, "size of filter Array is  :  " + filterArray.size());
-            for (int i = 0; i < filterArray.size(); i++) {
+            for (int i = 0; i < filterArray.size(); i++)
+            {
                 JsonObject filterObject = (JsonObject) filterArray.get(i);
                 String filterName = filterObject.get("name").getAsString();
                 JsonArray valueJsonArray = filterObject.get("values").getAsJsonArray();
                 ArrayList<FilterObject> valueArrayList = new ArrayList<>();
 
-                if (valueJsonArray != null) {
+                if (valueJsonArray != null)
+                {
 
-                    for (int j = 0; j < valueJsonArray.size(); j++) {
+                    for (int j = 0; j < valueJsonArray.size(); j++)
+                    {
+
                         FilterObject filterObjectData = new FilterObject();
                         JsonObject filterValueObject = (JsonObject) valueJsonArray.get(j);
                         String[] filterValueObjectArray = filterValueObject.toString().replaceAll("\\{", "").replaceAll("\\}", "").trim().split(",");
                         AndroidUtils.showErrorLog(context, "Length of filter value array is : ******" + filterValueObjectArray.length);
 
-                        for (int k = 0; k < filterValueObjectArray.length; k++) {
+                        for (int k = 0; k < filterValueObjectArray.length; k++)
+                        {
                             AndroidUtils.showErrorLog(context, "filterValueObjectArray[k]" + filterValueObjectArray[k]);
                             String key = filterValueObjectArray[k].split(":")[0].replaceAll("\"", "");
                             String value = filterValueObjectArray[k].split(":")[1].replaceAll("\"", "");
@@ -411,11 +491,30 @@ public class CategoryListActivity extends AppCompatActivity {
                         }
 
                         valueArrayList.add(filterObjectData);
+
                     }
                 }
                 filterHashMap.put(filterName, valueArrayList);
             }
         }
+    }
+
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if (category_list_activity == 1)
+        {
+
+            category_list_activity = 2;
+        }
+        else
+        {
+            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+        }
+
     }
 
 

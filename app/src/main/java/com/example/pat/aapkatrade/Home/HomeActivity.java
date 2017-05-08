@@ -56,7 +56,6 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity
 {
 
-
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private DashboardFragment homeFragment;
@@ -82,9 +81,9 @@ public class HomeActivity extends AppCompatActivity
     ProgressBarHandler progressBarHandler;
     public  TextView countTextView;
     FrameLayout redCircle;
+    public static TextView tvCartCount;
 
-
-
+    int home_activity= 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -171,7 +170,7 @@ public class HomeActivity extends AppCompatActivity
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 
-        TextView tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
        // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
 
@@ -308,6 +307,8 @@ public class HomeActivity extends AppCompatActivity
                 });
 
                 popup.show();//showing popup menu
+
+
 
         }
 
@@ -659,6 +660,23 @@ public class HomeActivity extends AppCompatActivity
                 Toast.makeText(HomeActivity.this, "You don't have any app that can open this link", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if (home_activity == 1)
+        {
+
+            home_activity = 2;
+        }
+        else
+        {
+            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+        }
+
     }
 
 

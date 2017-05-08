@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1F5F8"
@@ -11,15 +12,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/linearLayout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <include
-            android:id="@+id/toolbar_data"
+
             layout="@layout/toolbar_layout" />
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/relativePincode"
             android:layout_width="match_parent"
             android:layout_height="@dimen/sixty_dip"
-            android:layout_below="@+id/toolbar_data"
+            android:layout_below="@+id/linearLayout_toolbar"
             android:background="@color/white"
             >
 

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
+import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
@@ -101,14 +102,14 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
     RecyclerView reviewList, openShopList, productRecyclerView;
     LinearLayoutManager mLayoutManager, mLayoutManagerShoplist, llmanagerProductList;
-
-
     ReviewListAdapter reviewListAdapter;
     OpenCloseDaysRecyclerAdapter openCloseDaysRecyclerAdapter;
     ArrayList<ReviewListData> reviewListDatas = new ArrayList<>();
     CommomAdapter commomAdapter_latestpost;
     private ArrayList<OpenCloseShopData> openCloseDayArrayList = new ArrayList<>();
     private String shopId;
+    public static TextView tvCartCount;
+    int shop_detail_activity = 1;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -531,23 +532,82 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
     }
 
 
+
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        final MenuItem alertMenuItem = menu.findItem(R.id.cart_total_item);
+
+        final MenuItem login = menu.findItem(R.id.login);
+
+        login.setVisible(false);
+
+        final  MenuItem language = menu.findItem(R.id.language);
+
+        language.setVisible(false);
+
+        RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
+
+         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+
+        tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count",0)));
+
+        // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
+
+        badgeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
+                onOptionsItemSelected(alertMenuItem);
+            }
+        });
+
+
+        return true;
+
+        /*getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
+
+        redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
+        countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
+
+        return true;*/
+
+    }
+
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
-    }
+    }*/
+
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.cart_total_item:
+                Intent intent = new Intent(ShopDetailActivity.this, MyCartActivity.class);
+                startActivity(intent);
+                break;
             case android.R.id.home:
                 finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
+
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
     @Override
@@ -565,5 +625,21 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         }
     }
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if (shop_detail_activity == 1)
+        {
+
+            shop_detail_activity = 2;
+        }
+        else
+            {
+            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+        }
+
+    }
 
 }

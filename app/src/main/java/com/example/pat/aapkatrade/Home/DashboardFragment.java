@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -239,6 +241,7 @@ AppSharedPreference appSharedPreference;
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
 
+
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -256,6 +259,12 @@ AppSharedPreference appSharedPreference;
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
+
+                            String cart_count = jsonResult.get("cart_count").getAsString();
+
+                            appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                            //int j = appSharedPreference.getsharedpref_int("cart_count",0);
+                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
 
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");

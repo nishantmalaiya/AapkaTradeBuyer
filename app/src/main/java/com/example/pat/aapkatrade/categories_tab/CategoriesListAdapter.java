@@ -97,8 +97,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 .error(R.drawable.default_noimage)
                 .into(homeHolder.productimage);
 
-//
-
         homeHolder.distance.setText(itemList.get(position).distance);
 
         homeHolder.relativeLayout1.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +109,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 intent.putExtra("product_location", itemList.get(position).shopLocation);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-
 
 
             }

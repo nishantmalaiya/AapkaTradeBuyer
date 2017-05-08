@@ -151,7 +151,6 @@ public class CategoriesTabActivity extends AppCompatActivity implements  AppBarL
     {
         switch (item.getItemId())
         {
-
             case android.R.id.home:
                 finish();
                 break;
