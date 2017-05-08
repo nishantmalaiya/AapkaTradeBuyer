@@ -13,12 +13,18 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.track_order.singleproductdetail.SingleproductDetail;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +33,9 @@ import java.util.ArrayList;
 /**
  * Created by Netforce on 7/25/2016.
  */
-public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
+
 
     private Context context;
     private ArrayList<CommomData> commomDatas;
@@ -36,6 +44,10 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private String TAG;
     float initialX, initialY;
     private final int SPLASH_DISPLAY_LENGTH = 3000;
+    AppSharedPreference appSharedPreference;
+    private ProgressBarHandler progressBarHandler;
+
+
 
     public CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
         this.context = context;
@@ -44,6 +56,10 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.categorytype = categorytype;
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         TAG = context.getClass().getSimpleName();
+
+        appSharedPreference = new AppSharedPreference(context);
+        progressBarHandler = new ProgressBarHandler(context);
+
     }
 
     @Override
@@ -211,14 +227,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
 
-
-
-
-
-
-
-
-
         else if (arrangementtype == "list_product") {
 
             final CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
@@ -278,18 +286,30 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             AndroidUtils.setImageColor(viewHolder_listProduct.product_addcard, context, R.color.color_voilet);
             AndroidUtils.setImageColor(viewHolder_listProduct.product_description, context, R.color.color_voilet);
+
+
             viewHolder_listProduct.product_description.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ShopDetailActivity.class);
-                    intent.putExtra("product_id", commomDatas.get(position).id);
-                    context.startActivity(intent);
-                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+                public void onClick(View v)
+                {
+
+                    String product_id = commomDatas.get(position).id;
+                    String product_name = commomDatas.get(position).name;
+                    String price = commomDatas.get(position).price;
+
+                    callwebservice__add_tocart(product_id,"",product_name,price,"1");
+
+
                 }
             });
             viewHolder_listProduct.product_addcard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Intent intent = new Intent(context, ShopDetailActivity.class);
+                    intent.putExtra("product_id", commomDatas.get(position).id);
+                    context.startActivity(intent);
+                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 
                 }
             });
@@ -360,6 +380,70 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return commomDatas.size();
+    }
+
+
+
+    private void callwebservice__add_tocart(String product_id, String device_id, String product_name,String price, String qty)
+    {
+        progressBarHandler.show();
+        System.out.println("price-----------------------"+price);
+
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
+
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("product_id", product_id)
+                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("name",product_name)
+                .setBodyParameter("price",price)
+                .setBodyParameter("quantity","1")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        System.out.println("result------------------------"+result);
+
+                        if (result.isJsonNull())
+                        {
+
+                            Toast.makeText(context,"Server is not responding please try again",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            System.out.println("result--------------" + result);
+                            String message = result.get("message").getAsString();
+                            JsonObject jsonObject = result.getAsJsonObject("result");
+
+                            if (message.equals("This Item Already Exist....."))
+                            {
+                                progressBarHandler.hide();
+                                Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else
+                            {
+
+                                Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
+                                String cart_count = jsonObject.get("total_qty").getAsString();
+                                appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                                //int j = appSharedPreference.getsharedpref_int("cart_count",0);
+                                ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
+                                progressBarHandler.hide();
+
+
+                            }
+
+                        }
+
+                    }
+                });
+
     }
 
 

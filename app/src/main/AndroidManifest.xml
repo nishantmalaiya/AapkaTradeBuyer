@@ -89,14 +89,13 @@
         <activity android:name=".user_dashboard.order_list.OrderManagementActivity" />
         <activity android:name=".ZoomImage.ZoomImageDialog" />
         <activity android:name=".payment.PaymentActivity" />
-        <activity android:name=".rateus.RateusActivity" />
 
         <activity android:name=".rateus.RateUsActivity" />
         <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
         <activity
             android:name=".Home.cart.MyCartActivity"
             android:label="@string/title_activity_my_cart"
-            android:theme="@style/AppTheme" />
+         />
 
         <service
             android:name=".service.LocationService"

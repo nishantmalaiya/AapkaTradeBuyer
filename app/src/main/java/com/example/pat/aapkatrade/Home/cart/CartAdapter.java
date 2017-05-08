@@ -17,7 +17,10 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -44,6 +47,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     private DroppyMenuPopup droppyMenu;
     private LinearLayout linearLayoutQuantity;
     private EditText editText;
+    AppSharedPreference appSharedPreference;
+    private ProgressBarHandler progressBarHandler;
 
 
     public CartAdapter(Context context, List<CartData> itemList)
@@ -52,6 +57,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
+
+        appSharedPreference = new AppSharedPreference(context);
+
+        progressBarHandler = new ProgressBarHandler(context);
+
+        System.out.println("itemlist_cartdata-----------------"+itemList.size());
+
+
+
     }
 
     @Override
@@ -62,8 +76,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     @Override
     public void onBindViewHolder(final CartHolder holder, final int position)
     {
+
         linearLayoutQuantity = holder.dropdown_ll;
+
         textViewQuantity = holder.textView64;
+
+        //linearLayoutQuantity.setOnClickListener(this);
+
         textViewQuantity.setText(itemList.get(position).quantity);
 
         holder.tvProductName.setText(itemList.get(position).productName);
@@ -114,9 +133,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *3;
                         holder.tvProductPrice.setText(String.valueOf(cart_price));
-
-
                         break;
+
                     case 3:
                         itemList.get(position).setQuantity("4");
                         holder.textView64.setText(itemList.get(position).quantity);
@@ -134,8 +152,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     case 5:
                         showPopup("Quantity", position);
                         break;
-
-
 
                 }
             }
@@ -164,7 +180,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
 
     }
 
@@ -203,6 +220,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     private void callwebservice__delete_cart(String product_id, final int position)
     {
 
+        progressBarHandler.show();
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_remove";
 
         String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -222,9 +240,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        System.out.println("result--------------"+ result);
-                        itemList.remove(position);
-                        notifyDataSetChanged();
+
+                        if (result.isJsonNull()){
+
+                            Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            System.out.println("result--------------"+ result);
+                            JsonObject jsonObject = result.getAsJsonObject("result");
+                            String cart_count = jsonObject.get("total_qty").getAsString();
+                            appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                            itemList.remove(position);
+                            notifyDataSetChanged();
+
+                            progressBarHandler.hide();
+
+                        }
+
 
                     }
                 });
