@@ -42,6 +42,7 @@
     <dimen name="fifty_five_dip">61dp</dimen>
     <dimen name="seventy_dip">77dp</dimen>
     <dimen name="one_dip">1dp</dimen>
+    <dimen name="sixty_dip">66dp</dimen>
 
 
 </resources>

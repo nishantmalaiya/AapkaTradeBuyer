@@ -25,7 +25,8 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-public class ShopAllProductActivity extends AppCompatActivity {
+public class ShopAllProductActivity extends AppCompatActivity
+{
 
     private ArrayList<ShopAllProductData> shopAllProductDatas = new ArrayList<>();
     private RecyclerView mRecyclerView;
@@ -112,8 +113,7 @@ public class ShopAllProductActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getAllShopProducts(String pageNumber)
-    {
+    private void getAllShopProducts(String pageNumber) {
         progressBarHandler.show();
 
 
@@ -130,15 +130,17 @@ public class ShopAllProductActivity extends AppCompatActivity {
                         if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
                             JsonArray jsonProductList = result.getAsJsonArray("all_products");
-                            if (jsonProductList != null && jsonProductList.size() > 0) {
-                                for (int i = 0; i < jsonProductList.size(); i++) {
+                            if (jsonProductList != null && jsonProductList.size() > 0)
+                            {
+                                for (int i = 0; i < jsonProductList.size(); i++)
+                                {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String productId = jsonproduct.get("id").getAsString();
                                     String productName = jsonproduct.get("name").getAsString();
                                     String productShortDescription = jsonproduct.get("short_des").getAsString();
                                     String price = jsonproduct.get("price").getAsString();
                                     String productImage = jsonproduct.get("image_url").getAsString();
-                                    shopAllProductDatas.add(new ShopAllProductData(productId, productName, productShortDescription, price, productImage,""));
+                                    shopAllProductDatas.add(new ShopAllProductData(productId, productName, productShortDescription, price, productImage, ""));
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mRecyclerView.setLayoutManager(mLayoutManager);
@@ -151,6 +153,8 @@ public class ShopAllProductActivity extends AppCompatActivity {
 
                     }
                 });
-
     }
+
+
+
 }

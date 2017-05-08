@@ -737,7 +737,7 @@
                                             android:layout_width="0dp"
                                             android:layout_height="match_parent"
                                             android:layout_weight="0.01"
-                                            android:background="#E6E2E3"></View>
+                                            android:background="#E6E2E3" />
 
 
                                         <RelativeLayout
@@ -902,7 +902,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
                                     android:layout_marginTop="@dimen/ten_dip"
-                                    android:background="#BDBAB5"></View>
+                                    android:background="#BDBAB5" />
 
                                 <RelativeLayout
                                     android:id="@+id/relativeRateReview"

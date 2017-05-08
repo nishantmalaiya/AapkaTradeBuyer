@@ -32,26 +32,23 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 
-public class RateusActivity extends AppCompatActivity
-{
+public class RateUsActivity extends AppCompatActivity {
 
-    TextView tvProductName,tvCategoriesName,tvReviewHeading;
+    TextView tvProductName, tvCategoriesName, tvReviewHeading;
     RatingBar ratingbar;
-    Button butttonExperience,buttonSubmit;
-    EditText edtWriteTitleReview,edtWriteMessage;
+    Button butttonExperience, buttonSubmit;
+    EditText etTitle, etMessage;
     Context context;
-    AppSharedPreference app_sharedpreference;
-    String user_id,product_id,product_name,product_price,product_image;
+    AppSharedPreference appSharedPreference;
+    String user_id, product_id, product_name, product_price, product_image;
     ProgressBarHandler progress_handler;
-    CoordinatorLayout coordinationRateus;
     ImageView imgProduct;
     public static float rating_count;
-
+    private CoordinatorLayout coordinationRateus;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_rateus);
@@ -68,27 +65,24 @@ public class RateusActivity extends AppCompatActivity
 
         product_image = b.getString("product_image");
 
-        System.out.println("product_id------------"+product_id.toString());
+        System.out.println("product_id------------" + product_id.toString());
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new AppSharedPreference(getApplicationContext());
+        appSharedPreference = new AppSharedPreference(getApplicationContext());
 
-        user_id = app_sharedpreference.getsharedpref("userid", "");
+        user_id = appSharedPreference.getsharedpref("userid", "");
 
-        context = RateusActivity.this;
+        context = RateUsActivity.this;
 
         setUpToolBar();
 
         setup_layout();
 
 
-
-
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
         coordinationRateus = (CoordinatorLayout) findViewById(R.id.coordinationRateus);
 
@@ -108,45 +102,36 @@ public class RateusActivity extends AppCompatActivity
 
         ratingbar.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
             @Override
-            public void onRatingChange(float RatingCount)
-            {
+            public void onRatingChange(float RatingCount) {
 
                 rating_count = RatingCount;
             }
         });
 
-        butttonExperience= (Button) findViewById(R.id.butttonExperience);
+        butttonExperience = (Button) findViewById(R.id.butttonExperience);
 
         tvReviewHeading = (TextView) findViewById(R.id.tvReviewHeading);
 
-        edtWriteTitleReview = (EditText) findViewById(R.id.edtWriteReview);
+        etTitle = (EditText) findViewById(R.id.edtWriteReview);
 
-        edtWriteMessage = (EditText) findViewById(R.id.edtWriteMessage);
+        etMessage = (EditText) findViewById(R.id.edtWriteMessage);
 
         butttonExperience = (Button) findViewById(R.id.butttonExperience);
 
         buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
 
-        buttonSubmit.setOnClickListener(new View.OnClickListener()
-        {
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if (edtWriteTitleReview.getText().toString().length()>10)
-                {
-                    if (edtWriteMessage.getText().toString().length()>10)
-                    {
-                        callChangePasswordWebService();
+                if (etTitle.getText().toString().length() > 10) {
+                    if (etMessage.getText().toString().length() > 10) {
+                        callWriteReviewsWebService();
+                    } else {
+                        AndroidUtils.showSnackBar(coordinationRateus, "Message must be >= 10 Characters");
                     }
-                    else
-                    {
-                        AndroidUtils.showSnackBar(coordinationRateus,"Please Enter Minimum 10 String length Message");
-                    }
-                }
-                else
-                {
-                    AndroidUtils.showSnackBar(coordinationRateus,"Please Enter Minimum 10 String length Title");
+                } else {
+                    AndroidUtils.showSnackBar(coordinationRateus, "Title must be >= 10 Characters");
                 }
 
             }
@@ -156,20 +141,18 @@ public class RateusActivity extends AppCompatActivity
     }
 
 
-    private void setUpToolBar()
-    {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
         back_imagview.setVisibility(View.VISIBLE);
-        back_imagview.setOnClickListener(new View.OnClickListener()
-        {
+        back_imagview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 finish();
             }
         });
-        findViewById(R.id.logoWord).setVisibility(View.GONE); ;
+        findViewById(R.id.logoWord).setVisibility(View.GONE);
+        ;
         TextView header_name = (TextView) findViewById(R.id.header_name);
         header_name.setVisibility(View.VISIBLE);
         header_name.setText(getResources().getString(R.string.write_and_review));
@@ -193,17 +176,14 @@ public class RateusActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -214,76 +194,53 @@ public class RateusActivity extends AppCompatActivity
     }
 
 
-
-    private void callChangePasswordWebService()
-    {
+    private void callWriteReviewsWebService() {
 
         progress_handler.show();
 
-        if (ConnetivityCheck.isNetworkAvailable(RateusActivity.this))
-        {
+        if (ConnetivityCheck.isNetworkAvailable(RateUsActivity.this)) {
 
-            System.out.println("sachin-----------"+product_id+ user_id);
+            AndroidUtils.showErrorLog(context, "-----------" + product_id + user_id);
 
-            Ion.with(RateusActivity.this)
-                    .load(getResources().getString(R.string.webservice_base_url)+"/write_review")
+            Ion.with(RateUsActivity.this)
+                    .load(getResources().getString(R.string.webservice_base_url) + "/write_review")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("user_id", user_id)
-                    .setBodyParameter("message", edtWriteMessage.getText().toString())
+                    .setBodyParameter("message", etMessage.getText().toString())
                     .setBodyParameter("product_id", product_id)
                     .setBodyParameter("rating", String.valueOf(rating_count))
-                    .setBodyParameter("title", edtWriteTitleReview.getText().toString())
+                    .setBodyParameter("title", etTitle.getText().toString())
                     .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>()
-                    {
+                    .setCallback(new FutureCallback<JsonObject>() {
                         @Override
-                        public void onCompleted(Exception e, JsonObject result)
-                        {
-
-                            System.out.println("result______________"+result);
-
-                            if (result == null)
-                            {
-                                Log.e("change_password_error",e.toString());
+                        public void onCompleted(Exception e, JsonObject result) {
+                            if (result == null) {
                                 progress_handler.hide();
-                            }
-                            else
-                            {
+                            } else {
                                 JsonObject jsonObject = result.getAsJsonObject();
                                 String message = jsonObject.get("message").getAsString();
-                                Log.e("data_change_password", result.toString());
 
-                                if (message.toString().equals("Your reviews already submitted!"))
-                                {
-
+                                if (message.equals("Your review already submitted!")) {
                                     progress_handler.hide();
-                                    Toast.makeText(RateusActivity.this,message,Toast.LENGTH_SHORT).show();
+                                    AndroidUtils.showSnackBar(coordinationRateus, message);
 
-                                }
-                                else
-                                {
+                                } else {
                                     progress_handler.hide();
-                                    edtWriteMessage.setText("");
-                                    edtWriteTitleReview.setText("");
-                                    //showMessage(message);
-                                    Toast.makeText(RateusActivity.this,message,Toast.LENGTH_SHORT).show();
-
+                                    etMessage.setText("");
+                                    etTitle.setText("");
+                                    AndroidUtils.showSnackBar(coordinationRateus, message);
                                 }
-
+                                finish();
                             }
                         }
 
                     });
-        }
-        else
-        {
-            Intent intent = new Intent(RateusActivity.this, ConnectivityNotFound.class);
-            intent.putExtra("callerActivity", ChangePassword.class.getName());
+        } else {
+            Intent intent = new Intent(RateUsActivity.this, ConnectivityNotFound.class);
+            intent.putExtra("callerActivity", RateUsActivity.class.getName());
             startActivity(intent);
         }
-
-
 
 
     }
