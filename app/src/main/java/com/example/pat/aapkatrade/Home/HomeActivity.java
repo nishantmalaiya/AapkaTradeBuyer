@@ -56,6 +56,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity
 {
 
+
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private DashboardFragment homeFragment;
@@ -84,8 +85,10 @@ public class HomeActivity extends AppCompatActivity
 
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
@@ -121,7 +124,6 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             App_config.deleteCache(HomeActivity.this);
 
-
         }
         else
         {
@@ -139,16 +141,14 @@ public class HomeActivity extends AppCompatActivity
             checked_wifispeed();
             App_config.deleteCache(HomeActivity.this);
 
-
         }
+
     }
 
-
-    private void checked_wifispeed() {
-
+    private void checked_wifispeed()
+    {
         int a = ConnetivityCheck.get_wifi_speed(this);
         Log.e("a", a + "");
-
     }
 
 
@@ -161,24 +161,25 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
 
         final MenuItem alertMenuItem = menu.findItem(R.id.cart_total_item);
 
-         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
+        RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
+
+        TextView tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+
+       // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
-
                 onOptionsItemSelected(alertMenuItem);
-
-
             }
         });
 
@@ -196,11 +197,8 @@ public class HomeActivity extends AppCompatActivity
         return true;*/
 
 
+
     }
-
-
-
-
 
 
     private void setupToolBar()
@@ -235,8 +233,6 @@ public class HomeActivity extends AppCompatActivity
         });*/
 
 
-
-
     }
 
     private void replaceFragment(Fragment newFragment, String tag) {
@@ -246,7 +242,8 @@ public class HomeActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void setupDashFragment() {
+    private void setupDashFragment()
+    {
         if (homeFragment == null) {
             homeFragment = new DashboardFragment();
         }
@@ -255,16 +252,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
         int id = item.getItemId();
         switch (id) {
             case R.id.cart_total_item:
 
-               // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
-
+                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                 startActivity(intent);
+
 
                 break;
             case R.id.login:

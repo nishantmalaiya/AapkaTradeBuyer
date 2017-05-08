@@ -136,52 +136,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
                         android:layout_marginRight="@dimen/twenty_dip"
-                        android:layout_marginTop="@dimen/ten_dip"
-                        android:clickable="false"
-                        android:focusable="true"
-                        android:textColorHint="@color/hint_color"
-                        app:hintAnimationEnabled="true"
-                        app:hintEnabled="true"
-                        app:hintTextAppearance="@style/nofocus_edittext_theme">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical|center_horizontal">
-
-                            <EditText
-                                android:id="@+id/etDOB"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/five_dip"
-                                android:layout_marginRight="@dimen/five_dip"
-                                android:enabled="false"
-                                android:focusableInTouchMode="true"
-                                android:hint="@string/date_of_birth"
-                                android:inputType="text"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:theme="@style/nofocus_edittext_theme" />
-
-
-                            <ImageView
-                                android:id="@+id/openCalander"
-                                android:layout_width="@dimen/thirty_five_dip"
-                                android:layout_height="@dimen/thirty_five_dip"
-                                android:layout_alignParentRight="true"
-                                android:padding="@dimen/five_dip"
-                                android:src="@drawable/ic_calendar" />
-
-
-                        </RelativeLayout>
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/twenty_dip"
-                        android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginBottom="@dimen/ten_dip"
                         android:textColorHint="@color/hint_color">
 

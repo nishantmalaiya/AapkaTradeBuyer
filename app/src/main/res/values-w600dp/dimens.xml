@@ -42,4 +42,5 @@
     <dimen name="three_hundred_dip">390dp</dimen>
     <dimen name="seventy_dip">91dp</dimen>
     <dimen name="one_dip">1dp</dimen>
+    <dimen name="sixty_dip">78dp</dimen>
 </resources>

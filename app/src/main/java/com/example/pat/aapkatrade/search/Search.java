@@ -87,13 +87,12 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
     SearchcategoryAdapter searchResults_category_Adapter;
     SearchStateAdapter searchResults_state_Adapter, searchResults_city_Adapter;
     HashMap<String, String> webservice_header_type = new HashMap<>();
-    String currentlocation_statename,latitude,longitude;
+    String currentlocation_statename, latitude, longitude;
     int current_state_index;
     String class_name;
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
     String selected_categoryid;
     ViewPager viewpager_state;
-    FloatingActionButton fab_filter;
     AppCompatImageView voice_search;
 
     @Override
@@ -105,8 +104,8 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         Intent i = getIntent();
         currentlocation_statename = i.getStringExtra("state_name");
 
-        latitude=i.getStringExtra("latitude");
-        longitude=i.getStringExtra("longitude");
+        latitude = i.getStringExtra("latitude");
+        longitude = i.getStringExtra("longitude");
         Log.e("current_statename_", currentlocation_statename);
 
         class_name = i.getStringExtra("classname");
@@ -162,19 +161,6 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
 
         coordinate_search = (CoordinatorLayout) findViewById(R.id.coordinate_search);
-        fab_filter = (FloatingActionButton) findViewById(R.id.search_filter_fab);
-        fab_filter.setBackgroundTintList(getResources().getColorStateList(R.color.color_voilet));
-
-
-        fab_filter.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                FilterDialog filterDialog = new FilterDialog(Search.this, "", filterHashMap);
-                filterDialog.show();
-            }
-        });
-
 
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
             @Override
@@ -199,16 +185,14 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
                     autocomplete_textview_product.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> p, View v, int pos, long id) {
-
-
                             Log.e("search_click_data", p.getItemAtPosition(pos).toString());
-
                         }
                     });
 
 
                 } else {
-                    product_autocompleteadapter.notifyDataSetChanged();
+                    if (product_autocompleteadapter != null)
+                        product_autocompleteadapter.notifyDataSetChanged();
                 }
 
             }
@@ -301,15 +285,15 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
         String search_url = (getResources().getString(R.string.webservice_base_url)) + "/search";
         progressBarHandler.show();
 
-Log.e("lat_search",latitude+""+longitude);
+        Log.e("lat_search", latitude + "" + longitude);
         Ion.with(Search.this)
                 .load(search_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("location", location_text)
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", product_name1)
-                .setBodyParameter("lat",latitude)
-                .setBodyParameter("long",longitude)
+                .setBodyParameter("lat", latitude)
+                .setBodyParameter("long", longitude)
                 .setBodyParameter("apply", "1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -347,7 +331,7 @@ Log.e("lat_search",latitude+""+longitude);
 
         String error = jsonObject.get("error").getAsString();
         String message = jsonObject.get("message").getAsString();
-        if (message.contains("Failed")) {
+        if (error.contains("true")) {
 
 
             AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
@@ -357,8 +341,8 @@ Log.e("lat_search",latitude+""+longitude);
             //  search_productlist=new ArrayList<>();
 
             Log.e("data2_search", result.toString());
-            if (jsonObject.get("result").isJsonNull()) {
-                Log.e("data_jsonArray null", result.toString());
+            if (jsonObject.get("result") == null) {
+                Log.e("data_jsonArray null", "NULLLLL");
             }
 
 
@@ -457,9 +441,6 @@ Log.e("lat_search",latitude+""+longitude);
 
             }
             progressBarHandler.hide();
-            fab_filter.setVisibility(View.VISIBLE);
-
-
         }
 
 
@@ -492,53 +473,51 @@ Log.e("lat_search",latitude+""+longitude);
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             String error = jsonObject.get("error").getAsString();
-                            String message = jsonObject.get("message").getAsString();
-                            if (message.contains("Failed")) {
+                            if (error.contains("false")) {
+                                String message = jsonObject.get("message").getAsString();
+                                if (message.contains("Failed")) {
 
 
-                                AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
-
-                            } else {
-
-                                Log.e("data2", result.toString());
-//                                if (jsonObject.get("result").isJsonNull()) {
-//
-//                                }
+                                    AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
 
 
-                                JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+
+                                    Log.e("data2", result.toString());
+                                    if (jsonObject.get("result") == null) {
+
+                                    } else {
+                                        JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+                                        for (int l = 0; l < jsonarray_result.size(); l++) {
+
+                                            JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
+                                            String productname = jsonObject_result.get("name").getAsString();
+                                            String distance = jsonObject_result.get("distance").getAsString();
+                                            SearchSuggestionList.add(productname);
+                                            DistanceList.add(String.valueOf(distance));
+                                        }
+                                    }
 
 
-                                for (int l = 0; l < jsonarray_result.size(); l++) {
-
-                                    JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
-                                    String productname = jsonObject_result.get("name").getAsString();
-                                    String distance = jsonObject_result.get("distance").getAsString();
-                                    SearchSuggestionList.add(productname);
-                                    DistanceList.add(String.valueOf(distance));
-                                }
+                                    if (error.contains("false")) {
 
 
-                                if (error.contains("false")) {
+                                        product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, SearchSuggestionList, DistanceList);
 
-
-                                    product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, SearchSuggestionList,DistanceList);
-
-                                    if (SearchSuggestionList.size() != 0)
-                                        autocomplete_textview_product.setAdapter(product_autocompleteadapter);
+                                        if (SearchSuggestionList.size() != 0)
+                                            autocomplete_textview_product.setAdapter(product_autocompleteadapter);
 
 
 //
+
+
+                                    }
 
 
                                 }
 
 
                             }
-
-
                         }
-
 
                     }
 

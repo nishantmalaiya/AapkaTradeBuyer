@@ -27,10 +27,14 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -44,8 +48,7 @@ public class CategoryListActivity extends AppCompatActivity {
     private ArrayList<CategoriesListData> shopArrayListByCategory = new ArrayList<>();
     private ProgressBarHandler progress_handler;
     private FrameLayout layout_container;
-
-    private String category_id, latitude = "0.0", longitude = "0.0";
+    private static String category_id, latitude = "0.0", longitude = "0.0";
 
     private AppSharedPreference appSharedPreference;
     private ArrayList<State> productAvailableStateList = new ArrayList<>();
@@ -66,7 +69,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
         context = CategoryListActivity.this;
         Intent intent = getIntent();
-
+//        FilterDialog.filterString = "";
         Bundle b = intent.getExtras();
         if (b != null) {
             latitude = b.getString("latitude");
@@ -74,6 +77,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
             category_id = b.getString("category_id");
         }
+
         appSharedPreference = new AppSharedPreference(this);
         setUpToolBar();
         initView();
@@ -119,79 +123,188 @@ public class CategoryListActivity extends AppCompatActivity {
 
         Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : " + category_id + "**" + latitude + "*****" + longitude);
 
-        Ion.with(CategoryListActivity.this)
-                .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "category")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("category_id", category_id)
-                .setBodyParameter("apply", "1")
-                .setBodyParameter("page", pageNumber)
-                .setBodyParameter("lat", latitude)
-                .setBodyParameter("long", longitude)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+
+        if (!(FilterDialog.filterString!= null && FilterDialog.filterString.length()>0)) {
+
+            AndroidUtils.showErrorLog(context, "shoplist by NOOOOOOOOOOOOOOO filter");
+            Ion.with(CategoryListActivity.this)
+                    .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
+                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setBodyParameter("type", "category")
+                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setBodyParameter("category_id", category_id)
+                    .setBodyParameter("apply", "1")
+                    .setBodyParameter("page", pageNumber)
+                    .setBodyParameter("lat", latitude)
+                    .setBodyParameter("long", longitude)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
 
 
-                        if (result == null) {
-                            layout_container.setVisibility(View.INVISIBLE);
-                        } else {
+                            if (result == null) {
+                                layout_container.setVisibility(View.INVISIBLE);
+                            } else {
 
-                            Log.e(AndroidUtils.getTag(context), result.toString());
-                            if (result.get("error").getAsString().contains("false")) {
-                                if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
-                                    toolbarRightText.setVisibility(View.VISIBLE);
+                                Log.e(AndroidUtils.getTag(context), result.toString());
+                                if (result.get("error").getAsString().contains("false")) {
+                                    if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
+                                        toolbarRightText.setVisibility(View.VISIBLE);
 
-                                    JsonArray statesArray1 = result.get("filter").getAsJsonArray();
-                                    for (int i = 0; i < statesArray1.size(); i++) {
-                                        JsonObject stateObject = (JsonObject) statesArray1.get(i);
-                                        Log.e("stateobject", stateObject.toString());
-                                    }
-
-                                    String message = result.get("message").toString();
-
-                                    String message_data = message.replace("\"", "");
-                                    AndroidUtils.showErrorLog(context, "message_data " + message_data);
-                                    Log.e("message_product_list", result.toString());
-
-                                    if (message_data.equals("No record found")) {
-                                        layout_container.setVisibility(View.INVISIBLE);
-                                    } else {
-                                        JsonArray resultJsonArray = result.getAsJsonArray("result");
-                                        JsonArray filterArray = result.getAsJsonArray("filter");
-                                        if (filterArray != null) {
-                                            loadFilterDataInHashMap(filterArray);
+                                        JsonArray statesArray1 = result.get("filter").getAsJsonArray();
+                                        for (int i = 0; i < statesArray1.size(); i++) {
+                                            JsonObject stateObject = (JsonObject) statesArray1.get(i);
+                                            Log.e("stateobject", stateObject.toString());
                                         }
 
-                                        if (resultJsonArray != null) {
-                                            loadResultData(resultJsonArray);
-                                        }
-                                        if (categoriesListAdapter == null) {
-                                            categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
-                                            mRecyclerView.setAdapter(categoriesListAdapter);
+                                        String message = result.get("message").toString();
+
+                                        String message_data = message.replace("\"", "");
+                                        AndroidUtils.showErrorLog(context, "message_data " + message_data);
+                                        Log.e("message_product_list", result.toString());
+
+                                        if (message_data.equals("No record found")) {
+                                            layout_container.setVisibility(View.INVISIBLE);
                                         } else {
-                                            categoriesListAdapter.notifyDataSetChanged();
-//                                    mRecyclerView.smoothScrollToPosition(21);
+                                            JsonArray resultJsonArray = result.getAsJsonArray("result");
+                                            JsonArray filterArray = result.getAsJsonArray("filter");
+                                            if (filterArray != null) {
+                                                loadFilterDataInHashMap(filterArray);
+                                            }
+                                        AndroidUtils.showErrorLog(context, resultJsonArray.size()+"*********************", resultJsonArray.toString());
+                                            if (resultJsonArray != null && resultJsonArray.size() > 0) {
+                                                loadResultData(resultJsonArray);
+                                            }
+                                            if (categoriesListAdapter == null) {
+                                                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
+                                                mRecyclerView.setAdapter(categoriesListAdapter);
+                                            } else {
+                                                categoriesListAdapter.notifyDataSetChanged();
+                                            }
+                                            progress_handler.hide();
                                         }
-
-
-                                        progress_handler.hide();
-
                                     }
-
                                 }
                             }
                         }
 
 
+                    });
 
-                    }
 
 
-                });
+        } else {
 
+            AndroidUtils.showErrorLog(context, "shoplist by filter --> "+FilterDialog.filterString);
+
+            Ion.with(CategoryListActivity.this)
+                    .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
+
+                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setBodyParameter("type", "category")
+                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setBodyParameter("category_id", category_id)
+                    .setBodyParameter("apply", "1")
+                    .setBodyParameter("extrafilter", FilterDialog.filterString)
+                    .setBodyParameter("page", pageNumber)
+                    .setBodyParameter("lat", latitude)
+                    .setBodyParameter("long", longitude)
+
+//                    .asString()
+//                    .setCallback(new FutureCallback<String>() {
+//                        @Override
+//                        public void onCompleted(Exception e, String result) {
+//                             if(result == null){
+//                                AndroidUtils.showErrorLog(context, "++++++++++++++++"+e.toString()+"___________");
+//
+//                            }else {AndroidUtils.showErrorLog(context, "shoplist by filter daaaaaaaaaata is "+result);
+//
+//
+//                             }
+//                        }
+//                    });
+
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+
+
+                            AndroidUtils.showErrorLog(context, "shoplist by filter daaaaaaaaaata is "+result.toString());
+                            if (result == null) {
+                                layout_container.setVisibility(View.INVISIBLE);
+                            } else {
+
+                                Log.e(AndroidUtils.getTag(context), result.toString());
+                                if (result.get("error").getAsString().contains("false")) {
+                                    if (Validation.isNumber(result.get("total_result").getAsString()) && Integer.parseInt(result.get("total_result").getAsString()) > 1) {
+                                        toolbarRightText.setVisibility(View.VISIBLE);
+
+                                        JsonArray statesArray1 = result.get("filter").getAsJsonArray();
+                                        for (int i = 0; i < statesArray1.size(); i++) {
+                                            JsonObject stateObject = (JsonObject) statesArray1.get(i);
+                                            Log.e("stateobject", stateObject.toString());
+                                        }
+
+                                        String message = result.get("message").toString();
+
+                                        String message_data = message.replace("\"", "");
+                                        AndroidUtils.showErrorLog(context, "message_data " + message_data);
+                                        Log.e("message_product_list", result.toString());
+
+                                        if (message_data.equals("No record found")) {
+                                            AndroidUtils.showErrorLog(context, "message_data " + "IFFFFFFFFFFF No record found");
+                                            layout_container.setVisibility(View.INVISIBLE);
+                                        } else {
+                                            AndroidUtils.showErrorLog(context, "message_data " + "ELSEEEEEEEEEE No record found");
+                                            JsonArray resultJsonArray = result.getAsJsonArray("result");
+                                            JsonArray filterArray = result.getAsJsonArray("filter");
+                                            if (filterArray != null) {
+                                                loadFilterDataInHashMap(filterArray);
+                                            }
+                                            AndroidUtils.showErrorLog(context, resultJsonArray.size()+"*********************", resultJsonArray.toString());
+
+                                            if (resultJsonArray != null && resultJsonArray.size() > 0) {
+                                                loadResultData(resultJsonArray);
+                                            }
+                                            if (categoriesListAdapter == null) {
+                                                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
+                                                mRecyclerView.setAdapter(categoriesListAdapter);
+                                            } else {
+                                                categoriesListAdapter.notifyDataSetChanged();
+                                            }
+
+
+                                            progress_handler.hide();
+
+                                        }
+
+                                    }
+                                }
+                            }
+
+
+                        }
+
+
+                    });
+
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FilterDialog.filterString = "";
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FilterDialog.filterString = "";
     }
 
     private void loadResultData(JsonArray resultJsonArray) {

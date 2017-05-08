@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +20,6 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
-import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,8 +27,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfilePreviewActivity extends AppCompatActivity {
 
     TextView tvTitle, textViewName, tvMobile, tvEmail, tvUserType;
-    LinearLayout linearLayoutLagout, linearLayoutResetpassword, linearLayoutAddress;
-    AppSharedPreference app_sharedpreference;
+    LinearLayout linearLayoutLagout, linearLayoutResetpassword;
+    AppSharedPreference appSharedPreference;
     ImageView btnEdit;
     private Context context;
 
@@ -43,7 +40,7 @@ public class ProfilePreviewActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_profile_preview);
         context = ProfilePreviewActivity.this;
-        app_sharedpreference = new AppSharedPreference(this);
+        appSharedPreference = new AppSharedPreference(this);
         setUpToolBar();
         setup_layout();
 
@@ -53,11 +50,10 @@ public class ProfilePreviewActivity extends AppCompatActivity {
         userimage = (CircleImageView) findViewById(R.id.imageviewpp);
         btnEdit = (ImageView) findViewById(R.id.btnEdit);
 
-        linearLayoutLagout = (LinearLayout) findViewById(R.id.linearLayoutLagout);
+        linearLayoutLagout = (LinearLayout) findViewById(R.id.linearLayoutLogout);
 
         linearLayoutResetpassword = (LinearLayout) findViewById(R.id.linearLayoutResetpassword);
 
-        linearLayoutAddress = (LinearLayout) findViewById(R.id.linearLayoutAddress);
 
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -94,14 +90,7 @@ public class ProfilePreviewActivity extends AppCompatActivity {
             }
         });
 
-        linearLayoutAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent address = new Intent(ProfilePreviewActivity.this, AddAddressActivity.class);
-                startActivity(address);
-            }
-        });
 
         textViewName = (TextView) findViewById(R.id.textViewName);
 
@@ -110,12 +99,12 @@ public class ProfilePreviewActivity extends AppCompatActivity {
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvUserType = (TextView) findViewById(R.id.tvUserType);
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
-            String Username = app_sharedpreference.getsharedpref("name", "not");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+        if (appSharedPreference.getsharedpref("username", "notlogin") != null) {
+            String Username = appSharedPreference.getsharedpref("name", "not");
+            String Emailid = appSharedPreference.getsharedpref("emailid", "not");
 
-            String userType = app_sharedpreference.getsharedpref("usertype", "0");
-            String user_image = app_sharedpreference.getsharedpref("profile_pic", "");
+            String userType = appSharedPreference.getsharedpref("usertype", "0");
+            String user_image = appSharedPreference.getsharedpref("profile_pic", "");
 
             Log.e("user_image", user_image);
 
@@ -186,10 +175,10 @@ public class ProfilePreviewActivity extends AppCompatActivity {
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
-        app_sharedpreference.setsharedpref("userid", user_id);
-        app_sharedpreference.setsharedpref("username", user_name);
-        app_sharedpreference.setsharedpref("emailid", email_id);
-        app_sharedpreference.setsharedpref("profile_pic", profile_pic);
+        appSharedPreference.setsharedpref("userid", user_id);
+        appSharedPreference.setsharedpref("username", user_name);
+        appSharedPreference.setsharedpref("emailid", email_id);
+        appSharedPreference.setsharedpref("profile_pic", profile_pic);
 
     }
 
@@ -198,12 +187,12 @@ public class ProfilePreviewActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
-            String Username = app_sharedpreference.getsharedpref("name", "not");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+        if (appSharedPreference.getsharedpref("username", "notlogin") != null) {
+            String Username = appSharedPreference.getsharedpref("name", "not");
+            String Emailid = appSharedPreference.getsharedpref("emailid", "not");
 
-            String userType = app_sharedpreference.getsharedpref("usertype", "0");
-            String user_image = app_sharedpreference.getsharedpref("profile_pic", "");
+            String userType = appSharedPreference.getsharedpref("usertype", "0");
+            String user_image = appSharedPreference.getsharedpref("profile_pic", "");
 
 
             textViewName.setText(Username);

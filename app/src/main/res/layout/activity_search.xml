@@ -31,10 +31,10 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/fourty_dip"
                 android:layout_below="@+id/rl_autocomplete_textview"
 
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/five_dip"
                 android:background="@drawable/edit_text_grey_back"
                 android:visibility="gone">
 
@@ -42,12 +42,12 @@
 
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="@dimen/fifteen_dip"
+                    android:layout_height="@dimen/fifteen_dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="@dimen/five_dip"
+                    android:layout_marginRight="@dimen/five_dip"
                     android:gravity="center_vertical"
 
                     app:srcCompat="@drawable/ic_pen" />
@@ -55,8 +55,8 @@
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="@dimen/thirty_dip"
+                    android:layout_marginRight="@dimen/thirty_dip"
                     android:background="@android:color/transparent"
                     android:hint="@string/location_hint"
 
@@ -69,12 +69,12 @@
 
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="@dimen/fifteen_dip"
+                    android:layout_height="@dimen/fifteen_dip"
 
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/ten_dip"
                     android:gravity="center_vertical"
 
                     android:scaleType="fitCenter"
@@ -86,31 +86,29 @@
             <RelativeLayout
                 android:id="@+id/rl_autocomplete_textview"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-
-                android:layout_below="@+id/toolbar"
-                android:layout_margin="5dp"
+                android:layout_height="@dimen/fourty_dip"
+                android:layout_margin="@dimen/five_dip"
                 android:background="@drawable/edit_text_grey_back">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/ten_dip"
 
                     android:gravity="center_vertical"
                     android:text="@string/search_data"
                     android:visibility="gone" />
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/voice_input"
+                    android:layout_width="@dimen/twenty_five_dip"
+                    android:layout_height="@dimen/twenty_five_dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="@dimen/five_dip"
+                    android:layout_marginRight="@dimen/five_dip"
                     android:gravity="center_vertical"
-                    android:id="@+id/voice_input"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/ic_voice" />
 
@@ -118,8 +116,8 @@
                     android:id="@+id/search_autocompletetext_products"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="@dimen/thirty_dip"
+                    android:layout_marginRight="@dimen/thirty_dip"
                     android:background="@android:color/transparent"
                     android:hint="@string/search_data"
                     android:imeOptions="actionSearch"
@@ -132,14 +130,14 @@
                 </android.support.v7.widget.AppCompatAutoCompleteTextView>
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="15dp"
+                    android:layout_width="@dimen/fifteen_dip"
 
-                    android:layout_height="15dp"
+                    android:layout_height="@dimen/fifteen_dip"
 
                     android:layout_alignParentLeft="true"
 
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/ten_dip"
                     android:gravity="center_vertical"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/ic_at" />
@@ -163,21 +161,10 @@
                 android:divider="#E6E6E6"
 
 
-                android:dividerHeight="5dp" />
+                android:dividerHeight="@dimen/five_dip" />
 
         </RelativeLayout>
 
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/search_filter_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_filter"
-        android:visibility="gone"
-        app:rippleColor="@color/color_voilet" />
-
 
 </android.support.design.widget.CoordinatorLayout>

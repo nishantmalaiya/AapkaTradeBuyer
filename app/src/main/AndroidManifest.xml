@@ -90,6 +90,8 @@
         <activity android:name=".ZoomImage.ZoomImageDialog" />
         <activity android:name=".payment.PaymentActivity" />
         <activity android:name=".rateus.RateusActivity" />
+
+        <activity android:name=".rateus.RateUsActivity" />
         <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
         <activity
             android:name=".Home.cart.MyCartActivity"

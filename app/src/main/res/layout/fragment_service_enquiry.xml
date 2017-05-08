@@ -194,6 +194,7 @@ android:layout_gravity="center_vertical"
                                         android:hint="@string/mobile"
                                         android:inputType="numberDecimal"
                                         android:paddingLeft="@dimen/ten_dip"
+                                        android:maxLength="10"
                                         android:textColorHint="@color/green"
                                         android:theme="@style/myedittext" />
 

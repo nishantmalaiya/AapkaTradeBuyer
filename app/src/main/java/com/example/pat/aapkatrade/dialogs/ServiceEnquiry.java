@@ -42,9 +42,10 @@ public class ServiceEnquiry extends DialogFragment {
     View v;
     ViewGroup viewgrp;
 
-    public ServiceEnquiry(String shopid) {
+    public ServiceEnquiry(String shopid, Context context) {
         super();
         this.shopid = shopid;
+        this.context = context;
 
 
     }
@@ -52,10 +53,9 @@ public class ServiceEnquiry extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        viewgrp=container;
-         v = inflater.inflate(R.layout.fragment_service_enquiry, container, false);
+        viewgrp = container;
+        v = inflater.inflate(R.layout.fragment_service_enquiry, container, false);
         getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
-        context = getActivity();
         initView(v);
 
 
@@ -64,7 +64,7 @@ public class ServiceEnquiry extends DialogFragment {
 
 
     private void initView(View v) {
-        progressBarHandler = new ProgressBarHandler(getActivity());
+        progressBarHandler = new ProgressBarHandler(context);
         rl_imgview_enquiry = (RelativeLayout) v.findViewById(R.id.rl_imgview_enquiry);
         dialogue_toolbar = (RelativeLayout) v.findViewById(R.id.dialogue_toolbar);
 
@@ -91,9 +91,9 @@ public class ServiceEnquiry extends DialogFragment {
 
                 if (Validation.validateEdittext(etFullName)) {
 
-                    if (Validation.validateEdittext(email)) {
+                    if (Validation.isValidEmail(email.getText().toString())) {
 
-                        if (Validation.validateEdittext(mobile)) {
+                        if (Validation.isValidNumber(mobile.getText().toString(), Validation.getNumberPrefix(mobile.getText().toString()))) {
 
                             if (Validation.validateEdittext(service_enquiry)) {
                                 String call_enquiry_url = getResources().getString(R.string.webservice_base_url) + "/enquiry";
@@ -150,22 +150,23 @@ public class ServiceEnquiry extends DialogFragment {
                 .setBodyParameter("mobile", mobile.getText().toString().trim())
                 .setBodyParameter("short_des", service_enquiry.getText().toString().trim())
                 .setBodyParameter("email", email.getText().toString().trim())
-                .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
-            @Override
-            public void onCompleted(Exception e, JsonObject result) {
-                if(result.get("error").getAsString().contains("false"))
-                {
-                    AndroidUtils.showSnackBar(viewgrp,result.get("message").getAsString());
-                    AndroidUtils.showErrorLog(getActivity(), result.toString());
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        progressBarHandler.hide();
+                        if (result.get("error").getAsString().contains("false")) {
+                            AndroidUtils.showSnackBar(viewgrp, result.get("message").getAsString());
+                            AndroidUtils.showErrorLog(getActivity(), result.toString());
 
 
-                }
-
-                progressBarHandler.hide();
+                        }
 
 
-            }
-        });
+
+                    }
+                });
 
 
     }
