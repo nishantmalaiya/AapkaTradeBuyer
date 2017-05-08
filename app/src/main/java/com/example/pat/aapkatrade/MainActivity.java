@@ -33,13 +33,13 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
     ConnetivityCheck connetivity_check;
     TextView tv_aapkatrade;
     ImageView left_image, right_image;
-
     ProgressDialog pd;
     ImageView circle_image;
     Custom_progress_bar custom_progress_bar;
@@ -48,16 +48,20 @@ public class MainActivity extends AppCompatActivity {
     private String AddressAsync;
     AppSharedPreference appSharedpreference;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
         appSharedpreference = new AppSharedPreference(MainActivity.this);
+
         circle_image = (ImageView) findViewById(R.id.circle_image);
 
         App_animation.circularanimation(circle_image);
-
 
         String fontPath = "impact.ttf";
 
@@ -66,11 +70,9 @@ public class MainActivity extends AppCompatActivity {
         left_image = (ImageView) findViewById(R.id.left_panel);
         right_image = (ImageView) findViewById(R.id.right_panel);
 
-
         //Animation
         App_animation.left_animation(left_image, this);
         App_animation.right_animation(right_image, this);
-
 
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
@@ -115,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-
 
                 } else {
                     Intent mainIntent = new Intent(MainActivity.this, ConnectivityNotFound.class);
