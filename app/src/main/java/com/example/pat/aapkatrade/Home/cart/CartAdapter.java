@@ -62,13 +62,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     @Override
     public void onBindViewHolder(final CartHolder holder, final int position)
     {
-
         linearLayoutQuantity = holder.dropdown_ll;
-
         textViewQuantity = holder.textView64;
-
-        //linearLayoutQuantity.setOnClickListener(this);
-
         textViewQuantity.setText(itemList.get(position).quantity);
 
         holder.tvProductName.setText(itemList.get(position).productName);

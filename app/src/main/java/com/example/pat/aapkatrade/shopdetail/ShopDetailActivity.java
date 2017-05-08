@@ -30,7 +30,6 @@ import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
-import com.example.pat.aapkatrade.dialogs.Track_order_dialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
@@ -39,7 +38,7 @@ import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
-import com.example.pat.aapkatrade.rateus.RateusActivity;
+import com.example.pat.aapkatrade.rateus.RateUsActivity;
 import com.example.pat.aapkatrade.shopdetail.opening_closing_days.OpenCloseDaysRecyclerAdapter;
 import com.example.pat.aapkatrade.shopdetail.opening_closing_days.OpenCloseShopData;
 import com.example.pat.aapkatrade.shopdetail.reviewlist.ReviewListAdapter;
@@ -60,8 +59,7 @@ import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 import me.relex.circleindicator.CircleIndicator;
 
 
-public class ShopDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
-{
+public class ShopDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private LinearLayout viewpagerindicator, linearlayoutShare, linearlayoutLocation;
     private RelativeLayout shopProductsLayout, openingClosingRelativeLayout, relativeLayoutlViewAllProducts;
@@ -152,7 +150,6 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         });
 
 
-
     }
 
 
@@ -183,6 +180,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                             JsonArray jsonArrayImage = json_result.getAsJsonArray("product_images");
                             JsonArray jsonArrayReview = result.getAsJsonArray("reviews");
                             if (jsonArrayReview.size() != 0) {
+                                findViewById(R.id.reviewListLayout).setVisibility(View.VISIBLE);
                                 for (int j = 0; j < jsonArrayReview.size(); j++) {
                                     JsonObject jsonreview_data = (JsonObject) jsonArrayReview.get(j);
                                     String email = jsonreview_data.get("email").getAsString();
@@ -412,10 +410,10 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                 if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
                     startActivity(new Intent(ShopDetailActivity.this, LoginActivity.class));
                 } else {
-                    Intent rate_us = new Intent(ShopDetailActivity.this, RateusActivity.class);
+                    Intent rate_us = new Intent(ShopDetailActivity.this, RateUsActivity.class);
                     rate_us.putExtra("product_id", product_id);
                     rate_us.putExtra("product_name", tvshopName.getText().toString());
-                    rate_us.putExtra("product_price", tvProPrice.getText().toString());
+                    rate_us.putExtra("product_price", "");
                     rate_us.putExtra("product_image", imageList.get(0));
                     startActivity(rate_us);
                 }
@@ -501,9 +499,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
                 ServiceEnquiry serviceEnquiry = new ServiceEnquiry(product_id);
                 FragmentManager fm = getSupportFragmentManager();
-                serviceEnquiry.show(fm,"enquiry");
-
-
+                serviceEnquiry.show(fm, "enquiry");
 
 
             }
