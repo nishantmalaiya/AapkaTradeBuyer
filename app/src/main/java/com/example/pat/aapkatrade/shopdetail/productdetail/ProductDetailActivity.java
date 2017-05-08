@@ -3,43 +3,62 @@ package com.example.pat.aapkatrade.shopdetail.productdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.LoginActivity;
+import com.example.pat.aapkatrade.rateus.RateUsActivity;
 import com.example.pat.aapkatrade.shopdetail.ShopViewPagerAdapter;
+import com.example.pat.aapkatrade.shopdetail.reviewlist.ReviewListAdapter;
+import com.example.pat.aapkatrade.shopdetail.reviewlist.ReviewListData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.shehabic.droppy.DroppyClickCallbackInterface;
+import com.shehabic.droppy.DroppyMenuItem;
+import com.shehabic.droppy.DroppyMenuPopup;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private Context context;
     private ProgressBarHandler progressBarHandler;
-    ViewPager viewPager;
+    private ViewPager viewPager;
     private String productId = "0", quantity = "1";
-    private EditText editTextPostalCode;
-    private TextView tvProductName, tvProductPrice, tvDiscountValue, tvUnitValue, tvAmountPaidValue, tvDescriptionValue, tvPinCodeCheck;
+    private EditText editTextPostalCode, etManualQuantity;
+    private TextView tvProductName, tvProductPrice, tvDiscountValue, tvUnitValue, tvAmountPaidValue, tvDescriptionValue, tvPinCodeCheck, tvToatalRatingAndReview, tvRatingAverage, tvQuantity;
+    private TextView okButton ;
+    private TextView cancelButton ;
     private LinearLayout viewPagerIndicator;
     private int dotsCount;
     private CircleIndicator circleIndicator;
@@ -48,12 +67,21 @@ public class ProductDetailActivity extends AppCompatActivity {
     private int currentPage = 0;
     private ShopViewPagerAdapter viewPagerAdapter;
     private ArrayList<String> imageUrlArrayList = new ArrayList<>();
+    private RecyclerView reviewRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private ReviewListAdapter reviewListAdapter;
+    private ArrayList<ReviewListData> reviewListDatas = new ArrayList<>();
+    private RelativeLayout relativeRateReview;
+    private AppSharedPreference appSharedPreference;
+    private LinearLayout dropDownContainer;
+    private DroppyMenuPopup droppyMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         context = ProductDetailActivity.this;
+        appSharedPreference = new AppSharedPreference(context);
         progressBarHandler = new ProgressBarHandler(context);
         if (getIntent() != null) {
             productId = getIntent().getStringExtra("productId");
@@ -63,6 +91,64 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         getProductDetailData(productId);
 
+        relativeRateReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (appSharedPreference.getsharedpref("username", "not").contains("not")) {
+                    startActivity(new Intent(context, LoginActivity.class));
+                } else {
+                    Intent rate_us = new Intent(context, RateUsActivity.class);
+                    rate_us.putExtra("product_id", productId);
+                    rate_us.putExtra("product_name", tvProductName.getText().toString());
+                    rate_us.putExtra("product_price", tvProductPrice.getText().toString());
+                    rate_us.putExtra("product_image", imageUrlArrayList.get(0));
+                    startActivity(rate_us);
+                }
+
+            }
+        });
+
+
+        final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, dropDownContainer);
+        droppyBuilder
+                .addMenuItem(new DroppyMenuItem("1"))
+                .addMenuItem(new DroppyMenuItem("2"))
+                .addMenuItem(new DroppyMenuItem("3"))
+                .addMenuItem(new DroppyMenuItem("4"))
+                .addMenuItem(new DroppyMenuItem("5"))
+                .addSeparator()
+                .addMenuItem(new DroppyMenuItem("More"));
+
+
+        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
+            @Override
+            public void call(View v, int id) {
+                switch (id) {
+                    case 0:
+                        tvQuantity.setText("1");
+                        break;
+                    case 1:
+                        tvQuantity.setText("2");
+                        break;
+                    case 2:
+                        tvQuantity.setText("3");
+                        break;
+                    case 3:
+                        tvQuantity.setText("4");
+                        break;
+                    case 4:
+                        tvQuantity.setText("5");
+                        break;
+                    case 5:
+                        showPopup();
+                        break;
+
+                }
+            }
+        });
+
+        droppyMenu = droppyBuilder.build();
     }
 
     private void initView() {
@@ -76,10 +162,20 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager_custom);
         viewPagerIndicator = (LinearLayout) findViewById(R.id.viewpagerindicator);
         editTextPostalCode = (EditText) findViewById(R.id.editTextPostalCode);
-        AndroidUtils.setBackgroundSolidEachRadius(editTextPostalCode, context, R.color.grey_light2, 10,0,0,10, GradientDrawable.RECTANGLE);
+        AndroidUtils.setBackgroundSolidEachRadius(editTextPostalCode, context, R.color.grey_light2, 10, 0, 0, 10, GradientDrawable.RECTANGLE);
         tvPinCodeCheck = (TextView) findViewById(R.id.tvPinCodeCheck);
-        AndroidUtils.setBackgroundSolidEachRadius(tvPinCodeCheck, context, R.color.grey_buy_now, 0,10,10,0, GradientDrawable.RECTANGLE);
+        AndroidUtils.setBackgroundSolidEachRadius(tvPinCodeCheck, context, R.color.grey_buy_now, 0, 10, 10, 0, GradientDrawable.RECTANGLE);
         circleIndicator = (CircleIndicator) findViewById(R.id.indicator_product_detail);
+        tvToatalRatingAndReview = (TextView) findViewById(R.id.tvToatalRatingAndReview);
+        tvRatingAverage = (TextView) findViewById(R.id.tvRatingAverage);
+        reviewRecyclerView = (RecyclerView) findViewById(R.id.reviewList);
+
+        mLayoutManager = new LinearLayoutManager(context);
+        reviewRecyclerView.setLayoutManager(mLayoutManager);
+
+        relativeRateReview = (RelativeLayout) findViewById(R.id.relativeRateReview);
+        dropDownContainer = (LinearLayout) findViewById(R.id.dropDownContainer);
+        tvQuantity = (TextView) findViewById(R.id.tvQuantity);
 
     }
 
@@ -111,7 +207,30 @@ public class ProductDetailActivity extends AppCompatActivity {
                                     loadImageUrlArrayList(jsonImageUrlArray);
                                 }
 
+                                JsonObject jsonTotalRating = result.getAsJsonObject("total_rating");
+                                String averageRating = jsonTotalRating.get("avg_rating").getAsString();
+                                String totalReviews = jsonTotalRating.get("countreviews").getAsString();
+                                tvToatalRatingAndReview.setText(new StringBuilder(averageRating).append(" rating and review ").append(totalReviews));
+                                tvRatingAverage.setText(averageRating);
 
+
+                                JsonArray jsonArrayReview = result.getAsJsonArray("reviews");
+                                if (jsonArrayReview.size() >= 0) {
+
+                                    for (int j = 0; j < jsonArrayReview.size(); j++) {
+                                        JsonObject jsonreview_data = (JsonObject) jsonArrayReview.get(j);
+                                        String email = jsonreview_data.get("email").getAsString();
+                                        String name = jsonreview_data.get("name").getAsString();
+                                        String message = jsonreview_data.get("message").getAsString();
+                                        String rating = jsonreview_data.get("rating").getAsString();
+                                        String title = jsonreview_data.get("title").getAsString();
+                                        String created_date = jsonreview_data.get("created_at").getAsString();
+                                        Log.e("jsonreview---", title);
+                                        reviewListDatas.add(new ReviewListData(email, name, message, rating, title, created_date));
+                                    }
+                                    reviewListAdapter = new ReviewListAdapter(context, reviewListDatas);
+                                    reviewRecyclerView.setAdapter(reviewListAdapter);
+                                }
                             } else {
                                 AndroidUtils.showErrorLog(context, " getProductDetailData webservice error is true.");
                             }
@@ -121,8 +240,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void loadImageUrlArrayList(JsonArray jsonImageUrlArray) {
-        for(int i = 0; i < jsonImageUrlArray.size(); i++){
+        for (int i = 0; i < jsonImageUrlArray.size(); i++) {
             JsonObject jsonUrlObject = (JsonObject) jsonImageUrlArray.get(i);
+            imageUrlArrayList.add(jsonUrlObject.get("image_url").getAsString());
+            imageUrlArrayList.add(jsonUrlObject.get("image_url").getAsString());
+            imageUrlArrayList.add(jsonUrlObject.get("image_url").getAsString());
             imageUrlArrayList.add(jsonUrlObject.get("image_url").getAsString());
         }
         setUpViewPager();
@@ -143,12 +265,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getApplicationContext());
             dots[i].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nonselected_item));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(4, 0, 4, 0);
-            viewPagerIndicator.addView(dots[i], params);
         }
         dots[0].setImageDrawable(ContextCompat.getDrawable(context, R.drawable.selecteditem_dot));
     }
@@ -196,6 +312,95 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         });
         circleIndicator.setViewPager(viewPager);
+    }
+
+
+    public void showPopup() {
+        final MaterialDialog dialog = new MaterialDialog.Builder(context)
+                .customView(R.layout.layout_more_quantity, true)
+                .show();
+//                .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                        if (Integer.valueOf(etManualQuantity.getText().toString()) > 0) {
+//                            quantity = etManualQuantity.getText().toString();
+//                            tvQuantity.setText(quantity);
+//                        } else {
+//                            etManualQuantity.setError("Please Select Valid Quantity.");
+//                        }
+//                        dialog.dismiss();
+//                    }
+//                })
+
+
+        etManualQuantity = (EditText) dialog.findViewById(R.id.editText);
+        okButton = (TextView) dialog.findViewById(R.id.okDialog);
+        cancelButton = (TextView) dialog.findViewById(R.id.cancelDialog);
+        disableButton(okButton);
+        disableButton(cancelButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(okButton.isEnabled()){
+                    if(Integer.parseInt(etManualQuantity.getText().toString()) > 0){
+                        enableButton(okButton);
+
+                    }
+                } else {
+                    enableButton(okButton);
+                }
+                AndroidUtils.showErrorLog(context, "ok button");
+                dialog.hide();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enableButton(cancelButton);
+                AndroidUtils.showErrorLog(context, "cancel button");
+                dialog.hide();
+            }
+        });
+
+        etManualQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(Integer.parseInt(s.toString()) == 0){
+                    etManualQuantity.setError("Please Enter Valid Quantity");
+                } else {
+                    tvQuantity.setText(s);
+//                    dialog.dismiss();
+                }
+            }
+        });
+
+    }
+
+    private void enableButton(TextView textView){
+        if(textView!=null) {
+            AndroidUtils.setBackgroundSolid(textView, context, R.color.green, 10, GradientDrawable.RECTANGLE);
+            textView.setTextColor(ContextCompat.getColor(context, R.color.white));
+            textView.setEnabled(true);
+        }
+    }
+
+    private void disableButton(TextView textView){
+        if(textView!=null) {
+            AndroidUtils.setBackgroundSolid(textView, context, R.color.white, 10, GradientDrawable.RECTANGLE);
+            textView.setTextColor(ContextCompat.getColor(context, R.color.green));
+            textView.setEnabled(false);
+        }
     }
 
 

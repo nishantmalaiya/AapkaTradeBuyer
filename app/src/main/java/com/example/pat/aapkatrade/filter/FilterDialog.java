@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.filter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.filter.adapter.FilterColumn1RecyclerAdapter;
 import com.example.pat.aapkatrade.filter.adapter.FilterColumn2RecyclerAdapter;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
@@ -24,7 +26,9 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ParseUtils;
 import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -42,9 +46,11 @@ public class FilterDialog extends Dialog {
     private ArrayList<String> filterNameArrayList = new ArrayList<>();
     private ArrayList<FilterObject> filterValueArrayList = new ArrayList<>();
     private ArrayList<FilterObject> selectedValueArrayList = new ArrayList<>();
-    private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null, selectedHashMap = new ArrayMap<>();
+    private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
+    private ArrayMap<String, ArrayList<FilterObject>> selectedHashMap = new ArrayMap<>();
     private String key = "";
     private int count = 0;
+    public static String filterString = "";
 
 
     public FilterDialog(Context context, String category_id, ArrayMap<String, ArrayList<FilterObject>> filterHashMap) {
@@ -100,9 +106,9 @@ public class FilterDialog extends Dialog {
         syncHashMap();
 
         ParseUtils.mapToJsonString(selectedHashMap);
-        ;
         AndroidUtils.showErrorLog(context, "OOOOOOOOOOOO@@@!!!        " + ParseUtils.mapToJson(ParseUtils.mapToJsonString(selectedHashMap)));
 
+        filterString = ParseUtils.mapToJson(ParseUtils.mapToJsonString(selectedHashMap));
         AndroidUtils.showErrorLog(context, "Size printHashMap" + selectedHashMap.size());
         for (String key : selectedHashMap.keySet()) {
             AndroidUtils.showErrorLog(context, "Main printHashMap     " + key);
@@ -110,6 +116,11 @@ public class FilterDialog extends Dialog {
             for (int i = 0; i < selectedValueArrayList.size(); i++) {
                 AndroidUtils.showErrorLog(context, " printHashMap Key : " + selectedValueArrayList.get(i).name.key + " printHashMap Value : " + selectedValueArrayList.get(i).name.value);
             }
+        }
+
+        if(selectedHashMap.size()!=0){
+            Intent intent = new Intent(context, CategoryListActivity.class);
+            context.startActivity(intent);
         }
 
     }

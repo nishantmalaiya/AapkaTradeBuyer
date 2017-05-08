@@ -28,6 +28,7 @@ public class ParseUtils {
             for (int i = 0; i < tempArrayList.size(); i++){
                 FilterObject filterObject = tempArrayList.get(i);
                 arrayList.add(filterObject.name.value.toString().replaceAll("\\\"", "\""));
+//                arrayList.add(filterObject.name.key.toString()+" : "+filterObject.name.value.toString());
             }
             map.put(key, new Gson().toJson(arrayList));
 
@@ -37,6 +38,6 @@ public class ParseUtils {
     }
 
     public static String mapToJson(HashMap<String, String> hashMap){
-        return new Gson().toJson(hashMap);
+        return new Gson().toJson(hashMap)/*.replaceAll("\\\\\"", "\"")*/;
     }
 }

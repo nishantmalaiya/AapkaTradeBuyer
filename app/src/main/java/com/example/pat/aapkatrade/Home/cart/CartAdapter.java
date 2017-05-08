@@ -56,13 +56,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
     @Override
     public void onBindViewHolder(final CartHolder holder, final int position) {
-
         linearLayoutQuantity = holder.dropdown_ll;
-
         textViewQuantity = holder.textView64;
-
-        //linearLayoutQuantity.setOnClickListener(this);
-
         textViewQuantity.setText(itemList.get(position).quantity);
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
