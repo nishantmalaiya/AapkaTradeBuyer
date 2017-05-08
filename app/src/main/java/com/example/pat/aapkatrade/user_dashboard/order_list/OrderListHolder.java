@@ -3,8 +3,6 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -33,11 +31,11 @@ public class OrderListHolder extends RecyclerView.ViewHolder
 
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
 
-        tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
+        tvUserName = (TextView) itemView.findViewById(R.id.tvShopName);
 
-        tvMobileNo = (TextView) itemView.findViewById(R.id.tvMobileNo);
+        tvMobileNo = (TextView) itemView.findViewById(R.id.tvProductName);
 
-        tvCreatedDate = (TextView) itemView.findViewById(R.id.tvCreatedDate);
+        tvCreatedDate = (TextView) itemView.findViewById(R.id.tvProductPrize);
 
         tvUserEmail = (TextView) itemView.findViewById(R.id.tvUserEmail);
 

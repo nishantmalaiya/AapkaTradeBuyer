@@ -480,7 +480,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
                                     AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
 
-                                } else {
+
 
                                     Log.e("data2", result.toString());
                                     if (jsonObject.get("result") == null) {
