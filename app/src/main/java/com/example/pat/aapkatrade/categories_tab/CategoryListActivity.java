@@ -295,7 +295,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
                     });
 
-            FilterDialog.filterString = "";
+//            FilterDialog.filterString = "";
         }
 
     }
