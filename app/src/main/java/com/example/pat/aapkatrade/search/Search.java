@@ -480,12 +480,10 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
                                     AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
 
-
+                                } else {
 
                                     Log.e("data2", result.toString());
-                                    if (jsonObject.get("result") == null) {
 
-                                    } else {
                                         JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
                                         for (int l = 0; l < jsonarray_result.size(); l++) {
 
@@ -517,7 +515,8 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
 
                             }
-                        }
+
+
 
                     }
 
