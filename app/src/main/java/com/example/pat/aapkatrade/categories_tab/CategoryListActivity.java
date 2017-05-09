@@ -79,7 +79,7 @@ public class CategoryListActivity extends AppCompatActivity
         context = CategoryListActivity.this;
 
         Intent intent = getIntent();
-//        FilterDialog.filterString = "";
+
         Bundle b = intent.getExtras();
         if (b != null) {
             latitude = b.getString("latitude");
@@ -184,8 +184,8 @@ public class CategoryListActivity extends AppCompatActivity
                                             if (filterArray != null) {
                                                 loadFilterDataInHashMap(filterArray);
                                             }
-                                        AndroidUtils.showErrorLog(context, resultJsonArray.size()+"*********************", resultJsonArray.toString());
-                                            if (resultJsonArray != null && resultJsonArray.size() > 0) {
+
+                                            if (resultJsonArray != null) {
                                                 loadResultData(resultJsonArray);
                                             }
                                             if (categoriesListAdapter == null) {
@@ -193,12 +193,19 @@ public class CategoryListActivity extends AppCompatActivity
                                                 mRecyclerView.setAdapter(categoriesListAdapter);
                                             } else {
                                                 categoriesListAdapter.notifyDataSetChanged();
+//                                    mRecyclerView.smoothScrollToPosition(21);
                                             }
+
+
                                             progress_handler.hide();
+
                                         }
+
                                     }
                                 }
                             }
+
+
                         }
 
 
@@ -266,18 +273,15 @@ public class CategoryListActivity extends AppCompatActivity
                                         Log.e("message_product_list", result.toString());
 
                                         if (message_data.equals("No record found")) {
-                                            AndroidUtils.showErrorLog(context, "message_data " + "IFFFFFFFFFFF No record found");
                                             layout_container.setVisibility(View.INVISIBLE);
                                         } else {
-                                            AndroidUtils.showErrorLog(context, "message_data " + "ELSEEEEEEEEEE No record found");
                                             JsonArray resultJsonArray = result.getAsJsonArray("result");
                                             JsonArray filterArray = result.getAsJsonArray("filter");
                                             if (filterArray != null) {
                                                 loadFilterDataInHashMap(filterArray);
                                             }
-                                            AndroidUtils.showErrorLog(context, resultJsonArray.size()+"*********************", resultJsonArray.toString());
 
-                                            if (resultJsonArray != null && resultJsonArray.size() > 0) {
+                                            if (resultJsonArray != null) {
                                                 loadResultData(resultJsonArray);
                                             }
                                             if (categoriesListAdapter == null) {
@@ -285,6 +289,7 @@ public class CategoryListActivity extends AppCompatActivity
                                                 mRecyclerView.setAdapter(categoriesListAdapter);
                                             } else {
                                                 categoriesListAdapter.notifyDataSetChanged();
+//                                    mRecyclerView.smoothScrollToPosition(21);
                                             }
 
 
@@ -302,32 +307,15 @@ public class CategoryListActivity extends AppCompatActivity
 
                     });
 
+//            FilterDialog.filterString = "";
         }
 
     }
-
 
     private void loadResultData(JsonArray resultJsonArray)
     {
         for (int i = 0; i < resultJsonArray.size(); i++)
         {
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        FilterDialog.filterString = "";
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        FilterDialog.filterString = "";
-    }
-
-    private void loadResultData(JsonArray resultJsonArray) {
-        for (int i = 0; i < resultJsonArray.size(); i++) {
-
             JsonObject jsonObject2 = (JsonObject) resultJsonArray.get(i);
             AndroidUtils.showErrorLog(context, "<--result-->cITY" + i + jsonObject2.toString());
             String shopId = jsonObject2.get("id").getAsString();
@@ -394,7 +382,7 @@ public class CategoryListActivity extends AppCompatActivity
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 
-         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+        tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
         // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
 

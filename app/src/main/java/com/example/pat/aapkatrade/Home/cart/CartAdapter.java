@@ -87,7 +87,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
         holder.tvProductName.setText(itemList.get(position).productName);
 
-        holder.tvProductPrice.setText(itemList.get(position).price);
+        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+itemList.get(position).price);
 
         System.out.println("itemlist-------------"+itemList.get(position).price);
 

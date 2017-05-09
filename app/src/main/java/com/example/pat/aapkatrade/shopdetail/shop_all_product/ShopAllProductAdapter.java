@@ -83,7 +83,7 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
         homeHolder = holder;
 
         holder.tvProductName.setText(itemList.get(position).productName);
-        holder.tvProductPrice.setText(itemList.get(position).productPrice);
+        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+itemList.get(position).productPrice);
 
         System.out.println("itemlist------------"+itemList.get(position).productImage);
 

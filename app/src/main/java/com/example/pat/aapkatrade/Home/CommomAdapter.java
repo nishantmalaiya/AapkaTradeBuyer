@@ -17,13 +17,9 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 
-import com.example.pat.aapkatrade.dialogs.track_order.singleproductdetail.SingleproductDetail;
+import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.CommonHolder_listProduct;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-
-
-import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.CommonHolder_listProduct;
-
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -38,9 +34,7 @@ import java.util.ArrayList;
 /**
  * Created by Netforce on 7/25/2016.
  */
-public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
-
+public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<CommomData> commomDatas;
@@ -51,7 +45,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final int SPLASH_DISPLAY_LENGTH = 3000;
     AppSharedPreference appSharedPreference;
     private ProgressBarHandler progressBarHandler;
-
 
 
     public CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
@@ -163,70 +156,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         }
 
-
-        else if (arrangementtype == "OrderedProductList") {
-
-
-
-            final CommomHolder holder = new CommomHolder(v);
-
-
-            if (Tabletsize.isTablet(context)) {
-                Picasso.with(context)
-                        .load(commomDatas.get(position).imageurl)
-                        .error(R.drawable.banner)
-                        .placeholder(R.drawable.default_noimage)
-                        .error(R.drawable.default_noimage)
-                        .into(holder.cimageview);
-                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "large");
-
-                Ion.with(holder.cimageview)
-                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
-                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
-                        .load(product_imageurl);
-                Log.e("image_large", "image_large");
-
-            } else if (Tabletsize.isMedium(context)) {
-                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
-
-                Ion.with(holder.cimageview)
-                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
-                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
-                        .load(product_imageurl);
-                Log.e("image_medium", "image_medium" + product_imageurl);
-
-            } else if (Tabletsize.isSmall(context)) {
-                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
-
-                Ion.with(holder.cimageview)
-                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
-                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
-                        .load(product_imageurl);
-
-                Log.e("image_small", "image_small");
-            }
-
-
-            Log.e("imageurl", commomDatas.get(0).imageurl);
-
-            holder.cardview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Log.e("time Adapter", String.valueOf(System.currentTimeMillis()));
-
-                    Intent intent = new Intent(context, SingleproductDetail.class);
-                    intent.putExtra("product_id", commomDatas.get(position).id);
-                    context.startActivity(intent);
-                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
-
-                }
-            });
-            holder.tvProductName.setText(commomDatas.get(position).name);
-
-        }
-
-
         else if (arrangementtype == "list_product") {
 
             final CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
@@ -330,9 +259,13 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     return true;
                 }
             });
-        } else {
+        }
 
-    
+
+
+
+        else {
+
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
             Picasso.with(context).load(commomDatas.get(position).imageurl)
@@ -382,7 +315,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemCount() {
         return commomDatas.size();
     }
-
 
 
     private void callwebservice__add_tocart(String product_id, String device_id, String product_name,String price, String qty)
@@ -446,6 +378,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 });
 
     }
+
 
 
 }
