@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.Home.navigation.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -16,12 +15,11 @@ import android.widget.ImageView;
 import com.example.pat.aapkatrade.Home.navigation.viewholder.NavigationViewHolder;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.service.LocationService;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -95,7 +93,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
                         String CurrentLongitude= appSharedPreference.getsharedpref("CurrentLongitude", "0.0");
                         appSharedPreference.getsharedpref("CurrentStateName", "Haryana");
 
-                        Intent i = new Intent(context, CategoryListActivity.class);
+                        Intent i = new Intent(context, ShopListByCategoryActivity.class);
                         i.putExtra("category_id", listDataHeader.get(currentPosition).getCategoryId());
                         i.putExtra("latitude", CurrentLatitude);
                         i.putExtra("longitude", CurrentLongitude);

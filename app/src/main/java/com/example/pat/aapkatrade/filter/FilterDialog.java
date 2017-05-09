@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.filter.adapter.FilterColumn1RecyclerAdapter;
 import com.example.pat.aapkatrade.filter.adapter.FilterColumn2RecyclerAdapter;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
@@ -26,9 +26,7 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ParseUtils;
 import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.google.gson.Gson;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -119,7 +117,7 @@ public class FilterDialog extends Dialog {
         }
 
         if(selectedHashMap.size()!=0){
-            Intent intent = new Intent(context, CategoryListActivity.class);
+            Intent intent = new Intent(context, ShopListByCategoryActivity.class);
             context.startActivity(intent);
         }
 
