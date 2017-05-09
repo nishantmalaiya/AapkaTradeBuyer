@@ -2,14 +2,12 @@ package com.example.pat.aapkatrade.categories_tab.ParticularDataActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,15 +19,10 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
-import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
-import com.example.pat.aapkatrade.location.AddressEnum;
-import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -65,7 +58,7 @@ public class ParticularActivity extends AppCompatActivity {
         url = intent.getStringExtra("url");
 
         System.out.println("url---------------" + url);
-        setContentView(R.layout.activity_categories_list);
+        setContentView(R.layout.activity_shop_list_by_category);
 
         setUpToolBar();
 

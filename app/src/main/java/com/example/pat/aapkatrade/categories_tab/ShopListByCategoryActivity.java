@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.categories_tab;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,23 +28,17 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
-import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class CategoryListActivity extends AppCompatActivity
+public class ShopListByCategoryActivity extends AppCompatActivity
 {
 
     private RecyclerView mRecyclerView;
@@ -72,11 +65,11 @@ public class CategoryListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_categories_list);
+        setContentView(R.layout.activity_shop_list_by_category);
 
-        app_sharedpreference = new AppSharedPreference(CategoryListActivity.this);
+        app_sharedpreference = new AppSharedPreference(ShopListByCategoryActivity.this);
 
-        context = CategoryListActivity.this;
+        context = ShopListByCategoryActivity.this;
 
         Intent intent = getIntent();
 
@@ -140,7 +133,7 @@ public class CategoryListActivity extends AppCompatActivity
         if (!(FilterDialog.filterString!= null && FilterDialog.filterString.length()>0)) {
 
             AndroidUtils.showErrorLog(context, "shoplist by NOOOOOOOOOOOOOOO filter");
-            Ion.with(CategoryListActivity.this)
+            Ion.with(ShopListByCategoryActivity.this)
                     .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("type", "category")
@@ -189,7 +182,7 @@ public class CategoryListActivity extends AppCompatActivity
                                                 loadResultData(resultJsonArray);
                                             }
                                             if (categoriesListAdapter == null) {
-                                                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
+                                                categoriesListAdapter = new CategoriesListAdapter(ShopListByCategoryActivity.this, shopArrayListByCategory);
                                                 mRecyclerView.setAdapter(categoriesListAdapter);
                                             } else {
                                                 categoriesListAdapter.notifyDataSetChanged();
@@ -217,7 +210,7 @@ public class CategoryListActivity extends AppCompatActivity
 
             AndroidUtils.showErrorLog(context, "shoplist by filter --> "+FilterDialog.filterString);
 
-            Ion.with(CategoryListActivity.this)
+            Ion.with(ShopListByCategoryActivity.this)
                     .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
 
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -285,7 +278,7 @@ public class CategoryListActivity extends AppCompatActivity
                                                 loadResultData(resultJsonArray);
                                             }
                                             if (categoriesListAdapter == null) {
-                                                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, shopArrayListByCategory);
+                                                categoriesListAdapter = new CategoriesListAdapter(ShopListByCategoryActivity.this, shopArrayListByCategory);
                                                 mRecyclerView.setAdapter(categoriesListAdapter);
                                             } else {
                                                 categoriesListAdapter.notifyDataSetChanged();
@@ -419,7 +412,7 @@ public class CategoryListActivity extends AppCompatActivity
         switch (id)
         {
             case R.id.cart_total_item:
-                Intent intent = new Intent(CategoryListActivity.this, MyCartActivity.class);
+                Intent intent = new Intent(ShopListByCategoryActivity.this, MyCartActivity.class);
                 startActivity(intent);
                 break;
             case R.id.filter:
