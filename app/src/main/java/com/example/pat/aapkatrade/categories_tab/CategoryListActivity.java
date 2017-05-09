@@ -426,13 +426,11 @@ public class CategoryListActivity extends AppCompatActivity
                 FilterDialog filterDialog = new FilterDialog(context, category_id, filterHashMap);
                 filterDialog.show();
                 break;
-
             case android.R.id.home:
                 finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
         return super.onOptionsItemSelected(item);
     }
