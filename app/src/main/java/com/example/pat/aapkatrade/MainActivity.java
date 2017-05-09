@@ -90,12 +90,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (ConnetivityCheck.isNetworkAvailable(MainActivity.this)) {
 
-                    boolean permission_status = CheckPermission.checkPermissions(MainActivity.this);
 
-
-                    if (permission_status)
-
-                    {
                         mylocation = new Mylocation(MainActivity.this);
                         LocationManager_check locationManagerCheck = new LocationManager_check(
                                 MainActivity.this);
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity
                             locationManagerCheck.createLocationServiceError(MainActivity.this);
                         }
 
-                    }
+
 
                 } else {
                     Intent mainIntent = new Intent(MainActivity.this, ConnectivityNotFound.class);

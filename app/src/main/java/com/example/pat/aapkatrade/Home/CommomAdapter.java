@@ -154,9 +154,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             holder.tvProductName.setText(commomDatas.get(position).name);
 
-        }
-
-        else if (arrangementtype == "list_product") {
+        } else if (arrangementtype == "list_product") {
 
             final CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
 
@@ -210,7 +208,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder_listProduct.tvProductName.setText(commomDatas.get(position).name);
 
             AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_addtocart, context, R.color.white, 15, GradientDrawable.OVAL);
-            AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_description,context, R.color.white, 15, GradientDrawable.OVAL);
+            AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_description, context, R.color.white, 15, GradientDrawable.OVAL);
 
 
             AndroidUtils.setImageColor(viewHolder_listProduct.product_addcard, context, R.color.color_voilet);
@@ -219,14 +217,13 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             viewHolder_listProduct.product_description.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
 
                     String product_id = commomDatas.get(position).id;
                     String product_name = commomDatas.get(position).name;
                     String price = commomDatas.get(position).price;
 
-                    callwebservice__add_tocart(product_id,"",product_name,price,"1");
+                    callwebservice__add_tocart(product_id, "", product_name, price, "1");
 
 
                 }
@@ -259,12 +256,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     return true;
                 }
             });
-        }
-
-
-
-
-        else {
+        } else {
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
@@ -317,10 +309,9 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
 
-    private void callwebservice__add_tocart(String product_id, String device_id, String product_name,String price, String qty)
-    {
+    private void callwebservice__add_tocart(String product_id, String device_id, String product_name, String price, String qty) {
         progressBarHandler.show();
-        System.out.println("price-----------------------"+price);
+        System.out.println("price-----------------------" + price);
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
 
@@ -330,37 +321,29 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("product_id", product_id)
                 .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
-                .setBodyParameter("name",product_name)
-                .setBodyParameter("price",price)
-                .setBodyParameter("quantity","1")
+                .setBodyParameter("name", product_name)
+                .setBodyParameter("price", price)
+                .setBodyParameter("quantity", "1")
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
-                        System.out.println("result------------------------"+result);
+                        System.out.println("result------------------------" + result);
 
-                        if (result.isJsonNull())
-                        {
+                        if (result.isJsonNull()) {
 
-                            Toast.makeText(context,"Server is not responding please try again",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+                            Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
+                        } else {
                             System.out.println("result--------------" + result);
                             String message = result.get("message").getAsString();
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
-                            if (message.equals("This Item Already Exist....."))
-                            {
+                            if (message.equals("This Item Already Exist.....")) {
                                 progressBarHandler.hide();
                                 Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
 
-                            }
-                            else
-                            {
+                            } else {
 
                                 Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
                                 String cart_count = jsonObject.get("total_qty").getAsString();
@@ -378,7 +361,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 });
 
     }
-
 
 
 }

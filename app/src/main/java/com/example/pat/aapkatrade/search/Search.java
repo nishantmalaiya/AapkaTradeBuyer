@@ -484,31 +484,28 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
                                     Log.e("data2", result.toString());
 
-                                        JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
-                                        for (int l = 0; l < jsonarray_result.size(); l++) {
+                                    JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+                                    for (int l = 0; l < jsonarray_result.size(); l++) {
 
-                                            JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
-                                            String productname = jsonObject_result.get("name").getAsString();
-                                            String distance = jsonObject_result.get("distance").getAsString();
-                                            SearchSuggestionList.add(productname);
-                                            DistanceList.add(String.valueOf(distance));
-                                        }
+                                        JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
+                                        String productname = jsonObject_result.get("name").getAsString();
+                                        String distance = jsonObject_result.get("distance").getAsString();
+                                        SearchSuggestionList.add(productname);
+                                        DistanceList.add(String.valueOf(distance));
                                     }
+                                }
 
 
-                                    if (error.contains("false")) {
+                                if (error.contains("false")) {
 
 
-                                        product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, SearchSuggestionList, DistanceList);
+                                    product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, SearchSuggestionList, DistanceList);
 
-                                        if (SearchSuggestionList.size() != 0)
-                                            autocomplete_textview_product.setAdapter(product_autocompleteadapter);
+                                    if (SearchSuggestionList.size() != 0)
+                                        autocomplete_textview_product.setAdapter(product_autocompleteadapter);
 
 
 //
-
-
-                                    }
 
 
                                 }
@@ -516,6 +513,8 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
                             }
 
+
+                        }
 
 
                     }
