@@ -272,7 +272,8 @@ public class CartCheckoutActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        System.out.println("result-----------"+result.toString());
+                        AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
+                        // System.out.println("result-----------"+result.toString());
                         progressBarHandler.hide();
 
                     }
