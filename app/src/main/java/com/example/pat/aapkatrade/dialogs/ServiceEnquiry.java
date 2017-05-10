@@ -85,7 +85,7 @@ public class ServiceEnquiry extends DialogFragment {
         AndroidUtils.setBackgroundSolid(dialogue_toolbar, getActivity(), R.color.green, 15, GradientDrawable.RECTANGLE);
 
         tvProductname = (TextView) v.findViewById(R.id.tvProductname);
-        tvCategoryName = (TextView) v.findViewById(R.id.tvCategoryName);
+        //tvCategoryName = (TextView) v.findViewById(R.id.tvCategoryName);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

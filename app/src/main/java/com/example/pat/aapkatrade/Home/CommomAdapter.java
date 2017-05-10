@@ -24,6 +24,7 @@ import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
+import com.example.pat.aapkatrade.shopdetail.productdetail.ProductDetailActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -232,8 +233,11 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(context, ShopDetailActivity.class);
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("product_id", commomDatas.get(position).id);
+                    intent.putExtra("product_name",commomDatas.get(position).name);
+                    intent.putExtra("product_price",commomDatas.get(position).price);
+                    intent.putExtra("product_image",commomDatas.get(position).imageurl);
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 
@@ -256,7 +260,9 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     return true;
                 }
             });
+
         } else {
+
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
@@ -329,10 +335,13 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
+
+                        if (result.toString().equals("null"))
+                        {
+
                         System.out.println("result------------------------" + result);
 
-                        if (result.isJsonNull()) {
-
+                      
                             Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
                         } else {
                             System.out.println("result--------------" + result);
@@ -351,7 +360,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 //int j = appSharedPreference.getsharedpref_int("cart_count",0);
                                 ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
                                 progressBarHandler.hide();
-
 
                             }
 

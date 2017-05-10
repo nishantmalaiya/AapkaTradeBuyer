@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -33,12 +35,12 @@ public class MyCartActivity extends AppCompatActivity
     ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
-    private TextView checkDeliveryButton;
+    private TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
     RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
     private ProgressBarHandler progressBarHandler;
-
+    public static CardView cardviewProductDeatails,cardBottom;
 
 
     @Override
@@ -67,7 +69,7 @@ public class MyCartActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+       AndroidUtils.setImageColor(homeIcon, context, R.color.white);
 
         homeIcon.setOnClickListener(new View.OnClickListener()
         {
@@ -87,7 +89,7 @@ public class MyCartActivity extends AppCompatActivity
         {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setTitle("null");
             getSupportActionBar().setElevation(0);
         }
 
@@ -100,7 +102,44 @@ public class MyCartActivity extends AppCompatActivity
 
     private void initView()
     {
+        cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
+
+        cardBottom = (CardView) findViewById(R.id.cardBottom);
+
         locationImageView = (ImageView) findViewById(R.id.locationImageView);
+
+        tvLastPayableAmount = (TextView) findViewById(R.id.tvLastPayableAmount);
+
+        tvPriceItemsHeading = (TextView) findViewById(R.id.tvPriceItemsHeading);
+
+        tvAmountPayable = (TextView) findViewById(R.id.tvAmountPayable);
+
+        tvPriceItems = (TextView) findViewById(R.id.tvPriceItems);
+
+        tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
+
+        tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
+
+        tvContinue = (TextView) findViewById(R.id.tvplaceOrder);
+
+        tvLastPayableAmount = (TextView) findViewById(R.id.tvLastPayableAmount);
+
+        tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
+
+        tvContinue.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent  shiping_address = new Intent(MyCartActivity.this, AddAddressActivity.class);
+
+                System.out.println("place _order_list "+ CartAdapter.place_order.toString());
+
+                startActivity(shiping_address);
+
+            }
+        });
 
         AndroidUtils.setImageColor(locationImageView, context, R.color.green);
 
@@ -183,6 +222,8 @@ public class MyCartActivity extends AppCompatActivity
                                 mycartRecyclerView.setLayoutManager(mLayoutManager);
                                 cartAdapter = new CartAdapter(context, cartDataArrayList);
                                 mycartRecyclerView.setAdapter(cartAdapter);
+                                cardviewProductDeatails.setVisibility(View.VISIBLE);
+                                cardBottom.setVisibility(View.VISIBLE);
                             }
                         }
                         else

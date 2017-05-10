@@ -4,11 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_marginTop="@dimen/ten_dip"
     android:layout_marginLeft="@dimen/ten_dip"
     android:layout_marginRight="@dimen/ten_dip"
-    android:layout_marginBottom="@dimen/five_dip"
-
+    android:layout_marginBottom="@dimen/ten_dip"
     >
 
     <RelativeLayout
@@ -78,18 +76,19 @@
                 android:layout_marginLeft="@dimen/ten_dip"
                 android:textColor="@color/black"
                 android:textSize="@dimen/fifteen_dip"
+                android:maxLines="1"
                 />
 
             <TextView
                 android:id="@+id/tvProductUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unit: Ltr"
+                android:text="Seller: Amazing Business Solutions"
                 android:layout_toRightOf="@+id/imgProduct"
                 android:layout_marginLeft="@dimen/ten_dip"
                 android:layout_below="@+id/tvProductName"
                 android:layout_marginTop="@dimen/five_dip"
-                android:textColor="@color/black"
+                android:maxLines="1"
                 />
 
 
@@ -103,6 +102,7 @@
                 android:layout_below="@+id/tvProductUnit"
                 android:textColor="@color/orange"
                 android:layout_marginTop="@dimen/five_dip"
+                android:maxLines="1"
                 />
 
 
@@ -110,7 +110,7 @@
             <Button
                 android:id="@+id/buttonAddtoCart"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/thirty_five_dip"
+                android:layout_height="@dimen/thirty_dip"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/button_selector"
                 android:text="Remove"

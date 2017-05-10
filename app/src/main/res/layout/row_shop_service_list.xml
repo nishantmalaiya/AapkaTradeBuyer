@@ -63,7 +63,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_addto_card"
-
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -76,6 +75,7 @@
                 android:layout_marginLeft="@dimen/ten_dip"
                 android:textColor="@color/black"
                 android:textSize="@dimen/fifteen_dip"
+                android:maxLines="1"
                 />
 
             <TextView
@@ -88,6 +88,7 @@
                 android:layout_below="@+id/tvProductName"
                 android:layout_marginTop="@dimen/five_dip"
                 android:textColor="@color/black"
+                android:maxLines="1"
                 />
 
 
@@ -101,13 +102,14 @@
                 android:layout_below="@+id/tvProductUnit"
                 android:textColor="@color/orange"
                 android:layout_marginTop="@dimen/five_dip"
+                android:maxLines="1"
                 />
 
 
             <Button
                 android:id="@+id/buttonAddtoCart"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/thirty_five_dip"
+                android:layout_height="@dimen/thirty_dip"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/button_selector"
                 android:text="Add to Cart"
@@ -127,6 +129,7 @@
                 android:layout_toRightOf="@+id/imgProduct"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/five_dip"
+                android:visibility="invisible"
                 android:layout_marginLeft="@dimen/five_dip"
                 android:padding="@dimen/three_dip" >
 
