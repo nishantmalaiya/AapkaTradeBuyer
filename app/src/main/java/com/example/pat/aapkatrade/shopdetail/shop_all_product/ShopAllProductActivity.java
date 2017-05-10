@@ -122,10 +122,6 @@ public class ShopAllProductActivity extends AppCompatActivity
 
         login.setVisible(false);
 
-        final  MenuItem language = menu.findItem(R.id.language);
-
-        language.setVisible(false);
-
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 
          tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);

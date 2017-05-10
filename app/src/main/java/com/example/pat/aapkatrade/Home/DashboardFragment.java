@@ -240,8 +240,6 @@ AppSharedPreference appSharedPreference;
         progress_handler.show();
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
-
-
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
