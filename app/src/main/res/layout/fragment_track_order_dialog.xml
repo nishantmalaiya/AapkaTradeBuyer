@@ -76,16 +76,10 @@
                     android:gravity="center_horizontal|center_vertical">
 
 
-
-
-
-
-
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-
                         android:hint="@string/tracking_text"
                         android:textColorHint="#04956E"
                         app:hintTextAppearance="@style/TextInputLayout"
@@ -94,11 +88,11 @@
                         >
 
                         <EditText
+                            android:id="@+id/et_orderid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:inputType="number"
-android:id="@+id/et_orderid"
                             android:maxLength="14"
                             android:textColor="@color/white"
                             android:textColorHint="#04956E"
@@ -141,10 +135,10 @@ android:id="@+id/et_orderid"
 
 
                     <Button
+                        android:id="@+id/btn_trackorder"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/twenty_dip"
-                        android:id="@+id/btn_trackorder"
                         android:background="#04956D"
                         android:text="@string/continue_order"
                         android:textAllCaps="true"

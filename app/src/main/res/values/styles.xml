@@ -234,8 +234,10 @@
     <style name="TextInputLayout"  parent="TextAppearance.Design.Hint">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
-
-
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
 
 
 

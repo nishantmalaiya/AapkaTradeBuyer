@@ -499,6 +499,8 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
 
                 ServiceEnquiry serviceEnquiry = new ServiceEnquiry(product_id, context);
+
+
                 FragmentManager fm = getSupportFragmentManager();
                 serviceEnquiry.show(fm, "enquiry");
 
@@ -544,10 +546,6 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         final MenuItem login = menu.findItem(R.id.login);
 
         login.setVisible(false);
-
-        final  MenuItem language = menu.findItem(R.id.language);
-
-        language.setVisible(false);
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 

@@ -141,14 +141,14 @@ LinearLayout reset_password_container;
 
 
 
-       /* else
+        else
         {
 
-            showMessage(getResources().getString(R.string.password_validing_text));
+            showmessage(getResources().getString(R.string.password_validing_text));
 
         }
 
-*/
+
     }
 
     private void showmessage(String message) {
@@ -197,9 +197,7 @@ LinearLayout reset_password_container;
                         }
                         Log.e("reset_password", result.toString());
 
-//                        taskCompleteReminder.Taskcomplete(result);
 
-                        //taskCompleteReminder.Taskcomplete("complete");
 //
                     }
 
