@@ -40,7 +40,7 @@ public class Reset_password_fragment extends Fragment implements View.OnClickLis
     String user_id;
 String otp_id;
     String classname;
-    Forgot_password_fragment forgot_password_fragment;
+    ForgotPasswordFragment forgot_password_fragment;
     Reset_password_fragment reset_password_fragment;
 LinearLayout reset_password_container;
     String class_index;

@@ -2,9 +2,7 @@ package com.example.pat.aapkatrade.contact_us;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,65 +30,33 @@ public class ContactUsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
-
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        progress_handler = new ProgressBarHandler(getActivity());
-
-        setup_layout(view);
-
-        return view;
-    }
-
-    private void setup_layout(View v) {
-
-        imgPhone = (ImageView) v.findViewById(R.id.imgPhone);
-
-        imgEmail = (ImageView) v.findViewById(R.id.imgEmail);
-
-        AndroidUtils.setImageColor(imgEmail, getActivity(), R.color.black);
-
-        AndroidUtils.setImageColor(imgPhone, getActivity(), R.color.black);
-
-        etSubject = (EditText) v.findViewById(R.id.etSubject);
-
-        etUserName = (EditText) v.findViewById(R.id.etUserName);
-
-        etMobileNo = (EditText) v.findViewById(R.id.etMobileNo);
-
-        etEmail = (EditText) v.findViewById(R.id.etEmail);
-
-        etQuery = (EditText) v.findViewById(R.id.etQuery);
-
-        buttonSave = (Button) v.findViewById(R.id.buttonSave);
-
+        progress_handler = new ProgressBarHandler(getContext());
+        initView(view);
         buttonSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
                 String subject = etSubject.getText().toString();
                 String username = etUserName.getText().toString();
                 String mobileno = etMobileNo.getText().toString();
                 String email = etEmail.getText().toString();
                 String query = etQuery.getText().toString();
+                if (!subject.equals("")) {
 
-                if (!subject.toString().equals("")) {
+                    if (!username.equals("")) {
 
-                    if (!username.toString().equals("")) {
+                        if (!mobileno.equals("")) {
 
-                        if (!mobileno.toString().equals("")) {
+                            if (mobileno.length() == 10) {
 
-                            if (mobileno.toString().length() == 10) {
-
-                                if (!email.toString().equals("")) {
+                                if (!email.equals("")) {
 
                                     if (Validation.isValidEmail(email)) {
                                         if (!query.equals("")) {
 
-                                            callAddCompanyWebService(subject, username, mobileno, email, query);
+                                            callContactUsWebService(subject, username, mobileno, email, query);
 
                                         } else {
 
@@ -135,13 +101,27 @@ public class ContactUsFragment extends Fragment {
             }
         });
 
+        return view;
+    }
+
+    private void initView(View v) {
+        imgPhone = (ImageView) v.findViewById(R.id.imgPhone);
+        imgEmail = (ImageView) v.findViewById(R.id.imgEmail);
+        AndroidUtils.setImageColor(imgEmail, getActivity(), R.color.black);
+        AndroidUtils.setImageColor(imgPhone, getActivity(), R.color.black);
+        etSubject = (EditText) v.findViewById(R.id.etSubject);
+        etUserName = (EditText) v.findViewById(R.id.etUserName);
+        etMobileNo = (EditText) v.findViewById(R.id.etMobileNo);
+        etEmail = (EditText) v.findViewById(R.id.etEmail);
+        etQuery = (EditText) v.findViewById(R.id.etQuery);
+        buttonSave = (Button) v.findViewById(R.id.buttonSave);
+
 
     }
 
 
-    private void callAddCompanyWebService(String subject, String username, String mobile, String email, String query) {
+    private void callContactUsWebService(String subject, String username, String mobile, String email, String query) {
         progress_handler.show();
-
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/contact")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")

@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.shopdetail.productdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -50,6 +51,7 @@ import com.shehabic.droppy.DroppyMenuPopup;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -279,7 +281,25 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewPager.setCurrentItem(currentPage);
         setUiPageViewController();
 
-//
+        final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (currentPage == viewPagerAdapter.getCount() - 1) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+
+            banner_timer.schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+                    handler.post(update);
+                }
+            }, 0, 3000);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

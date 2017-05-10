@@ -108,13 +108,13 @@ public class ZoomImageDialog extends AppCompatActivity {
             };
 
 
-            banner_timer.schedule(new TimerTask() {
-
-                @Override
-                public void run() {
-                    handler.post(update);
-                }
-            }, 0, 3000);
+//            banner_timer.schedule(new TimerTask() {
+//
+//                @Override
+//                public void run() {
+//                    handler.post(update);
+//                }
+//            }, 0, 3000);
 
         circleIndicator.setViewPager(viewpager_custom);
 

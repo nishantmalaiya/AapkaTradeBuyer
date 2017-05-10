@@ -51,7 +51,7 @@
     <string name="email" translatable="false">Email</string>
     <string name="emailId" translatable="false">Email ID*</string>
     <string name="or" translatable="false">OR</string>
-    <string name="mobile_no" translatable="false">mobile no</string>
+    <string name="mobile_no" translatable="false">Mobile No</string>
     <string name="send_otp" translatable="false">SEND OTP</string>
     <string name="otp_data_1" translatable="false">Make sure your information is</string>
     <string name="otp_data_2" translatable="false">correct before continuing</string>
@@ -68,7 +68,7 @@
     <string name="delivery_date" translatable="false">Delivery date: 19 Jan to 20 Jan</string>
     <string name="subtotal" translatable="false">Subtotal:</string>
 
-    <string name="webservice_base_url" translatable="false">https://aapkatrade.com/slim</string>
+    <string name="webservice_base_url" translatable="false">http://staging.aapkatrade.com/slim</string>
     <string name="logout" translatable="false">Logout</string>
     <string name="latest_update" translatable="false">LATEST UPDATE</string>
     <string name="first_name" translatable="false">First Name*</string>
@@ -194,5 +194,6 @@
     <string name="Rs">\u20B9</string>
     <string name="place_order">Place Order</string>
     <string name="b">Bharat</string>
+    <string name="buyer">Buyer</string>
 
 </resources>

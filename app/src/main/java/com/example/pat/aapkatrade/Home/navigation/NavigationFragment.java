@@ -28,7 +28,7 @@ import com.example.pat.aapkatrade.Home.navigation.adapter.NavigationAdapter;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -62,14 +62,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private int lastExpandedPosition = -1;
     AppSharedPreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
-    // private SharedPreferences loginPreferences;
     List<String> categoryids;
     List<String> categoryname;
     Context context;
     TextView footer;
     RelativeLayout header;
     TextView textViewName, emailid;
-    public static TextView usertype;
     private NavigationAdapter category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     RelativeLayout rl_category, rl_logout;
@@ -121,7 +119,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         categoryname = new ArrayList<>();
         categoryids = new ArrayList<>();
         textViewName = (TextView) view.findViewById(R.id.tv_name);
-        usertype = (TextView) view.findViewById(R.id.welcome_guest);
         emailid = (TextView) view.findViewById(R.id.tv_email);
         prepareListData();
         navigation_linear_layout_manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -155,8 +152,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                         .error(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
                         .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
                         .load(user_image);
-
-                usertype.setText("Buyer");
 
 
             }
@@ -240,7 +235,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDrawerLayout.closeDrawers();
-
     }
 
     @Override
@@ -295,9 +289,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        Call_webservice.getcountrystatedata(context, "category", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+        CallWebService.getcountrystatedata(context, "category", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
 
             @Override
             public void Taskcomplete(JsonObject data) {
@@ -376,7 +370,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 set_visibility_logout();
 
                 setdata(userName, emailId);
-                usertype.setText("Buyer");
 
 
             }
