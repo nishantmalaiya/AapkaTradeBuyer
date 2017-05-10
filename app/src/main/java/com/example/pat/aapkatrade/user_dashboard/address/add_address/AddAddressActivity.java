@@ -156,7 +156,7 @@ public class AddAddressActivity extends AppCompatActivity
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
-
+                        progress_handler.hide();
                         Intent checkout = new Intent(AddAddressActivity.this, CartCheckoutActivity.class);
                         checkout.putExtra("fname",etFirstName.getText().toString());
                         checkout.putExtra("lname",etLastName.getText().toString());

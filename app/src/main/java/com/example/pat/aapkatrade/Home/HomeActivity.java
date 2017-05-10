@@ -675,6 +675,7 @@ public class HomeActivity extends AppCompatActivity
         else
         {
             tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+
         }
 
     }

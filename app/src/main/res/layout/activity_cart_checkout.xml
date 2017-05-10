@@ -1,294 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F1F5F8">
 
-    <include
-        layout="@layout/toolbar_layout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar_layout" />
+
+    </LinearLayout>
+
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_height="fill_parent"
         android:layout_above="@+id/relativePayment"
-        >
-
+        android:layout_marginBottom="@dimen/ten_dip"
+        android:layout_below="@+id/linearLayout_toolbar"
+        android:background="#F1F5F8">
 
         <LinearLayout
+            android:id="@+id/layout_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
 
-            <android.support.v7.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardMaxElevation="8dp">
+                android:orientation="vertical">
 
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    app:cardCornerRadius="5dp"
+                    app:cardMaxElevation="8dp"
+                    android:layout_margin="@dimen/ten_dip"
                     >
 
                     <LinearLayout
-                        android:id="@+id/linearAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         >
 
                         <LinearLayout
+                            android:id="@+id/linearAddress"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="10dp"
                             >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:orientation="horizontal">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="10dp"
+                                >
 
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_gravity="center"
-                                    android:scaleType="fitXY"
-                                    android:src="@drawable/location_green" />
 
-                                <TextView
-                                    style="@style/myAddress"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="0dp"
-                                    android:text="Shipping Address"
-                                    android:textStyle="bold" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
 
-                            </LinearLayout>
+                                    <TextView
+                                        android:id="@+id/addressLine1"
+                                        style="@style/myAddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:maxLines="2"
+                                        android:text="Arvind kumar Yadav" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                </LinearLayout>
 
-                                <TextView
-                                    android:id="@+id/addressLine1"
-                                    style="@style/myAddress"
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/addressLine2"
+                                        style="@style/myAddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/address_line2" />
+                                </LinearLayout>
+
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="2"
-                                    android:text="Arvind kumar Yadav" />
+                                    android:layout_marginTop="5dp"
+                                    >
+
+                                    <TextView
+                                        android:id="@+id/addressLine3"
+                                        style="@style/myAddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+
+                                        android:text="9811531065" />
+                                </LinearLayout>
+
 
                             </LinearLayout>
 
-
-                            <LinearLayout
+                            <View
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="0.5dp"
+                                android:background="@color/slate_gray"
+                                ></View>
 
-                                <TextView
-                                    android:id="@+id/addressLine2"
-                                    style="@style/myAddress"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/address_line2" />
-                            </LinearLayout>
-
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:padding="10dp"
                                 >
 
                                 <TextView
-                                    android:id="@+id/addressLine3"
-                                    style="@style/myAddress"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="CHANGE ADDRESS"
+                                    android:layout_centerHorizontal="true"
+                                    android:textColor="@color/black"
+                                    />
 
-                                    android:text="9811531065" />
-                            </LinearLayout>
+
+                            </RelativeLayout>
 
 
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/slate_gray"
-                            ></View>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="CHANGE ADDRESS"
-                                android:layout_centerHorizontal="true"
-                                android:textColor="@color/black"
-                                />
-
-
-                        </RelativeLayout>
-
 
                     </LinearLayout>
 
+                </android.support.v7.widget.CardView>
 
-                </LinearLayout>
+            </LinearLayout>
 
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/order_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten_dip">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardviewProductDeatails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten_dip"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvPriceDetailHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/ten_dip"
+                        android:text="PRICE DETAILS"
+                        android:textColor="@color/black" />
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@+id/tvPriceDetailHeading"
+                        android:background="@color/slate_gray"></View>
+
+
+                    <RelativeLayout
+                        android:id="@+id/relativePriceItems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view1">
+
+                        <TextView
+                            android:id="@+id/tvPriceItemsHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:padding="@dimen/ten_dip"
+                            android:text="Price(3 items)" />
+
+
+                        <TextView
+                            android:id="@+id/tvPriceItems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:padding="@dimen/ten_dip"
+                            android:text="42565" />
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/relativeDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relativePriceItems">
+
+                        <TextView
+                            android:id="@+id/tvDeliveryHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:padding="@dimen/ten_dip"
+                            android:text="Delivery" />
+
+
+                        <TextView
+                            android:id="@+id/tvDelivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:padding="@dimen/ten_dip"
+                            android:text="Free"
+                            android:textColor="@color/green" />
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relativeDelivery">
+
+                        <TextView
+                            android:id="@+id/tvAmountPayableHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:padding="@dimen/ten_dip"
+                            android:text="Amount Payable"
+                            android:textColor="@color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvAmountPayable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:padding="@dimen/ten_dip"
+                            android:text="42515"
+                            android:textColor="@color/black" />
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
 
 
             </android.support.v7.widget.CardView>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                    <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardMaxElevation="8dp"
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        >
-
-                        <TextView
-                            android:id="@+id/tvProductName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:text="Laxmi Auto World"
-                            android:layout_toLeftOf="@+id/imgProduct"
-                            android:layout_marginRight="10dp"
-                            />
-
-                        <TextView
-                            android:id="@+id/tvCategoryName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:text="Auto Mobile"
-                            android:layout_below="@+id/tvProductName"
-                            android:layout_toLeftOf="@+id/imgProduct"
-                            android:layout_marginRight="10dp"
-                            />
-
-
-                        <ImageView
-                            android:id="@+id/imgProduct"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@drawable/banner"
-                            android:scaleType="fitXY"
-                            android:layout_alignParentRight="true"
-                            />
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardMaxElevation="8dp"
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-
-                       <TextView
-                           android:id="@+id/tvpricedetailHeading"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="PRICE DETAILS"
-                           android:layout_marginLeft="10dp"
-                           android:layout_marginTop="10dp"
-                           android:textSize="18sp"
-                           />
-
-                        <View
-                            android:id="@+id/view2"
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/slate_gray"
-                            android:layout_marginTop="10dp"
-                            android:layout_below="@+id/tvpricedetailHeading"
-                            ></View>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Price(1 item)"
-                            android:layout_below="@+id/view2"
-                            android:layout_marginTop="10dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:textColor="@color/black"
-                            />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="\u20A8 200"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@+id/view2"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textColor="@color/black"
-                            />
-
-
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-
-
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
 
 
     <RelativeLayout

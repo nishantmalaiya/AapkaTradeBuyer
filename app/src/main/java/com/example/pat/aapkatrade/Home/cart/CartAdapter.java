@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home.cart;
 import android.content.Context;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
@@ -49,6 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     private EditText editText;
     AppSharedPreference appSharedPreference;
     private ProgressBarHandler progressBarHandler;
+    public static ArrayList<CartData>  place_order = new ArrayList<>();
 
 
     public CartAdapter(Context context, List<CartData> itemList)
@@ -57,14 +60,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-
         appSharedPreference = new AppSharedPreference(context);
-
         progressBarHandler = new ProgressBarHandler(context);
-
         System.out.println("itemlist_cartdata-----------------"+itemList.size());
-
-
 
     }
 
@@ -81,7 +79,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
         textViewQuantity = holder.textView64;
 
+        Ion.with(holder.productimage)
+                .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                .load(itemList.get(position).product_image);
+
         //linearLayoutQuantity.setOnClickListener(this);
+        place_order.add(new CartData(itemList.get(position).id,itemList.get(position).productName,itemList.get(position).quantity,itemList.get(position).price,itemList.get(position).product_image,itemList.get(position).product_id));
 
         textViewQuantity.setText(itemList.get(position).quantity);
 
@@ -89,7 +93,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
         holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+itemList.get(position).price);
 
-        System.out.println("itemlist-------------"+itemList.get(position).price);
+        System.out.println("itemlist-------------"+itemList.get(position).product_image);
 
         final DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, linearLayoutQuantity);
         droppyBuilder.addMenuItem(new DroppyMenuItem("1"))
@@ -117,7 +121,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *1;
                        /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
-                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+                        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
+                        place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"1",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id));
+                        callwebservice__update_cart(itemList.get(position).id,position,"1");
 
                         break;
                     case 1:
@@ -125,33 +131,44 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *2;
                         System.out.println("cart_price----------"+cart_price);
-                        holder.tvProductPrice.setText(String.valueOf(cart_price));
-
+                        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
+                        place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"2",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id));
+                        callwebservice__update_cart(itemList.get(position).id,position,"2");
                         break;
                     case 2:
                         itemList.get(position).setQuantity("3");
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *3;
-                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+                        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
+                        place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"3",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id));
+                        callwebservice__update_cart(itemList.get(position).id,position,"3");
                         break;
 
                     case 3:
                         itemList.get(position).setQuantity("4");
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *4;
-                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+                        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
 
+                        place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"4",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id));
+
+                        callwebservice__update_cart(itemList.get(position).id,position,"4");
                         break;
                     case 4:
                         itemList.get(position).setQuantity("5");
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *5;
-                        holder.tvProductPrice.setText(String.valueOf(cart_price));
+                        holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
+
+                        place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"5",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id));
+                        callwebservice__update_cart(itemList.get(position).id,position,"5");
 
                         break;
                     case 5:
                         showPopup("Quantity", position);
                         break;
+
+
 
                 }
             }
@@ -221,6 +238,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     {
 
         progressBarHandler.show();
+
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_remove";
 
         String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -240,7 +258,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-
                         if (result.isJsonNull()){
 
                             Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
@@ -250,7 +267,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                             System.out.println("result--------------"+ result);
                             JsonObject jsonObject = result.getAsJsonObject("result");
                             String cart_count = jsonObject.get("total_qty").getAsString();
+                            if (cart_count.equals("0"))
+                            {
+
+                                MyCartActivity.cardviewProductDeatails.setVisibility(View.INVISIBLE);
+                                MyCartActivity.cardBottom.setVisibility(View.INVISIBLE);
+
+                            }
+                            else
+                             {
+
+                                 MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
+                                 MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
+
+                            }
                             appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                            place_order.remove(position);
                             itemList.remove(position);
                             notifyDataSetChanged();
 
@@ -258,11 +290,42 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         }
 
-
                     }
                 });
 
     }
+
+
+
+    private void callwebservice__update_cart(String product_id, final int position,String quantity)
+    {
+
+        progressBarHandler.show();
+
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_update";
+
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("id", product_id)
+                .setBodyParameter("quantity", quantity)
+                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                      System.out.println("cart updated "+result.toString());
+                        progressBarHandler.hide();
+                    }
+                });
+
+    }
+
 
 
 }
