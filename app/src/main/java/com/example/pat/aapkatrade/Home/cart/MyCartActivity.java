@@ -35,7 +35,7 @@ public class MyCartActivity extends AppCompatActivity
     ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
-    private TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
+    public static TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
     RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
@@ -183,6 +183,8 @@ public class MyCartActivity extends AppCompatActivity
     private void getAllShopProducts(String pageNumber)
     {
 
+        System.out.println("deveice -id----------"+ App_config.getCurrentDeviceId(context));
+
         progressBarHandler.show();
 
         Ion.with(MyCartActivity.this)
@@ -201,6 +203,15 @@ public class MyCartActivity extends AppCompatActivity
 
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
+                            String cart_count = jsonObject.get("total_qty").getAsString();
+                            String total_amount =  jsonObject.get("total_amount").getAsString();
+
+                            tvPriceItemsHeading.setText("Price("+cart_count+"items)");
+                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+
+
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
                             if (jsonProductList != null && jsonProductList.size() > 0)
                             {
@@ -211,12 +222,15 @@ public class MyCartActivity extends AppCompatActivity
                                     String productName = jsonproduct.get("name").getAsString();
                                     String productqty = jsonproduct.get("quantity").getAsString();
                                     String price = jsonproduct.get("price").getAsString();
+                                    String subtotal_price = jsonproduct.get("sub_total").getAsString();
 
                                     System.out.println("price--------------------"+price);
-
                                     String productImage = jsonproduct.get("image_url").getAsString();
                                     String product_id = jsonproduct.get("product_id").getAsString();
-                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id));
+                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id,subtotal_price));
+
+
+
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mycartRecyclerView.setLayoutManager(mLayoutManager);

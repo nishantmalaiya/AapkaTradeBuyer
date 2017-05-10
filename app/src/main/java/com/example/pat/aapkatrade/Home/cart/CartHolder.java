@@ -18,11 +18,11 @@ public class CartHolder extends RecyclerView.ViewHolder
 {
 
     View view;
-    TextView tvProductName, tvProductUnit,tvProductPrice,textView64;
-    ImageView productimage;
-    Button buttonAddtoCart;
-    Spinner spinner;
-    LinearLayout dropdown_ll;
+    public TextView tvProductName, tvProductUnit,tvProductPrice,textView64,tvProductSubtotalPrice;
+    public ImageView productimage;
+    public Button buttonAddtoCart;
+    public Spinner spinner;
+    public LinearLayout dropdown_ll;
 
     public CartHolder(View itemView)
     {
@@ -32,8 +32,7 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         textView64 = (TextView) itemView.findViewById(R.id.textView64);
 
-
-//        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
+       //        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
         productimage = (ImageView) itemView.findViewById(R.id.imgProduct);
@@ -42,10 +41,10 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
 
+        tvProductSubtotalPrice = (TextView) itemView.findViewById(R.id.tvProductSubtotalPrice);
         //  tvProductNumber = (TextView) itemView.findViewById(R.id.tvProductNumber);
 
         buttonAddtoCart = (Button) itemView.findViewById(R.id.buttonAddtoCart);
-
 
 
         view = itemView;
