@@ -1,45 +1,43 @@
-package com.example.pat.aapkatrade.Home.cart;
+package  com.example.pat.aapkatrade.user_dashboard.address.viewpager;
 
 import android.content.Context;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.pat.aapkatrade.Home.cart.CartData;
+import com.example.pat.aapkatrade.Home.cart.CartHolder;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
-
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Created by PPC16 on 4/25/2017.
  */
 
 
-public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements View.OnClickListener
+
+
+
+public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implements View.OnClickListener
 {
 
     private final LayoutInflater inflater;
@@ -55,7 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
 
 
-    public CartAdapter(Context context, List<CartData> itemList)
+    public CartCheckOutAdapter(Context context, List<CartData> itemList)
     {
 
         this.itemList = itemList;
@@ -123,7 +121,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         itemList.get(position).setQuantity("1");
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *1;
-                       /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
+                        /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
                         holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"1",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
                         callwebservice__update_cart(itemList.get(position).id,position,"1");
@@ -137,6 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"2",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
                         callwebservice__update_cart(itemList.get(position).id,position,"2");
+
                         break;
                     case 2:
                         itemList.get(position).setQuantity("3");
@@ -184,10 +183,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
             {
                 String id = itemList.get(position).id;
                 callwebservice__delete_cart(id,position);
-
             }
         });
-
 
     }
 
@@ -269,26 +266,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                             JsonObject jsonObject = result.getAsJsonObject("result");
                             String total_amount = jsonObject.get("total_amount").getAsString();
                             String cart_count = jsonObject.get("total_qty").getAsString();
+
                             if (cart_count.equals("0"))
                             {
-
-                                MyCartActivity.cardviewProductDeatails.setVisibility(View.INVISIBLE);
-                                MyCartActivity.cardBottom.setVisibility(View.INVISIBLE);
-
+                                CartCheckoutActivity.cardviewProductDeatails.setVisibility(View.INVISIBLE);
+                                CartCheckoutActivity.linearAddressLayout.setVisibility(View.INVISIBLE);
+                               // CartCheckoutActivity.cardBottom.setVisibility(View.INVISIBLE);
                             }
                             else
-                             {
-
-                                 MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
-                                 MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
-
+                            {
+                                CartCheckoutActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
+                                CartCheckoutActivity.linearAddressLayout.setVisibility(View.VISIBLE);
+                              //  CartCheckoutActivity.cardBottom.setVisibility(View.VISIBLE);
                             }
+
                             appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
 
-                            MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
-                            MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                            MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                            MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                            CartCheckoutActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
+                            CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                            CartCheckoutActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                           // CartCheckoutActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
 
                             place_order.remove(position);
                             itemList.remove(position);
@@ -305,11 +302,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
     private void callwebservice__update_cart(String product_id, final int position,String quantity)
     {
-
         progressBarHandler.show();
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_update";
-
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -331,18 +326,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         String cart_count = jsonresult.get("total_qty").getAsString();
                         appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
 
-                        MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
-                        MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                        MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                        MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                        CartCheckoutActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
+                        CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                        CartCheckoutActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                        //CartCheckoutActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
 
                         System.out.println("cart updated "+result.toString());
                         //notifyDataSetChanged();
                         progressBarHandler.hide();
-
-
                     }
                 });
+
     }
 
 
