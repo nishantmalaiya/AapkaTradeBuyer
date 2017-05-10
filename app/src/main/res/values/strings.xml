@@ -195,5 +195,6 @@
     <string name="place_order">Place Order</string>
     <string name="b">Bharat</string>
     <string name="buyer">Buyer</string>
+    <string name="email_or_mobile">Email/Mobile</string>
 
 </resources>

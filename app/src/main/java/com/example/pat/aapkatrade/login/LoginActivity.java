@@ -24,7 +24,10 @@ import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.HashMap;
 
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private AppSharedPreference appSharedpreference;
     private CoordinatorLayout coordinatorLayout;
     private Context context;
+    ProgressBarHandler progressBarHandler;
 
 
     @Override
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         context = LoginActivity.this;
         appSharedpreference = new AppSharedPreference(context);
+        progressBarHandler = new ProgressBarHandler(context);
         setUpToolBar();
         initView();
         putValues();
@@ -119,12 +124,12 @@ public class LoginActivity extends AppCompatActivity {
                 String input_email = etEmail.getText().toString().trim();
                 String input_password = password.getText().toString();
 
-                if (Validation.isValidEmail(input_email)) {
+                if (Validation.isValidEmail(input_email) || Validation.isValidNumber(input_email, Validation.getNumberPrefix(input_email))) {
 
                     if (Validation.validateEdittext(password)) {
                         String login_url = getResources().getString(R.string.webservice_base_url) + "/buyerlogin";
 
-                        callwebservice_login(login_url, input_email, input_password);
+                        callLoginWebService(login_url, input_email, input_password);
 
 
                     } else {
@@ -133,8 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    showMessage("Invalid Email Address");
-                    etEmail.setError("Invalid Email Address");
+                    showMessage("Invalid Email Address / Mobile");
+                    etEmail.setError("Invalid Email Address / Mobile");
                 }
 
 
@@ -142,49 +147,61 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void callwebservice_login(String login_url, String input_username, String input_password) {
-        // dialog.show();
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "login");
-        webservice_body_parameter.put("email", input_username);
-        webservice_body_parameter.put("password", input_password);
+    private void callLoginWebService(String login_url, String input_username, String input_password) {
+        AndroidUtils.showErrorLog(context, "Login : "+input_username+"  Password : "+ input_password, "*************   "+login_url);
 
-        HashMap<String, String> webservice_header_type = new HashMap<>();
-        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        progressBarHandler.show();
+        Ion.with(context)
+                .load(new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("buyerlogin").toString())
+                .setHeader("Authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("email", input_username)
+                .setBodyParameter("password", input_password)
+//                .asJsonObject()
+//                .setCallback(new FutureCallback<JsonObject>() {
+//                    @Override
+//                    public void onCompleted(Exception e, JsonObject result)
+//                    {
+//                        if(result!=null) {
+//                            progressBarHandler.hide();
+//                        }
+//
+//                       Log.e("result-----------",result.toString());
+//                        AndroidUtils.showErrorLog(context, "Login Result : "+result, "*************");
+//
+//                    }
+//                });
+//        AndroidUtils.showErrorLog(context, "Login2 : "+input_username+"  Password2 : "+ input_password, "*************   "+login_url);
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if (result != null) {
 
-        CallWebService.call_login_webservice(context, login_url, "login", webservice_body_parameter, webservice_header_type);
+                            String error = result.get("error").getAsString();
+                            if (error.contains("true"))
 
-        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject webservice_returndata) {
+                            {
+                                String message = result.get("message").getAsString();
+                                showMessage(message);
+                            }
 
-                if (webservice_returndata != null) {
+                            else
+                            {
 
-                    String error = webservice_returndata.get("error").getAsString();
-                    if (error.contains("true"))
+                                showMessage(getResources().getString(R.string.welcomebuyer));
+                                Log.e("webservice_returndata", result.toString());
+                                saveDataInSharedPreference(result);
+                                Intent Homedashboard = new Intent(context, HomeActivity.class);
+                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(Homedashboard);
 
-                    {
-                        String message = webservice_returndata.get("message").getAsString();
-                        showMessage(message);
+                            }
+                        }
+
                     }
-
-                    else
-                    {
-
-                        showMessage(getResources().getString(R.string.welcomebuyer));
-                        Log.e("webservice_returndata", webservice_returndata.toString());
-                         saveDataInSharedPreference(webservice_returndata);
-                        Intent Homedashboard = new Intent(context, HomeActivity.class);
-                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(Homedashboard);
-
-                    }
-                }
-
-            }
-        };
-
+                });
     }
 
     private void saveDataInSharedPreference(JsonObject webservice_returndata)
