@@ -1,8 +1,11 @@
 package com.example.pat.aapkatrade.Home.cart;
 
+import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +21,11 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 import com.google.gson.JsonArray;
@@ -104,6 +109,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
 
+        CustomQuantityDialog.commonInterface = new CommonInterface() {
+            @Override
+            public Object getData(Object object) {
+
+                textViewQuantity.setText(object.toString());
+
+                return null;
+            }
+        };
 
 
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
@@ -205,27 +219,33 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     public void showPopup(String description, final int pos)
     {
 
-        boolean wrapInScrollView = true;
-        MaterialDialog dialog = new MaterialDialog.Builder(context)
-                .title("Quantity")
-                .customView(R.layout.layout_more_quantity, wrapInScrollView)
-                .positiveText("ok")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (editText.getText().length() <= 0) {
-                            showMessage("Nothing done");
-                        } else {
-                            showMessage(editText.getText().toString());
-                            itemList.get(pos).setQuantity(editText.getText().toString());
-                            textViewQuantity.setText(editText.getText().toString());
-                            notifyDataSetChanged();
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-        editText = (EditText) dialog.findViewById(R.id.editText);
+        CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context);
+        FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
+        customQuantityDialog.show(fm, "Quantity");
+
+
+
+//        boolean wrapInScrollView = true;
+//        MaterialDialog dialog = new MaterialDialog.Builder(context)
+//                .title("Quantity")
+//                .customView(R.layout.layout_more_quantity, wrapInScrollView)
+//                .positiveText("ok")
+//                .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                        if (editText.getText().length() <= 0) {
+//                            showMessage("Nothing done");
+//                        } else {
+//                            showMessage(editText.getText().toString());
+//                            itemList.get(pos).setQuantity(editText.getText().toString());
+//                            textViewQuantity.setText(editText.getText().toString());
+//                            notifyDataSetChanged();
+//                        }
+//                        dialog.dismiss();
+//                    }
+//                })
+//                .show();
+//        editText = (EditText) dialog.findViewById(R.id.editText);
 
     }
 

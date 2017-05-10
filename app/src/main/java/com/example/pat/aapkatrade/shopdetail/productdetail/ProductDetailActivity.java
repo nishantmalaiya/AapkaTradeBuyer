@@ -63,8 +63,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String productId = "0", quantity = "1";
     private EditText editTextPostalCode, etManualQuantity;
     private TextView tvProductName, tvProductPrice, tvDiscountValue, tvUnitValue, tvAmountPaidValue, tvDescriptionValue, tvPinCodeCheck, tvToatalRatingAndReview, tvRatingAverage, tvQuantity;
-    private TextView okButton ;
-    private TextView cancelButton ;
+    private TextView okButton;
+    private TextView cancelButton;
     private LinearLayout viewPagerIndicator;
     private int dotsCount;
     private CircleIndicator circleIndicator;
@@ -184,7 +184,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         relativeRateReview = (RelativeLayout) findViewById(R.id.relativeRateReview);
         dropDownContainer = (LinearLayout) findViewById(R.id.dropDownContainer);
         tvQuantity = (TextView) findViewById(R.id.tvQuantity);
-        CustomQuantityDialog.commonInterface=new CommonInterface() {
+        CustomQuantityDialog.commonInterface = new CommonInterface() {
             @Override
             public Object getData(Object object) {
 
@@ -305,13 +305,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         };
 
 
-            banner_timer.schedule(new TimerTask() {
+        banner_timer.schedule(new TimerTask() {
 
-                @Override
-                public void run() {
-                    handler.post(update);
-                }
-            }, 0, 3000);
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 0, 3000);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -343,7 +343,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context);
         FragmentManager fm = getSupportFragmentManager();
         customQuantityDialog.show(fm, "Quantity");
-
 
 
 //        final MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -418,16 +417,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-    private void enableButton(TextView textView){
-        if(textView!=null) {
+    private void enableButton(TextView textView) {
+        if (textView != null) {
             AndroidUtils.setBackgroundSolid(textView, context, R.color.green, 10, GradientDrawable.RECTANGLE);
             textView.setTextColor(ContextCompat.getColor(context, R.color.white));
             textView.setEnabled(true);
         }
     }
 
-    private void disableButton(TextView textView){
-        if(textView!=null) {
+    private void disableButton(TextView textView) {
+        if (textView != null) {
             AndroidUtils.setBackgroundSolid(textView, context, R.color.white, 10, GradientDrawable.RECTANGLE);
             textView.setTextColor(ContextCompat.getColor(context, R.color.green));
             textView.setEnabled(false);

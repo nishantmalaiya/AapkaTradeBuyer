@@ -1,10 +1,14 @@
 package com.example.pat.aapkatrade.dialogs;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,6 +47,8 @@ public class ServiceEnquiry extends DialogFragment {
     ProgressBarHandler progressBarHandler;
     View v;
     ViewGroup viewgrp;
+    ProgressBar progressBar;
+    ProgressDialog prog;
 
     public ServiceEnquiry(String shopid, Context context) {
         super();
@@ -58,6 +65,7 @@ public class ServiceEnquiry extends DialogFragment {
         v = inflater.inflate(R.layout.fragment_service_enquiry, container, false);
         getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        progressBarHandler = new ProgressBarHandler(context);
         initView(v);
 
 
@@ -66,7 +74,7 @@ public class ServiceEnquiry extends DialogFragment {
 
 
     private void initView(View v) {
-        progressBarHandler = new ProgressBarHandler(context);
+
         rl_imgview_enquiry = (RelativeLayout) v.findViewById(R.id.rl_imgview_enquiry);
         dialogue_toolbar = (RelativeLayout) v.findViewById(R.id.dialogue_toolbar);
 
@@ -141,7 +149,15 @@ public class ServiceEnquiry extends DialogFragment {
     }
 
     private void call_enquiry_webservice(String call_enquiry_url) {
-        progressBarHandler.show();
+       prog= new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);//Assuming that you are using fragments.
+        prog.setTitle(getString(R.string.pleaseWait));
+        prog.setMessage(getString(R.string.webpage_being_loaded));
+        prog.setCancelable(false);
+        prog.setIndeterminate(true);
+
+
+        prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        prog.show();
 
         Ion.with(getActivity())
                 .load(call_enquiry_url)
@@ -164,8 +180,8 @@ public class ServiceEnquiry extends DialogFragment {
 
 
                         }
-
-
+                        dismiss();
+                        prog.hide();
 
                     }
                 });
