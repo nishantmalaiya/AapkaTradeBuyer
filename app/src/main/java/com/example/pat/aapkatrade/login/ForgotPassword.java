@@ -34,7 +34,7 @@ public class ForgotPassword extends AppCompatActivity {
     private ProgressBarHandler progressBarHandler;
     private Context context;
     String classname;
-    Forgot_password_fragment forgot_password_fragment;
+    ForgotPasswordFragment forgot_password_fragment;
     Reset_password_fragment reset_password_fragment;
 
     String class_index,otp_id;
@@ -50,7 +50,7 @@ public class ForgotPassword extends AppCompatActivity {
 
         class_index = getIntent().getStringExtra("forgot_index");
         Log.e("class_index", "" + class_index);
-        forgot_password_fragment = new Forgot_password_fragment();
+        forgot_password_fragment = new ForgotPasswordFragment();
 
         setUpToolBar();
         setupForgetpassword(class_index);
@@ -68,7 +68,7 @@ public class ForgotPassword extends AppCompatActivity {
     private void setupForgetpassword(String class_index) {
         if (class_index.contains("0")) {
             if (forgot_password_fragment == null) {
-                forgot_password_fragment = new Forgot_password_fragment();
+                forgot_password_fragment = new ForgotPasswordFragment();
             }
             String tagName = forgot_password_fragment.getClass().getName();
 

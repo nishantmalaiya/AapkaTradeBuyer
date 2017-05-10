@@ -15,7 +15,7 @@ import java.util.HashMap;
  * Created by PPC21 on 24-Jan-17.
  */
 
-public class Call_webservice {
+public class CallWebService {
 
     static JsonObject jsonObject = new JsonObject();
     public static TaskCompleteReminder taskCompleteReminder = null;

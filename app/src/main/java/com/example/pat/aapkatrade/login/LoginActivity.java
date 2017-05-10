@@ -20,7 +20,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
@@ -153,9 +153,9 @@ public class LoginActivity extends AppCompatActivity {
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-        Call_webservice.call_login_webservice(context, login_url, "login", webservice_body_parameter, webservice_header_type);
+        CallWebService.call_login_webservice(context, login_url, "login", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 

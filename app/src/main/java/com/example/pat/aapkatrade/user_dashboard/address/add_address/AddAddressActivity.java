@@ -272,9 +272,9 @@ public class AddAddressActivity extends AppCompatActivity
         webservice_body_parameter.put("type", "state");
         webservice_body_parameter.put("id", "101");//country id fixed 101 for India
 
-        //   Call_webservice.getcountrystatedata(AddAddressActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+        //   CallWebService.getcountrystatedata(AddAddressActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject state_data_webservice)
             {

@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.Change_Font;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -28,7 +27,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-public class Forgot_password_fragment extends Fragment implements View.OnClickListener {
+public class ForgotPasswordFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -37,7 +36,7 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
     private String usertype = "buyer";
 
     String classname;
-    Forgot_password_fragment forgot_password_fragment;
+    ForgotPasswordFragment forgot_password_fragment;
     Reset_password_fragment reset_password_fragment;
 
     String class_index;
@@ -50,7 +49,7 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
     private FrameLayout forgot_password_container;
 
 
-    public Forgot_password_fragment() {
+    public ForgotPasswordFragment() {
         // Required empty public constructor
     }
 
@@ -105,10 +104,10 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
 
     private void Validatefields() {
 
-        if (Validation.isValidEmail(et_email_forgot.getText().toString())) {
+        if (Validation.isValidEmail(et_email_forgot.getText()!=null?"":et_email_forgot.getText().toString())) {
             call_forgotpasswod_webservice();
 
-        } else if (Validation.validateEdittext(et_mobile_no)) {
+        } else if (Validation.isValidNumber(et_mobile_no.getText().toString(), Validation.getNumberPrefix(et_mobile_no.getText().toString()))) {
 
             call_forgotpasswod_webservice();
 
@@ -139,8 +138,8 @@ public class Forgot_password_fragment extends Fragment implements View.OnClickLi
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
-        Call_webservice.forgot_password(getActivity(), webservice_forgot_password, "forgot_password", webservice_body_parameter, webservice_header_type);
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        CallWebService.forgot_password(getActivity(), webservice_forgot_password, "forgot_password", webservice_body_parameter, webservice_header_type);
+        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject data) {
                 if (data != null) {

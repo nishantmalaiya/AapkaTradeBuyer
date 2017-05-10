@@ -57,7 +57,7 @@
                     android:id="@+id/welcome_guest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/welcomeguest"
+                    android:text="@string/buyer"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 

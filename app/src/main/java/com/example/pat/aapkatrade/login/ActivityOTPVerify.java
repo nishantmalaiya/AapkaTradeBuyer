@@ -26,7 +26,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -391,9 +391,9 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
         String verifyotp_url = getResources().getString(R.string.webservice_base_url) + "/varify_otp";
-        Call_webservice.verify_otp(ActivityOTPVerify.this, verifyotp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
+        CallWebService.verify_otp(ActivityOTPVerify.this, verifyotp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
                 progressBarHandler.hide();
@@ -460,9 +460,9 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
         String otp_url = getResources().getString(R.string.webservice_base_url) + "/resend_otp";
-        Call_webservice.resend_otp(ActivityOTPVerify.this, otp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
+        CallWebService.resend_otp(ActivityOTPVerify.this, otp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
