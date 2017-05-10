@@ -32,6 +32,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
@@ -51,10 +52,10 @@ import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity
-{
+public class HomeActivity extends AppCompatActivity {
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -79,15 +80,14 @@ public class HomeActivity extends AppCompatActivity
     boolean doubleBackToExitPressedOnce = false;
     LinearLayout linearlayout_home;
     ProgressBarHandler progressBarHandler;
-    public  TextView countTextView;
+    public TextView countTextView;
     FrameLayout redCircle;
     public static TextView tvCartCount;
 
-    int home_activity= 1;
+    int home_activity = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
@@ -108,8 +108,7 @@ public class HomeActivity extends AppCompatActivity
 
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status)
-        {
+        if (permission_status) {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -123,9 +122,7 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             App_config.deleteCache(HomeActivity.this);
 
-        }
-        else
-        {
+        } else {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -144,15 +141,13 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void checked_wifispeed()
-    {
+    private void checked_wifispeed() {
         int a = ConnetivityCheck.get_wifi_speed(this);
         Log.e("a", a + "");
     }
 
 
-    private void setupNavigationCustom()
-    {
+    private void setupNavigationCustom() {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
@@ -160,8 +155,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
@@ -170,38 +164,21 @@ public class HomeActivity extends AppCompatActivity
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 
-         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
-
-       // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
+        tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
                 onOptionsItemSelected(alertMenuItem);
             }
         });
 
 
         return true;
-
-
-        /*getMenuInflater().inflate(R.menu.home_menu, menu);
-
-        FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
-
-        redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
-        countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
-
-        return true;*/
-
-
-
     }
 
 
-    private void setupToolBar()
-    {
+    private void setupToolBar() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -241,8 +218,7 @@ public class HomeActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void setupDashFragment()
-    {
+    private void setupDashFragment() {
         if (homeFragment == null) {
             homeFragment = new DashboardFragment();
         }
@@ -251,8 +227,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         int id = item.getItemId();
         switch (id) {
@@ -279,35 +254,6 @@ public class HomeActivity extends AppCompatActivity
 
                     break;
                 }
-
-            case R.id.language:
-                View menuItemView = findViewById(R.id.language);
-                PopupMenu popup = new PopupMenu(HomeActivity.this.context, menuItemView);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.menu_language_list, popup.getMenu());
-
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.english_language:
-                                saveLocale("en");
-
-                                // getIntent().start
-                                return true;
-
-                            case R.id.hindi_language:
-                                saveLocale("hi");
-
-                                return true;
-                        }
-
-                        return true;
-                    }
-                });
-
-                popup.show();//showing popup menu
-
 
 
         }
@@ -461,7 +407,6 @@ public class HomeActivity extends AppCompatActivity
                         FragmentManager fm = getSupportFragmentManager();
                         Track_order_dialog track_order_dialog = new Track_order_dialog();
                         track_order_dialog.show(fm, "Track Order");
-
 
 
 //                        Intent i =new Intent(HomeActivity.this, Order_detail.class);
@@ -664,16 +609,12 @@ public class HomeActivity extends AppCompatActivity
 
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
-        if (home_activity == 1)
-        {
-
+        if (home_activity == 1) {
             home_activity = 2;
-        }
-        else
-        {
+        } else {
             tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
         }
 
