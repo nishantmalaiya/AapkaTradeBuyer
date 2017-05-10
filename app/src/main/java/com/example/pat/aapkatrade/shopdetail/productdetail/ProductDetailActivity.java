@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
+import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -304,74 +307,82 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     public void showPopup() {
-        final MaterialDialog dialog = new MaterialDialog.Builder(context)
-                .customView(R.layout.layout_more_quantity, true)
-                .show();
-//                .onPositive(new MaterialDialog.SingleButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                        if (Integer.valueOf(etManualQuantity.getText().toString()) > 0) {
-//                            quantity = etManualQuantity.getText().toString();
-//                            tvQuantity.setText(quantity);
-//                        } else {
-//                            etManualQuantity.setError("Please Select Valid Quantity.");
-//                        }
-//                        dialog.dismiss();
+
+        CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context);
+        FragmentManager fm = getSupportFragmentManager();
+        customQuantityDialog.show(fm, "Quantity");
+
+
+
+//        final MaterialDialog dialog = new MaterialDialog.Builder(context)
+//                .customView(R.layout.layout_more_quantity, true).backgroundColor(ContextCompat.getColor(context,R.color.transparent))
+//                .show();
+//
+////                .onPositive(new MaterialDialog.SingleButtonCallback() {
+////                    @Override
+////                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+////                        if (Integer.valueOf(etManualQuantity.getText().toString()) > 0) {
+////                            quantity = etManualQuantity.getText().toString();
+////                            tvQuantity.setText(quantity);
+////                        } else {
+////                            etManualQuantity.setError("Please Select Valid Quantity.");
+////                        }
+////                        dialog.dismiss();
+////                    }
+////                })
+//
+//
+//        etManualQuantity = (EditText) dialog.findViewById(R.id.editText);
+//        okButton = (TextView) dialog.findViewById(R.id.okDialog);
+//        cancelButton = (TextView) dialog.findViewById(R.id.cancelDialog);
+//        disableButton(okButton);
+//        disableButton(cancelButton);
+//        okButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(okButton.isEnabled()){
+//                    if(Integer.parseInt(etManualQuantity.getText().toString()) > 0){
+//                        enableButton(okButton);
+//
 //                    }
-//                })
-
-
-        etManualQuantity = (EditText) dialog.findViewById(R.id.editText);
-        okButton = (TextView) dialog.findViewById(R.id.okDialog);
-        cancelButton = (TextView) dialog.findViewById(R.id.cancelDialog);
-        disableButton(okButton);
-        disableButton(cancelButton);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(okButton.isEnabled()){
-                    if(Integer.parseInt(etManualQuantity.getText().toString()) > 0){
-                        enableButton(okButton);
-
-                    }
-                } else {
-                    enableButton(okButton);
-                }
-                AndroidUtils.showErrorLog(context, "ok button");
-                dialog.hide();
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enableButton(cancelButton);
-                AndroidUtils.showErrorLog(context, "cancel button");
-                dialog.hide();
-            }
-        });
-
-        etManualQuantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Integer.parseInt(s.toString()) == 0){
-                    etManualQuantity.setError("Please Enter Valid Quantity");
-                } else {
-                    tvQuantity.setText(s);
-//                    dialog.dismiss();
-                }
-            }
-        });
+//                } else {
+//                    enableButton(okButton);
+//                }
+//                AndroidUtils.showErrorLog(context, "ok button");
+//                dialog.hide();
+//            }
+//        });
+//
+//        cancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                enableButton(cancelButton);
+//                AndroidUtils.showErrorLog(context, "cancel button");
+//                dialog.hide();
+//            }
+//        });
+//
+//        etManualQuantity.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(Integer.parseInt(s.toString()) == 0){
+//                    etManualQuantity.setError("Please Enter Valid Quantity");
+//                } else {
+//                    tvQuantity.setText(s);
+////                    dialog.dismiss();
+//                }
+//            }
+//        });
 
     }
 
