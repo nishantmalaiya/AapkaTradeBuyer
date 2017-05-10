@@ -79,6 +79,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         } else if (arrangementtype == "list_product") {
             v = inflater.inflate(R.layout.row_dashboard_product_track_list, parent, false);
+
             viewHolder_listProduct = new CommonHolder_listProduct(v);
             return viewHolder_listProduct;
         } else if (arrangementtype == "OrderedProductList") {
@@ -157,6 +158,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         } else if (arrangementtype == "list_product") {
 
+
+
             final CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
 
             if (Tabletsize.isTablet(context)) {
@@ -197,15 +200,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             Log.e("imageurl", commomDatas.get(0).imageurl);
 
-            viewHolder_listProduct.cardview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    Log.e("time Adapter", String.valueOf(System.currentTimeMillis()));
-
-
-                }
-            });
             viewHolder_listProduct.tvProductName.setText(commomDatas.get(position).name);
 
             AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_addtocart, context, R.color.white, 15, GradientDrawable.OVAL);
@@ -243,23 +238,23 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 }
             });
-            viewHolder_listProduct.cardview.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-
-                    viewHolder_listProduct.rl_cartview.setVisibility(View.VISIBLE);
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (viewHolder_listProduct.rl_cartview.getVisibility() == View.VISIBLE) {
-                                viewHolder_listProduct.rl_cartview.setVisibility(View.GONE);
-                            }
-                        }
-                    }, SPLASH_DISPLAY_LENGTH);
-                    return true;
-                }
-            });
+//            viewHolder_listProduct.cardview.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//
+//                    viewHolder_listProduct.rl_cartview.setVisibility(View.VISIBLE);
+//
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (viewHolder_listProduct.rl_cartview.getVisibility() == View.VISIBLE) {
+//                                viewHolder_listProduct.rl_cartview.setVisibility(View.GONE);
+//                            }
+//                        }
+//                    }, SPLASH_DISPLAY_LENGTH);
+//                    return true;
+//                }
+//            });
 
         } else {
 
