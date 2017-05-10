@@ -107,4 +107,5 @@ dependencies {
     compile 'com.alihafizji.creditcardedittext:library:+@aar'
     compile 'com.theartofdev:fast-image-loader:0.8.+'
     compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
+    compile 'com.android.volley:volley:1.0.0'
 }

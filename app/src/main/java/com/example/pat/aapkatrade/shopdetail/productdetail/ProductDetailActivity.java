@@ -35,6 +35,7 @@ import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.rateus.RateUsActivity;
@@ -146,7 +147,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                         tvQuantity.setText("5");
                         break;
                     case 5:
+                        tvQuantity.setText("1");
                         showPopup();
+
                         break;
 
                 }
@@ -181,6 +184,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         relativeRateReview = (RelativeLayout) findViewById(R.id.relativeRateReview);
         dropDownContainer = (LinearLayout) findViewById(R.id.dropDownContainer);
         tvQuantity = (TextView) findViewById(R.id.tvQuantity);
+        CustomQuantityDialog.commonInterface=new CommonInterface() {
+            @Override
+            public Object getData(Object object) {
+
+                tvQuantity.setText(object.toString());
+
+                return null;
+            }
+        };
 
     }
 
