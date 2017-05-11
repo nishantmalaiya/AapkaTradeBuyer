@@ -43,7 +43,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal|center_vertical"
-                    android:scaleType="centerCrop"
+
                     android:src="@drawable/ic_profile_user" />
 
             </RelativeLayout>
@@ -51,65 +51,7 @@
 
             <include layout="@layout/toolbar_layout" />
 
-           <!-- <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/green"
-                android:elevation="0dp"
-                android:minHeight="?attr/actionBarSize"
-                android:titleTextColor="@color/white"
-                app:layout_collapseMode="pin"
-                tools:targetApi="m">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/back_imagview"
-                        android:layout_width="@dimen/twenty_five_dip"
-                        android:layout_height="@dimen/twenty_five_dip"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginRight="10dp"
-                        app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
-
-
-                    <ImageView
-                        android:id="@+id/iconHome"
-                        android:layout_width="@dimen/twenty_five_dip"
-                        android:layout_height="@dimen/twenty_five_dip"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/ten_dip"
-                        android:layout_toRightOf="@+id/back_imagview"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_navigation_home" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/twenty_five_dip"
-                        android:layout_toRightOf="@+id/iconHome"
-                        android:gravity="center_vertical|center_horizontal">
-
-                        <TextView
-                            android:id="@+id/header_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:text="@string/my_profile_heading"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textsize_medium"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

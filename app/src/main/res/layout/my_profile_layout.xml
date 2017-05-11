@@ -14,16 +14,15 @@
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
             android:src="@drawable/ic_edit_white"
             android:text="Edit"
-            android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            />
+            android:textStyle="bold" />
 
 
         <RelativeLayout
@@ -53,37 +52,36 @@
                     android:id="@+id/tvUserType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:text="Welcome Guest"
                     android:textColor="@color/white"
-                    android:layout_centerHorizontal="true"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tvUserType"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewName"
-                    >
+                    android:layout_below="@+id/textViewName">
 
                     <TextView
                         android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
                         android:layout_centerHorizontal="true"
-                        android:textSize="14sp" />
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
 
                 </RelativeLayout>
