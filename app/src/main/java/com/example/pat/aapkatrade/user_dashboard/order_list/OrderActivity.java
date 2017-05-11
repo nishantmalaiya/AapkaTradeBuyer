@@ -106,7 +106,7 @@ public class OrderActivity extends AppCompatActivity {
 
 
                 .setBodyParameter("buyer_id", appSharedPreference.getsharedpref("userid", user_id))
-                .setBodyParameter("type", appSharedPreference.getsharedpref("1"))
+                .setBodyParameter("type", "1")
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -127,7 +127,7 @@ public class OrderActivity extends AppCompatActivity {
 
                             String message_data = message.replace("\"", "");
 
-                            System.out.println("message_data==================" + message_data);
+                            System.out.println("message_data" + message_data);
 
                             if (message_data.equals("No record found")) {
                                 progress_handler.hide();
