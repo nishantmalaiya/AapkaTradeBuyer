@@ -41,7 +41,7 @@ public class Track_order_dialog extends DialogFragment {
     ImageView dialog_close;
     EditText tracking_id;
     Button validate_order_id;
-   ProgressDialogHandler progressDialogHandler;
+    ProgressDialogHandler progressDialogHandler;
     TextToSpeech t1;
 
     public Track_order_dialog() {
@@ -54,7 +54,7 @@ public class Track_order_dialog extends DialogFragment {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
 //        getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         initview(v);
-        progressDialogHandler=new ProgressDialogHandler(getActivity());
+        progressDialogHandler = new ProgressDialogHandler(getActivity());
 
         dialog_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,6 @@ public class Track_order_dialog extends DialogFragment {
         String track_order_url = getString(R.string.webservice_base_url) + "/track_order";
 
 
-
         Ion.with(getActivity())
                 .load(track_order_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -104,11 +103,6 @@ public class Track_order_dialog extends DialogFragment {
                     if (error.contains("false")) {
 
 
-
-
-
-
-
                         String otp_id = result.get("result").getAsJsonObject().get("otp_id").getAsString();
 
 
@@ -118,7 +112,7 @@ public class Track_order_dialog extends DialogFragment {
                         startActivity(go_to_activity_otp_verify);
 
 
-                        Log.e("otp_id",  getActivity().getClass().getName());
+                        Log.e("otp_id", getActivity().getClass().getName());
 
 
                     } else {
@@ -128,11 +122,7 @@ public class Track_order_dialog extends DialogFragment {
 
                 }
 
-               progressDialogHandler.hide();
-
-
-
-
+                progressDialogHandler.hide();
 
 
                 Log.e("result", result.toString());
