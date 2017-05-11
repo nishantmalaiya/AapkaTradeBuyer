@@ -5,7 +5,7 @@
     android:layout_margin="@dimen/five_dip"
     android:padding="@dimen/five_dip"
     android:orientation="vertical"
-    android:id="@+id/cardview"
+    android:id="@+id/rl"
     android:background="#f5f5f5"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

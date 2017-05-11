@@ -79,6 +79,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         } else if (arrangementtype == "list_product") {
             v = inflater.inflate(R.layout.row_dashboard_product_track_list, parent, false);
+
             viewHolder_listProduct = new CommonHolder_listProduct(v);
             return viewHolder_listProduct;
         } else if (arrangementtype == "OrderedProductList") {
@@ -157,6 +158,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         } else if (arrangementtype == "list_product") {
 
+
             final CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
 
             if (Tabletsize.isTablet(context)) {
@@ -197,15 +199,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             Log.e("imageurl", commomDatas.get(0).imageurl);
 
-            viewHolder_listProduct.cardview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    Log.e("time Adapter", String.valueOf(System.currentTimeMillis()));
-
-
-                }
-            });
             viewHolder_listProduct.tvProductName.setText(commomDatas.get(position).name);
 
             AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_addtocart, context, R.color.white, 15, GradientDrawable.OVAL);
@@ -235,14 +229,16 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                     Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("product_id", commomDatas.get(position).id);
-                    intent.putExtra("product_name",commomDatas.get(position).name);
-                    intent.putExtra("product_price",commomDatas.get(position).price);
-                    intent.putExtra("product_image",commomDatas.get(position).imageurl);
+                    intent.putExtra("product_name", commomDatas.get(position).name);
+                    intent.putExtra("product_price", commomDatas.get(position).price);
+                    intent.putExtra("product_image", commomDatas.get(position).imageurl);
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 
                 }
             });
+
+
             viewHolder_listProduct.cardview.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -261,7 +257,96 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
 
-        } else {
+        } else if (arrangementtype == "OrderedProductList") {
+
+            CommonHolder_listProduct viewHolder_listProduct = new CommonHolder_listProduct(v);
+
+
+            if (Tabletsize.isTablet(context)) {
+                Picasso.with(context)
+                        .load(commomDatas.get(position).imageurl)
+                        .error(R.drawable.banner)
+                        .placeholder(R.drawable.default_noimage)
+                        .error(R.drawable.default_noimage)
+                        .into(viewHolder_listProduct.product_imageview);
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "large");
+
+                Ion.with(viewHolder_listProduct.product_imageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+                Log.e("image_large", "image_large");
+
+            } else if (Tabletsize.isMedium(context)) {
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
+
+                Ion.with(viewHolder_listProduct.product_imageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+                Log.e("image_medium", "image_medium" + product_imageurl);
+
+            } else if (Tabletsize.isSmall(context)) {
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
+
+                Ion.with(viewHolder_listProduct.product_imageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+
+                Log.e("image_small", "image_small");
+            }
+
+
+            Log.e("imageurl", commomDatas.get(0).imageurl);
+
+
+            viewHolder_listProduct.tvProductName.setText(commomDatas.get(position).name);
+
+            AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_addtocart, context, R.color.white, 15, GradientDrawable.OVAL);
+            AndroidUtils.setBackgroundSolid(viewHolder_listProduct.rl_product_description, context, R.color.white, 15, GradientDrawable.OVAL);
+
+
+            AndroidUtils.setImageColor(viewHolder_listProduct.product_addcard, context, R.color.color_voilet);
+            AndroidUtils.setImageColor(viewHolder_listProduct.product_description, context, R.color.color_voilet);
+
+
+            viewHolder_listProduct.product_description.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String product_id = commomDatas.get(position).id;
+                    String product_name = commomDatas.get(position).name;
+                    String price = commomDatas.get(position).price;
+
+                    callwebservice__add_tocart(product_id, "", product_name, price, "1");
+
+
+                }
+            });
+            viewHolder_listProduct.product_addcard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
+                    intent.putExtra("product_id", commomDatas.get(position).id);
+                    intent.putExtra("product_name", commomDatas.get(position).name);
+                    intent.putExtra("product_price", commomDatas.get(position).price);
+                    intent.putExtra("product_image", commomDatas.get(position).imageurl);
+                    context.startActivity(intent);
+                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
+                }
+            });
+
+
+//
+
+
+        } else
+
+
+        {
 
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
@@ -336,12 +421,11 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     public void onCompleted(Exception e, JsonObject result) {
 
 
-                        if (result.toString().equals("null"))
-                        {
+                        if (result.toString().equals("null")) {
 
-                        System.out.println("result------------------------" + result);
+                            System.out.println("result------------------------" + result);
 
-                      
+
                             Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
                         } else {
                             System.out.println("result--------------" + result);

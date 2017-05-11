@@ -187,10 +187,10 @@ public class ActivityOTPVerify extends AppCompatActivity {
                         call_verifyotp_track_order(otp);
 
 
-                        AndroidUtils.showErrorLog(context,"working 1");
+                        AndroidUtils.showErrorLog(context, "working 1");
                     } else {
 
-                        AndroidUtils.showErrorLog(context,"working 2");
+                        AndroidUtils.showErrorLog(context, "working 2");
                         String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
 
                         Log.e("otp ", otp);
@@ -329,12 +329,6 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
                         AndroidUtils.showErrorLog(context, result.toString());
-
-
-
-
-
-
 
 
                         Intent go_to_activity_otp_verify = new Intent(ActivityOTPVerify.this, Order_detail.class);

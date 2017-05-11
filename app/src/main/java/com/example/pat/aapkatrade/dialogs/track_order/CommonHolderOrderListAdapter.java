@@ -49,7 +49,7 @@ public class CommonHolderOrderListAdapter extends RecyclerView.Adapter<RecyclerV
 
         CommonHolder_listProduct viewHolder_listProduct;
 
-        //RecyclerView.ViewHolder viewHolder;
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
 

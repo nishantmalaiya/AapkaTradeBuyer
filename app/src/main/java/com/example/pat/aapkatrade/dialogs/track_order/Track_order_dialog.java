@@ -22,6 +22,7 @@ import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.general.progressbar.ProgressDialogHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -40,7 +41,7 @@ public class Track_order_dialog extends DialogFragment {
     ImageView dialog_close;
     EditText tracking_id;
     Button validate_order_id;
-    ProgressBarHandler progressBarHandler;
+    ProgressDialogHandler progressDialogHandler;
     TextToSpeech t1;
 
     public Track_order_dialog() {
@@ -53,7 +54,7 @@ public class Track_order_dialog extends DialogFragment {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
 //        getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         initview(v);
-
+        progressDialogHandler = new ProgressDialogHandler(getActivity());
 
         dialog_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +83,8 @@ public class Track_order_dialog extends DialogFragment {
 
     private void call_Validate_order_webservice() {
 
-
+        progressDialogHandler.show();
         String track_order_url = getString(R.string.webservice_base_url) + "/track_order";
-
 
 
         Ion.with(getActivity())
@@ -103,11 +103,6 @@ public class Track_order_dialog extends DialogFragment {
                     if (error.contains("false")) {
 
 
-
-
-                        progressBarHandler.hide();
-
-
                         String otp_id = result.get("result").getAsJsonObject().get("otp_id").getAsString();
 
 
@@ -117,21 +112,17 @@ public class Track_order_dialog extends DialogFragment {
                         startActivity(go_to_activity_otp_verify);
 
 
-                        Log.e("otp_id",  getActivity().getClass().getName());
+                        Log.e("otp_id", getActivity().getClass().getName());
 
 
                     } else {
-                        progressBarHandler.hide();
+                        progressDialogHandler.hide();
                     }
 
 
                 }
 
-                progressBarHandler.hide();
-
-
-
-
+                progressDialogHandler.hide();
 
 
                 Log.e("result", result.toString());
@@ -145,7 +136,7 @@ public class Track_order_dialog extends DialogFragment {
     }
 
     private void initview(View v) {
-        progressBarHandler = new ProgressBarHandler(getActivity());
+
 
         dialog_close = (ImageView) v.findViewById(R.id.dialog_close);
 
