@@ -196,5 +196,7 @@
     <string name="b">Bharat</string>
     <string name="buyer">Buyer</string>
     <string name="email_or_mobile">Email/Mobile</string>
+    <string name="pleaseWait">wait!</string>
+    <string name="webpage_being_loaded">data being loaded</string>
 
 </resources>

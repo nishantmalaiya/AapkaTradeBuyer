@@ -64,7 +64,7 @@ public class CustomQuantityDialog extends DialogFragment {
                 if (Integer.parseInt(etManualQuantity.getText().toString().trim()) > 0) {
 
                     commonInterface.getData(Integer.parseInt(etManualQuantity.getText().toString().trim()));
-                     dismiss();
+                    dismiss();
                 } else {
 
                 }
