@@ -211,7 +211,6 @@ public class LoginActivity extends AppCompatActivity {
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
 
-
         appSharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
         appSharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
         appSharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
@@ -238,9 +237,6 @@ public class LoginActivity extends AppCompatActivity {
 
         forgotPassword = (TextView) findViewById(R.id.tv_forgotpassword);
         loginText = (TextView) findViewById(R.id.tv_login);
-
-        // loginText.setText(userLogin);
-
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         etEmail = (EditText) findViewById(R.id.etEmail);
         password = (EditText) findViewById(R.id.etpassword);
