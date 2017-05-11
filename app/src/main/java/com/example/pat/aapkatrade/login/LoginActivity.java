@@ -245,13 +245,11 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotpassword_activity = new Intent(context, ForgotPassword.class);
-                forgotpassword_activity.putExtra("forgot_index", "0");
-                startActivity(forgotpassword_activity);
+                Intent forgotPasswordActivity = new Intent(context, ForgotPassword.class);
+                forgotPasswordActivity.putExtra("forgot_index", "0");
+                startActivity(forgotPasswordActivity);
             }
         });
-
-
     }
 
     public void showMessage(String message) {

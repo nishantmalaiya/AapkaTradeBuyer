@@ -198,5 +198,7 @@
     <string name="email_or_mobile">Email/Mobile</string>
     <string name="pleaseWait">wait!</string>
     <string name="webpage_being_loaded">data being loaded</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="readMore">......Read More</string>
 
 </resources>

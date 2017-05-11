@@ -32,6 +32,7 @@ import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.privacypolicy.PrivacyPolicyActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
@@ -70,7 +71,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     TextView textViewName, emailid;
     private NavigationAdapter category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
-    RelativeLayout rl_category, rl_logout;
+    RelativeLayout rl_category, rl_logout, rl_policy;
     View rl_main_content;
     ProgressBarHandler progressBarHandler;
     RecyclerView navigation_recycleview;
@@ -107,6 +108,17 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 Intent Homedashboard = new Intent(getActivity(), HomeActivity.class);
                 Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(Homedashboard);
+
+            }
+        });
+
+        rl_policy = (RelativeLayout) view.findViewById(R.id.rl_policy);
+        rl_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PrivacyPolicyActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
 
             }
         });

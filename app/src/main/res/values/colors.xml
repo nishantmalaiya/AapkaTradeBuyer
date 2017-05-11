@@ -9,7 +9,9 @@
     <color name="green_transparent">#0063BEAC</color>
     <color name="teal">#008080</color>
     <color name="purple">#800080</color>
+    <color name="purple_2">#8E5CD5</color>
     <color name="cherry_red">#C24641</color>
+    <color name="red_light">#DD5563</color>
     <color name="deep_pink">#FF1493</color>
     <color name="turquoise">#40E0D0</color>
     <color name="slate_gray">#708090</color>
@@ -28,6 +30,7 @@
     <color name="grey_gradient2">#737C7A</color>
     <color name="grey_buy_now">#797574</color>
     <color name="grey_quantity_spinner">#787575</color>
+    <color name="grey_2">#BDC1C0</color>
 
 
     <color name="dark_purple">#6445b5</color>
