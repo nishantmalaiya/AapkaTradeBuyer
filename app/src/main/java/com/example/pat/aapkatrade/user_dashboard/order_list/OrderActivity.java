@@ -41,7 +41,7 @@ public class OrderActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_order);
         context = OrderActivity.this;
-        Log.e("hi////", "ghuygubgiugvuyuuihguogyuygukyvgbuk");
+
 
         setuptoolbar();
 
@@ -101,14 +101,13 @@ public class OrderActivity extends AppCompatActivity {
         Log.e("hi////", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id) + "GGGGGGG" + appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_TYPE.toString(), "1"));
 
         Ion.with(context)
-                .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
+                .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-
-
                 .setBodyParameter("seller_id", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id))
                 .setBodyParameter("type", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_TYPE.toString(), "1"))
-
+                .setBodyParameter("buyer_id", appSharedPreference.getsharedpref("userid", user_id))
+                .setBodyParameter("type", "1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -128,7 +127,7 @@ public class OrderActivity extends AppCompatActivity {
 
                             String message_data = message.replace("\"", "");
 
-                            System.out.println("message_data==================" + message_data);
+                            System.out.println("message_data" + message_data);
 
                             if (message_data.equals("No record found")) {
                                 progress_handler.hide();
@@ -184,7 +183,6 @@ public class OrderActivity extends AppCompatActivity {
 
                             }
 
-                            //   layout_container.setVisibility(View.VISIBLE);
                         }
 
                     }
