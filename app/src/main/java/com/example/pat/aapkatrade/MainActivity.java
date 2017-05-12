@@ -1,52 +1,41 @@
 package com.example.pat.aapkatrade;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.animation_effects.App_animation;
-import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
-import com.example.pat.aapkatrade.location.AddressEnum;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.service.LocationService;
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
-    ConnetivityCheck connetivity_check;
-    TextView tv_aapkatrade;
-    ImageView left_image, right_image;
-    ProgressDialog pd;
-    ImageView circle_image;
-    Custom_progress_bar custom_progress_bar;
+    private ConnetivityCheck connetivityCheck;
+    private TextView tv_aapkatrade;
+    private ImageView left_image, right_image;
+    private ProgressDialog pd;
+    private ImageView circle_image;
+    private Custom_progress_bar custom_progress_bar;
     private Mylocation mylocation;
     private GeoCoderAddress geoCoderAddressAsync;
     private String AddressAsync;
-    AppSharedPreference appSharedpreference;
+    private AppSharedPreference appSharedpreference;
 
 
 
@@ -79,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
         // Applying font
         tv_aapkatrade.setTypeface(tf);
-        connetivity_check = new ConnetivityCheck();
+        connetivityCheck = new ConnetivityCheck();
         custom_progress_bar = new Custom_progress_bar(MainActivity.this);
         custom_progress_bar.show();
 

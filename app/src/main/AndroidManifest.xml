@@ -89,13 +89,11 @@
         <activity android:name=".user_dashboard.order_list.OrderManagementActivity" />
         <activity android:name=".ZoomImage.ZoomImageDialog" />
         <activity android:name=".payment.PaymentActivity" />
-
         <activity android:name=".rateus.RateUsActivity" />
         <activity android:name=".shopdetail.shop_all_product.ShopAllProductActivity" />
         <activity
             android:name=".Home.cart.MyCartActivity"
-            android:label="@string/title_activity_my_cart"
-         />
+            android:label="@string/title_activity_my_cart" />
 
         <service
             android:name=".service.LocationService"
@@ -104,7 +102,9 @@
 
         <activity android:name=".shopdetail.productdetail.ProductDetailActivity" />
         <activity android:name=".dialogs.track_order.orderdetail.Order_detail" />
-        <activity android:name=".dialogs.track_order.singleproductdetail.SingleproductDetail"></activity>
+        <activity android:name=".dialogs.track_order.singleproductdetail.SingleproductDetail" />
+        <activity android:name=".privacypolicy.PrivacyPolicyActivity" />
+        <activity android:name=".termandcondition.TermsAndConditionActivity"></activity>
     </application>
 
 </manifest>

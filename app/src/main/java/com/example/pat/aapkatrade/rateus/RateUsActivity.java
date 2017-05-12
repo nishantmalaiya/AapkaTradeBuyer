@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 
@@ -24,8 +22,8 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.google.gson.JsonObject;
 import com.hedgehog.ratingbar.RatingBar;
 import com.koushikdutta.async.future.FutureCallback;
@@ -34,15 +32,15 @@ import com.koushikdutta.ion.Ion;
 
 public class RateUsActivity extends AppCompatActivity {
 
-    TextView tvProductName, tvCategoriesName, tvReviewHeading;
-    RatingBar ratingbar;
-    Button butttonExperience, buttonSubmit;
-    EditText etTitle, etMessage;
-    Context context;
-    AppSharedPreference appSharedPreference;
-    String user_id, product_id, product_name, product_price, product_image;
-    ProgressBarHandler progress_handler;
-    ImageView imgProduct;
+    private TextView tvProductName, tvCategoriesName, tvReviewHeading;
+    private RatingBar ratingbar;
+    private Button butttonExperience, buttonSubmit;
+    private EditText etTitle, etMessage;
+    private Context context;
+    private AppSharedPreference appSharedPreference;
+    private String user_id, product_id, product_name, product_price, product_image;
+    private ProgressBarHandler progress_handler;
+    private ImageView imgProduct;
     public static float rating_count;
     private CoordinatorLayout coordinationRateus;
 
@@ -71,7 +69,7 @@ public class RateUsActivity extends AppCompatActivity {
 
         appSharedPreference = new AppSharedPreference(getApplicationContext());
 
-        user_id = appSharedPreference.getsharedpref("userid", "");
+        user_id = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "");
 
         context = RateUsActivity.this;
 

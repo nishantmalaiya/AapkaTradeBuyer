@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,8 +31,11 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.privacypolicy.PrivacyPolicyActivity;
+import com.example.pat.aapkatrade.termandcondition.TermsAndConditionActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
@@ -55,28 +59,28 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public static final String userKey = "key";
     public static ActionBarDrawerToggle mDrawerToggle;
     public static DrawerLayout mDrawerLayout;
-    boolean mUserLearnedDrawer;
-    boolean mFromSavedInstance;
-    View view;
-    String Fname;
+    private boolean mUserLearnedDrawer;
+    private boolean mFromSavedInstance;
+    private View view;
+    private String Fname;
     private int lastExpandedPosition = -1;
     AppSharedPreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
-    List<String> categoryids;
-    List<String> categoryname;
-    Context context;
-    TextView footer;
-    RelativeLayout header;
-    TextView textViewName, emailid;
+    private List<String> categoryids;
+    private List<String> categoryname;
+    private Context context;
+    private TextView footer;
+    private RelativeLayout header;
+    private TextView textViewName, emailid;
     private NavigationAdapter category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
-    RelativeLayout rl_category, rl_logout;
-    View rl_main_content;
-    ProgressBarHandler progressBarHandler;
-    RecyclerView navigation_recycleview;
-    LinearLayoutManager navigation_linear_layout_manager;
-    ImageView navigation_close;
-    android.support.v7.widget.AppCompatImageView user_pic_img_vew;
+    private RelativeLayout rl_category, rl_logout, rl_policy, rl_terms;
+    private View rl_main_content;
+    private ProgressBarHandler progressBarHandler;
+    private RecyclerView navigation_recycleview;
+    private LinearLayoutManager navigation_linear_layout_manager;
+    private ImageView navigation_close;
+    private AppCompatImageView user_pic_img_vew;
 
     public NavigationFragment() {
     }
@@ -110,6 +114,28 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             }
         });
+
+        rl_terms = (RelativeLayout) view.findViewById(R.id.rl_terms);
+        rl_terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TermsAndConditionActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            }
+        });
+
+        rl_policy = (RelativeLayout) view.findViewById(R.id.rl_policy);
+        rl_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PrivacyPolicyActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            }
+        });
         navigation_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,11 +155,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+        if (app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
 
-            String Username = app_sharedpreference.getsharedpref("name", "notlogin");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "notlogin");
-            String user_image = app_sharedpreference.getsharedpref("profile_pic", "notlogin");
+            String Username = app_sharedpreference.getsharedpref(SharedPreferenceConstants.FIRST_NAME.toString(), "notlogin");
+            String Emailid = app_sharedpreference.getsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
+            String user_image = app_sharedpreference.getsharedpref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
             Log.e("Shared_pref2", "null" + Username);
 
             if (Username.contains("notlogin")) {
@@ -341,10 +367,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
-        app_sharedpreference.setsharedpref("userid", user_id);
-        app_sharedpreference.setsharedpref("username", user_name);
-        app_sharedpreference.setsharedpref("emailid", email_id);
-        app_sharedpreference.setsharedpref("profile_pic", profile_pic);
+        app_sharedpreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id);
+        app_sharedpreference.setsharedpref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
+        app_sharedpreference.setsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
+        app_sharedpreference.setsharedpref(SharedPreferenceConstants.PROFILE_PIC.toString(), profile_pic);
 
     }
 
@@ -353,10 +379,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+        if (app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
 
-            String userName = app_sharedpreference.getsharedpref("username", "notlogin");
-            String emailId = app_sharedpreference.getsharedpref("emailid", "notlogin");
+            String userName = app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
+            String emailId = app_sharedpreference.getsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
 
 
             if (userName.contains("notlogin")) {

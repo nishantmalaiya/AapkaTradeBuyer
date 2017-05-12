@@ -19,9 +19,10 @@ import com.example.pat.aapkatrade.R;
 
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.CommonHolder_listProduct;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
 import com.example.pat.aapkatrade.shopdetail.productdetail.ProductDetailActivity;
@@ -44,7 +45,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private String TAG;
     float initialX, initialY;
     private final int SPLASH_DISPLAY_LENGTH = 3000;
-    AppSharedPreference appSharedPreference;
+    private AppSharedPreference appSharedPreference;
     private ProgressBarHandler progressBarHandler;
 
 
@@ -411,7 +412,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("product_id", product_id)
-                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .setBodyParameter("name", product_name)
                 .setBodyParameter("price", price)
                 .setBodyParameter("quantity", "1")
@@ -440,9 +441,9 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                                 Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
                                 String cart_count = jsonObject.get("total_qty").getAsString();
-                                appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                                appSharedPreference.setShared_pref_int(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
                                 //int j = appSharedPreference.getsharedpref_int("cart_count",0);
-                                ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
+                                ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
                                 progressBarHandler.hide();
 
                             }

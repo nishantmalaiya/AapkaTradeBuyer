@@ -15,7 +15,8 @@
         android:background="@color/orange"
         android:orientation="vertical">
 
-        <requestFocus/>
+        <requestFocus />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -148,8 +149,6 @@
             </android.support.v7.widget.RecyclerView>
 
 
-
-
             <RelativeLayout
                 android:id="@+id/rl_terms"
                 android:layout_width="match_parent"
@@ -175,13 +174,37 @@
                     android:background="@color/blue_gradient_dark" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_policy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rl_terms"
+                android:background="@color/blue_gradient">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="26dp"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/blue_gradient_dark" />
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/rl_invite"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
 
-                android:layout_below="@+id/rl_terms"
+                android:layout_below="@+id/rl_policy"
                 android:background="@color/blue_gradient">
 
                 <TextView
