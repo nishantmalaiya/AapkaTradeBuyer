@@ -239,8 +239,7 @@ AppSharedPreference appSharedPreference;
 
     public void get_home_data()
     {
-        Intent serviceIntent = new Intent(getActivity(), SendContactService.class);
-       context.startService(serviceIntent);
+
 
 
 
@@ -361,6 +360,8 @@ AppSharedPreference appSharedPreference;
 
                 });
 
+//        Intent serviceIntent = new Intent(getActivity(), SendContactService.class);
+//        context.startService(serviceIntent);
     }
 
 

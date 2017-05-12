@@ -54,7 +54,6 @@ public class SendContactService extends Service {
     private Handler updateBarHandler;
 
 
-
     public SendContactService() {
     }
 
@@ -68,11 +67,10 @@ public class SendContactService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        AndroidUtils.showErrorLog(SendContactService.this,"start service");
+        AndroidUtils.showErrorLog(SendContactService.this, "start service");
 
 
-
-        updateBarHandler =new Handler();
+        updateBarHandler = new Handler();
         // Since reading contacts takes more time, let's run it on a separate thread.
         new Thread(new Runnable() {
             @Override
@@ -90,8 +88,6 @@ public class SendContactService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
-
 
 
     /**
@@ -114,8 +110,6 @@ public class SendContactService extends Service {
     }
 
 
-
-
     public void getContacts() {
         contactList = new ArrayList<String>();
         String phoneNumber = null;
@@ -127,12 +121,12 @@ public class SendContactService extends Service {
         Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
         String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
-        Uri EmailCONTENT_URI =  ContactsContract.CommonDataKinds.Email.CONTENT_URI;
+        Uri EmailCONTENT_URI = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
         String EmailCONTACT_ID = ContactsContract.CommonDataKinds.Email.CONTACT_ID;
         String DATA = ContactsContract.CommonDataKinds.Email.DATA;
         StringBuffer output;
         ContentResolver contentResolver = getContentResolver();
-        cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
+        cursor = contentResolver.query(CONTENT_URI, null, null, null, null);
         // Iterate every contact in the phone
         if (cursor.getCount() > 0) {
             counter = 0;
@@ -141,26 +135,26 @@ public class SendContactService extends Service {
                 // Update the progress message
                 updateBarHandler.post(new Runnable() {
                     public void run() {
-                       // pDialog.setMessage("Reading contacts : "+ counter++ +"/"+cursor.getCount());
+                        // pDialog.setMessage("Reading contacts : "+ counter++ +"/"+cursor.getCount());
                     }
                 });
-                String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
-                String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-                int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
-                if (hasPhoneNumber > 0) {
-                    output.append("\n First Name:" + name);
+                String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
+
+
+                if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER))) > 0) {
+                    output.append("\n First Name:").append(cursor.getString(cursor.getColumnIndex(DISPLAY_NAME)));
                     //This is to read multiple phone numbers associated with the same contact
-                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
+                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
                     while (phoneCursor.moveToNext()) {
-                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-                        output.append("\n Phone number:" + phoneNumber);
+
+                        output.append("\n Phone number:" + phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER)));
                     }
                     phoneCursor.close();
                     // Read every email id associated with the contact
-                    Cursor emailCursor = contentResolver.query(EmailCONTENT_URI,    null, EmailCONTACT_ID+ " = ?", new String[] { contact_id }, null);
+                    Cursor emailCursor = contentResolver.query(EmailCONTENT_URI, null, EmailCONTACT_ID + " = ?", new String[]{contact_id}, null);
                     while (emailCursor.moveToNext()) {
-                        email = emailCursor.getString(emailCursor.getColumnIndex(DATA));
-                        output.append("\n Email:" + email);
+
+                        output.append("\n Email:").append(emailCursor.getString(emailCursor.getColumnIndex(DATA)));
                     }
                     emailCursor.close();
                 }
@@ -168,7 +162,7 @@ public class SendContactService extends Service {
                 contactList.add(output.toString());
             }
             // ListView has to be updated using a ui thread
-           AndroidUtils.showErrorLog(SendContactService.this,"contactList",contactList.toString());
+            AndroidUtils.showErrorLog(SendContactService.this, "contactList", contactList.toString());
             // Dismiss the progressbar after 500 millisecondds
             updateBarHandler.postDelayed(new Runnable() {
                 @Override
@@ -178,7 +172,6 @@ public class SendContactService extends Service {
             }, 500);
         }
     }
-
 
 
 }
