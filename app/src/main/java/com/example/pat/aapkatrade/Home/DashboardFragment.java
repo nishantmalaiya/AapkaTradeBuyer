@@ -29,6 +29,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
+import com.example.pat.aapkatrade.MainActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
@@ -40,6 +41,8 @@ import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
+import com.example.pat.aapkatrade.service.LocationService;
+import com.example.pat.aapkatrade.service.SendContactService;
 import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -236,6 +239,10 @@ AppSharedPreference appSharedPreference;
 
     public void get_home_data()
     {
+        Intent serviceIntent = new Intent(getActivity(), SendContactService.class);
+       context.startService(serviceIntent);
+
+
 
         progress_handler.show();
         coordinatorLayout.setVisibility(View.INVISIBLE);

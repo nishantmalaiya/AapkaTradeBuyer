@@ -38,8 +38,7 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class ShopListByCategoryActivity extends AppCompatActivity
-{
+public class ShopListByCategoryActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private CategoriesListAdapter categoriesListAdapter;
@@ -61,8 +60,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_shop_list_by_category);
@@ -100,10 +98,8 @@ public class ShopListByCategoryActivity extends AppCompatActivity
 
                 int lastVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition();
 
-                if (totalItemCount > 0)
-                {
-                    if ((totalItemCount - 1) == lastVisibleItemCount)
-                    {
+                if (totalItemCount > 0) {
+                    if ((totalItemCount - 1) == lastVisibleItemCount) {
                         page = page + 1;
                         getShopListData(String.valueOf(page));
                     }
@@ -121,8 +117,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
-    private void getShopListData(final String pageNumber)
-    {
+    private void getShopListData(final String pageNumber) {
         State state = new State("-1", "Select State", "0");
         productAvailableStateList.add(state);
         AndroidUtils.showErrorLog(context, shopArrayListByCategory.size() + "^^^^^^^^^");
@@ -130,7 +125,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         Log.e(AndroidUtils.getTag(context), "called categorylist webservice for category_id : " + category_id + "**" + latitude + "*****" + longitude);
 
 
-        if (!(FilterDialog.filterString!= null && FilterDialog.filterString.length()>0)) {
+        if (!(FilterDialog.filterString != null && FilterDialog.filterString.length() > 0)) {
 
             AndroidUtils.showErrorLog(context, "shoplist by NOOOOOOOOOOOOOOO filter");
             Ion.with(ShopListByCategoryActivity.this)
@@ -205,10 +200,9 @@ public class ShopListByCategoryActivity extends AppCompatActivity
                     });
 
 
-
         } else {
 
-            AndroidUtils.showErrorLog(context, "shoplist by filter --> "+FilterDialog.filterString);
+            AndroidUtils.showErrorLog(context, "shoplist by filter --> " + FilterDialog.filterString);
 
             Ion.with(ShopListByCategoryActivity.this)
                     .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
@@ -243,7 +237,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
                         public void onCompleted(Exception e, JsonObject result) {
 
 
-                            AndroidUtils.showErrorLog(context, "shoplist by filter daaaaaaaaaata is "+result.toString());
+                            AndroidUtils.showErrorLog(context, "shoplist by filter daaaaaaaaaata is " + result.toString());
                             if (result == null) {
                                 layout_container.setVisibility(View.INVISIBLE);
                             } else {
@@ -305,10 +299,8 @@ public class ShopListByCategoryActivity extends AppCompatActivity
 
     }
 
-    private void loadResultData(JsonArray resultJsonArray)
-    {
-        for (int i = 0; i < resultJsonArray.size(); i++)
-        {
+    private void loadResultData(JsonArray resultJsonArray) {
+        for (int i = 0; i < resultJsonArray.size(); i++) {
             JsonObject jsonObject2 = (JsonObject) resultJsonArray.get(i);
             AndroidUtils.showErrorLog(context, "<--result-->cITY" + i + jsonObject2.toString());
             String shopId = jsonObject2.get("id").getAsString();
@@ -324,11 +316,9 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         }
 
 
-
     }
 
-    private void setUpToolBar()
-    {
+    private void setUpToolBar() {
 
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -361,12 +351,10 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         }
 
 
-
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.user, menu);
 
@@ -379,7 +367,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
 
         // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
 
-        tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count",0)));
+        tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -401,16 +389,13 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         return true;*/
 
 
-
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        switch (id)
-        {
+        switch (id) {
             case R.id.cart_total_item:
                 Intent intent = new Intent(ShopListByCategoryActivity.this, MyCartActivity.class);
                 startActivity(intent);
@@ -430,32 +415,26 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadFilterDataInHashMap(JsonArray filterArray)
-    {
+    private void loadFilterDataInHashMap(JsonArray filterArray) {
         filterHashMap = new ArrayMap<>();
-        if (filterArray.size() > 0)
-        {
+        if (filterArray.size() > 0) {
             AndroidUtils.showErrorLog(context, "size of filter Array is  :  " + filterArray.size());
-            for (int i = 0; i < filterArray.size(); i++)
-            {
+            for (int i = 0; i < filterArray.size(); i++) {
                 JsonObject filterObject = (JsonObject) filterArray.get(i);
                 String filterName = filterObject.get("name").getAsString();
                 JsonArray valueJsonArray = filterObject.get("values").getAsJsonArray();
                 ArrayList<FilterObject> valueArrayList = new ArrayList<>();
 
-                if (valueJsonArray != null)
-                {
+                if (valueJsonArray != null) {
 
-                    for (int j = 0; j < valueJsonArray.size(); j++)
-                    {
+                    for (int j = 0; j < valueJsonArray.size(); j++) {
 
                         FilterObject filterObjectData = new FilterObject();
                         JsonObject filterValueObject = (JsonObject) valueJsonArray.get(j);
                         String[] filterValueObjectArray = filterValueObject.toString().replaceAll("\\{", "").replaceAll("\\}", "").trim().split(",");
                         AndroidUtils.showErrorLog(context, "Length of filter value array is : ******" + filterValueObjectArray.length);
 
-                        for (int k = 0; k < filterValueObjectArray.length; k++)
-                        {
+                        for (int k = 0; k < filterValueObjectArray.length; k++) {
                             AndroidUtils.showErrorLog(context, "filterValueObjectArray[k]" + filterValueObjectArray[k]);
                             String key = filterValueObjectArray[k].split(":")[0].replaceAll("\"", "");
                             String value = filterValueObjectArray[k].split(":")[1].replaceAll("\"", "");
@@ -481,18 +460,14 @@ public class ShopListByCategoryActivity extends AppCompatActivity
     }
 
 
-
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
-        if (category_list_activity == 1)
-        {
+        if (category_list_activity == 1) {
 
             category_list_activity = 2;
-        }
-        else
-        {
+        } else {
             tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
         }
 

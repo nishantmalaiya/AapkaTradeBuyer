@@ -108,4 +108,5 @@ dependencies {
     compile 'com.theartofdev:fast-image-loader:0.8.+'
     compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.codinguser.android:contactpicker:3.0.0@aar'
 }

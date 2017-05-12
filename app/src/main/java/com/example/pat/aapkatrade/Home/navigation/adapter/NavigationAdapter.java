@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -72,6 +75,13 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
                 });
 
 
+
+
+        getAllContacts();
+
+
+
+
         viewHolder.rl_category_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,10 +115,56 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
                     }
 
                 }
+                else{
+
+                    AndroidUtils.showErrorLog(context,"error in permission");
+
+                }
 
 
             }
         });
+    }
+
+    private void getAllContacts() {
+        Cursor cursor =context. getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null);
+        String hasPhone;
+        while (cursor.moveToNext()) {
+
+
+            String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                     hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+
+
+
+            if (Boolean.parseBoolean(hasPhone)) {
+                // You know it has a number so now query it like this
+                Cursor phones = context.getContentResolver().query( ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId, null, null);
+                while (phones.moveToNext()) {
+                    String phoneNumber = phones.getString(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone.NUMBER));
+                }
+                phones.close();
+            }
+
+
+
+            Cursor emails =context. getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + contactId, null, null);
+
+
+
+            while (emails.moveToNext()) {
+                // This would allow you get several email addresses
+                String emailAddress = emails.getString(
+                        emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+            }
+
+            emails.close();
+
+        }
+
+        cursor.close();
+
     }
 
     private void setUpIconBackground(ImageView imageView) {
