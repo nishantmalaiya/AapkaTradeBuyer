@@ -20,16 +20,13 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.CallWebService;
-import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
-import java.util.HashMap;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private AppSharedPreference appSharedpreference;
     private CoordinatorLayout coordinatorLayout;
     private Context context;
-    ProgressBarHandler progressBarHandler;
+    private ProgressBarHandler progressBarHandler;
 
 
     @Override
@@ -157,21 +154,6 @@ public class LoginActivity extends AppCompatActivity {
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("email", input_username)
                 .setBodyParameter("password", input_password)
-//                .asJsonObject()
-//                .setCallback(new FutureCallback<JsonObject>() {
-//                    @Override
-//                    public void onCompleted(Exception e, JsonObject result)
-//                    {
-//                        if(result!=null) {
-//                            progressBarHandler.hide();
-//                        }
-//
-//                       Log.e("result-----------",result.toString());
-//                        AndroidUtils.showErrorLog(context, "Login Result : "+result, "*************");
-//
-//                    }
-//                });
-//        AndroidUtils.showErrorLog(context, "Login2 : "+input_username+"  Password2 : "+ input_password, "*************   "+login_url);
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -211,25 +193,21 @@ public class LoginActivity extends AppCompatActivity {
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
 
-        appSharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
-        appSharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
-        appSharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
-        appSharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
-        appSharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
-        appSharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
-        appSharedpreference.setsharedpref("dob", jsonObject.get("dob").getAsString());
-        appSharedpreference.setsharedpref("country_id", jsonObject.get("country_id").getAsString());
-        appSharedpreference.setsharedpref("state_id", jsonObject.get("state_id").getAsString());
-        appSharedpreference.setsharedpref("city_id", jsonObject.get("city_id").getAsString());
-        appSharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
-        appSharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
-        appSharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
-        appSharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
-        appSharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
-        appSharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
-
-
-
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), webservice_returndata.get("user_id").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.FIRST_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.USER_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.LAST_NAME.toString(), jsonObject.get("lastname").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), jsonObject.get("email").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.MOBILE.toString(), jsonObject.get("mobile").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.COUNTRY_ID.toString(), jsonObject.get("country_id").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.STATE_ID.toString(), jsonObject.get("state_id").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.CITY_ID.toString(), jsonObject.get("city_id").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.ADDRESS.toString(), jsonObject.get("address").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.DEVICE_ID.toString(), jsonObject.get("device_id").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.UPDATED_AT.toString(), jsonObject.get("updated_at").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.STATUS.toString(), jsonObject.get("status").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.ORDER.toString(), webservice_returndata.get("order").getAsString());
+        appSharedpreference.setsharedpref(SharedPreferenceConstants.CREATED_AT.toString(), webservice_returndata.get("createdAt").getAsString());
     }
 
 

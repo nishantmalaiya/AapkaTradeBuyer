@@ -26,6 +26,7 @@ import com.example.pat.aapkatrade.filter.FilterDialog;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
@@ -52,12 +53,11 @@ public class ShopListByCategoryActivity extends AppCompatActivity
     private Context context;
     private TextView toolbarRightText;
     private ArrayMap<String, ArrayList<FilterObject>> filterHashMap = null;
-    ViewGroup view;
+    private ViewGroup view;
     private LinearLayoutManager linearLayoutManager;
     private int page = 1;
-    AppSharedPreference app_sharedpreference;
-    TextView tvCartCount;
-    int category_list_activity = 1;
+    private TextView tvCartCount;
+    private int categoryListActivity = 1;
 
 
     @Override
@@ -67,7 +67,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_shop_list_by_category);
 
-        app_sharedpreference = new AppSharedPreference(ShopListByCategoryActivity.this);
+        appSharedPreference = new AppSharedPreference(ShopListByCategoryActivity.this);
 
         context = ShopListByCategoryActivity.this;
 
@@ -81,7 +81,6 @@ public class ShopListByCategoryActivity extends AppCompatActivity
             category_id = b.getString("category_id");
         }
 
-        appSharedPreference = new AppSharedPreference(this);
         setUpToolBar();
         initView();
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -377,31 +376,15 @@ public class ShopListByCategoryActivity extends AppCompatActivity
 
         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
-        // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
-
-        tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count",0)));
+        tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(),0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
                 onOptionsItemSelected(alertMenuItem);
             }
         });
         return true;
-
-        /*getMenuInflater().inflate(R.menu.home_menu, menu);
-
-        FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
-
-        redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
-        countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
-
-        return true;*/
-
-
-
     }
 
     @Override
@@ -486,14 +469,14 @@ public class ShopListByCategoryActivity extends AppCompatActivity
     public void onResume(){
         super.onResume();
 
-        if (category_list_activity == 1)
+        if (categoryListActivity == 1)
         {
 
-            category_list_activity = 2;
+            categoryListActivity = 2;
         }
         else
         {
-            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+            tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
         }
 
     }

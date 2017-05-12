@@ -3,20 +3,25 @@ package com.example.pat.aapkatrade.privacypolicy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -45,7 +50,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         final ProgressBarHandler progressBarHandler = new ProgressBarHandler(context);
         progressBarHandler.show();
         Ion.with(context)
-                .load(getString(R.string.webservice_base_url))
+                .load(getString(R.string.webservice_base_url)+"/privacy_policy")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -71,12 +76,9 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         AndroidUtils.setBackgroundSolid(rightBarTopView, context, R.color.red_light, 0, GradientDrawable.RECTANGLE);
         AndroidUtils.setBackgroundSolid(rightBarBottomView, context, R.color.grey_2, 0, GradientDrawable.RECTANGLE);
 
-
-
-
         policyContentMainLayout = (LinearLayout) findViewById(R.id.policyContentMainLayout);
         AndroidUtils.setBackgroundSolid(policyContentMainLayout, context, android.R.color.transparent, 10, GradientDrawable.RECTANGLE);
-        tvPolicy = (TextView) findViewById(R.id.tvPolicy);
+        tvPolicy = (TextView) findViewById(R.id.tvTermsAndConditions);
         tvPolicy.setText("");
         policyHeaderLayout = (LinearLayout) findViewById(R.id.policyHeaderLayout);
         tvReadMore = (TextView) findViewById(R.id.tvReadMore);
@@ -90,14 +92,63 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
                         policyHeaderLayout.setVisibility(View.GONE);
                         policyContentMainLayout.removeView(tvReadMore);
                     }
-                });;
+                });
+                AndroidUtils.setBackgroundSolid(leftBarTopView, context, R.color.grey_2, 0, GradientDrawable.RECTANGLE);
+                AndroidUtils.setBackgroundSolid(rightBarTopView, context, R.color.grey_2, 0, GradientDrawable.RECTANGLE);
+
                 tvReadMore.setVisibility(View.GONE);
             }
         });
     }
-
     private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
+        back_imagview.setVisibility(View.VISIBLE);
+        back_imagview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        findViewById(R.id.logoWord).setVisibility(View.GONE);
+        TextView header_name = (TextView) findViewById(R.id.header_name);
+        header_name.setVisibility(View.VISIBLE);
+        header_name.setText(getResources().getString(R.string.my_profile_heading));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

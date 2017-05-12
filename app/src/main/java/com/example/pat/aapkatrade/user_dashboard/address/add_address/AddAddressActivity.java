@@ -19,6 +19,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 import com.google.gson.JsonObject;
@@ -32,7 +33,7 @@ public class AddAddressActivity extends AppCompatActivity
 {
 
     ArrayList<String> stateList = new ArrayList<>();
-    AppSharedPreference app_sharedpreference;
+    AppSharedPreference appSharedPreference;
     String userid,firstName,lastName,address,mobile,state_id;
     EditText etFirstName,etLastName,etMobileNo,etAddress;
     Button buttonSave;
@@ -53,19 +54,19 @@ public class AddAddressActivity extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new AppSharedPreference(getApplicationContext());
+        appSharedPreference = new AppSharedPreference(getApplicationContext());
 
-        userid = app_sharedpreference.getsharedpref("userid", "");
+        userid = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "");
 
-        firstName = app_sharedpreference.getsharedpref("username", "");
+        firstName = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "");
 
-        lastName = app_sharedpreference.getsharedpref("lname", "");
+        lastName = appSharedPreference.getsharedpref(SharedPreferenceConstants.LAST_NAME.toString(), "");
 
-        mobile = app_sharedpreference.getsharedpref("mobile", "");
+        mobile = appSharedPreference.getsharedpref(SharedPreferenceConstants.MOBILE.toString(), "");
 
-        address = app_sharedpreference.getsharedpref("address", "");
+        address = appSharedPreference.getsharedpref(SharedPreferenceConstants.ADDRESS.toString(), "");
 
-        state_id= app_sharedpreference.getsharedpref("state_id", "");
+        state_id= appSharedPreference.getsharedpref(SharedPreferenceConstants.STATE_ID.toString(), "");
 
         setuptoolbar();
 
@@ -85,8 +86,8 @@ public class AddAddressActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
                 // your code here
-                app_sharedpreference.setsharedpref("state_id",  String.valueOf(position));
-                state_id= app_sharedpreference.getsharedpref("state_id", "");
+                appSharedPreference.setsharedpref(SharedPreferenceConstants.STATE_ID.toString(),  String.valueOf(position));
+                state_id= appSharedPreference.getsharedpref(SharedPreferenceConstants.STATE_ID.toString(), "");
                 spState.setSelection(Integer.valueOf(state_id));
 
 
@@ -179,10 +180,10 @@ public class AddAddressActivity extends AppCompatActivity
 
                             if (message.equals("Updated Successfully!"))
                             {
-                                app_sharedpreference.setsharedpref("username", firstName);
-                                app_sharedpreference.setsharedpref("lname", lName);
-                                app_sharedpreference.setsharedpref("address", address);
-                                app_sharedpreference.setsharedpref("state_id", String.valueOf(spState.getSelectedItemPosition()));
+                                appSharedPreference.setsharedpref("username", firstName);
+                                appSharedPreference.setsharedpref("lname", lName);
+                                appSharedPreference.setsharedpref("address", address);
+                                appSharedPreference.setsharedpref("state_id", String.valueOf(spState.getSelectedItemPosition()));
                                 progress_handler.hide();
                                 Toast.makeText(getApplicationContext(),"Updated Successfully!",Toast.LENGTH_SHORT).show();
 

@@ -36,8 +36,8 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.filter.entity.FilterObject;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.interfaces.Adapter_callback_interface;
-import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomAutocompleteAdapter;
 import com.example.pat.aapkatrade.general.Utils.adapter.Webservice_search_autocompleteadapter;
@@ -212,7 +212,7 @@ public class Search extends AppCompatActivity implements Adapter_callback_interf
 
                         call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString());
                         autocomplete_textview_product.setHint("");
-                        App_config.hideKeyboard(Search.this);
+                        AppConfig.hideKeyboard(Search.this);
 
 
                     }

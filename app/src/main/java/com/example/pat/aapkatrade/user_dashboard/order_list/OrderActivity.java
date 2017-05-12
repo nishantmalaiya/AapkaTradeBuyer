@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -48,7 +49,7 @@ public class OrderActivity extends AppCompatActivity {
 
         appSharedPreference = new AppSharedPreference(context);
 
-        user_id = appSharedPreference.getsharedpref("userid", "");
+        user_id = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "");
 
         setup_layout();
 
@@ -97,7 +98,7 @@ public class OrderActivity extends AppCompatActivity {
         orderListDatas.clear();
         progress_handler.show();
 
-        Log.e("hi////", appSharedPreference.getsharedpref("userid", user_id) + "GGGGGGG" + appSharedPreference.getsharedpref("usertype", "1"));
+        Log.e("hi////", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id) + "GGGGGGG" + appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_TYPE.toString(), "1"));
 
         Ion.with(context)
                 .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
@@ -105,8 +106,8 @@ public class OrderActivity extends AppCompatActivity {
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
 
 
-                .setBodyParameter("seller_id", appSharedPreference.getsharedpref("userid", user_id))
-                .setBodyParameter("type", appSharedPreference.getsharedpref("usertype", "1"))
+                .setBodyParameter("seller_id", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id))
+                .setBodyParameter("type", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_TYPE.toString(), "1"))
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
