@@ -35,13 +35,13 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
 
 import com.example.pat.aapkatrade.service.LocationService;
-import com.example.pat.aapkatrade.service.SendContactService;
 import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 
 
@@ -94,8 +94,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     View view;
     Mylocation mylocation;
     private GeoCoderAddress geoCoderAddressAsync;
-    private String AddressAsync,currentLatitude,currentLongitude,stateName;
-AppSharedPreference appSharedPreference;
+    private String AddressAsync, currentLatitude, currentLongitude, stateName;
+    AppSharedPreference appSharedPreference;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -108,7 +108,7 @@ AppSharedPreference appSharedPreference;
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
             initializeview(view, container);
         }
-        appSharedPreference=new AppSharedPreference(getActivity());
+        appSharedPreference = new AppSharedPreference(getActivity());
 
         return view;
     }
@@ -194,7 +194,6 @@ AppSharedPreference appSharedPreference;
         get_home_data();
 
 
-
         rl_searchview_dashboard = (RelativeLayout) v.findViewById(R.id.rl_searchview);
 
         rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
@@ -208,9 +207,9 @@ AppSharedPreference appSharedPreference;
                 Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
 
-                    currentLatitude=appSharedPreference.getSharedPref("CurrentLatitude");
-                    currentLongitude=appSharedPreference.getSharedPref("CurrentLongitude");
-                    stateName=appSharedPreference.getSharedPref("CurrentStateName");
+                    currentLatitude = appSharedPreference.getSharedPref("CurrentLatitude");
+                    currentLongitude = appSharedPreference.getSharedPref("CurrentLongitude");
+                    stateName = appSharedPreference.getSharedPref("CurrentStateName");
 
 
                     Intent intentAsync = new Intent(getActivity(), Search.class);
@@ -220,11 +219,6 @@ AppSharedPreference appSharedPreference;
                     intentAsync.putExtra("latitude", currentLatitude);
                     intentAsync.putExtra("longitude", currentLongitude);
                     getActivity().startActivity(intentAsync);
-
-
-
-
-
 
 
                 } else {
@@ -238,12 +232,7 @@ AppSharedPreference appSharedPreference;
         });
     }
 
-    public void get_home_data()
-    {
-
-
-
-
+    public void get_home_data() {
         progress_handler.show();
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
@@ -261,15 +250,16 @@ AppSharedPreference appSharedPreference;
                         if (result != null) {
 
                             home_result = result;
-                            Log.e("data===============", result.toString());
+                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
+                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
-                            String cart_count = jsonResult.get("cart_count").getAsString();
+                            String cart_count = jsonResult.get("cart_count")==null?"0": jsonResult.get("cart_count").getAsString();
 
-                            appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
-                            //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
-                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt("cart_count", 0)));
+                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                            //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
+                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
@@ -474,4 +464,3 @@ AppSharedPreference appSharedPreference;
 
 
 }
-
