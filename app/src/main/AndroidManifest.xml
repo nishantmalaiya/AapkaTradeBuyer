@@ -18,7 +18,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <permission
         android:name="com.example.pat.aapkatrade.permission.MAPS_RECEIVE"
@@ -101,16 +100,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <service
-            android:name=".service.SendContactService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".shopdetail.productdetail.ProductDetailActivity" />
         <activity android:name=".dialogs.track_order.orderdetail.Order_detail" />
         <activity android:name=".dialogs.track_order.singleproductdetail.SingleproductDetail" />
-        <activity android:name=".privacypolicy.PrivacyPolicyActivity" />
-        <activity android:name=".termandcondition.TermsAndConditionActivity"></activity>
+        <activity android:name=".termandcondition.TermsAndConditionActivity" />
+        <activity android:name=".privacypolicy.PrivacyPolicyActivity"></activity>
     </application>
 
 </manifest>
