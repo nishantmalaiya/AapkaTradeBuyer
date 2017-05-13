@@ -108,5 +108,10 @@ dependencies {
     compile 'com.android.support:percent:25.3.1'
     compile 'com.alihafizji.creditcardedittext:library:+@aar'
     compile 'com.theartofdev:fast-image-loader:0.8.+'
+
+    compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
+    
+
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
+
 }

@@ -403,6 +403,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             Log.e("Shared_pref1", "null");
         }
     }
+
+
+
 }
 
 
