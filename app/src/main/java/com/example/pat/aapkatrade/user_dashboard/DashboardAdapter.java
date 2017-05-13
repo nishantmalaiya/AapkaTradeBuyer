@@ -3,15 +3,13 @@ package com.example.pat.aapkatrade.user_dashboard;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.login.LoginActivity;
 
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
@@ -22,8 +20,6 @@ import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActiv
 
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,15 +31,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final LayoutInflater inflater;
     private List<DashboardData> itemList;
     private Context context;
-    DashboardHolder viewHolder;
-    AppSharedPreference app_sharedpreference;
+    private DashboardHolder viewHolder;
+    private AppSharedPreference appSharedPreference;
 
 
     public DashboardAdapter(Context context, List<DashboardData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        app_sharedpreference = new AppSharedPreference(context);
+        appSharedPreference = new AppSharedPreference(context);
     }
 
     @Override
@@ -78,7 +74,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onClick(View v) {
 
                 if (itemList.get(position).dashboard_name.equals("My Profile")) {
-                    if (app_sharedpreference.getsharedpref("username", "notlogin").equals("notlogin")) {
+                    if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 
@@ -90,7 +86,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
                 } else if (itemList.get(position).dashboard_name.equals("Change Password")) {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                    if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 
@@ -103,7 +99,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
                 } else if (itemList.get(position).dashboard_name.equals("Order")) {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                    if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 

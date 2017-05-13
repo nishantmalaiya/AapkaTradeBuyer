@@ -23,7 +23,7 @@ import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSpinnerAdapter;
 import com.example.pat.aapkatrade.general.Validation;
@@ -35,11 +35,9 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -411,7 +409,7 @@ public class RegistrationActivity extends AppCompatActivity {
         formBuyerData.setMobile(etMobileNo.getText().toString());
         formBuyerData.setPassword(etPassword.getText().toString());
         formBuyerData.setConfirmPassword(etReenterPassword.getText().toString());
-        formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
+        formBuyerData.setClientId(AppConfig.getCurrentDeviceId(RegistrationActivity.this));
     }
 
 

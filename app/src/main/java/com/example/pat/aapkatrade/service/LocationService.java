@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.pat.aapkatrade.MainActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.location.AddressEnum;
@@ -148,9 +146,9 @@ public class LocationService extends Service {
                 }
 
 
-                appSharedpreference.setsharedpref("CurrentLatitude", String.valueOf(loc.getLatitude()));
-                appSharedpreference.setsharedpref("CurrentLongitude", String.valueOf(loc.getLongitude()));
-                appSharedpreference.setsharedpref("CurrentStateName", AddressAsync);
+                appSharedpreference.setSharedPref("CurrentLatitude", String.valueOf(loc.getLatitude()));
+                appSharedpreference.setSharedPref("CurrentLongitude", String.valueOf(loc.getLongitude()));
+                appSharedpreference.setSharedPref("CurrentStateName", AddressAsync);
 
                 intent.putExtra("Latitude", "" + loc.getLatitude());
                 intent.putExtra("Longitude", loc.getLongitude());

@@ -224,9 +224,9 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
 
                                    Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
                                    String cart_count = jsonObject.get("total_qty").getAsString();
-                                   appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
-                                   //int j = appSharedPreference.getsharedpref_int("cart_count",0);
-                                   ShopAllProductActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
+                                   appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
+                                   //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
+                                   ShopAllProductActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt("cart_count", 0)));
                                    progressBarHandler.hide();
 
 

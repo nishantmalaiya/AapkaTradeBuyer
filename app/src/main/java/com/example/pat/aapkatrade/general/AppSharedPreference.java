@@ -9,54 +9,46 @@ import android.content.SharedPreferences;
  * Created by PPC21 on 27-Jan-17.
  */
 
-public class AppSharedPreference extends Application
-{
+public class AppSharedPreference extends Application {
 
-    public static String app_pref = "aapkatrade";
-    public SharedPreferences shared_pref;
+    public static String appPref = "aapkatrade";
+    public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
 
 
-    public AppSharedPreference(Context c)
-    {
-        this.shared_pref = c.getSharedPreferences(app_pref, Activity.MODE_PRIVATE);
-        this.editor = shared_pref.edit();
+    public AppSharedPreference(Context c) {
+        this.sharedPreferences = c.getSharedPreferences(appPref, Activity.MODE_PRIVATE);
+        this.editor = sharedPreferences.edit();
     }
 
 
-    public String getsharedpref(String pref_key, String default_value)
-    {
-        return shared_pref.getString(pref_key, default_value);
+    public String getSharedPref(String prefKey, String defaultValue) {
+        return sharedPreferences.getString(prefKey, defaultValue);
     }
 
-    public int getsharedpref_int (String pref_ky , int value)
-    {
-        return shared_pref.getInt(pref_ky,value);
+    public int getSharedPrefInt(String pref_ky, int value) {
+        return sharedPreferences.getInt(pref_ky, value);
     }
 
 
-    public String getsharedpref(String pref_key)
-    {
-        return shared_pref.getString(pref_key, "");
+    public String getSharedPref(String pref_key) {
+        return sharedPreferences.getString(pref_key, "");
     }
 
-    public int  getsharedpref_int(String pref_key){
-
-        return shared_pref.getInt(pref_key,0);
+    public int getSharedPrefInt(String pref_key) {
+        return sharedPreferences.getInt(pref_key, 0);
     }
 
-    public void setsharedpref(String pref_key, String text)
-    {
+    public void setSharedPref(String pref_key, String text) {
         editor.putString(pref_key, text);
         editor.commit();
 
     }
 
-    public void setShared_pref_int(String pref_key, int n){
+    public void setSharedPrefInt(String pref_key, int n) {
         editor.putInt(pref_key, n);
         editor.commit();
     }
-
 
 
 }
