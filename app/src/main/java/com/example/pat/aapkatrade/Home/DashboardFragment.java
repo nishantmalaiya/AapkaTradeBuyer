@@ -251,7 +251,8 @@ AppSharedPreference appSharedPreference;
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null) {
+                        if (result != null)
+                        {
 
                             home_result = result;
                             Log.e("data===============", result.toString());
@@ -267,7 +268,6 @@ AppSharedPreference appSharedPreference;
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
                             imageIdList = new ArrayList<>();
-
 
                             for (int l = 0; l < jsonarray_top_banner.size(); l++) {
 

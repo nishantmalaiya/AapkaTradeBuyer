@@ -3,6 +3,8 @@ package  com.example.pat.aapkatrade.user_dashboard.address.viewpager;
 import android.content.Context;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,9 +19,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.Home.cart.CartData;
 import com.example.pat.aapkatrade.Home.cart.CartHolder;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -50,7 +54,7 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
     AppSharedPreference appSharedPreference;
     private ProgressBarHandler progressBarHandler;
     public static ArrayList<CartData>  place_order = new ArrayList<>();
-
+    public  static int cart_popup_position =0;
 
 
     public CartCheckOutAdapter(Context context, List<CartData> itemList)
@@ -105,6 +109,18 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
 
+
+        CustomQuantityDialog.commonInterface = new CommonInterface()
+        {
+            @Override
+            public Object getData(Object object) {
+
+                callwebservice__update_cart(itemList.get(cart_popup_position).id,cart_popup_position,object.toString());
+                return null;
+            }
+
+
+        };
 
 
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
@@ -167,7 +183,8 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
 
                         break;
                     case 5:
-                        showPopup("Quantity", position);
+                        showPopup("Quantity",holder.tvProductSubtotalPrice,position,itemList.get(position).price, holder.textView64);
+                        cart_popup_position = position;
                         break;
 
                 }
@@ -200,30 +217,13 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
 
     }
 
-    public void showPopup(String description, final int pos)
+    public void showPopup(String description,TextView textView_subtotal, final int pos,String price,TextView textView_qty)
     {
 
-        boolean wrapInScrollView = true;
-        MaterialDialog dialog = new MaterialDialog.Builder(context)
-                .title("Quantity")
-                .customView(R.layout.layout_more_quantity, wrapInScrollView)
-                .positiveText("ok")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (editText.getText().length() <= 0) {
-                            showMessage("Nothing done");
-                        } else {
-                            showMessage(editText.getText().toString());
-                            itemList.get(pos).setQuantity(editText.getText().toString());
-                            textViewQuantity.setText(editText.getText().toString());
-                            notifyDataSetChanged();
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-        editText = (EditText) dialog.findViewById(R.id.editText);
+        CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context,textView_subtotal,pos,price,textView_qty);
+        FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
+        customQuantityDialog.show(fm, "Quantity");
+
 
     }
 
@@ -312,7 +312,6 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("quantity", quantity)
                 .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {

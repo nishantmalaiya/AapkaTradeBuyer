@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.filter.viewholder.FilterColumn1ViewHolder;
@@ -24,6 +25,9 @@ public class FilterColumn1RecyclerAdapter extends RecyclerView.Adapter<FilterCol
         public Object getData(Object object) {
             return null;
         }
+
+
+
     };
 
     public FilterColumn1RecyclerAdapter(Context context, ArrayList<String> filterNameList) {

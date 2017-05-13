@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.cart.CartAdapter;
@@ -28,6 +29,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.payment.PaymentActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonArray;
@@ -59,6 +61,10 @@ public class CartCheckoutActivity extends AppCompatActivity
     private ProgressBarHandler progressBarHandler;
     public static CardView cardviewProductDeatails;
     public static LinearLayout linearAddressLayout;
+    TextView addressLine1,addressLine2,addressLine3;
+    RelativeLayout relativeChangeAddress;
+    String userid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -90,7 +96,6 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         setup_layout();
 
-
     }
 
 
@@ -100,6 +105,30 @@ public class CartCheckoutActivity extends AppCompatActivity
         linearAddressLayout = (LinearLayout) findViewById(R.id.linearAddressLayout);
 
         cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
+
+        addressLine1 = (TextView)  findViewById(R.id.addressLine1);
+
+        addressLine2 = (TextView) findViewById(R.id.addressLine2);
+
+        addressLine3 = (TextView) findViewById(R.id.addressLine3);
+
+        relativeChangeAddress = (RelativeLayout) findViewById(R.id.relativeChangeAddress);
+
+        relativeChangeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent address = new Intent(CartCheckoutActivity.this,AddAddressActivity.class);
+                startActivity(address);
+
+            }
+        });
+
+        addressLine1.setText(fname+" " +lname);
+
+        addressLine2.setText(address);
+
+        addressLine3.setText(mobile);
 
         locationImageView = (ImageView) findViewById(R.id.locationImageView);
 
@@ -115,10 +144,7 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
 
-
         AndroidUtils.setImageColor(locationImageView, context, R.color.green);
-
-
 
     }
 
@@ -139,8 +165,12 @@ public class CartCheckoutActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-               String userid = app_sharedpreference.getsharedpref("userid", "");
+                 userid = app_sharedpreference.getsharedpref("userid", "");
+
                 callwebservice__save_order(userid);
+
+
+
 
             }
         });
@@ -211,7 +241,6 @@ public class CartCheckoutActivity extends AppCompatActivity
                             tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
                            // tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
 
-
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
                             if (jsonProductList != null && jsonProductList.size() > 0)
                             {
@@ -236,9 +265,6 @@ public class CartCheckoutActivity extends AppCompatActivity
 
                                 linearAddressLayout.setVisibility(View.VISIBLE);
                                 cardviewProductDeatails.setVisibility(View.VISIBLE);
-
-
-
 
                             }
                         }
@@ -271,10 +297,31 @@ public class CartCheckoutActivity extends AppCompatActivity
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
+                        //  AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
+                        System.out.println("result-----------"+result.toString());
 
-                        AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
-                        // System.out.println("result-----------"+result.toString());
-                        progressBarHandler.hide();
+                        String message = result.get("message").getAsString();
+                        if (message.equals("Order Saved Successfully!"))
+                        {
+                            JsonObject jsonObject = result.getAsJsonObject("result");
+                            String order_number = jsonObject.get("tracking_no").getAsString();
+                            progressBarHandler.hide();
+                            Intent payment = new Intent(CartCheckoutActivity.this, PaymentActivity.class);
+                            payment.putExtra("order_number",order_number);
+                            payment.putExtra("userid",userid);
+                            payment.putExtra("price",tvAmountPayable.getText().toString().replace(getApplicationContext().getResources().getText(R.string.Rs),"").trim());
+                            startActivity(payment);
+
+
+                        }
+                        else
+                        {
+                            progressBarHandler.hide();
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                        }
+
+
 
                     }
                 });

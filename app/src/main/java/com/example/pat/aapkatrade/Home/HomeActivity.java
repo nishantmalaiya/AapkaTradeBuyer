@@ -55,7 +55,8 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivi
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -83,8 +84,9 @@ public class HomeActivity extends AppCompatActivity {
     public TextView countTextView;
     FrameLayout redCircle;
     public static TextView tvCartCount;
-
     int home_activity = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,10 +239,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                 startActivity(intent);
 
-
                 break;
             case R.id.login:
-
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                     Intent i = new Intent(HomeActivity.this, LoginActivity.class);
@@ -518,7 +518,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void setForceTitleHide(boolean forceTitleHide) {
+    private void setForceTitleHide(boolean forceTitleHide)
+    {
 
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
@@ -609,16 +610,20 @@ public class HomeActivity extends AppCompatActivity {
 
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
 
-        if (home_activity == 1) {
+        if (home_activity == 1)
+        {
+            System.out.println("activity again started-----------");
             home_activity = 2;
-        } else {
-            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
-
         }
-
+        else
+        {
+            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+            System.out.println("Arind-----------");
+        }
     }
 
 
