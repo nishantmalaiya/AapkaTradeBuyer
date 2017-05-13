@@ -130,7 +130,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         itemList.get(position).setQuantity("1");
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *1;
-                       /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
+                        /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
                         holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"1",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
                         callwebservice__update_cart(itemList.get(position).id,position,"1");
@@ -290,10 +290,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                             }
                             else
-                             {
+                            {
 
-                                 MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
-                                 MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
+                                MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
+                                MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
 
                             }
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
@@ -342,7 +342,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         String total_amount = jsonresult.get("total_amount").getAsString();
                         String cart_count = jsonresult.get("total_qty").getAsString();
-                        appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
+                        appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
                         MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                         MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
@@ -361,4 +361,3 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
 
 }
-
