@@ -170,7 +170,7 @@ public class OrderActivity extends AppCompatActivity {
 
                                     String product_image = jsonObject2.get("image_url").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at, product_image));
+//                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at, product_image));
 
 
                                 }

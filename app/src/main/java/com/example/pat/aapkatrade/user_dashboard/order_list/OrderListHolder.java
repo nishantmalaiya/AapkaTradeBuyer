@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -13,39 +14,29 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by PPC16 on 17-Jan-17.
  */
 
-public class OrderListHolder extends RecyclerView.ViewHolder
-{
+public class OrderListHolder extends RecyclerView.ViewHolder {
 
     View view;
-    TextView tvProductName,tvCompanyName,tvProductPrice,tvUserName,tvMobileNo,tvCreatedDate,tvUserEmail,tvAddress;
-    Button buttonDespatched;
-    CircleImageView circleImage;
+    TextView  tvOrderDate, tvOrderPrize,productName;
+    Button btn_trackorder;
 
-    public OrderListHolder(View itemView)
-    {
+    CircleImageView productImage;
+    ImageView img_order_detail;
+
+    public OrderListHolder(View itemView) {
         super(itemView);
 
-        tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
+        productName=(TextView)itemView.findViewById(R.id.productName);
 
-        tvCompanyName = (TextView) itemView.findViewById(R.id.tvCompanyName);
-
-        tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
-
-        tvUserName = (TextView) itemView.findViewById(R.id.tvShopName);
-
-        tvMobileNo = (TextView) itemView.findViewById(R.id.tvProductName);
-
-        tvCreatedDate = (TextView) itemView.findViewById(R.id.tvProductPrize);
-
-        tvUserEmail = (TextView) itemView.findViewById(R.id.tvUserEmail);
-
-        tvAddress = (TextView) itemView.findViewById(R.id.tvAddress);
-
-        buttonDespatched = (Button) itemView.findViewById(R.id.buttonDespatched);
-
-        circleImage = (CircleImageView) itemView.findViewById(R.id.circleImage);
+        img_order_detail=(ImageView)itemView.findViewById(R.id.img_order_detail);
 
 
+        tvOrderDate = (TextView) itemView.findViewById(R.id.tvOrderDate);
+        tvOrderPrize = (TextView) itemView.findViewById(R.id.tvOrderPrize);
+
+        btn_trackorder = (Button) itemView.findViewById(R.id.btn_trackorder);
+
+        productImage=(CircleImageView)itemView.findViewById(R.id.circleImage);
         view = itemView;
     }
 }

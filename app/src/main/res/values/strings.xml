@@ -200,5 +200,7 @@
     <string name="webpage_being_loaded">data being loaded</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="readMore">......Read More</string>
+    <string name="trackorder_title">TRACK </string>
+
 
 </resources>

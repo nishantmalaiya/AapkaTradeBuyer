@@ -68,13 +68,14 @@ public class BlankFragment extends Fragment {
         orderListDatas.clear();
         progress_handler.show();
 
-        Log.e("hi1234", user_id+"##blank##"+AndroidUtils.getUserType(user_type)+"@@@@@@@"+user_type);
+        Log.e("hi1234", user_id + "##blank##" + AndroidUtils.getUserType(user_type) + "@@@@@@@" + user_type);
 
         Ion.with(getActivity())
-                .load(getResources().getString(R.string.webservice_base_url)+"/buyer_order_list")
+                .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("buyer_id", user_id)
+                .setBodyParameter("type", "0")
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -84,52 +85,37 @@ public class BlankFragment extends Fragment {
                             progress_handler.hide();
                             layout_container.setVisibility(View.INVISIBLE);
                         } else {
-                            JsonObject jsonObject = result.getAsJsonObject();
 
-                            String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
 
-                            String message_data = message.replace("\"", "");
+                            if (result.get("error").getAsString().contains("false")) {
 
-                            System.out.println("message_data==================" + message_data);
 
-                            if (message_data.toString().equals("No record found")) {
-                                progress_handler.hide();
-                                layout_container.setVisibility(View.INVISIBLE);
-                            } else {
+                                JsonObject jsonObject = result.getAsJsonObject();
+
+
                                 JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
 
-                                System.out.println("jsonOblect-------------" + jsonObject1.toString());
+                                JsonArray list = jsonObject1.getAsJsonArray("list");
 
-                                JsonArray jsonArray = jsonObject1.getAsJsonArray("orders");
 
-                                for (int i = 0; i < jsonArray.size(); i++) {
-                                    JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
-
-                                    String order_id = jsonObject2.get("id").getAsString();
-
+                                for (int i = 0; i < list.size(); i++) {
+                                    JsonObject jsonObject2 = (JsonObject) list.get(i);
                                     String product_name = jsonObject2.get("product_name").getAsString();
+
+                                    String orderid = jsonObject2.get("ORDER_ID").getAsString();
 
                                     String product_price = jsonObject2.get("product_price").getAsString();
 
                                     String product_qty = jsonObject2.get("product_qty").getAsString();
+                                    String image_url = jsonObject2.get("image_url").getAsString();
 
-                                    String address = jsonObject2.get("address").getAsString();
-
-                                    String email = jsonObject2.get("email").getAsString();
-
-                                    String buyersmobile = jsonObject2.get("phone").getAsString();
-
-                                    String buyersname = jsonObject2.get("name").getAsString();
-
-
-
-
+//
+                                    Log.e("image_url_orderList", image_url);
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
 
-
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,"","",created_at,""));
+                                    orderListDatas.add(new OrderListData(orderid,product_name, product_price, product_qty, created_at, image_url));
 
 
                                 }
@@ -142,6 +128,7 @@ public class BlankFragment extends Fragment {
                             }
                         }
                     }
+
                 });
     }
 }
