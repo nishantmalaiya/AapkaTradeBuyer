@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.general.progressbar;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -20,58 +21,39 @@ import com.example.pat.aapkatrade.animation.ProgressBarAnimation;
  * Created by PPC21 on 01-Feb-17.
  */
 
-public class ProgressBarHandler
+public class ProgressDialogHandler
 {
 
     private ProgressBar mProgressBar;
     private Context mContext;
+    ProgressDialog prog;
 
 
 
-    public ProgressBarHandler(Context context)
+    public ProgressDialogHandler(Context context)
     {
         mContext = context;
+        prog= new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
 
-        ViewGroup layout = (ViewGroup) ((Activity) context).findViewById(android.R.id.content).getRootView();
-
-        mProgressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleLarge);
-        mProgressBar.setIndeterminate(true);
-        mProgressBar.invalidateDrawable(ContextCompat.getDrawable(mContext,R.drawable.progress_bar_animation));
-        ProgressBarAnimation mProgressAnimation = new ProgressBarAnimation(mProgressBar, 1000);
-
-
-        mProgressAnimation.setDuration(1000);
-        mProgressBar.startAnimation(mProgressAnimation);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
-            Drawable wrapDrawable = DrawableCompat.wrap(mProgressBar.getIndeterminateDrawable());
-            DrawableCompat.setTint(wrapDrawable, ContextCompat.getColor(mContext, R.color.color_voilet));
-            mProgressBar.setIndeterminateDrawable(DrawableCompat.unwrap(wrapDrawable));
-        } else {
-            mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(mContext,  R.color.color_voilet), PorterDuff.Mode.SRC_IN);
-        }
+        prog.setTitle(mContext.getString(R.string.pleaseWait));
+        prog.setMessage(mContext.getString(R.string.webpage_being_loaded));
+        prog.setCancelable(false);
+        prog.setIndeterminate(true);
 
 
-        RelativeLayout.LayoutParams params = new
-                RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-
-        RelativeLayout rl = new RelativeLayout(context);
-
-        rl.setGravity(Gravity.CENTER);
-        rl.addView(mProgressBar);
-
-        layout.addView(rl, params);
+        prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         hide();
     }
 
     public void show() {
-        mProgressBar.setVisibility(View.VISIBLE);
+        prog.show();
     }
 
     public void hide() {
-        mProgressBar.setVisibility(View.INVISIBLE);
+
+        prog.hide();
+
     }
 
 
