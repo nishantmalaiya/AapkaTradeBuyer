@@ -11,32 +11,33 @@ import android.content.SharedPreferences;
 
 public class AppSharedPreference extends Application {
 
-    public static String appPref = "aapkatrade";
-    public SharedPreferences sharedPreferences;
+    public static String app_pref = "aapkatrade";
+    public SharedPreferences shared_pref;
     public SharedPreferences.Editor editor;
 
 
     public AppSharedPreference(Context c) {
-        this.sharedPreferences = c.getSharedPreferences(appPref, Activity.MODE_PRIVATE);
-        this.editor = sharedPreferences.edit();
+        this.shared_pref = c.getSharedPreferences(app_pref, Activity.MODE_PRIVATE);
+        this.editor = shared_pref.edit();
     }
 
 
-    public String getSharedPref(String prefKey, String defaultValue) {
-        return sharedPreferences.getString(prefKey, defaultValue);
+    public String getSharedPref(String pref_key, String default_value) {
+        return shared_pref.getString(pref_key, default_value);
     }
 
     public int getSharedPrefInt(String pref_ky, int value) {
-        return sharedPreferences.getInt(pref_ky, value);
+        return shared_pref.getInt(pref_ky, value);
     }
 
 
     public String getSharedPref(String pref_key) {
-        return sharedPreferences.getString(pref_key, "");
+        return shared_pref.getString(pref_key, "");
     }
 
     public int getSharedPrefInt(String pref_key) {
-        return sharedPreferences.getInt(pref_key, 0);
+
+        return shared_pref.getInt(pref_key, 0);
     }
 
     public void setSharedPref(String pref_key, String text) {
