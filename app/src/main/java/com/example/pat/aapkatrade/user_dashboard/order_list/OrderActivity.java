@@ -112,10 +112,9 @@ public class OrderActivity extends AppCompatActivity {
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
 
 
-                .setBodyParameter("buyer_id", appSharedPreference.getsharedpref("userid", user_id))
+                .setBodyParameter("buyer_id", appSharedPreference.getSharedPref("userid", user_id))
 
 
-               
                 .setBodyParameter("type", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"))
 
 
@@ -138,9 +137,6 @@ public class OrderActivity extends AppCompatActivity {
                             String error = result.get("error").getAsString();
                             if (error.contains("false")) {
                                 JsonObject jsonObject_result = result.getAsJsonObject("result");
-
-                            System.out.println("message_data==================" + message_data);
-
 
 
                                 JsonArray orders = jsonObject_result.getAsJsonArray("orders");

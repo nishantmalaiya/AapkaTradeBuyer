@@ -23,7 +23,6 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 
-import com.codinguser.android.contactpicker.ContactsPickerActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
