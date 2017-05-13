@@ -121,13 +121,14 @@ public class LoginActivity extends AppCompatActivity {
                 String input_email = etEmail.getText().toString().trim();
                 String input_password = password.getText().toString();
 
+
                 if (Validation.isValidEmail(input_email) || Validation.isValidNumber(input_email, Validation.getNumberPrefix(input_email))) {
+
 
                     if (Validation.validateEdittext(password)) {
                         String login_url = getResources().getString(R.string.webservice_base_url) + "/buyerlogin";
 
                         callLoginWebService(login_url, input_email, input_password);
-
 
                     } else {
                         showMessage(getResources().getString(R.string.password_validing_text));
@@ -181,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         }
+
 
                     }
                 });

@@ -68,6 +68,8 @@ public class AddAddressActivity extends AppCompatActivity
 
         state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
 
+        System.out.println("state_id-----------"+state_id);
+
         setuptoolbar();
 
         setup_layout();

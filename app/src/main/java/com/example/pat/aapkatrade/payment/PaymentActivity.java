@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.payment.payment_method.CreditDebitFragment;
@@ -36,6 +37,9 @@ import com.example.pat.aapkatrade.payment.payment_method.NetBankingFragment;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -54,15 +58,14 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     String accessCode = "28DCA441";
     String merchantId = "TESTCFZATRDPRLTD";
     String amount = "10";
-    String orderid;
+    String orderid,order_number;
     String Merchant_transaction_reference ="756756876" ;
     String HashData_prepare;
     String success_url = "http://staging.aapkatrade.com/payment/PHP_VPC_3Party_Order_DR.php";
     String hash_pack;
-
     String url;
-
     Handler mHandler = new Handler();
+    JSONObject  json;
 
     private int[] tabIcons = {
 
@@ -77,17 +80,33 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     private WebView webview;
     private ProgressBarHandler progressBarHandler;
 
+    String buyer_id;
+    List<String> values ;
+    Map<String, List<String>> params;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_payment);
         context = PaymentActivity.this;
+
+        Bundle bundle = getIntent().getExtras();
+
+        String price = bundle.getString("price");
+
+        buyer_id = bundle.getString("userid");
+
+        order_number = bundle.getString("order_number");
+
+        double damount = Double.valueOf(price);
+        int amount = (int) damount;
+
         setUpToolBar();
+
         webview = (WebView) findViewById(R.id.webview);
         progressBarHandler = new ProgressBarHandler(this);
-
         progressBarHandler.show();
 
 
@@ -98,13 +117,12 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                 .setBodyParameter("vpc_AccessCode", accessCode)
                 .setBodyParameter("vpc_Merchant", merchantId)
                 .setBodyParameter("vpc_OrderInfo", "Test Product")
-                .setBodyParameter("vpc_Amount", "10000")
+                .setBodyParameter("vpc_Amount", String.valueOf(amount*100))
                 .setBodyParameter("vpc_Currency", "INR")
                 .setBodyParameter("vpc_Locale", "en_INR")
                 .setBodyParameter("virtualPaymentClientURL", "https://migs.mastercard.com.au/vpcpay")
-                .setBodyParameter("vpc_MerchTxnRef", Merchant_transaction_reference)
+                .setBodyParameter("vpc_MerchTxnRef", order_number)
                 .setBodyParameter("vpc_ReturnURL", "http://staging.aapkatrade.com/payment/PHP_VPC_3Party_Order_DR.php")
-
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -112,9 +130,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-
                         url = result.get("url").getAsString();
-
                         webview.getSettings().setBuiltInZoomControls(true);
                         webview.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
                         webview.getSettings().setDomStorageEnabled(true);
@@ -124,8 +140,6 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                         webview.getSettings().setSupportZoom(true);
                         webview.getSettings().setUseWideViewPort(false);
                         webview.getSettings().setLoadWithOverviewMode(false);
-
-
                         CookieManager.getInstance().setAcceptCookie(true);
                         webview.loadUrl(url);
 
@@ -137,13 +151,15 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                             }
                         });
 
-                        webview.setWebViewClient(new WebViewClient() {
-                            public boolean shouldOverrideUrlLoading(WebView viewx, String urlx) {
-
-                                if (urlx.contains(success_url)) {
+                        webview.setWebViewClient(new WebViewClient()
+                        {
+                            public boolean shouldOverrideUrlLoading(WebView viewx, String urlx)
+                            {
+                                if (urlx.contains(success_url))
+                                {
                                     Log.e("html2", urlx);
 
-                                    Map<String, List<String>> params = new HashMap<String, List<String>>();
+                                    params = new HashMap<String, List<String>>();
                                     String[] urlParts = urlx.split("\\?");
                                     if (urlParts.length > 1) {
                                         String query = urlParts[1];
@@ -154,14 +170,18 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                                                 key = URLDecoder.decode(pair[0], "UTF-8");
 
                                                 String value = "";
-                                                if (pair.length > 1) {
+                                                if (pair.length > 1)
+                                                {
                                                     value = URLDecoder.decode(pair[1], "UTF-8");
                                                 }
-                                                List<String> values = params.get(key);
-                                                if (values == null) {
+                                              values = params.get(key);
+                                                if (values == null)
+                                                {
                                                     values = new ArrayList<String>();
+
                                                     params.put(key, values);
                                                 }
+                                                System.out.println("value---------"+value.toString());
                                                 values.add(value);
                                             } catch (UnsupportedEncodingException e1) {
                                                 e1.printStackTrace();
@@ -172,42 +192,35 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
                                     viewx.loadUrl(urlx);
                                     // startActivity(new Intent(PaymentActivity.this,Payment_confirmation_Activity.class));
-
-                                } else {
+                                    callwebservice__make_payment(values);
+                                }
+                                else
+                                {
 
                                 }
-
-
                                 viewx.isPrivateBrowsingEnabled();
                                 viewx.getSettings().setJavaScriptEnabled(true);
-
-//
-
                                 progressBarHandler.hide();
                                 return false;
                             }
 
                             @Override
-                            public void onReceivedError(WebView view, int errorCode,
-                                                        String description, String failingUrl) {
+                            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
+                            {
                                 // TODO Auto-generated method stub
                                 System.out.println(">>>>>>>>>>>>>>onReceivedError>>>>>>>>>>>>>>>>>>");
                                 Toast.makeText(PaymentActivity.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
                             }
 
-
                             @Override
-                            public void onPageFinished(WebView view, String url) {
-
+                            public void onPageFinished(WebView view, String url)
+                            {
                                 progressBarHandler.hide();
                                 Log.e("pagefinished", "pagefinished");
 
                                 //super.onPageFinished(view, url);
-
                                 webview.loadUrl("javascript:window.HtmlViewer.showHTML" +
                                         "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
-
-
                             }
                         });
 
@@ -221,18 +234,21 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         // viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         //setupViewPager(viewPager);
 
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-//        tabLayout.addOnTabSelectedListener(this);
-//
-//
-//        tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
+       //        tabLayout = (TabLayout) findViewById(R.id.tabs);
+      //        tabLayout.setupWithViewPager(viewPager);
+      //        tabLayout.addOnTabSelectedListener(this);
+     //
+     //
+     //        tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         //setupTabIcons();
+
+
 
 
     }
 
-    private void setUpToolBar() {
+    private void setUpToolBar()
+    {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
 
@@ -270,14 +286,17 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 break;
@@ -289,7 +308,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab) {
+    public void onTabSelected(TabLayout.Tab tab)
+    {
         Log.e("hi---", "IIIIIIIII" + tab.getPosition());
         if (tab.getPosition() == 0) {
             // tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
@@ -307,7 +327,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
+    public void onTabUnselected(TabLayout.Tab tab)
+    {
         if (tab.getPosition() == 0) {
             // tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.text_order_tab));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
@@ -324,7 +345,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public void onTabReselected(TabLayout.Tab tab) {
+    public void onTabReselected(TabLayout.Tab tab)
+    {
         if (tab.getPosition() == 0) {
             //tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
@@ -341,7 +363,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-    private void setupTabIcons() {
+    private void setupTabIcons()
+    {
         tabLayout.getTabAt(0).setIcon(AndroidUtils.setImageColor(context, tabIcons[0], R.color.orange));
         tabLayout.getTabAt(1).setIcon(AndroidUtils.setImageColor(context, tabIcons[1], R.color.text_order_tab));
         tabLayout.getTabAt(2).setIcon(AndroidUtils.setImageColor(context, tabIcons[2], R.color.text_order_tab));
@@ -349,7 +372,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager)
+    {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new NetBankingFragment(), "NET BANKING");
         adapter.addFrag(new CreditDebitFragment(), "DEBIT/CREDIT CARD");
@@ -358,8 +382,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-
+    private class ViewPagerAdapter extends FragmentPagerAdapter
+    {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -387,5 +411,43 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
             return mFragmentTitleList.get(position);
         }
     }
+
+
+
+    private void callwebservice__make_payment(List<String> data)
+    {
+        ArrayList<String> data_n = new ArrayList<>();
+        progressBarHandler.show();
+
+       /* for (int i = 0; i<=params.size(); i++)
+        {
+            data_n.add(new ArrayList<String>(params.values())).get(i));
+
+        }*/
+
+        System.out.println("data-----------data"+data.size());
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/make_payment";
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("data_n", params.toString())
+               // .setBodyParameters("",data)
+
+                .asString()
+                .setCallback(new FutureCallback<String>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, String result)
+                    {
+                        //  AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
+                        System.out.println("result-----------"+result.toString());
+                        progressBarHandler.hide();
+                        //Toast.makeText(getApplicationContext(),result.toString(),Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+    }
+
 
 }

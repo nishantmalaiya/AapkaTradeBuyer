@@ -20,12 +20,9 @@ public class LocationManager_check {
     static AlertDialog alert;
 
     public LocationManager_check(Context context) {
-        locationManager = (LocationManager) context
-                .getSystemService(Context.LOCATION_SERVICE);
-        boolean gpsIsEnabled = locationManager
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean networkIsEnabled = locationManager
-                .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (networkIsEnabled == true && gpsIsEnabled == true) {
             locationServiceBoolean = true;

@@ -80,17 +80,19 @@ public class MainActivity extends AppCompatActivity
                 if (ConnetivityCheck.isNetworkAvailable(MainActivity.this)) {
 
 
-                    mylocation = new Mylocation(MainActivity.this);
-                    LocationManager_check locationManagerCheck = new LocationManager_check(
-                            MainActivity.this);
-                    Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable()) {
-                        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(mainIntent);
-                        finish();
-                        if (pd != null) {
-                            pd.dismiss();
-                        }
+                        mylocation = new Mylocation(MainActivity.this);
+                        LocationManager_check locationManagerCheck = new LocationManager_check(MainActivity.this);
+
+                        Location location = null;
+                        if (locationManagerCheck.isLocationServiceAvailable())
+                        {
+                            Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(mainIntent);
+                            finish();
+                            if (pd != null)
+                            {
+                                pd.dismiss();
+                            }
 
                         Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
                         startService(serviceIntent);
@@ -160,19 +162,18 @@ public class MainActivity extends AppCompatActivity
         AndroidUtils.showErrorLog(MainActivity.this,"onPause");
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         AndroidUtils.showErrorLog(MainActivity.this,"onActivityResult"+requestCode+"***"+resultCode);
         if (resultCode == 0) {
             switch (requestCode) {
 
                 case 1:
-                    LocationManager_check locationManagerCheck = new LocationManager_check(
-                            MainActivity.this);
-                    if (locationManagerCheck.isLocationServiceAvailable()) {
+                    LocationManager_check locationManagerCheck = new LocationManager_check(MainActivity.this);
+                    if (locationManagerCheck.isLocationServiceAvailable())
+                    {
                         Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(mainIntent);
                         finish();
@@ -182,9 +183,9 @@ public class MainActivity extends AppCompatActivity
 
                         Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
                         startService(serviceIntent);
-
-
-                    } else {
+                    }
+                    else
+                    {
                         locationManagerCheck.createLocationServiceError(MainActivity.this);
                     }
 

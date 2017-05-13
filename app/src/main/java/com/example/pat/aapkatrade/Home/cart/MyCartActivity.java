@@ -16,9 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+
+import com.example.pat.aapkatrade.general.AppSharedPreference;
+
 import com.example.pat.aapkatrade.general.AppConfig;
+
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -40,6 +45,7 @@ public class MyCartActivity extends AppCompatActivity
     CartAdapter cartAdapter;
     private ProgressBarHandler progressBarHandler;
     public static CardView cardviewProductDeatails,cardBottom;
+    AppSharedPreference app_sharedpreference;
 
 
     @Override
@@ -54,6 +60,8 @@ public class MyCartActivity extends AppCompatActivity
         setuptoolbar();
 
         progressBarHandler = new ProgressBarHandler(context);
+
+        app_sharedpreference = new AppSharedPreference(MyCartActivity.this);
 
         initView();
 
@@ -131,11 +139,22 @@ public class MyCartActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
-                Intent  shiping_address = new Intent(MyCartActivity.this, AddAddressActivity.class);
+                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                {
+                    Intent i = new Intent(MyCartActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 
-                System.out.println("place _order_list "+ CartAdapter.place_order.toString());
+                }
+                else
+                    {
+                    Intent i = new Intent(MyCartActivity.this, AddAddressActivity.class);
+                    startActivity(i);
+                    //overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 
-                startActivity(shiping_address);
+
+                }
+
 
             }
         });
@@ -227,7 +246,6 @@ public class MyCartActivity extends AppCompatActivity
                                     String productImage = jsonproduct.get("image_url").getAsString();
                                     String product_id = jsonproduct.get("product_id").getAsString();
                                     cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id,subtotal_price));
-
 
 
                                 }
