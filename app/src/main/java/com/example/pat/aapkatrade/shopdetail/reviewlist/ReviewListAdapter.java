@@ -24,12 +24,12 @@ import java.util.List;
 public class ReviewListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-    final LayoutInflater inflater;
-    List<ReviewListData> itemList;
-    Context context;
-    ReviewListHolder viewHolder;
-    AppSharedPreference app_sharedpreference;
-    ProgressBarHandler progress_handler;
+    private final LayoutInflater inflater;
+    private List<ReviewListData> itemList;
+    private Context context;
+    private ReviewListHolder viewHolder;
+    private AppSharedPreference appSharedPreference;
+    private ProgressBarHandler progress_handler;
 
 
     public ReviewListAdapter(Context context, List<ReviewListData> itemList)
@@ -38,7 +38,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context;
         inflater = LayoutInflater.from(context);
 
-        app_sharedpreference = new AppSharedPreference(context);
+        appSharedPreference = new AppSharedPreference(context);
         progress_handler = new ProgressBarHandler(context);
 
     }

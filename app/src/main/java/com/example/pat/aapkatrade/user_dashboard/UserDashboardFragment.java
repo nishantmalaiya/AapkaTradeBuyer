@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.google.gson.JsonObject;
@@ -26,28 +26,28 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class User_DashboardFragment extends Fragment {
+public class UserDashboardFragment extends Fragment {
 
 
-    RecyclerView dashboardlist;
-    DashboardAdapter dashboardAdapter;
-    ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
-    AppSharedPreference app_sharedpreference;
-    TextView tvMobile, tvEmail, textViewName, tvUserType;
-    ImageView btnEdit;
-    ProgressBarHandler progressBarHandler;
-    RecyclerView.LayoutManager layoutManager;
-    CircleImageView imageviewpp;
-    String user_image;
+    private RecyclerView dashboardlist;
+    private DashboardAdapter dashboardAdapter;
+    private ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
+    private AppSharedPreference appSharedPreference;
+    private TextView tvMobile, tvEmail, textViewName, tvUserType;
+    private ImageView btnEdit;
+    private ProgressBarHandler progressBarHandler;
+    private RecyclerView.LayoutManager layoutManager;
+    private CircleImageView imageviewpp;
+    private String user_image;
 
-    public User_DashboardFragment() {
+    public UserDashboardFragment() {
 
     }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
-        app_sharedpreference = new AppSharedPreference(getActivity());
+        appSharedPreference = new AppSharedPreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
         tvUserType = (TextView) v.findViewById(R.id.tvUserType);
         setup_layout(v);
@@ -74,9 +74,9 @@ public class User_DashboardFragment extends Fragment {
             }
         });
 
-        if (app_sharedpreference.getsharedpref("username", "not") != null) {
-            String Username = app_sharedpreference.getsharedpref("name", "not");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not") != null) {
+            String Username = appSharedPreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
+            String Emailid = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
             if (Username.contains("not")) {
                 textViewName.setText("");
                 tvEmail.setText("");
@@ -93,9 +93,9 @@ public class User_DashboardFragment extends Fragment {
         dashboardDatas.clear();
         try {
 
-            if (app_sharedpreference.shared_pref != null) {
+            if (appSharedPreference.sharedPreferences != null) {
 
-                String userid = app_sharedpreference.getsharedpref("userid", "0");
+                String userid = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "0");
 
                 String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url)) + "/userdata";
 
@@ -133,7 +133,7 @@ public class User_DashboardFragment extends Fragment {
                             progressBarHandler.hide();
                             Log.e("result_myProfile", "result_myProfile is not null ");
                             String order_quantity = result.get("order").getAsString();
-                            app_sharedpreference.setsharedpref("order_quantity", order_quantity);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.ORDER_QUANTITY.toString(), order_quantity);
                             dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
                             dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
                             dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity));
@@ -154,9 +154,9 @@ public class User_DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
-            String Username = app_sharedpreference.getsharedpref("name", "not");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+            String Username = appSharedPreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
+            String Emailid = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
             if (Username.equals("notlogin")) {
                 textViewName.setText("");
                 tvEmail.setText("");

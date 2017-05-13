@@ -1,34 +1,27 @@
 package com.example.pat.aapkatrade.Home.cart;
 
-import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -303,7 +296,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                                  MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
 
                             }
-                            appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
                             MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                             MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
@@ -336,7 +329,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("quantity", quantity)
-                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
@@ -349,7 +342,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         String total_amount = jsonresult.get("total_amount").getAsString();
                         String cart_count = jsonresult.get("total_qty").getAsString();
-                        appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                        appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
 
                         MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                         MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);

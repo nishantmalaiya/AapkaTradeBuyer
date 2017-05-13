@@ -14,7 +14,11 @@ import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
+
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -43,7 +47,7 @@ public class OrderActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_order);
         context = OrderActivity.this;
-
+        Log.e("hi////", "ghuygubgiugvuyuuihguogyuygukyvgbuk");
 
         setuptoolbar();
 
@@ -51,7 +55,7 @@ public class OrderActivity extends AppCompatActivity {
 
         appSharedPreference = new AppSharedPreference(context);
 
-        user_id = appSharedPreference.getsharedpref("userid", "");
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
 
         setup_layout();
 
@@ -100,15 +104,19 @@ public class OrderActivity extends AppCompatActivity {
         orderListDatas.clear();
         progress_handler.show();
 
-        Log.e("hi////", appSharedPreference.getsharedpref("userid", user_id) + "GGGGGGG" + appSharedPreference.getsharedpref("usertype", "1"));
+        Log.e("hi////", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id) + "GGGGGGG" + appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"));
 
         Ion.with(context)
-                .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_list")
+                .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
 
 
                 .setBodyParameter("buyer_id", appSharedPreference.getsharedpref("userid", user_id))
+
+
+               
+                .setBodyParameter("type", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"))
 
 
                 .asJsonObject()
@@ -125,10 +133,14 @@ public class OrderActivity extends AppCompatActivity {
                             layout_container.setVisibility(View.INVISIBLE);
                         } else
 
+
                         {
                             String error = result.get("error").getAsString();
                             if (error.contains("false")) {
                                 JsonObject jsonObject_result = result.getAsJsonObject("result");
+
+                            System.out.println("message_data==================" + message_data);
+
 
 
                                 JsonArray orders = jsonObject_result.getAsJsonArray("orders");
