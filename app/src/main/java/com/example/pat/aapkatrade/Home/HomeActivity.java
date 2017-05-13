@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -41,16 +40,16 @@ import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.dialogs.track_order.Track_order_dialog;
-import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
-import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
+import com.example.pat.aapkatrade.user_dashboard.UserDashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 
 import java.util.ArrayList;
@@ -61,27 +60,27 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DashboardFragment homeFragment;
     private AboutUsFragment aboutUsFragment;
-    Context context;
+    private Context context;
     public static String shared_pref_name = "aapkatrade";
-    App_config aa;
-    AHBottomNavigation bottomNavigation;
-    CoordinatorLayout coordinatorLayout;
-    User_DashboardFragment user_dashboardFragment;
-    ContactUsFragment contactUsFragment;
-    ProgressBar progressBar;
-    Boolean permission_status;
+    private AppConfig aa;
+    private AHBottomNavigation bottomNavigation;
+    private CoordinatorLayout coordinatorLayout;
+    private UserDashboardFragment userDashboardFragment;
+    private ContactUsFragment contactUsFragment;
+    private ProgressBar progressBar;
+    private Boolean permission_status;
     public static String userid, username;
-    NestedScrollView scrollView;
-    float initialX, initialY;
+    private NestedScrollView scrollView;
+    private float initialX, initialY;
     public static RelativeLayout rl_main_content, rl_searchview_dashboard;
-    AppSharedPreference app_sharedpreference;
+    private AppSharedPreference appSharedPreference;
     private final int SPEECH_RECOGNITION_CODE = 1;
-    Mylocation mylocation;
-    boolean doubleBackToExitPressedOnce = false;
-    LinearLayout linearlayout_home;
-    ProgressBarHandler progressBarHandler;
+    private Mylocation mylocation;
+    private boolean doubleBackToExitPressedOnce = false;
+    private LinearLayout linearlayout_home;
+    private ProgressBarHandler progressBarHandler;
     public TextView countTextView;
-    FrameLayout redCircle;
+    private FrameLayout redCircle;
     public static TextView tvCartCount;
 
     int home_activity = 1;
@@ -96,15 +95,15 @@ public class HomeActivity extends AppCompatActivity {
 
         linearlayout_home = (LinearLayout) findViewById(R.id.ll_toolbar_container_home);
 
-        app_sharedpreference = new AppSharedPreference(HomeActivity.this);
+        appSharedPreference = new AppSharedPreference(HomeActivity.this);
 
-        App_config.set_defaultfont(HomeActivity.this);
+        AppConfig.set_defaultfont(HomeActivity.this);
 
         aboutUsFragment = new AboutUsFragment();
 
         contactUsFragment = new ContactUsFragment();
 
-        user_dashboardFragment = new User_DashboardFragment();
+        userDashboardFragment = new UserDashboardFragment();
 
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
@@ -120,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
-            App_config.deleteCache(HomeActivity.this);
+            AppConfig.deleteCache(HomeActivity.this);
 
         } else {
             setContentView(R.layout.activity_homeactivity);
@@ -135,7 +134,7 @@ public class HomeActivity extends AppCompatActivity {
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
             checked_wifispeed();
-            App_config.deleteCache(HomeActivity.this);
+            AppConfig.deleteCache(HomeActivity.this);
 
         }
 
@@ -191,18 +190,15 @@ public class HomeActivity extends AppCompatActivity {
 
        /* RelativeLayout cartContainer = (RelativeLayout) toolbar.findViewById(R.id.cart_container);
         TextView textView = (TextView) toolbar.findViewById(R.id.tvCart);
-
         if(Integer.parseInt(textView.getText().toString())>0)
         {
             cartContainer.setVisibility(View.VISIBLE);
         }
-
         cartContainer.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
                 Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                 startActivity(intent);
             }
@@ -242,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.login:
 
 
-                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                     Intent i = new Intent(HomeActivity.this, LoginActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -269,7 +265,7 @@ public class HomeActivity extends AppCompatActivity {
         ContactUsFragment showcontactUsFragment = (ContactUsFragment) fm.findFragmentByTag(contactUsFragment.getClass().getName());
         AboutUsFragment showaboutUsFragment = (AboutUsFragment) fm.findFragmentByTag(aboutUsFragment.getClass().getName());
 
-        User_DashboardFragment showuserdashboardfragment = (User_DashboardFragment) fm.findFragmentByTag(user_dashboardFragment.getClass().getName());
+        UserDashboardFragment showuserdashboardfragment = (UserDashboardFragment) fm.findFragmentByTag(userDashboardFragment.getClass().getName());
 
 
         if (dashboardFragment != null && dashboardFragment.isVisible()) {
@@ -302,17 +298,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
     public void loadLocale() {
-        String langPref = "Language";
 
-        String language = app_sharedpreference.getsharedpref(langPref, "");
-        App_config.setLocaleFa(HomeActivity.this, language);
+        String language = appSharedPreference.getSharedPref(SharedPreferenceConstants.LANGUAGE.toString(), "");
+        AppConfig.setLocaleFa(HomeActivity.this, language);
         Log.e("language", language);
         // changeLang(language);
     }
 
     public void saveLocale(String lang) {
         String langPref = "Language";
-        app_sharedpreference.setsharedpref(langPref, lang);
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.LANGUAGE.toString(), lang);
         Log.e("language_pref", langPref + "****" + lang);
         Intent intent = getIntent();
         finish();
@@ -418,17 +413,17 @@ public class HomeActivity extends AppCompatActivity {
 
                         break;
                     case 3:
-                        if (user_dashboardFragment == null) {
-                            user_dashboardFragment = new User_DashboardFragment();
+                        if (userDashboardFragment == null) {
+                            userDashboardFragment = new UserDashboardFragment();
                         }
 
                         // startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
+                        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
                             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                         } else {
-                            Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
-                            String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
-                            replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
+                            Log.e("hiiii", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not"));
+                            String tagName_dashboardFragment = userDashboardFragment.getClass().getName();
+                            replaceFragment(userDashboardFragment, tagName_dashboardFragment);
                             //showOrHideBottomNavigation(true);
                         }
 
@@ -615,7 +610,7 @@ public class HomeActivity extends AppCompatActivity {
         if (home_activity == 1) {
             home_activity = 2;
         } else {
-            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+            tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         }
 
@@ -623,5 +618,4 @@ public class HomeActivity extends AppCompatActivity {
 
 
 }
-
 

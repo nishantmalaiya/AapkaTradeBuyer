@@ -19,6 +19,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 import com.google.gson.JsonObject;
@@ -32,7 +33,7 @@ public class AddAddressActivity extends AppCompatActivity
 {
 
     ArrayList<String> stateList = new ArrayList<>();
-    AppSharedPreference app_sharedpreference;
+    AppSharedPreference appSharedPreference;
     String userid,firstName,lastName,address,mobile,state_id;
     EditText etFirstName,etLastName,etMobileNo,etAddress;
     Button buttonSave;
@@ -53,19 +54,19 @@ public class AddAddressActivity extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new AppSharedPreference(getApplicationContext());
+        appSharedPreference = new AppSharedPreference(getApplicationContext());
 
-        userid = app_sharedpreference.getsharedpref("userid", "");
+        userid = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
 
-        firstName = app_sharedpreference.getsharedpref("username", "");
+        firstName = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "");
 
-        lastName = app_sharedpreference.getsharedpref("lname", "");
+        lastName = appSharedPreference.getSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), "");
 
-        mobile = app_sharedpreference.getsharedpref("mobile", "");
+        mobile = appSharedPreference.getSharedPref(SharedPreferenceConstants.MOBILE.toString(), "");
 
-        address = app_sharedpreference.getsharedpref("address", "");
+        address = appSharedPreference.getSharedPref(SharedPreferenceConstants.ADDRESS.toString(), "");
 
-        state_id= app_sharedpreference.getsharedpref("state_id", "");
+        state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
 
         setuptoolbar();
 
@@ -85,8 +86,8 @@ public class AddAddressActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
                 // your code here
-                app_sharedpreference.setsharedpref("state_id",  String.valueOf(position));
-                state_id= app_sharedpreference.getsharedpref("state_id", "");
+                appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(),  String.valueOf(position));
+                state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
                 spState.setSelection(Integer.valueOf(state_id));
 
 
@@ -165,39 +166,6 @@ public class AddAddressActivity extends AppCompatActivity
                         checkout.putExtra("address",etAddress.getText().toString());
                         startActivity(checkout);
 
-                       /*  if (result == null){
-
-
-                            progress_handler.hide();
-                        }
-                        else
-                        {
-                            JsonObject jsonObject = result.getAsJsonObject();
-                            String message = jsonObject.get("message").getAsString();
-
-                            System.out.println("message---------"+message);
-
-                            if (message.equals("Updated Successfully!"))
-                            {
-                                app_sharedpreference.setsharedpref("username", firstName);
-                                app_sharedpreference.setsharedpref("lname", lName);
-                                app_sharedpreference.setsharedpref("address", address);
-                                app_sharedpreference.setsharedpref("state_id", String.valueOf(spState.getSelectedItemPosition()));
-                                progress_handler.hide();
-                                Toast.makeText(getApplicationContext(),"Updated Successfully!",Toast.LENGTH_SHORT).show();
-
-                               Intent companylist = new Intent(AddAddressActivity.this, CartCheckoutActivity.class);
-                                startActivity(companylist);
-
-                                finish();
-                            }
-                            else
-                            {
-                                progress_handler.hide();
-                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-                            }
-
-                        }*/
                     }
                 });
     }
@@ -264,72 +232,4 @@ public class AddAddressActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-    /*public void getState() {
-
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "state");
-        webservice_body_parameter.put("id", "101");//country id fixed 101 for India
-
-        //   Call_webservice.getcountrystatedata(AddAddressActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
-
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject state_data_webservice)
-            {
-
-                System.out.println("Data is actualy--------"+stateList.size());
-
-
-
-                if (state_data_webservice != null)
-                {
-                    Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
-                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                    stateList.clear();
-                    State stateEntity_init = new State("-1", "Please Select State");
-                    stateList.add(stateEntity_init);
-
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                        stateList.add(stateEntity);
-                    }
-                    SpStateAdapter spStateAdapter = new SpStateAdapter(AddAddressActivity.this, stateList);
-                    spState.setAdapter(spStateAdapter);
-
-                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-                        {
-                           *//* stateID = stateList.get(position).stateId;
-                            cityList = new ArrayList<>();
-                            if (position > 0) {
-                                getCity(stateList.get(position).stateId);
-                            }*//*
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
-
-                        }
-
-                    });
-                }
-                else
-                {
-
-                  //  AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
-                }
-            }
-
-        };
-
-        System.out.println("Data is actualy--------"+stateList.size());
-    }
-*/
 }

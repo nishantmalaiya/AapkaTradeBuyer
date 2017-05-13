@@ -2,11 +2,9 @@ package com.example.pat.aapkatrade.shopdetail.shop_all_product;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -22,6 +20,7 @@ import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -31,10 +30,8 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-
-public class ShopAllProductActivity extends AppCompatActivity
-{
-    int shop_all_activity= 1;
+public class ShopAllProductActivity extends AppCompatActivity {
+    private int shopAllActivity = 1;
     private ArrayList<ShopAllProductData> shopAllProductDatas = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private ShopAllProductAdapter shopAllProductAdapter;
@@ -44,16 +41,15 @@ public class ShopAllProductActivity extends AppCompatActivity
     private String shopId;
     private int page = 1;
     private LinearLayoutManager linearLayoutManager;
-    AppSharedPreference app_sharedpreference;
-    public  static TextView tvCartCount;
+    private AppSharedPreference appSharedPreference;
+    public static TextView tvCartCount;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_all_product);
 
-        app_sharedpreference = new AppSharedPreference(ShopAllProductActivity.this);
+        appSharedPreference = new AppSharedPreference(ShopAllProductActivity.this);
 
         context = ShopAllProductActivity.this;
         if (getIntent() != null) {
@@ -86,8 +82,7 @@ public class ShopAllProductActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.order_list);
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
@@ -100,8 +95,7 @@ public class ShopAllProductActivity extends AppCompatActivity
             }
         });
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
@@ -111,8 +105,7 @@ public class ShopAllProductActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
@@ -124,9 +117,9 @@ public class ShopAllProductActivity extends AppCompatActivity
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 
-         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+        tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
-         tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count",0)));
+        tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,12 +133,9 @@ public class ShopAllProductActivity extends AppCompatActivity
 
         return true;
         /*getMenuInflater().inflate(R.menu.home_menu, menu);
-
         FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
-
         redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
         countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
-
         return true;*/
 
     }
@@ -158,11 +148,9 @@ public class ShopAllProductActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id)
-        {
+        switch (id) {
             case R.id.cart_total_item:
                 Intent intent = new Intent(ShopAllProductActivity.this, MyCartActivity.class);
                 startActivity(intent);
@@ -178,9 +166,7 @@ public class ShopAllProductActivity extends AppCompatActivity
     }
 
 
-
-    private void getAllShopProducts(String pageNumber)
-    {
+    private void getAllShopProducts(String pageNumber) {
         progressBarHandler.show();
         Ion.with(ShopAllProductActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/view_all_products/" + shopId)
@@ -195,10 +181,8 @@ public class ShopAllProductActivity extends AppCompatActivity
                         if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
                             JsonArray jsonProductList = result.getAsJsonArray("all_products");
-                            if (jsonProductList != null && jsonProductList.size() > 0)
-                            {
-                                for (int i = 0; i < jsonProductList.size(); i++)
-                                {
+                            if (jsonProductList != null && jsonProductList.size() > 0) {
+                                for (int i = 0; i < jsonProductList.size(); i++) {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String productId = jsonproduct.get("id").getAsString();
                                     String productName = jsonproduct.get("name").getAsString();
@@ -222,17 +206,13 @@ public class ShopAllProductActivity extends AppCompatActivity
 
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
-        if (shop_all_activity == 1)
-        {
-            shop_all_activity = 2;
-        }
-        else
-        {
-            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+        if (shopAllActivity == 1) {
+            shopAllActivity = 2;
+        } else {
+            tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
         }
 
     }

@@ -16,7 +16,7 @@ import java.util.Locale;
  * Created by PPC21 on 18-Jan-17.
  */
 
-public class App_config extends Application {
+public class AppConfig extends Application {
 
     @Override
     public void onCreate() {

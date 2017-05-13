@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.Home.cart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -35,7 +34,7 @@ public class MyCartActivity extends AppCompatActivity
     ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
-    private TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
+    public static TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
     RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
@@ -69,7 +68,7 @@ public class MyCartActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-       AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
 
         homeIcon.setOnClickListener(new View.OnClickListener()
         {
@@ -144,7 +143,6 @@ public class MyCartActivity extends AppCompatActivity
         AndroidUtils.setImageColor(locationImageView, context, R.color.green);
 
         /* checkDeliveryButton = (TextView) findViewById(R.id.checkDeliveryButton);
-
         buttonContainer = (RelativeLayout) findViewById(R.id.buttonContainer);
        AndroidUtils.setBackgroundSolid(buttonContainer, context, R.color.orange, 25, GradientDrawable.RECTANGLE);
       */
@@ -183,13 +181,15 @@ public class MyCartActivity extends AppCompatActivity
     private void getAllShopProducts(String pageNumber)
     {
 
+        System.out.println("deveice -id----------"+ AppConfig.getCurrentDeviceId(context));
+
         progressBarHandler.show();
 
         Ion.with(MyCartActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -201,6 +201,15 @@ public class MyCartActivity extends AppCompatActivity
 
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
+                            String cart_count = jsonObject.get("total_qty").getAsString();
+                            String total_amount =  jsonObject.get("total_amount").getAsString();
+
+                            tvPriceItemsHeading.setText("Price("+cart_count+"items)");
+                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+
+
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
                             if (jsonProductList != null && jsonProductList.size() > 0)
                             {
@@ -211,12 +220,15 @@ public class MyCartActivity extends AppCompatActivity
                                     String productName = jsonproduct.get("name").getAsString();
                                     String productqty = jsonproduct.get("quantity").getAsString();
                                     String price = jsonproduct.get("price").getAsString();
+                                    String subtotal_price = jsonproduct.get("sub_total").getAsString();
 
                                     System.out.println("price--------------------"+price);
-
                                     String productImage = jsonproduct.get("image_url").getAsString();
                                     String product_id = jsonproduct.get("product_id").getAsString();
-                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id));
+                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id,subtotal_price));
+
+
+
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mycartRecyclerView.setLayoutManager(mLayoutManager);

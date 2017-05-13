@@ -18,6 +18,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Change_Font;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
@@ -25,41 +26,33 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 
-public class Reset_password_fragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class ResetPasswordFragment extends Fragment implements View.OnClickListener {
 
-
-    AppSharedPreference app_sharedpreference;
-    ProgressBarHandler progressBarHandler;
-    TextView tv_forgot_password,tv_forgot_password_description;
-    EditText et_password,et_confirm_password;
-    Button btn_reset_password;
+    private AppSharedPreference appSharedPreference;
+    private ProgressBarHandler progressBarHandler;
+    private TextView tv_forgot_password, tv_forgot_password_description;
+    private EditText et_password, et_confirm_password;
+    private Button btn_reset_password;
     private CoordinatorLayout activity_forgot__password;
     private String usertype;
-    String user_id;
-String otp_id;
-    String classname;
-    Forgot_password_fragment forgot_password_fragment;
-    Reset_password_fragment reset_password_fragment;
-LinearLayout reset_password_container;
-    String class_index;
+    private String user_id;
+    private String otp_id;
+    private String classname;
+    private ForgotPasswordFragment forgot_password_fragment;
+    private ResetPasswordFragment reset_passwordFragment;
+    private LinearLayout reset_password_container;
+    private String class_index;
 
 
-
-    public Reset_password_fragment() {
+    public ResetPasswordFragment() {
         // Required empty public constructor
     }
-
-
-
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        otp_id= getArguments().getString("otp_id");
+        otp_id = getArguments().getString("otp_id");
 
         View v = inflater.inflate(R.layout.fragment_reset_password, container, false);
 
@@ -71,21 +64,21 @@ LinearLayout reset_password_container;
     }
 
     private void initView(View v) {
-        app_sharedpreference = new AppSharedPreference(getActivity());
+        appSharedPreference = new AppSharedPreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
 
-        tv_forgot_password = (TextView)v. findViewById(R.id.tv_forgot_password);
+        tv_forgot_password = (TextView) v.findViewById(R.id.tv_forgot_password);
         tv_forgot_password_description = (TextView) v.findViewById(R.id.tv_forgot_password_description);
 
 
-        et_password = (EditText)v. findViewById(R.id.et_password);
-        et_confirm_password = (EditText)v. findViewById(R.id.et_confirm_password);
+        et_password = (EditText) v.findViewById(R.id.et_password);
+        et_confirm_password = (EditText) v.findViewById(R.id.et_confirm_password);
 
         btn_reset_password = (Button) v.findViewById(R.id.btn_change_password);
         btn_reset_password.setOnClickListener(this);
 
-         activity_forgot__password = (CoordinatorLayout)v.findViewById(R.id.coordinate_reset_password);
-        reset_password_container=(LinearLayout)v.findViewById(R.id.reset_password_container);
+        activity_forgot__password = (CoordinatorLayout) v.findViewById(R.id.coordinate_reset_password);
+        reset_password_container = (LinearLayout) v.findViewById(R.id.reset_password_container);
         Change_Font.Change_Font_textview(getActivity(), tv_forgot_password);
         Change_Font.Change_Font_textview(getActivity(), tv_forgot_password_description);
 
@@ -98,7 +91,7 @@ LinearLayout reset_password_container;
 
             case R.id.btn_change_password:
 
-                Log.e("enter","enter");
+                Log.e("enter", "enter");
                 Validatefields();
 
 
@@ -110,14 +103,11 @@ LinearLayout reset_password_container;
     private void Validatefields() {
 
         if (Validation.isValidPassword(et_password.getText().toString().trim())) {
-            Log.e("enter1","enter1");
-            if(Validation.isPasswordMatching(et_password.getText().toString().trim(),et_confirm_password.getText().toString().trim()))
-            {
+            Log.e("enter1", "enter1");
+            if (Validation.isPasswordMatching(et_password.getText().toString().trim(), et_confirm_password.getText().toString().trim())) {
 
                 call_reset_webservice();
-            }
-
-            else {
+            } else {
                 showmessage(getResources().getString(R.string.passwordnotmathed));
 
             }
@@ -140,9 +130,7 @@ LinearLayout reset_password_container;
 //        }
 
 
-
-        else
-        {
+        else {
 
             showmessage(getResources().getString(R.string.password_validing_text));
 
@@ -159,18 +147,16 @@ LinearLayout reset_password_container;
     private void call_reset_webservice() {
         progressBarHandler.show();
 
-          user_id=app_sharedpreference.getsharedpref("userid","notlogin");
-         String webservice_reset_password = getResources().getString(R.string.webservice_base_url) + "/resetPwd";
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        String webservice_reset_password = getResources().getString(R.string.webservice_base_url) + "/resetPwd";
 
 
-
-
-        Log.e("user_id",user_id);
+        Log.e("user_id", user_id);
 
         Ion.with(getActivity())
                 .load(webservice_reset_password)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id ", user_id)
                 .setBodyParameter("password", et_confirm_password.getText().toString())
                 .setBodyParameter("otp_id", otp_id)
@@ -192,7 +178,7 @@ LinearLayout reset_password_container;
                             showmessage(message);
                             progressBarHandler.hide();
                         } else {
-                            Log.e("error_json",e.toString());
+                            Log.e("error_json", e.toString());
                             progressBarHandler.hide();
                         }
                         Log.e("reset_password", result.toString());

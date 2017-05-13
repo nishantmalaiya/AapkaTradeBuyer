@@ -433,32 +433,32 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     }
 
     private void loadEditText() {
-        et_email.setText(app_sharedpreference.getsharedpref("emailid"));
-        et_first_name.setText(app_sharedpreference.getsharedpref("name"));
-        et_last_name.setText(app_sharedpreference.getsharedpref("lname"));
-        et_dob.setText(app_sharedpreference.getsharedpref("dob"));
-        et_father_name.setText(app_sharedpreference.getsharedpref("father_name"));
-        et_mobile.setText(app_sharedpreference.getsharedpref("mobile"));
-        et_ref_number.setText(app_sharedpreference.getsharedpref("ref_no"));
-        et_address.setText(app_sharedpreference.getsharedpref("address"));
-        et_pincode.setText(app_sharedpreference.getsharedpref("pincode"));
-        et_account_no.setText(app_sharedpreference.getsharedpref("account_no"));
-        et_branch_code.setText(app_sharedpreference.getsharedpref("branch_code"));
-        et_branch_name.setText(app_sharedpreference.getsharedpref("branch_name"));
-        et_ifsc_code.setText(app_sharedpreference.getsharedpref("ifsc_code"));
-        et_micr_code.setText(app_sharedpreference.getsharedpref("micr_code"));
-        et_account_holder_name.setText(app_sharedpreference.getsharedpref("account_holder"));
-        et_registered_mobile_with_bank.setText(app_sharedpreference.getsharedpref("register_mobile"));
+        et_email.setText(app_sharedpreference.getSharedPref("emailid"));
+        et_first_name.setText(app_sharedpreference.getSharedPref("name"));
+        et_last_name.setText(app_sharedpreference.getSharedPref("lname"));
+        et_dob.setText(app_sharedpreference.getSharedPref("dob"));
+        et_father_name.setText(app_sharedpreference.getSharedPref("father_name"));
+        et_mobile.setText(app_sharedpreference.getSharedPref("mobile"));
+        et_ref_number.setText(app_sharedpreference.getSharedPref("ref_no"));
+        et_address.setText(app_sharedpreference.getSharedPref("address"));
+        et_pincode.setText(app_sharedpreference.getSharedPref("pincode"));
+        et_account_no.setText(app_sharedpreference.getSharedPref("account_no"));
+        et_branch_code.setText(app_sharedpreference.getSharedPref("branch_code"));
+        et_branch_name.setText(app_sharedpreference.getSharedPref("branch_name"));
+        et_ifsc_code.setText(app_sharedpreference.getSharedPref("ifsc_code"));
+        et_micr_code.setText(app_sharedpreference.getSharedPref("micr_code"));
+        et_account_holder_name.setText(app_sharedpreference.getSharedPref("account_holder"));
+        et_registered_mobile_with_bank.setText(app_sharedpreference.getSharedPref("register_mobile"));
 
-        state_id = app_sharedpreference.getsharedpref("state_id");
-        city_id = app_sharedpreference.getsharedpref("city_id");
-        qualification = app_sharedpreference.getsharedpref("qualification");
-        total_exp = app_sharedpreference.getsharedpref("total_exp");
-        relevant_exp = app_sharedpreference.getsharedpref("relevant_exp");
-        id_proof = app_sharedpreference.getsharedpref("id_proof");
-        photo = app_sharedpreference.getsharedpref("photo");
-        bank_id = app_sharedpreference.getsharedpref("bank_name");
-        isAgreementChecked = Boolean.valueOf(app_sharedpreference.getsharedpref("term_accepted"));
+        state_id = app_sharedpreference.getSharedPref("state_id");
+        city_id = app_sharedpreference.getSharedPref("city_id");
+        qualification = app_sharedpreference.getSharedPref("qualification");
+        total_exp = app_sharedpreference.getSharedPref("total_exp");
+        relevant_exp = app_sharedpreference.getSharedPref("relevant_exp");
+        id_proof = app_sharedpreference.getSharedPref("id_proof");
+        photo = app_sharedpreference.getSharedPref("photo");
+        bank_id = app_sharedpreference.getSharedPref("bank_name");
+        isAgreementChecked = Boolean.valueOf(app_sharedpreference.getSharedPref("term_accepted"));
     }
 
     private void initView(View view) {
@@ -1016,7 +1016,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     .setMultipartParameter("address", et_address.getText().toString())
                     .setMultipartParameter("pincode", et_pincode.getText().toString())
                     .setMultipartParameter("term_accepted", String.valueOf(isAgreementChecked))
-                    .setMultipartParameter("user_id", app_sharedpreference.getsharedpref("userid"))
+                    .setMultipartParameter("user_id", app_sharedpreference.getSharedPref("userid"))
                     .setMultipartParameter("user_type", "1")
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
@@ -1048,7 +1048,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     .setMultipartParameter("qualification", qualification)
                     .setMultipartParameter("total_exp", total_exp)
                     .setMultipartParameter("relevant_exp", relevant_exp)
-                    .setMultipartParameter("user_id", app_sharedpreference.getsharedpref("userid"))
+                    .setMultipartParameter("user_id", app_sharedpreference.getSharedPref("userid"))
                     .setMultipartParameter("user_type", "2")
 //                    .asJsonObject()
                     .asString()
@@ -1091,7 +1091,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     .setBodyParameter("ifsc_code", et_ifsc_code.getText().toString())
                     .setBodyParameter("micr_code", et_micr_code.getText().toString())
                     .setBodyParameter("register_mobile", et_registered_mobile_with_bank.getText().toString())
-                    .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid"))
+                    .setBodyParameter("user_id", app_sharedpreference.getSharedPref("userid"))
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
@@ -1115,37 +1115,37 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     private void updateSharedPreferences(int stepNo) {
 
         if(stepNo == 1){
-            app_sharedpreference.setsharedpref("photo", step1PhotoFile.getPath());
-            app_sharedpreference.setsharedpref("emailid", et_email.getText().toString());
-            app_sharedpreference.setsharedpref("name", et_first_name.getText().toString());
-            app_sharedpreference.setsharedpref("lname", et_last_name.getText().toString());
-            app_sharedpreference.setsharedpref("dob", et_dob.getText().toString());
-            app_sharedpreference.setsharedpref("father_name", et_father_name.getText().toString());
-            app_sharedpreference.setsharedpref("mobile", et_mobile.getText().toString());
-            app_sharedpreference.setsharedpref("ref_no", et_ref_number.getText().toString());
-            app_sharedpreference.setsharedpref("state_id", state_id);
-            app_sharedpreference.setsharedpref("city_id", city_id);
-            app_sharedpreference.setsharedpref("address", et_address.getText().toString());
-            app_sharedpreference.setsharedpref("pincode", et_pincode.getText().toString());
-            app_sharedpreference.setsharedpref("term_accepted", String.valueOf(isAgreementChecked));
+            app_sharedpreference.setSharedPref("photo", step1PhotoFile.getPath());
+            app_sharedpreference.setSharedPref("emailid", et_email.getText().toString());
+            app_sharedpreference.setSharedPref("name", et_first_name.getText().toString());
+            app_sharedpreference.setSharedPref("lname", et_last_name.getText().toString());
+            app_sharedpreference.setSharedPref("dob", et_dob.getText().toString());
+            app_sharedpreference.setSharedPref("father_name", et_father_name.getText().toString());
+            app_sharedpreference.setSharedPref("mobile", et_mobile.getText().toString());
+            app_sharedpreference.setSharedPref("ref_no", et_ref_number.getText().toString());
+            app_sharedpreference.setSharedPref("state_id", state_id);
+            app_sharedpreference.setSharedPref("city_id", city_id);
+            app_sharedpreference.setSharedPref("address", et_address.getText().toString());
+            app_sharedpreference.setSharedPref("pincode", et_pincode.getText().toString());
+            app_sharedpreference.setSharedPref("term_accepted", String.valueOf(isAgreementChecked));
         }
 
         if(stepNo == 2){
-            app_sharedpreference.setsharedpref("id_proof", step2PhotoFile.getPath());
-            app_sharedpreference.setsharedpref("qualification", qualification);
-            app_sharedpreference.setsharedpref("total_exp", total_exp);
-            app_sharedpreference.setsharedpref("relevant_exp", relevant_exp);
+            app_sharedpreference.setSharedPref("id_proof", step2PhotoFile.getPath());
+            app_sharedpreference.setSharedPref("qualification", qualification);
+            app_sharedpreference.setSharedPref("total_exp", total_exp);
+            app_sharedpreference.setSharedPref("relevant_exp", relevant_exp);
         }
 
         if(stepNo == 3){
-            app_sharedpreference.setsharedpref("bank_name", bank_id);
-            app_sharedpreference.setsharedpref("account_no", et_account_no.getText().toString());
-            app_sharedpreference.setsharedpref("account_holder", et_account_holder_name.getText().toString());
-            app_sharedpreference.setsharedpref("branch_code", et_branch_code.getText().toString());
-            app_sharedpreference.setsharedpref("branch_name", et_branch_name.getText().toString());
-            app_sharedpreference.setsharedpref("ifsc_code", et_ifsc_code.getText().toString());
-            app_sharedpreference.setsharedpref("micr_code", et_micr_code.getText().toString());
-            app_sharedpreference.setsharedpref("register_mobile", et_registered_mobile_with_bank.getText().toString());
+            app_sharedpreference.setSharedPref("bank_name", bank_id);
+            app_sharedpreference.setSharedPref("account_no", et_account_no.getText().toString());
+            app_sharedpreference.setSharedPref("account_holder", et_account_holder_name.getText().toString());
+            app_sharedpreference.setSharedPref("branch_code", et_branch_code.getText().toString());
+            app_sharedpreference.setSharedPref("branch_name", et_branch_name.getText().toString());
+            app_sharedpreference.setSharedPref("ifsc_code", et_ifsc_code.getText().toString());
+            app_sharedpreference.setSharedPref("micr_code", et_micr_code.getText().toString());
+            app_sharedpreference.setSharedPref("register_mobile", et_registered_mobile_with_bank.getText().toString());
 
         }
     }

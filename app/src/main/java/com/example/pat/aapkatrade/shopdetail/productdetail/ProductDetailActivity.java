@@ -3,7 +3,7 @@ package com.example.pat.aapkatrade.shopdetail.productdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.NonNull;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -12,13 +12,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,14 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
-import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.rateus.RateUsActivity;
@@ -50,6 +45,7 @@ import com.shehabic.droppy.DroppyMenuPopup;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -60,8 +56,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String productId = "0", quantity = "1";
     private EditText editTextPostalCode, etManualQuantity;
     private TextView tvProductName, tvProductPrice, tvDiscountValue, tvUnitValue, tvAmountPaidValue, tvDescriptionValue, tvPinCodeCheck, tvToatalRatingAndReview, tvRatingAverage, tvQuantity;
-    private TextView okButton ;
-    private TextView cancelButton ;
+    private TextView okButton;
+    private TextView cancelButton;
     private LinearLayout viewPagerIndicator;
     private int dotsCount;
     private CircleIndicator circleIndicator;
@@ -98,7 +94,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (appSharedPreference.getsharedpref("username", "not").contains("not")) {
+                if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
                     startActivity(new Intent(context, LoginActivity.class));
                 } else {
                     Intent rate_us = new Intent(context, RateUsActivity.class);
@@ -144,7 +140,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                         tvQuantity.setText("5");
                         break;
                     case 5:
+                        tvQuantity.setText("1");
                         showPopup();
+
                         break;
 
                 }
@@ -179,6 +177,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         relativeRateReview = (RelativeLayout) findViewById(R.id.relativeRateReview);
         dropDownContainer = (LinearLayout) findViewById(R.id.dropDownContainer);
         tvQuantity = (TextView) findViewById(R.id.tvQuantity);
+        CustomQuantityDialog.commonInterface = new CommonInterface() {
+            @Override
+            public Object getData(Object object) {
+
+                tvQuantity.setText(object.toString());
+
+                return null;
+            }
+        };
 
     }
 
@@ -279,7 +286,25 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewPager.setCurrentItem(currentPage);
         setUiPageViewController();
 
-//
+        final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (currentPage == viewPagerAdapter.getCount() - 1) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+
+        banner_timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 0, 3000);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -311,7 +336,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context);
         FragmentManager fm = getSupportFragmentManager();
         customQuantityDialog.show(fm, "Quantity");
-
 
 
 //        final MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -386,16 +410,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-    private void enableButton(TextView textView){
-        if(textView!=null) {
+    private void enableButton(TextView textView) {
+        if (textView != null) {
             AndroidUtils.setBackgroundSolid(textView, context, R.color.green, 10, GradientDrawable.RECTANGLE);
             textView.setTextColor(ContextCompat.getColor(context, R.color.white));
             textView.setEnabled(true);
         }
     }
 
-    private void disableButton(TextView textView){
-        if(textView!=null) {
+    private void disableButton(TextView textView) {
+        if (textView != null) {
             AndroidUtils.setBackgroundSolid(textView, context, R.color.white, 10, GradientDrawable.RECTANGLE);
             textView.setTextColor(ContextCompat.getColor(context, R.color.green));
             textView.setEnabled(false);

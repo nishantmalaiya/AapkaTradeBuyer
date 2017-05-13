@@ -20,13 +20,13 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
-
-import java.util.HashMap;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private AppSharedPreference appSharedpreference;
     private CoordinatorLayout coordinatorLayout;
     private Context context;
+    private ProgressBarHandler progressBarHandler;
 
 
     @Override
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         context = LoginActivity.this;
         appSharedpreference = new AppSharedPreference(context);
+        progressBarHandler = new ProgressBarHandler(context);
         setUpToolBar();
         initView();
         putValues();
@@ -119,12 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                 String input_email = etEmail.getText().toString().trim();
                 String input_password = password.getText().toString();
 
-                if (Validation.isValidEmail(input_email)) {
+                if (Validation.isValidEmail(input_email) || Validation.isValidNumber(input_email, Validation.getNumberPrefix(input_email))) {
 
                     if (Validation.validateEdittext(password)) {
                         String login_url = getResources().getString(R.string.webservice_base_url) + "/buyerlogin";
 
-                        callwebservice_login(login_url, input_email, input_password);
+                        callLoginWebService(login_url, input_email, input_password);
 
 
                     } else {
@@ -133,8 +135,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    showMessage("Invalid Email Address");
-                    etEmail.setError("Invalid Email Address");
+                    showMessage("Invalid Email Address / Mobile");
+                    etEmail.setError("Invalid Email Address / Mobile");
                 }
 
 
@@ -142,49 +144,46 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void callwebservice_login(String login_url, String input_username, String input_password) {
-        // dialog.show();
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "login");
-        webservice_body_parameter.put("email", input_username);
-        webservice_body_parameter.put("password", input_password);
+    private void callLoginWebService(String login_url, String input_username, String input_password) {
+        AndroidUtils.showErrorLog(context, "Login : "+input_username+"  Password : "+ input_password, "*************   "+login_url);
 
-        HashMap<String, String> webservice_header_type = new HashMap<>();
-        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        progressBarHandler.show();
+        Ion.with(context)
+                .load(new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("buyerlogin").toString())
+                .setHeader("Authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("email", input_username)
+                .setBodyParameter("password", input_password)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if (result != null) {
 
-        Call_webservice.call_login_webservice(context, login_url, "login", webservice_body_parameter, webservice_header_type);
+                            String error = result.get("error").getAsString();
+                            if (error.contains("true"))
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject webservice_returndata) {
+                            {
+                                String message = result.get("message").getAsString();
+                                showMessage(message);
+                            }
 
-                if (webservice_returndata != null) {
+                            else
+                            {
 
-                    String error = webservice_returndata.get("error").getAsString();
-                    if (error.contains("true"))
+                                showMessage(getResources().getString(R.string.welcomebuyer));
+                                Log.e("webservice_returndata", result.toString());
+                                saveDataInSharedPreference(result);
+                                Intent Homedashboard = new Intent(context, HomeActivity.class);
+                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(Homedashboard);
 
-                    {
-                        String message = webservice_returndata.get("message").getAsString();
-                        showMessage(message);
+                            }
+                        }
+
                     }
-
-                    else
-                    {
-
-                        showMessage(getResources().getString(R.string.welcomebuyer));
-                        Log.e("webservice_returndata", webservice_returndata.toString());
-                         saveDataInSharedPreference(webservice_returndata);
-                        Intent Homedashboard = new Intent(context, HomeActivity.class);
-                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(Homedashboard);
-
-                    }
-                }
-
-            }
-        };
-
+                });
     }
 
     private void saveDataInSharedPreference(JsonObject webservice_returndata)
@@ -194,26 +193,21 @@ public class LoginActivity extends AppCompatActivity {
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
 
-
-        appSharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
-        appSharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
-        appSharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
-        appSharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
-        appSharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
-        appSharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
-        appSharedpreference.setsharedpref("dob", jsonObject.get("dob").getAsString());
-        appSharedpreference.setsharedpref("country_id", jsonObject.get("country_id").getAsString());
-        appSharedpreference.setsharedpref("state_id", jsonObject.get("state_id").getAsString());
-        appSharedpreference.setsharedpref("city_id", jsonObject.get("city_id").getAsString());
-        appSharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
-        appSharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
-        appSharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
-        appSharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
-        appSharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
-        appSharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
-
-
-
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), webservice_returndata.get("user_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), jsonObject.get("lastname").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), jsonObject.get("email").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.MOBILE.toString(), jsonObject.get("mobile").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.COUNTRY_ID.toString(), jsonObject.get("country_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(), jsonObject.get("state_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.CITY_ID.toString(), jsonObject.get("city_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.ADDRESS.toString(), jsonObject.get("address").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.DEVICE_ID.toString(), jsonObject.get("device_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.UPDATED_AT.toString(), jsonObject.get("updated_at").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.STATUS.toString(), jsonObject.get("status").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.ORDER.toString(), webservice_returndata.get("order").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.CREATED_AT.toString(), webservice_returndata.get("createdAt").getAsString());
     }
 
 
@@ -221,9 +215,6 @@ public class LoginActivity extends AppCompatActivity {
 
         forgotPassword = (TextView) findViewById(R.id.tv_forgotpassword);
         loginText = (TextView) findViewById(R.id.tv_login);
-
-        // loginText.setText(userLogin);
-
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         etEmail = (EditText) findViewById(R.id.etEmail);
         password = (EditText) findViewById(R.id.etpassword);
@@ -232,13 +223,11 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotpassword_activity = new Intent(context, ForgotPassword.class);
-                forgotpassword_activity.putExtra("forgot_index", "0");
-                startActivity(forgotpassword_activity);
+                Intent forgotPasswordActivity = new Intent(context, ForgotPassword.class);
+                forgotPasswordActivity.putExtra("forgot_index", "0");
+                startActivity(forgotPasswordActivity);
             }
         });
-
-
     }
 
     public void showMessage(String message) {

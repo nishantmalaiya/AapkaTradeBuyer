@@ -1,9 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.address.viewpager;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -15,49 +12,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
-import com.example.pat.aapkatrade.Home.cart.CartAdapter;
 import com.example.pat.aapkatrade.Home.cart.CartData;
-import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.AppConfig;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 
 public class CartCheckoutActivity extends AppCompatActivity
 {
 
     RelativeLayout relativePayment;
     String fname,lname,mobile,state_id,address;
-
+    AppSharedPreference app_sharedpreference;
     ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
-    private TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
+    public static TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
     RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
-    CartAdapter cartAdapter;
+    CartCheckOutAdapter cartAdapter;
     private ProgressBarHandler progressBarHandler;
-    public static CardView cardviewProductDeatails,cardBottom;
-
+    public static CardView cardviewProductDeatails;
+    public static LinearLayout linearAddressLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,7 +58,7 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         progressBarHandler = new ProgressBarHandler(context);
 
-
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
         Bundle bundle = getIntent().getExtras();
 
         fname = bundle.getString("fname");
@@ -95,9 +81,10 @@ public class CartCheckoutActivity extends AppCompatActivity
 
     private void initView()
     {
-        cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
 
-        cardBottom = (CardView) findViewById(R.id.cardBottom);
+        linearAddressLayout = (LinearLayout) findViewById(R.id.linearAddressLayout);
+
+        cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
 
         locationImageView = (ImageView) findViewById(R.id.locationImageView);
 
@@ -137,6 +124,8 @@ public class CartCheckoutActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                String userid = app_sharedpreference.getSharedPref("userid", "");
+                callwebservice__save_order(userid);
 
             }
         });
@@ -187,7 +176,7 @@ public class CartCheckoutActivity extends AppCompatActivity
                 .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -199,6 +188,15 @@ public class CartCheckoutActivity extends AppCompatActivity
 
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
+                            String cart_count = jsonObject.get("total_qty").getAsString();
+                            String total_amount =  jsonObject.get("total_amount").getAsString();
+
+                            tvPriceItemsHeading.setText("Price("+cart_count+"items)");
+                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            // tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+
+
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
                             if (jsonProductList != null && jsonProductList.size() > 0)
                             {
@@ -209,19 +207,24 @@ public class CartCheckoutActivity extends AppCompatActivity
                                     String productName = jsonproduct.get("name").getAsString();
                                     String productqty = jsonproduct.get("quantity").getAsString();
                                     String price = jsonproduct.get("price").getAsString();
-
+                                    String subtotal_price = jsonproduct.get("sub_total").getAsString();
                                     System.out.println("price--------------------"+price);
 
                                     String productImage = jsonproduct.get("image_url").getAsString();
                                     String product_id = jsonproduct.get("product_id").getAsString();
-                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id));
+                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id,subtotal_price));
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mycartRecyclerView.setLayoutManager(mLayoutManager);
-                                cartAdapter = new CartAdapter(context, cartDataArrayList);
+                                cartAdapter = new CartCheckOutAdapter(context, cartDataArrayList);
                                 mycartRecyclerView.setAdapter(cartAdapter);
-                               /* cardviewProductDeatails.setVisibility(View.VISIBLE);
-                                cardBottom.setVisibility(View.VISIBLE);*/
+
+                                linearAddressLayout.setVisibility(View.VISIBLE);
+                                cardviewProductDeatails.setVisibility(View.VISIBLE);
+
+
+
+
                             }
                         }
                         else
@@ -234,8 +237,32 @@ public class CartCheckoutActivity extends AppCompatActivity
     }
 
 
+    private void callwebservice__save_order(String buyer_id)
+    {
 
+        progressBarHandler.show();
 
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/save_order";
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("buyer_id", buyer_id)
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
 
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
+                        // System.out.println("result-----------"+result.toString());
+                        progressBarHandler.hide();
+
+                    }
+                });
+    }
 
 }

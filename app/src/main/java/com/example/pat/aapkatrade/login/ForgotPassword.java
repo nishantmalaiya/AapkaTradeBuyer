@@ -29,13 +29,13 @@ public class ForgotPassword extends AppCompatActivity {
     private Button btn_send_otp;
     private EditText et_email_forgot, et_mobile_no;
     private CoordinatorLayout activity_forgot__password;
-    private AppSharedPreference app_sharedpreference;
+    private AppSharedPreference appSharedPreference;
     private String usertype = "buyer";
     private ProgressBarHandler progressBarHandler;
     private Context context;
-    String classname;
-    Forgot_password_fragment forgot_password_fragment;
-    Reset_password_fragment reset_password_fragment;
+    private String classname;
+    private ForgotPasswordFragment forgot_password_fragment;
+    private ResetPasswordFragment reset_passwordFragment;
 
     String class_index,otp_id;
 
@@ -45,12 +45,12 @@ public class ForgotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot__password);
         context=ForgotPassword.this;
-        app_sharedpreference = new AppSharedPreference(this);
+        appSharedPreference = new AppSharedPreference(this);
 
 
         class_index = getIntent().getStringExtra("forgot_index");
         Log.e("class_index", "" + class_index);
-        forgot_password_fragment = new Forgot_password_fragment();
+        forgot_password_fragment = new ForgotPasswordFragment();
 
         setUpToolBar();
         setupForgetpassword(class_index);
@@ -68,7 +68,7 @@ public class ForgotPassword extends AppCompatActivity {
     private void setupForgetpassword(String class_index) {
         if (class_index.contains("0")) {
             if (forgot_password_fragment == null) {
-                forgot_password_fragment = new Forgot_password_fragment();
+                forgot_password_fragment = new ForgotPasswordFragment();
             }
             String tagName = forgot_password_fragment.getClass().getName();
 
@@ -76,19 +76,20 @@ public class ForgotPassword extends AppCompatActivity {
             replaceFragment(forgot_password_fragment, tagName);
 
 
+
         } else {
 
             otp_id = getIntent().getStringExtra("otp_id");
-            if (reset_password_fragment == null) {
-                reset_password_fragment = new Reset_password_fragment();
+            if (reset_passwordFragment == null) {
+                reset_passwordFragment = new ResetPasswordFragment();
                 Bundle b=new Bundle();
                 b.putString("otp_id",otp_id);
-                reset_password_fragment.setArguments(b);
+                reset_passwordFragment.setArguments(b);
             }
-            String tagName = reset_password_fragment.getClass().getName();
+            String tagName = reset_passwordFragment.getClass().getName();
 
 
-            replaceFragment(reset_password_fragment, tagName);
+            replaceFragment(reset_passwordFragment, tagName);
 
 
         }

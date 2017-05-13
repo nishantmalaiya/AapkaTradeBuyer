@@ -6,9 +6,9 @@ package com.example.pat.aapkatrade.Home.cart;
 
 public class CartData
 {
-    public String productName,id,price,quantity,product_image,product_id;
+    public String productName,id,price,quantity,product_image,product_id,subtotal_price;
 
-    public CartData(String id, String productName, String quantity,String price,String product_image,String product_id)
+    public CartData(String id, String productName, String quantity,String price,String product_image,String product_id,String subtotal_price)
     {
         this.id = id;
         this.productName = productName;
@@ -16,6 +16,7 @@ public class CartData
         this.price=price;
         this.product_image = product_image;
         this.product_id = product_id;
+        this.subtotal_price= subtotal_price;
     }
 
     public String getProductName() {

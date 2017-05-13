@@ -35,6 +35,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
@@ -90,26 +91,22 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
     private LinearLayout linearLayoutQuantity;
     private EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description, editText;
     private TextView tvServiceBuy, textViewQuantity, tvRatingAverage, tvTotal_rating_review, tvShopAddress, tvMobile, tvPhone;
-
-
-    // TextView tvDurationHeading,tvDuration;
-    Dialog dialog;
+    private Dialog dialog;
     private Context context;
-    ArrayList<CommomData> productlist = new ArrayList<>();
+    private ArrayList<CommomData> productlist = new ArrayList<>();
     private String product_name;
-    DroppyMenuPopup droppyMenu;
-    AppSharedPreference app_sharedpreference;
-
-    RecyclerView reviewList, openShopList, productRecyclerView;
-    LinearLayoutManager mLayoutManager, mLayoutManagerShoplist, llmanagerProductList;
-    ReviewListAdapter reviewListAdapter;
-    OpenCloseDaysRecyclerAdapter openCloseDaysRecyclerAdapter;
-    ArrayList<ReviewListData> reviewListDatas = new ArrayList<>();
-    CommomAdapter commomAdapter_latestpost;
+    private DroppyMenuPopup droppyMenu;
+    private AppSharedPreference app_sharedpreference;
+    private RecyclerView reviewList, openShopList, productRecyclerView;
+    private LinearLayoutManager mLayoutManager, mLayoutManagerShoplist, llmanagerProductList;
+    private ReviewListAdapter reviewListAdapter;
+    private OpenCloseDaysRecyclerAdapter openCloseDaysRecyclerAdapter;
+    private ArrayList<ReviewListData> reviewListDatas = new ArrayList<>();
+    private CommomAdapter commomAdapter_latestpost;
     private ArrayList<OpenCloseShopData> openCloseDayArrayList = new ArrayList<>();
     private String shopId;
     public static TextView tvCartCount;
-    int shop_detail_activity = 1;
+    private int shopDetailActivity = 1;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,7 +249,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                                 openingClosingRelativeLayout.setVisibility(View.VISIBLE);
                                 for (int i = 0; i < openCloseDayArray.size(); i++) {
                                     JsonObject jsonObjectDays = (JsonObject) openCloseDayArray.get(i);
-                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString().substring(0, 3), jsonObjectDays.get("open_time")==null?"":jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time")==null?"":jsonObjectDays.get("close_time").getAsString());
+                                    OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString().substring(0, 3), jsonObjectDays.get("open_time") == null ? "" : jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time") == null ? "" : jsonObjectDays.get("close_time").getAsString());
                                     openCloseDayArrayList.add(openCloseShopData);
 
                                 }
@@ -408,7 +405,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onClick(View v) {
 
-                if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
+                if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
                     startActivity(new Intent(ShopDetailActivity.this, LoginActivity.class));
                 } else {
                     Intent rate_us = new Intent(ShopDetailActivity.this, RateUsActivity.class);
@@ -534,10 +531,8 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
     }
 
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
@@ -549,49 +544,26 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
         RelativeLayout badgeLayout = (RelativeLayout) alertMenuItem.getActionView();
 
-         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
+        tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
-        tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count",0)));
-
-        // tvCartCount.setText(app_sharedpreference.getsharedpref_int("cart_count",0));
+        tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
                 onOptionsItemSelected(alertMenuItem);
             }
         });
 
 
         return true;
-
-        /*getMenuInflater().inflate(R.menu.home_menu, menu);
-
-        FrameLayout badgeLayout = (FrameLayout) menu.findItem(R.id.cart_total_item).getActionView();
-
-        redCircle = (FrameLayout) badgeLayout.findViewById(R.id.view_alert_red_circle);
-        countTextView = (TextView) badgeLayout.findViewById(R.id.view_alert_count_textview);
-
-        return true;*/
-
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
-        return true;
-    }*/
-
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        switch (id)
-        {
+        switch (id) {
             case R.id.cart_total_item:
                 Intent intent = new Intent(ShopDetailActivity.this, MyCartActivity.class);
                 startActivity(intent);
@@ -605,7 +577,6 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     @Override
@@ -625,17 +596,14 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
-        if (shop_detail_activity == 1)
-        {
+        if (shopDetailActivity == 1) {
 
-            shop_detail_activity = 2;
-        }
-        else
-            {
-            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+            shopDetailActivity = 2;
+        } else {
+            tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
         }
 
     }
