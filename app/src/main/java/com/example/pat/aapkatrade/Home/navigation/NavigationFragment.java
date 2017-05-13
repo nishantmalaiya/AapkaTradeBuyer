@@ -155,11 +155,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
 
-        if (app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
 
-            String Username = app_sharedpreference.getsharedpref(SharedPreferenceConstants.FIRST_NAME.toString(), "notlogin");
-            String Emailid = app_sharedpreference.getsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
-            String user_image = app_sharedpreference.getsharedpref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
+            String Username = app_sharedpreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "notlogin");
+            String Emailid = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
+            String user_image = app_sharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
             Log.e("Shared_pref2", "null" + Username);
 
             if (Username.contains("notlogin")) {
@@ -367,10 +367,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
-        app_sharedpreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id);
-        app_sharedpreference.setsharedpref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
-        app_sharedpreference.setsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
-        app_sharedpreference.setsharedpref(SharedPreferenceConstants.PROFILE_PIC.toString(), profile_pic);
+        app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
+        app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
+        app_sharedpreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
+        app_sharedpreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), profile_pic);
 
     }
 
@@ -379,10 +379,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
 
-        if (app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
 
-            String userName = app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
-            String emailId = app_sharedpreference.getsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
+            String userName = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
+            String emailId = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
 
 
             if (userName.contains("notlogin")) {

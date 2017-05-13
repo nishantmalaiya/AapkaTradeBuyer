@@ -95,7 +95,6 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
                 });
                 AndroidUtils.setBackgroundSolid(leftBarTopView, context, R.color.grey_2, 0, GradientDrawable.RECTANGLE);
                 AndroidUtils.setBackgroundSolid(rightBarTopView, context, R.color.grey_2, 0, GradientDrawable.RECTANGLE);
-
                 tvReadMore.setVisibility(View.GONE);
             }
         });

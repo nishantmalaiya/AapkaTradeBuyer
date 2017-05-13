@@ -201,9 +201,9 @@ AppSharedPreference appSharedPreference;
                 Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
 
-                    currentLatitude=appSharedPreference.getsharedpref("CurrentLatitude");
-                    currentLongitude=appSharedPreference.getsharedpref("CurrentLongitude");
-                    stateName=appSharedPreference.getsharedpref("CurrentStateName");
+                    currentLatitude=appSharedPreference.getSharedPref("CurrentLatitude");
+                    currentLongitude=appSharedPreference.getSharedPref("CurrentLongitude");
+                    stateName=appSharedPreference.getSharedPref("CurrentStateName");
 
 
                     Intent intentAsync = new Intent(getActivity(), Search.class);
@@ -257,9 +257,9 @@ AppSharedPreference appSharedPreference;
 
                             String cart_count = jsonResult.get("cart_count").getAsString();
 
-                            appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
-                            //int j = appSharedPreference.getsharedpref_int("cart_count",0);
-                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int("cart_count", 0)));
+                            appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
+                            //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
+                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt("cart_count", 0)));
 
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");

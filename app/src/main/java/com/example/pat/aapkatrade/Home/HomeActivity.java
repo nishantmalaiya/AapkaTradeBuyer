@@ -241,7 +241,7 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.login:
 
 
-                if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
+                if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                     Intent i = new Intent(HomeActivity.this, LoginActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -302,7 +302,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void loadLocale() {
 
-        String language = appSharedPreference.getsharedpref(SharedPreferenceConstants.LANGUAGE.toString(), "");
+        String language = appSharedPreference.getSharedPref(SharedPreferenceConstants.LANGUAGE.toString(), "");
         AppConfig.setLocaleFa(HomeActivity.this, language);
         Log.e("language", language);
         // changeLang(language);
@@ -310,7 +310,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void saveLocale(String lang) {
         String langPref = "Language";
-        appSharedPreference.setsharedpref(SharedPreferenceConstants.LANGUAGE.toString(), lang);
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.LANGUAGE.toString(), lang);
         Log.e("language_pref", langPref + "****" + lang);
         Intent intent = getIntent();
         finish();
@@ -421,10 +421,10 @@ public class HomeActivity extends AppCompatActivity {
                         }
 
                         // startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                        if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
+                        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
                             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                         } else {
-                            Log.e("hiiii", appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "not"));
+                            Log.e("hiiii", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not"));
                             String tagName_dashboardFragment = userDashboardFragment.getClass().getName();
                             replaceFragment(userDashboardFragment, tagName_dashboardFragment);
                             //showOrHideBottomNavigation(true);
@@ -613,7 +613,7 @@ public class HomeActivity extends AppCompatActivity {
         if (home_activity == 1) {
             home_activity = 2;
         } else {
-            tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+            tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         }
 

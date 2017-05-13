@@ -403,7 +403,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
                         if (class_name.contains("com.example.pat.aapkatrade.login.ForgotPassword")) {
-                            appSharedPreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, ForgotPassword.class);
                             intent.putExtra("forgot_index", "2");
                             intent.putExtra("otp_id", otp_id);
@@ -413,7 +413,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
                             startActivity(intent);
                         } else if (class_name.contains("Track_order_dialog")) {
 
-                            appSharedPreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -422,7 +422,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
                         } else {
 
 
-                            appSharedPreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -473,7 +473,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
                     if (error.equals("false")) {
                         String user_id = jsonObject.get("user_id").getAsString();
-                        appSharedPreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), user_id);
+                        appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
 
                         showMessage(message);
 

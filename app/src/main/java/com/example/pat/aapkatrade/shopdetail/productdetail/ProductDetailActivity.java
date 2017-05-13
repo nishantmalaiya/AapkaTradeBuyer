@@ -94,7 +94,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
+                if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
                     startActivity(new Intent(context, LoginActivity.class));
                 } else {
                     Intent rate_us = new Intent(context, RateUsActivity.class);

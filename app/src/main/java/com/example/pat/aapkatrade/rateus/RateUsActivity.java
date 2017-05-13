@@ -69,7 +69,7 @@ public class RateUsActivity extends AppCompatActivity {
 
         appSharedPreference = new AppSharedPreference(getApplicationContext());
 
-        user_id = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "");
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
 
         context = RateUsActivity.this;
 

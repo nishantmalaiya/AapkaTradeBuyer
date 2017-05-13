@@ -124,7 +124,7 @@ public class CartCheckoutActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-               String userid = app_sharedpreference.getsharedpref("userid", "");
+               String userid = app_sharedpreference.getSharedPref("userid", "");
                 callwebservice__save_order(userid);
 
             }

@@ -46,8 +46,8 @@ public class ShippedFragment extends Fragment
 
         appSharedPreference = new AppSharedPreference(getActivity());
 
-        user_id = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(),"");
-        user_type = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_TYPE.toString(), "1");
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(),"");
+        user_type = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1");
 
         setup_layout(view);
 

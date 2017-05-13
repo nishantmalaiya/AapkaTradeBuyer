@@ -296,7 +296,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                                  MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
 
                             }
-                            appSharedPreference.setShared_pref_int(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
                             MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                             MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
@@ -342,7 +342,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         String total_amount = jsonresult.get("total_amount").getAsString();
                         String cart_count = jsonresult.get("total_qty").getAsString();
-                        appSharedPreference.setShared_pref_int("cart_count", Integer.valueOf(cart_count));
+                        appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
 
                         MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                         MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
