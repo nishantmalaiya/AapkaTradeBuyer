@@ -2,13 +2,10 @@ package com.example.pat.aapkatrade.dialogs;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +21,9 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.general.progressbar.ProgressDialogHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
-import java.util.Calendar;
 
 public class ServiceEnquiry extends DialogFragment {
 
@@ -46,7 +39,6 @@ public class ServiceEnquiry extends DialogFragment {
     private RelativeLayout dialogue_toolbar, startDateLayout, endDateLayout, rl_imgview_enquiry;
     private ImageView openStartDateCal, openEndDateCal;
     ProgressBarHandler progressBarHandler;
-    ProgressDialogHandler progressDialogHandler;
     View v;
     ViewGroup viewgrp;
     ProgressBar progressBar;
@@ -67,7 +59,7 @@ public class ServiceEnquiry extends DialogFragment {
         v = inflater.inflate(R.layout.fragment_service_enquiry, container, false);
         getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        progressDialogHandler=new ProgressDialogHandler(getActivity());
+        progressBarHandler =new ProgressBarHandler(getActivity());
         initView(v);
 
 
@@ -152,7 +144,7 @@ public class ServiceEnquiry extends DialogFragment {
 
     private void call_enquiry_webservice(String call_enquiry_url) {
 //
-        progressDialogHandler.show();
+        progressBarHandler.show();
         Ion.with(getActivity())
                 .load(call_enquiry_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -172,11 +164,11 @@ public class ServiceEnquiry extends DialogFragment {
                             AndroidUtils.showSnackBar(viewgrp, result.get("message").getAsString());
                             AndroidUtils.showErrorLog(getActivity(), result.toString());
 
-                            progressDialogHandler.hide();
+                            progressBarHandler.hide();
                             dismiss();
                         }
                         else {
-                            progressDialogHandler.hide();
+                            progressBarHandler.hide();
 
                         }
 

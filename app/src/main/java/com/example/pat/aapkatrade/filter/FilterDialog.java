@@ -26,7 +26,6 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ParseUtils;
 import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.general.progressbar.ProgressDialogHandler;
 
 import java.util.ArrayList;
 
@@ -50,7 +49,7 @@ public class FilterDialog extends Dialog {
     private String key = "";
     private int count = 0;
     public static String filterString = "";
-    ProgressDialogHandler progressDialogHandler;
+    ProgressBarHandler progressBarHandler;
 
 
     public FilterDialog(Context context, String category_id, ArrayMap<String, ArrayList<FilterObject>> filterHashMap) {
@@ -58,7 +57,7 @@ public class FilterDialog extends Dialog {
         this.context = context;
         this.categoryId = categoryId;
         this.filterHashMap = filterHashMap;
-        progressDialogHandler=new ProgressDialogHandler(context);
+        progressBarHandler =new ProgressBarHandler(context);
     }
 
 
@@ -214,7 +213,7 @@ public class FilterDialog extends Dialog {
 
 
     private void getColumn1CallBack() {
-        progressDialogHandler.show();
+        progressBarHandler.show();
         AndroidUtils.showErrorLog(context, "getColumn1CallBack1");
         FilterColumn1RecyclerAdapter.commonInterface = new CommonInterface() {
             @Override
@@ -225,11 +224,11 @@ public class FilterDialog extends Dialog {
             }
         };
         count = 0;
-        progressDialogHandler.hide();
+        progressBarHandler.hide();
     }
 
     private void getColumn2CallBack() {
-        progressDialogHandler.show();
+        progressBarHandler.show();
         AndroidUtils.showErrorLog(context, "getColumn2CallBack2");
         FilterColumn2RecyclerAdapter.commonInterface = new CommonInterface() {
             @Override
@@ -250,7 +249,7 @@ public class FilterDialog extends Dialog {
                 return null;
             }
         };
-        progressDialogHandler.hide();
+        progressBarHandler.hide();
     }
 
 }

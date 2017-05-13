@@ -8,6 +8,7 @@
     <string name="aapka_data" translatable="false">AAPKA <font color='white'>TRADE</font></string>
     <string name="login" translatable="false">LOGIN</string>
     <string name="change_password_heading" translatable="false">Change Password</string>
+    <string name="email_or_mobile" translatable="false">Email/Mobile</string>
     <string name="write_and_review">Write And Review</string>
 
 
