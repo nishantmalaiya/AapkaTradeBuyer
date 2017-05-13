@@ -14,8 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.Change_Font;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
@@ -32,16 +31,14 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-    private CoordinatorLayout activity_forgot__password;
+    private CoordinatorLayout activityForgotPassword;
     private String usertype = "buyer";
 
-    String classname;
-    ForgotPasswordFragment forgot_password_fragment;
-    Reset_password_fragment reset_password_fragment;
+    private String classname;
+    private ForgotPasswordFragment forgot_password_fragment;
+    private ResetPasswordFragment reset_passwordFragment;
 
-    String class_index;
-
-    private AppSharedPreference app_sharedpreference;
+    private String class_index;
     private ProgressBarHandler progressBarHandler;
     private TextView tv_forgot_password, tv_forgot_password_description;
     private EditText et_email_forgot, et_mobile_no;
@@ -131,7 +128,7 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
         webservice_body_parameter.put("type", getString(R.string.user_type));
         webservice_body_parameter.put("email", et_email_forgot.getText().toString().trim());
         webservice_body_parameter.put("mobile", et_mobile_no.getText().toString().trim());
-        webservice_body_parameter.put("client_id", App_config.getCurrentDeviceId(getActivity()));
+        webservice_body_parameter.put("client_id", AppConfig.getCurrentDeviceId(getActivity()));
 
 
         HashMap<String, String> webservice_header_type = new HashMap<>();

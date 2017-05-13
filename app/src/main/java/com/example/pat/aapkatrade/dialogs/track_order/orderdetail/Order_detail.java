@@ -47,7 +47,7 @@ public class Order_detail extends AppCompatActivity {
     private CommonHolderOrderListAdapter commomAdapter_latestpost;
     LinearLayoutManager llmanager_productlist;
 
-    TextView tvOrderid,tvOrderDate,tvAmountPaid,tvAddress,tvMobile;
+    TextView tvOrderid, tvOrderDate, tvAmountPaid, tvAddress, tvMobile;
 
     String orderId = "", OrderDate = "", AmoutPaid = "", Address = "", PhoneNumber = "";
 
@@ -74,16 +74,15 @@ public class Order_detail extends AppCompatActivity {
 
         recyclerProductList = (RecyclerView) findViewById(R.id.recycleviewProductList);
         recyclerProductList.setLayoutManager(llmanager_productlist);
-        tvOrderid=(TextView)findViewById(R.id.tvOrderId);
+        tvOrderid = (TextView) findViewById(R.id.tvOrderId);
 
-        tvAddress=(TextView)findViewById(R.id.tvAddress);
+        tvAddress = (TextView) findViewById(R.id.tvAddress);
 
-        tvAmountPaid=(TextView)findViewById(R.id.tvAmountPaid);
+        tvAmountPaid = (TextView) findViewById(R.id.tvAmountPaid);
 
-        tvOrderDate=(TextView)findViewById(R.id.tvOrderDate);
+        tvOrderDate = (TextView) findViewById(R.id.tvOrderDate);
 
-        tvMobile=(TextView)findViewById(R.id.tvMobile);
-
+        tvMobile = (TextView) findViewById(R.id.tvMobile);
 
 
     }

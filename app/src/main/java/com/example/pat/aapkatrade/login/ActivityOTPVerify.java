@@ -25,8 +25,9 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.CallWebService;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -187,10 +188,10 @@ public class ActivityOTPVerify extends AppCompatActivity {
                         call_verifyotp_track_order(otp);
 
 
-                        AndroidUtils.showErrorLog(context,"working 1");
+                        AndroidUtils.showErrorLog(context, "working 1");
                     } else {
 
-                        AndroidUtils.showErrorLog(context,"working 2");
+                        AndroidUtils.showErrorLog(context, "working 2");
                         String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
 
                         Log.e("otp ", otp);
@@ -307,7 +308,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
 //                .setBodyParameter("ORDER_ID ", tracking_id.getText().toString().trim())
-//                .setBodyParameter("client_id", App_config.getCurrentDeviceId(getActivity()))
+//                .setBodyParameter("client_id", AppConfig.getCurrentDeviceId(getActivity()))
         Ion.with(ActivityOTPVerify.this)
                 .load(track_order_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -329,12 +330,6 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
                         AndroidUtils.showErrorLog(context, result.toString());
-
-
-
-
-
-
 
 
                         Intent go_to_activity_otp_verify = new Intent(ActivityOTPVerify.this, Order_detail.class);
@@ -369,7 +364,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
         progressBarHandler.show();
 
 
-        String getCurrentDeviceId = App_config.getCurrentDeviceId(ActivityOTPVerify.this);
+        String getCurrentDeviceId = AppConfig.getCurrentDeviceId(ActivityOTPVerify.this);
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("client_id", getCurrentDeviceId);
@@ -408,7 +403,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
                         if (class_name.contains("com.example.pat.aapkatrade.login.ForgotPassword")) {
-                            appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, ForgotPassword.class);
                             intent.putExtra("forgot_index", "2");
                             intent.putExtra("otp_id", otp_id);
@@ -418,7 +413,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
                             startActivity(intent);
                         } else if (class_name.contains("Track_order_dialog")) {
 
-                            appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -427,7 +422,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
                         } else {
 
 
-                            appSharedPreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), jsonObject.get("user_id").getAsString());
                             Intent intent = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -478,7 +473,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
                     if (error.equals("false")) {
                         String user_id = jsonObject.get("user_id").getAsString();
-                        appSharedPreference.setsharedpref("userid", user_id);
+                        appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
 
                         showMessage(message);
 

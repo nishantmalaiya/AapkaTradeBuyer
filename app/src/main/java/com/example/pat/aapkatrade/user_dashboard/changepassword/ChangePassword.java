@@ -10,14 +10,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
@@ -25,7 +23,6 @@ import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -60,9 +57,9 @@ public class ChangePassword extends AppCompatActivity
 
         app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
-        user_id = app_sharedpreference.getsharedpref("userid", "");
+        user_id = app_sharedpreference.getSharedPref("userid", "");
 
-        user_type = app_sharedpreference.getsharedpref("usertype","1");
+        user_type = app_sharedpreference.getSharedPref("usertype","1");
 
         initView();
 

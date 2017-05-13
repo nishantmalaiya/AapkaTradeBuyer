@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
@@ -27,13 +28,13 @@ import java.util.ArrayList;
 public class CancelOrderFragment extends Fragment
 {
 
-    ArrayList<OrderListData> orderListDatas = new ArrayList<>();
-    RecyclerView order_list;
-    OrderListAdapter orderListAdapter;
-    ProgressBarHandler progress_handler;
-    LinearLayout layout_container;
-    AppSharedPreference app_sharedpreference;
-    String user_id;
+    private ArrayList<OrderListData> orderListDatas = new ArrayList<>();
+    private RecyclerView order_list;
+    private OrderListAdapter orderListAdapter;
+    private ProgressBarHandler progress_handler;
+    private LinearLayout layout_container;
+    private AppSharedPreference appSharedPreference;
+    private String user_id;
     private String user_type;
 
 
@@ -45,11 +46,11 @@ public class CancelOrderFragment extends Fragment
 
         progress_handler = new ProgressBarHandler(getActivity());
 
-        app_sharedpreference = new AppSharedPreference(getActivity());
+        appSharedPreference = new AppSharedPreference(getActivity());
 
-        user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(),"");
 
-        user_type = app_sharedpreference.getsharedpref("usertype", "1");
+        user_type = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1");
 
         setup_layout(view);
 

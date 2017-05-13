@@ -18,7 +18,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.squareup.picasso.Picasso;
 
@@ -26,13 +26,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfilePreviewActivity extends AppCompatActivity {
 
-    TextView tvTitle, textViewName, tvMobile, tvEmail, tvUserType;
-    LinearLayout linearLayoutLagout, linearLayoutResetpassword;
-    AppSharedPreference appSharedPreference;
-    ImageView btnEdit;
+    private TextView tvTitle, textViewName, tvMobile, tvEmail, tvUserType;
+    private LinearLayout linearLayoutLagout, linearLayoutResetpassword;
+    private AppSharedPreference appSharedPreference;
+    private ImageView btnEdit;
     private Context context;
-
-    CircleImageView userimage;
+    private CircleImageView userimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +98,12 @@ public class ProfilePreviewActivity extends AppCompatActivity {
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvUserType = (TextView) findViewById(R.id.tvUserType);
 
-        if (appSharedPreference.getsharedpref("username", "notlogin") != null) {
-            String Username = appSharedPreference.getsharedpref("name", "not");
-            String Emailid = appSharedPreference.getsharedpref("emailid", "not");
+        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+            String Username = appSharedPreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
+            String Emailid = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
 
-            String userType = appSharedPreference.getsharedpref("usertype", "0");
-            String user_image = appSharedPreference.getsharedpref("profile_pic", "");
+            String userType = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "0");
+            String user_image = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "");
 
             Log.e("user_image", user_image);
 
@@ -175,10 +174,10 @@ public class ProfilePreviewActivity extends AppCompatActivity {
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
-        appSharedPreference.setsharedpref("userid", user_id);
-        appSharedPreference.setsharedpref("username", user_name);
-        appSharedPreference.setsharedpref("emailid", email_id);
-        appSharedPreference.setsharedpref("profile_pic", profile_pic);
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), profile_pic);
 
     }
 
@@ -187,12 +186,12 @@ public class ProfilePreviewActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        if (appSharedPreference.getsharedpref("username", "notlogin") != null) {
-            String Username = appSharedPreference.getsharedpref("name", "not");
-            String Emailid = appSharedPreference.getsharedpref("emailid", "not");
+        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+            String Username = appSharedPreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
+            String Emailid = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
 
-            String userType = appSharedPreference.getsharedpref("usertype", "0");
-            String user_image = appSharedPreference.getsharedpref("profile_pic", "");
+            String userType = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "0");
+            String user_image = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "");
 
 
             textViewName.setText(Username);

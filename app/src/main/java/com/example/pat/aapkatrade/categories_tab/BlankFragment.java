@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
@@ -26,13 +27,13 @@ import java.util.ArrayList;
 
 public class BlankFragment extends Fragment {
 
-    ArrayList<OrderListData> orderListDatas = new ArrayList<>();
-    RecyclerView order_list;
-    OrderListAdapter orderListAdapter;
-    ProgressBarHandler progress_handler;
-    LinearLayout layout_container;
-    AppSharedPreference app_sharedpreference;
-    String user_id, user_type;
+    private ArrayList<OrderListData> orderListDatas = new ArrayList<>();
+    private RecyclerView order_list;
+    private OrderListAdapter orderListAdapter;
+    private ProgressBarHandler progress_handler;
+    private LinearLayout layout_container;
+    private AppSharedPreference appSharedPreference;
+    private String user_id, user_type;
 
 
     @Override
@@ -42,10 +43,10 @@ public class BlankFragment extends Fragment {
 
         progress_handler = new ProgressBarHandler(getActivity());
 
-        app_sharedpreference = new AppSharedPreference(getActivity());
+        appSharedPreference = new AppSharedPreference(getActivity());
 
-        user_id = app_sharedpreference.getsharedpref("userid", "");
-        user_type = app_sharedpreference.getsharedpref("usertype", "1");
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
+        user_type = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1");
 
         setup_layout(view);
 
@@ -70,11 +71,11 @@ public class BlankFragment extends Fragment {
         Log.e("hi1234", user_id+"##blank##"+AndroidUtils.getUserType(user_type)+"@@@@@@@"+user_type);
 
         Ion.with(getActivity())
-                .load(getResources().getString(R.string.webservice_base_url)+"/seller_order_list")
+                .load(getResources().getString(R.string.webservice_base_url)+"/buyer_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id", user_id)
-                .setBodyParameter("type","0")
+                .setBodyParameter("buyer_id", user_id)
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -99,7 +100,7 @@ public class BlankFragment extends Fragment {
 
                                 System.out.println("jsonOblect-------------" + jsonObject1.toString());
 
-                                JsonArray jsonArray = jsonObject1.getAsJsonArray("list");
+                                JsonArray jsonArray = jsonObject1.getAsJsonArray("orders");
 
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
@@ -116,19 +117,19 @@ public class BlankFragment extends Fragment {
 
                                     String email = jsonObject2.get("email").getAsString();
 
-                                    String buyersmobile = jsonObject2.get("buyersmobile").getAsString();
+                                    String buyersmobile = jsonObject2.get("phone").getAsString();
 
-                                    String buyersname = jsonObject2.get("buyersname").getAsString();
+                                    String buyersname = jsonObject2.get("name").getAsString();
 
-                                    String company_name = jsonObject2.get("cname").getAsString();
 
-                                    String status = jsonObject2.get("status").getAsString();
+
+
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
-                                    String product_image= jsonObject2.get("image_url").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at,product_image));
+
+                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,"","",created_at,""));
 
 
                                 }

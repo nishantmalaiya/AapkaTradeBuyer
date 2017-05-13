@@ -78,8 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/twenty_dip"
+                android:layout_marginRight="@dimen/twenty_dip"
                 android:layout_weight="0.9"
                 android:gravity="center_vertical"
                 tools:ignore="NestedWeights">
@@ -87,8 +87,8 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
                     android:textColorHint="@color/green"
+                    android:hint="@string/email_or_mobile"
                     tools:ignore="HardcodedText">
 
 
@@ -96,13 +96,12 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/five_dip"
                         android:layout_toRightOf="@+id/imgview_password"
-
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        android:padding="10dp"
-                        android:singleLine="true"
+                        android:padding="@dimen/ten_dip"
+                        android:maxLines="1"
                         android:theme="@style/myedittext"
                         tools:ignore="RtlHardcoded" />
 
@@ -113,8 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/twenty_dip"
+                android:layout_marginRight="@dimen/twenty_dip"
                 android:layout_weight="0.9"
                 android:gravity="center_vertical">
 
@@ -133,12 +132,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/imgview_username"
-
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
+                        android:padding="@dimen/ten_dip"
                         android:maxLines="1"
-                        android:padding="10dp"
-                        android:singleLine="true"
                         android:theme="@style/myedittext"
                         tools:ignore="RtlHardcoded" />
 
@@ -161,9 +158,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="@dimen/thirty_five_dip"
+                        android:layout_marginRight="@dimen/thirty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:gravity="center_vertical"
                         android:text="@string/forgotpassword"
                         android:textColor="@color/color_voilet"
@@ -184,16 +181,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="@dimen/thirty_dip"
+                    android:layout_marginRight="@dimen/thirty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:background="@drawable/button_orange_back"
                     android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="@dimen/ten_dip"
                         android:gravity="center"
                         android:text="@string/login"
                         android:textColor="@color/white"
@@ -213,16 +210,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="@dimen/thirty_dip"
+                    android:layout_marginRight="@dimen/thirty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:background="@drawable/button_orange_back"
                     android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="@dimen/ten_dip"
                         android:gravity="center"
                         android:text="@string/new_user"
                         android:textColor="@color/white"

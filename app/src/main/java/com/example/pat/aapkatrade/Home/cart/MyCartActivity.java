@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.Home.cart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,8 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.general.App_config;
+
+import com.example.pat.aapkatrade.general.AppConfig;
+
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
@@ -199,7 +201,7 @@ public class MyCartActivity extends AppCompatActivity
     private void getAllShopProducts(String pageNumber)
     {
 
-        System.out.println("deveice -id----------"+ App_config.getCurrentDeviceId(context));
+        System.out.println("deveice -id----------"+ AppConfig.getCurrentDeviceId(context));
 
         progressBarHandler.show();
 
@@ -207,7 +209,7 @@ public class MyCartActivity extends AppCompatActivity
                 .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
