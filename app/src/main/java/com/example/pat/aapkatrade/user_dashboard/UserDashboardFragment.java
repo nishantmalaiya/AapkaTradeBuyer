@@ -74,9 +74,9 @@ public class UserDashboardFragment extends Fragment {
             }
         });
 
-        if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "not") != null) {
-            String Username = appSharedPreference.getsharedpref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
-            String Emailid = appSharedPreference.getsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
+        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not") != null) {
+            String Username = appSharedPreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
+            String Emailid = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
             if (Username.contains("not")) {
                 textViewName.setText("");
                 tvEmail.setText("");
@@ -93,9 +93,9 @@ public class UserDashboardFragment extends Fragment {
         dashboardDatas.clear();
         try {
 
-            if (appSharedPreference.shared_pref != null) {
+            if (appSharedPreference.sharedPreferences != null) {
 
-                String userid = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "0");
+                String userid = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "0");
 
                 String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url)) + "/userdata";
 
@@ -133,7 +133,7 @@ public class UserDashboardFragment extends Fragment {
                             progressBarHandler.hide();
                             Log.e("result_myProfile", "result_myProfile is not null ");
                             String order_quantity = result.get("order").getAsString();
-                            appSharedPreference.setsharedpref(SharedPreferenceConstants.ORDER_QUANTITY.toString(), order_quantity);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.ORDER_QUANTITY.toString(), order_quantity);
                             dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
                             dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
                             dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity));
@@ -154,9 +154,9 @@ public class UserDashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
-            String Username = appSharedPreference.getsharedpref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
-            String Emailid = appSharedPreference.getsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
+        if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+            String Username = appSharedPreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "not");
+            String Emailid = appSharedPreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
             if (Username.equals("notlogin")) {
                 textViewName.setText("");
                 tvEmail.setText("");

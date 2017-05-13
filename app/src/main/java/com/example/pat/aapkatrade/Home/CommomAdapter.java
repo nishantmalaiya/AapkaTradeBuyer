@@ -441,9 +441,9 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                                 Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
                                 String cart_count = jsonObject.get("total_qty").getAsString();
-                                appSharedPreference.setShared_pref_int(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
-                                //int j = appSharedPreference.getsharedpref_int("cart_count",0);
-                                ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                                appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                                //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
+                                ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
                                 progressBarHandler.hide();
 
                             }

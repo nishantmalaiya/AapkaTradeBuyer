@@ -56,17 +56,17 @@ public class AddAddressActivity extends AppCompatActivity
 
         appSharedPreference = new AppSharedPreference(getApplicationContext());
 
-        userid = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "");
+        userid = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
 
-        firstName = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "");
+        firstName = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "");
 
-        lastName = appSharedPreference.getsharedpref(SharedPreferenceConstants.LAST_NAME.toString(), "");
+        lastName = appSharedPreference.getSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), "");
 
-        mobile = appSharedPreference.getsharedpref(SharedPreferenceConstants.MOBILE.toString(), "");
+        mobile = appSharedPreference.getSharedPref(SharedPreferenceConstants.MOBILE.toString(), "");
 
-        address = appSharedPreference.getsharedpref(SharedPreferenceConstants.ADDRESS.toString(), "");
+        address = appSharedPreference.getSharedPref(SharedPreferenceConstants.ADDRESS.toString(), "");
 
-        state_id= appSharedPreference.getsharedpref(SharedPreferenceConstants.STATE_ID.toString(), "");
+        state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
 
         setuptoolbar();
 
@@ -86,8 +86,8 @@ public class AddAddressActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
                 // your code here
-                appSharedPreference.setsharedpref(SharedPreferenceConstants.STATE_ID.toString(),  String.valueOf(position));
-                state_id= appSharedPreference.getsharedpref(SharedPreferenceConstants.STATE_ID.toString(), "");
+                appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(),  String.valueOf(position));
+                state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
                 spState.setSelection(Integer.valueOf(state_id));
 
 
@@ -180,10 +180,10 @@ public class AddAddressActivity extends AppCompatActivity
 
                             if (message.equals("Updated Successfully!"))
                             {
-                                appSharedPreference.setsharedpref("username", firstName);
-                                appSharedPreference.setsharedpref("lname", lName);
-                                appSharedPreference.setsharedpref("address", address);
-                                appSharedPreference.setsharedpref("state_id", String.valueOf(spState.getSelectedItemPosition()));
+                                appSharedPreference.setSharedPref("username", firstName);
+                                appSharedPreference.setSharedPref("lname", lName);
+                                appSharedPreference.setSharedPref("address", address);
+                                appSharedPreference.setSharedPref("state_id", String.valueOf(spState.getSelectedItemPosition()));
                                 progress_handler.hide();
                                 Toast.makeText(getApplicationContext(),"Updated Successfully!",Toast.LENGTH_SHORT).show();
 

@@ -119,7 +119,7 @@ public class ShopAllProductActivity extends AppCompatActivity {
 
         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
-        tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+        tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,7 +215,7 @@ public class ShopAllProductActivity extends AppCompatActivity {
         if (shopAllActivity == 1) {
             shopAllActivity = 2;
         } else {
-            tvCartCount.setText(String.valueOf(appSharedPreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+            tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
         }
 
     }

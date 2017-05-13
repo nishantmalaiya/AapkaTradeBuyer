@@ -281,7 +281,7 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                               //  CartCheckoutActivity.cardBottom.setVisibility(View.VISIBLE);
                             }
 
-                            appSharedPreference.setShared_pref_int(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
                             CartCheckoutActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                             CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
@@ -325,7 +325,7 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
 
                         String total_amount = jsonresult.get("total_amount").getAsString();
                         String cart_count = jsonresult.get("total_qty").getAsString();
-                        appSharedPreference.setShared_pref_int(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                        appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
                         CartCheckoutActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                         CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);

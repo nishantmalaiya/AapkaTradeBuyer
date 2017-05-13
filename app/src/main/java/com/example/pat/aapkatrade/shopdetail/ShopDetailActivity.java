@@ -405,7 +405,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onClick(View v) {
 
-                if (app_sharedpreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
+                if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
                     startActivity(new Intent(ShopDetailActivity.this, LoginActivity.class));
                 } else {
                     Intent rate_us = new Intent(ShopDetailActivity.this, RateUsActivity.class);
@@ -546,7 +546,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
-        tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+        tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -603,7 +603,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
             shopDetailActivity = 2;
         } else {
-            tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+            tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
         }
 
     }

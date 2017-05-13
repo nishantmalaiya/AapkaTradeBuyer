@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
@@ -130,12 +129,12 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     private void getshared_pref_data() {
-        user_image = app_sharedpreference.getsharedpref("profile_pic", "");
-        fname = app_sharedpreference.getsharedpref("name", "");
-        lname = app_sharedpreference.getsharedpref("lname", "");
-        email = app_sharedpreference.getsharedpref("emailid", "");
-        mobile = app_sharedpreference.getsharedpref("mobile", "");
-        address = app_sharedpreference.getsharedpref("address", "");
+        user_image = app_sharedpreference.getSharedPref("profile_pic", "");
+        fname = app_sharedpreference.getSharedPref("name", "");
+        lname = app_sharedpreference.getSharedPref("lname", "");
+        email = app_sharedpreference.getSharedPref("emailid", "");
+        mobile = app_sharedpreference.getSharedPref("mobile", "");
+        address = app_sharedpreference.getSharedPref("address", "");
 
     }
 
@@ -151,7 +150,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 .setBodyParameter("mobile", etMobileNo.getText().toString())
                 .setBodyParameter("email", etEmail.getText().toString())
                 .setBodyParameter("address", etAddress.getText().toString())
-                .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", ""))
+                .setBodyParameter("user_id", app_sharedpreference.getSharedPref("userid", ""))
                 .setBodyParameter("user_type", "1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -189,10 +188,10 @@ public class MyProfileActivity extends AppCompatActivity {
                                         String update_mobile = jsonObject1.get("mobile").getAsString();
                                         String update_address = jsonObject1.get("address").getAsString();
 
-                                        app_sharedpreference.setsharedpref("name", update_name);
-                                        app_sharedpreference.setsharedpref("lname", update_lastname);
-                                        app_sharedpreference.setsharedpref("mobile", update_mobile);
-                                        app_sharedpreference.setsharedpref("address", update_address);
+                                        app_sharedpreference.setSharedPref("name", update_name);
+                                        app_sharedpreference.setSharedPref("lname", update_lastname);
+                                        app_sharedpreference.setSharedPref("mobile", update_mobile);
+                                        app_sharedpreference.setSharedPref("address", update_address);
 
                                         System.out.println("Username Data-----------" + update_name);
 
@@ -278,12 +277,12 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity, String product_quantity, String company_quantity, String vendor_quantity, String network_quantity) {
 
-        app_sharedpreference.setsharedpref("userid", user_id);
-        app_sharedpreference.setsharedpref("username", user_name);
-        app_sharedpreference.setsharedpref("emailid", email_id);
-        app_sharedpreference.setsharedpref("lname", lname);
-        app_sharedpreference.setsharedpref("address", address);
-        app_sharedpreference.setsharedpref("mobile", mobile);
+        app_sharedpreference.setSharedPref("userid", user_id);
+        app_sharedpreference.setSharedPref("username", user_name);
+        app_sharedpreference.setSharedPref("emailid", email_id);
+        app_sharedpreference.setSharedPref("lname", lname);
+        app_sharedpreference.setSharedPref("address", address);
+        app_sharedpreference.setSharedPref("mobile", mobile);
 
     }
 

@@ -74,7 +74,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onClick(View v) {
 
                 if (itemList.get(position).dashboard_name.equals("My Profile")) {
-                    if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin").equals("notlogin")) {
+                    if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 
@@ -86,7 +86,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
                 } else if (itemList.get(position).dashboard_name.equals("Change Password")) {
-                    if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
+                    if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 
@@ -99,7 +99,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
                 } else if (itemList.get(position).dashboard_name.equals("Order")) {
-                    if (appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
+                    if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginActivity.class);
                         context.startActivity(i);
 

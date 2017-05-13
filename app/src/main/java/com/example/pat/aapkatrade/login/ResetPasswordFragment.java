@@ -147,7 +147,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     private void call_reset_webservice() {
         progressBarHandler.show();
 
-        user_id = appSharedPreference.getsharedpref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
         String webservice_reset_password = getResources().getString(R.string.webservice_base_url) + "/resetPwd";
 
 

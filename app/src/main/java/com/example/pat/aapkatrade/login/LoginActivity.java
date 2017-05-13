@@ -193,21 +193,21 @@ public class LoginActivity extends AppCompatActivity {
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
 
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.USER_ID.toString(), webservice_returndata.get("user_id").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.FIRST_NAME.toString(), jsonObject.get("name").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.USER_NAME.toString(), jsonObject.get("name").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.LAST_NAME.toString(), jsonObject.get("lastname").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.EMAIL_ID.toString(), jsonObject.get("email").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.MOBILE.toString(), jsonObject.get("mobile").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.COUNTRY_ID.toString(), jsonObject.get("country_id").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.STATE_ID.toString(), jsonObject.get("state_id").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.CITY_ID.toString(), jsonObject.get("city_id").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.ADDRESS.toString(), jsonObject.get("address").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.DEVICE_ID.toString(), jsonObject.get("device_id").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.UPDATED_AT.toString(), jsonObject.get("updated_at").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.STATUS.toString(), jsonObject.get("status").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.ORDER.toString(), webservice_returndata.get("order").getAsString());
-        appSharedpreference.setsharedpref(SharedPreferenceConstants.CREATED_AT.toString(), webservice_returndata.get("createdAt").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), webservice_returndata.get("user_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), jsonObject.get("lastname").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), jsonObject.get("email").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.MOBILE.toString(), jsonObject.get("mobile").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.COUNTRY_ID.toString(), jsonObject.get("country_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(), jsonObject.get("state_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.CITY_ID.toString(), jsonObject.get("city_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.ADDRESS.toString(), jsonObject.get("address").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.DEVICE_ID.toString(), jsonObject.get("device_id").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.UPDATED_AT.toString(), jsonObject.get("updated_at").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.STATUS.toString(), jsonObject.get("status").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.ORDER.toString(), webservice_returndata.get("order").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.CREATED_AT.toString(), webservice_returndata.get("createdAt").getAsString());
     }
 
 

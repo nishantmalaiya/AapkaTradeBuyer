@@ -89,10 +89,10 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
                             context);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {
-                        String CurrentLatitude=appSharedPreference.getsharedpref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString(), "0.0");
+                        String CurrentLatitude=appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString(), "0.0");
 
-                        String CurrentLongitude= appSharedPreference.getsharedpref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString(), "0.0");
-                        appSharedPreference.getsharedpref(SharedPreferenceConstants.CURRENT_STATE_NAME.toString(), "Haryana");
+                        String CurrentLongitude= appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString(), "0.0");
+                        appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_STATE_NAME.toString(), "Haryana");
 
                         Intent i = new Intent(context, ShopListByCategoryActivity.class);
                         i.putExtra("category_id", listDataHeader.get(currentPosition).getCategoryId());
