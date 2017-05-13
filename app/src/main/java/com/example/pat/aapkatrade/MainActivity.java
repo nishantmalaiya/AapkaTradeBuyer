@@ -80,25 +80,25 @@ public class MainActivity extends AppCompatActivity
                 if (ConnetivityCheck.isNetworkAvailable(MainActivity.this)) {
 
 
-                        mylocation = new Mylocation(MainActivity.this);
-                        LocationManager_check locationManagerCheck = new LocationManager_check(
-                                MainActivity.this);
-                        Location location = null;
-                        if (locationManagerCheck.isLocationServiceAvailable()) {
-                            Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
-                            startActivity(mainIntent);
-                            finish();
-                            if (pd != null) {
-                                pd.dismiss();
-                            }
-
-                            Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
-                            startService(serviceIntent);
-
-
-                        } else {
-                            locationManagerCheck.createLocationServiceError(MainActivity.this);
+                    mylocation = new Mylocation(MainActivity.this);
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            MainActivity.this);
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
+                        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+                        if (pd != null) {
+                            pd.dismiss();
                         }
+
+                        Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
+                        startService(serviceIntent);
+
+
+                    } else {
+                        locationManagerCheck.createLocationServiceError(MainActivity.this);
+                    }
 
 
 
@@ -194,15 +194,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 
