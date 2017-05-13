@@ -53,9 +53,9 @@ public class LocationService extends Service {
             return START_NOT_STICKY;
         }
         if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
         if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, listener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, listener);
         return START_NOT_STICKY;
 
     }
@@ -133,9 +133,6 @@ public class LocationService extends Service {
 
             if (isBetterLocation(loc, previousBestLocation)) {
                 LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
-
-
-
 
 
                 geoCoderAddressAsync = new GeoCoderAddress(LocationService.this, loc.getLatitude(), loc.getLongitude());

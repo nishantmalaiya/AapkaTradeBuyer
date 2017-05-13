@@ -93,8 +93,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     View view;
     Mylocation mylocation;
     private GeoCoderAddress geoCoderAddressAsync;
-    private String AddressAsync,currentLatitude,currentLongitude,stateName;
-AppSharedPreference appSharedPreference;
+    private String AddressAsync, currentLatitude, currentLongitude, stateName;
+    AppSharedPreference appSharedPreference;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -107,7 +107,7 @@ AppSharedPreference appSharedPreference;
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
             initializeview(view, container);
         }
-        appSharedPreference=new AppSharedPreference(getActivity());
+        appSharedPreference = new AppSharedPreference(getActivity());
 
         return view;
     }
@@ -193,7 +193,6 @@ AppSharedPreference appSharedPreference;
         get_home_data();
 
 
-
         rl_searchview_dashboard = (RelativeLayout) v.findViewById(R.id.rl_searchview);
 
         rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
@@ -207,9 +206,9 @@ AppSharedPreference appSharedPreference;
                 Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
 
-                    currentLatitude=appSharedPreference.getsharedpref("CurrentLatitude");
-                    currentLongitude=appSharedPreference.getsharedpref("CurrentLongitude");
-                    stateName=appSharedPreference.getsharedpref("CurrentStateName");
+                    currentLatitude = appSharedPreference.getsharedpref("CurrentLatitude");
+                    currentLongitude = appSharedPreference.getsharedpref("CurrentLongitude");
+                    stateName = appSharedPreference.getsharedpref("CurrentStateName");
 
 
                     Intent intentAsync = new Intent(getActivity(), Search.class);
@@ -219,11 +218,6 @@ AppSharedPreference appSharedPreference;
                     intentAsync.putExtra("latitude", currentLatitude);
                     intentAsync.putExtra("longitude", currentLongitude);
                     getActivity().startActivity(intentAsync);
-
-
-
-
-
 
 
                 } else {
@@ -237,10 +231,7 @@ AppSharedPreference appSharedPreference;
         });
     }
 
-    public void get_home_data()
-    {
-
-
+    public void get_home_data() {
 
 
         progress_handler.show();
