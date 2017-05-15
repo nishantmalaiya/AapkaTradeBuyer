@@ -19,6 +19,7 @@ import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.koushikdutta.async.future.FutureCallback;
@@ -77,27 +78,20 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
             @Override
             public void onClick(View v) {
 
-
                 boolean permission_status = CheckPermission.checkPermissions((Activity) context);
 
-
-                if (permission_status)
-
-                {
+                if (permission_status) {
                     mylocation = new Mylocation(context);
-                    LocationManager_check locationManagerCheck = new LocationManager_check(
-                            context);
-                    Location location = null;
+                    LocationManager_check locationManagerCheck = new LocationManager_check(context);
                     if (locationManagerCheck.isLocationServiceAvailable()) {
-                        String CurrentLatitude=appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString(), "0.0");
-
-                        String CurrentLongitude= appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString(), "0.0");
+                        String currentLatitude = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString(), "0.0");
+                        String currentLongitude = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString(), "0.0");
                         appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_STATE_NAME.toString(), "Haryana");
 
                         Intent i = new Intent(context, ShopListByCategoryActivity.class);
                         i.putExtra("category_id", listDataHeader.get(currentPosition).getCategoryId());
-                        i.putExtra("latitude", CurrentLatitude);
-                        i.putExtra("longitude", CurrentLongitude);
+                        i.putExtra("latitude", currentLatitude);
+                        i.putExtra("longitude", currentLongitude);
 
                         context.startActivity(i);
 
@@ -106,7 +100,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
                     }
 
                 }
-
+                else {
+                    AndroidUtils.showErrorLog(context, "error in permission");
+                }
 
             }
         });

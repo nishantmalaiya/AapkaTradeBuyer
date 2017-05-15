@@ -139,7 +139,7 @@ public class MyCartActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
-                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                if (app_sharedpreference.getSharedPref("userid", "notlogin").equals("notlogin"))
                 {
                     Intent i = new Intent(MyCartActivity.this, LoginActivity.class);
                     startActivity(i);

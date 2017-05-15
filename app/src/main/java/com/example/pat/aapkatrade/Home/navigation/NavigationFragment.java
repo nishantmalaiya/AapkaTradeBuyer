@@ -144,7 +144,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 mDrawerLayout.closeDrawers();
-                 HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getsharedpref_int("cart_count", 0)));
+                 HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt("cart_count", 0)));
             }
         });
         categoryname = new ArrayList<>();
