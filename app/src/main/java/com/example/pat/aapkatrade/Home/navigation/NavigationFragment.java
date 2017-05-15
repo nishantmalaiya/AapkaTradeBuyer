@@ -91,8 +91,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         progressBarHandler = new ProgressBarHandler(context);
         app_sharedpreference = new AppSharedPreference(getActivity());
+
+
         initView(view);
         return view;
+
+
     }
 
 
@@ -140,6 +144,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 mDrawerLayout.closeDrawers();
+                 HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt("cart_count", 0)));
             }
         });
         categoryname = new ArrayList<>();
@@ -376,14 +381,15 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
 
         if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
 
+
             String userName = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
             String emailId = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
-
 
             if (userName.contains("notlogin")) {
                 setdata(getString(R.string.welcomeguest), "");
@@ -391,29 +397,16 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 rl_logout.setVisibility(View.GONE);
 
                 Log.e("Shared_pref2", "null" + userName);
-            } else {
+            }
+            else
+            {
 
                 set_visibility_logout();
 
                 setdata(userName, emailId);
-
-
             }
         } else {
             Log.e("Shared_pref1", "null");
         }
     }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-

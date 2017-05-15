@@ -54,7 +54,8 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivi
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -82,8 +83,9 @@ public class HomeActivity extends AppCompatActivity {
     public TextView countTextView;
     private FrameLayout redCircle;
     public static TextView tvCartCount;
-
     int home_activity = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,12 +238,12 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
                 startActivity(intent);
 
-
                 break;
             case R.id.login:
 
 
                 if (appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
+
                     Intent i = new Intent(HomeActivity.this, LoginActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -516,7 +518,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void setForceTitleHide(boolean forceTitleHide) {
+    private void setForceTitleHide(boolean forceTitleHide)
+    {
 
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
@@ -607,16 +610,20 @@ public class HomeActivity extends AppCompatActivity {
 
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
 
-        if (home_activity == 1) {
+        if (home_activity == 1)
+        {
+            System.out.println("activity again started-----------");
             home_activity = 2;
-        } else {
+
+        }
+        else {
             tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         }
-
     }
 
 

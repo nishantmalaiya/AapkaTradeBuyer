@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
-import com.example.pat.aapkatrade.general.progressbar.ProgressDialogHandler;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -31,7 +31,7 @@ public class Track_order_dialog extends DialogFragment {
     ImageView dialog_close;
     EditText tracking_id;
     Button validate_order_id;
-    ProgressDialogHandler progressDialogHandler;
+    ProgressBarHandler progressBarHandler;
     TextToSpeech t1;
 
     public Track_order_dialog() {
@@ -44,7 +44,7 @@ public class Track_order_dialog extends DialogFragment {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
 //        getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         initview(v);
-        progressDialogHandler = new ProgressDialogHandler(getActivity());
+        progressBarHandler = new ProgressBarHandler(getActivity());
 
         dialog_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,7 @@ public class Track_order_dialog extends DialogFragment {
 
     private void call_Validate_order_webservice() {
 
-        progressDialogHandler.show();
+        progressBarHandler.show();
         String track_order_url = getString(R.string.webservice_base_url) + "/track_order";
 
 
@@ -106,13 +106,13 @@ public class Track_order_dialog extends DialogFragment {
 
 
                     } else {
-                        progressDialogHandler.hide();
+                        progressBarHandler.hide();
                     }
 
 
                 }
 
-                progressDialogHandler.hide();
+                progressBarHandler.hide();
 
 
                 Log.e("result", result.toString());

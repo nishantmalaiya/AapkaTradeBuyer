@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.cart.CartData;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
@@ -27,16 +28,31 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-public class CustomQuantityDialog extends DialogFragment {
-
+public class CustomQuantityDialog extends DialogFragment
+{
     EditText etManualQuantity;
-    TextView okTv, CancelTv;
+    TextView okTv, CancelTv,tvsubtotal,textView_qty;
     public static CommonInterface commonInterface;
+    Context context;
+    int pos;
+    String price;
 
-    public CustomQuantityDialog(Context context) {
 
+
+    public CustomQuantityDialog(Context context)
+    {
 
     }
+
+    public CustomQuantityDialog(Context context,TextView textView,int position,String price,TextView textView_qty)
+    {
+        this.context = context;
+        this.tvsubtotal = textView;
+        this.textView_qty = textView_qty;
+        this.pos = position;
+        this.price = price;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -51,8 +67,8 @@ public class CustomQuantityDialog extends DialogFragment {
     }
 
 
-    private void initView(View v) {
-
+    private void initView(View v)
+    {
         etManualQuantity = (EditText) v.findViewById(R.id.editText);
         okTv = (TextView) v.findViewById(R.id.okDialog);
         CancelTv = (TextView) v.findViewById(R.id.cancelDialog);
@@ -61,14 +77,31 @@ public class CustomQuantityDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                if (Integer.parseInt(etManualQuantity.getText().toString().trim()) > 0) {
+                if (etManualQuantity.getText().toString().trim().equals(""))
+                {
+                    etManualQuantity.setError("Please Enter Number");
+                }
+                else {
 
-                    commonInterface.getData(Integer.parseInt(etManualQuantity.getText().toString().trim()));
-                    dismiss();
-                } else {
+                    if (Integer.parseInt(etManualQuantity.getText().toString().trim()) > 0)
+                    {
+                        textView_qty.setText(etManualQuantity.getText().toString().trim());
+                        double cart_price = Double.valueOf(price) *Integer.valueOf(etManualQuantity.getText().toString().trim());
+                        System.out.println("cart_price----------"+cart_price);
+                        tvsubtotal.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
+                        commonInterface.getData(Integer.parseInt(etManualQuantity.getText().toString().trim()));
+
+                        dismiss();
+                    }
+                    else
+                    {
+                    }
+                    AndroidUtils.showErrorLog(getActivity(), "ok button");
 
                 }
-                AndroidUtils.showErrorLog(getActivity(), "ok button");
+
+
+
 
             }
         });
@@ -83,28 +116,40 @@ public class CustomQuantityDialog extends DialogFragment {
             }
         });
 
-        etManualQuantity.addTextChangedListener(new TextWatcher() {
+        etManualQuantity.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 // TODO Auto-generated method stub
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
                 // TODO Auto-generated method stub
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
-                if (s.length() != 0) {
-                    if (Integer.parseInt(s.toString()) == 0) {
-                        etManualQuantity.setError("Please Enter Valid Quantity");
-                    } else {
-
-
-                        //tvQuantity.setText(s);
-//
+                if (etManualQuantity.getText().toString().trim().equals(""))
+                {
+                    etManualQuantity.setError("Please Enter Number");
+                }
+                else
+                {
+                    if (s.length() != 0)
+                    {
+                        if (Integer.parseInt(s.toString()) == 0)
+                        {
+                            etManualQuantity.setError("Please Enter Valid Quantity");
+                        }
+                        else
+                        {
+                            //tvQuantity.setText(s);
+                        }
                     }
                 }
             }

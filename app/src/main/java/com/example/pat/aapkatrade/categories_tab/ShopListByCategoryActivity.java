@@ -62,9 +62,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_shop_list_by_category);
-
         appSharedPreference = new AppSharedPreference(ShopListByCategoryActivity.this);
 
         context = ShopListByCategoryActivity.this;
@@ -72,12 +70,12 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         Bundle b = intent.getExtras();
-        if (b != null) {
+//        if (b != null) {
             latitude = b.getString("latitude");
             longitude = b.getString("longitude");
-
             category_id = b.getString("category_id");
-        }
+            AndroidUtils.showErrorLog(context, "_______________latitude"+latitude+"longitude"+longitude+"category_id"+category_id);
+//        }
 
         setUpToolBar();
         initView();
@@ -86,6 +84,8 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         StikkyHeaderBuilder.stickTo(mRecyclerView).setHeader(R.id.header_simple, view).minHeightHeaderDim(R.dimen.min_header_height).build();
         getShopListData("0");
+
+
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -126,10 +126,11 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
 
         if (!(FilterDialog.filterString != null && FilterDialog.filterString.length() > 0)) {
 
-            AndroidUtils.showErrorLog(context, "shoplist by NOOOOOOOOOOOOOOO filter");
+
+            AndroidUtils.showErrorLog(context, "shoplist by NOOOOOOOOOOOOOOO filter" + getResources().getString(R.string.webservice_base_url) + "/shoplist");
             Ion.with(ShopListByCategoryActivity.this)
                     .load(getResources().getString(R.string.webservice_base_url) + "/shoplist")
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setHeader("Authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("type", "category")
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("category_id", category_id)
@@ -141,6 +142,9 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
+
+                            AndroidUtils.showErrorLog(context, latitude + longitude + category_id + "resul_data" + result + pageNumber + "sachin tendulkar2");
+
 
                             if (result == null) {
                                 layout_container.setVisibility(View.INVISIBLE);
@@ -364,12 +368,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
 
         tvCartCount = (TextView) badgeLayout.findViewById(R.id.tvCartCount);
 
-
-
- 
-
-        tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0)));
-
+        tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
         badgeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -378,7 +377,6 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
             }
         });
         return true;
-
     }
 
     @Override
@@ -454,20 +452,14 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-
-        if (categoryListActivity == 1)
-        {
+        if (categoryListActivity == 1) {
 
             categoryListActivity = 2;
-        }
-        else
-        {
+        } else {
             tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-
         }
 
     }
 
 
 }
-
