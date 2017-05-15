@@ -12,14 +12,14 @@ import android.support.v7.app.AlertDialog;
  * Created by PPC17 on 15-Feb-17.
  */
 
-public class LocationManager_check {
+public class LocationManagerCheck {
 
     LocationManager locationManager;
     Boolean locationServiceBoolean = false;
     int providerType = 0;
     static AlertDialog alert;
 
-    public LocationManager_check(Context context) {
+    public LocationManagerCheck(Context context) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);

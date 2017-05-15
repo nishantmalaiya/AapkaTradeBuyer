@@ -9,19 +9,19 @@ import android.util.TypedValue;
  * Created by PPC21 on 30-Jan-17.
  */
 
-public class Recyclewview_heightmanager extends GridLayoutManager
+public class RecyclewViewHeightManager extends GridLayoutManager
 {
     private int mColumnWidth;
     private boolean mColumnWidthChanged = true;
 
-    public Recyclewview_heightmanager(Context context, int columnWidth)
+    public RecyclewViewHeightManager(Context context, int columnWidth)
     {
         /* Initially set spanCount to 1, will be changed automatically later. */
         super(context, 1);
         setColumnWidth(checkedColumnWidth(context, columnWidth));
     }
 
-    public Recyclewview_heightmanager(Context context, int columnWidth, int orientation, boolean reverseLayout)
+    public RecyclewViewHeightManager(Context context, int columnWidth, int orientation, boolean reverseLayout)
     {
         /* Initially set spanCount to 1, will be changed automatically later. */
         super(context, 1, orientation, reverseLayout);
