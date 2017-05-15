@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.address.viewpager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -21,6 +22,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 import com.example.pat.aapkatrade.payment.PaymentActivity;
@@ -153,7 +155,7 @@ public class CartCheckoutActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-               String userid = app_sharedpreference.getSharedPref(SharedPreferenceConstant.USER_ID.toString(), "");
+               String userid = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
                 callwebservice__save_order(userid);
 
 

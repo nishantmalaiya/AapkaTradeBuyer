@@ -24,15 +24,15 @@ public class LocationManager_check {
         boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        if (networkIsEnabled == true && gpsIsEnabled == true) {
+        if (networkIsEnabled && gpsIsEnabled) {
             locationServiceBoolean = true;
             providerType = 1;
 
-        } else if (networkIsEnabled != true && gpsIsEnabled == true) {
+        } else if (!networkIsEnabled && gpsIsEnabled) {
             locationServiceBoolean = true;
             providerType = 2;
 
-        } else if (networkIsEnabled == true && gpsIsEnabled != true) {
+        } else if (networkIsEnabled && gpsIsEnabled != true) {
             locationServiceBoolean = true;
             providerType = 1;
         }

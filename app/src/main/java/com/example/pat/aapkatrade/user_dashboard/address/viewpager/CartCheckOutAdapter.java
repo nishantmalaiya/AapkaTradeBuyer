@@ -319,7 +319,7 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("quantity", quantity)
 
-                .setBodyParameter("device_id", App_config.getCurrentDeviceId(context))
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()

@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.pat.aapkatrade.MainActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.location.AddressEnum;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
@@ -51,9 +54,9 @@ public class LocationService extends Service {
             return START_NOT_STICKY;
         }
         if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
         if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, listener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, listener);
         return START_NOT_STICKY;
 
     }
@@ -133,9 +136,6 @@ public class LocationService extends Service {
                 LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
 
 
-
-
-
                 geoCoderAddressAsync = new GeoCoderAddress(LocationService.this, loc.getLatitude(), loc.getLongitude());
 
                 try {
@@ -148,11 +148,9 @@ public class LocationService extends Service {
 
                 }
 
-
-                appSharedpreference.setSharedPref("CurrentLatitude", String.valueOf(loc.getLatitude()));
-                appSharedpreference.setSharedPref("CurrentLongitude", String.valueOf(loc.getLongitude()));
-                appSharedpreference.setSharedPref("CurrentStateName", AddressAsync);
-
+                appSharedpreference.setSharedPref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString(), String.valueOf(loc.getLatitude()));
+                appSharedpreference.setSharedPref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString(), String.valueOf(loc.getLongitude()));
+                appSharedpreference.setSharedPref(SharedPreferenceConstants.CURRENT_STATE_NAME.toString(), AddressAsync);
                 intent.putExtra("Latitude", "" + loc.getLatitude());
                 intent.putExtra("Longitude", loc.getLongitude());
                 intent.putExtra("Provider", loc.getProvider());

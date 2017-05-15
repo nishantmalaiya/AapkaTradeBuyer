@@ -294,6 +294,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                                 String product_name = jsonObject_latest_post.get("prodname").getAsString();
                                 String imageurl = jsonObject_latest_post.get("image_url").getAsString();
+
+                                System.out.println("imageurl--------------"+imageurl);
+
                                 String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
                                         jsonObject_latest_post.get("state_name").getAsString() + "," +
                                         jsonObject_latest_post.get("country_name").getAsString();
