@@ -33,7 +33,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
@@ -426,7 +426,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                 boolean permission_status = CheckPermission.checkPermissions(ShopDetailActivity.this);
                 if (permission_status) {
                     progressBarHandler.show();
-                    LocationManager_check locationManagerCheck = new LocationManager_check(ShopDetailActivity.this);
+                    LocationManagerCheck locationManagerCheck = new LocationManagerCheck(ShopDetailActivity.this);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {
                         Intent intent = new Intent(ShopDetailActivity.this, GoogleMapActivity.class);

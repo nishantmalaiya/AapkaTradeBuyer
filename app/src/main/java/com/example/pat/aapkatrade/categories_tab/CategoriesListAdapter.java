@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -126,7 +126,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 if (permission_status)
                 {
 
-                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                    LocationManagerCheck locationManagerCheck = new LocationManagerCheck(
                             context);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {

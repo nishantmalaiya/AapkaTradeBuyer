@@ -28,21 +28,17 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
-import com.example.pat.aapkatrade.MainActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
-
-import com.example.pat.aapkatrade.service.LocationService;
-import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 
 
 import com.google.gson.JsonArray;
@@ -202,7 +198,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onClick(View v) {
 
-                LocationManager_check locationManagerCheck = new LocationManager_check(
+                LocationManagerCheck locationManagerCheck = new LocationManagerCheck(
                         getActivity());
                 Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
