@@ -107,7 +107,7 @@ public class OrderActivity extends AppCompatActivity {
         Log.e("hi////", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id) + "GGGGGGG" + appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"));
 
         Ion.with(context)
-                .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
+                .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_details")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
 

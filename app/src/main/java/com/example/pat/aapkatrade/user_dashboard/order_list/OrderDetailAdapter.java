@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.user_dashboard.order_list.order_details.OrderDetailsActivity;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -30,7 +27,7 @@ import java.util.List;
  * Created by PPC16 on 17-Jan-17.
  */
 
-public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater inflater;
     private List<OrderListData> itemList;
@@ -40,7 +37,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     String userId;
     private List<OrderListData> orderListDatas;
 
-    public OrderListAdapter(Context context, List<OrderListData> itemList) {
+    public OrderDetailAdapter(Context context, List<OrderListData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -52,7 +49,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.row_order_list, parent, false);
+        View view = inflater.inflate(R.layout.row_order_detail, parent, false);
         viewHolder = new OrderListHolder(view);
 
         return viewHolder;

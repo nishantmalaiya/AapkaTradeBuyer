@@ -91,7 +91,19 @@
 
                 </android.support.v7.widget.CardView>
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recycle_view_order_list"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
 
 
                     <android.support.v7.widget.CardView
