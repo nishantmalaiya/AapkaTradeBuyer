@@ -2,6 +2,8 @@ package com.example.pat.aapkatrade.user_dashboard.order_list.order_details;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +15,8 @@ public class OrderDetailsActivity extends AppCompatActivity
 {
 
 
-
+RecyclerView recycle_view_order_list;
+    LinearLayoutManager linearLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -22,6 +25,16 @@ public class OrderDetailsActivity extends AppCompatActivity
         setContentView(R.layout.activity_order_details);
 
         setuptoolbar();
+        initView();
+    }
+
+    private void initView() {
+        recycle_view_order_list=(RecyclerView)findViewById(R.id.recycle_view_order_list);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recycle_view_order_list.setLayoutManager(mLayoutManager);
+
+
     }
 
 
