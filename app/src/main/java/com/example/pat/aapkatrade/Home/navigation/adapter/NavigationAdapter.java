@@ -42,7 +42,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
         this.listDataHeader = listDataHeader;
         appSharedPreference = new AppSharedPreference(context);
 
-
     }
 
     @Override
@@ -53,7 +52,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
     @Override
     public void onBindViewHolder(NavigationViewHolder viewHolder, int position) {
-
 
         final int currentPosition = position;
         final ImageView imageView = viewHolder.imageViewIcon;
@@ -71,7 +69,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
                     }
 
                 });
-
 
         viewHolder.rl_category_container.setOnClickListener(new View.OnClickListener() {
             @Override

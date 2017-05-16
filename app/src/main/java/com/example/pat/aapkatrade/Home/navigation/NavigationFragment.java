@@ -93,6 +93,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         app_sharedpreference = new AppSharedPreference(getActivity());
 
 
+
+
         initView(view);
         return view;
 
@@ -216,7 +218,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar, R.string.drawer_open, R
                 .string.drawer_close) {
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(View drawerView)
+            {
                 rl_main_content = getActivity().findViewById(R.id.rl_main_content);
                 rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
                 hideSoftKeyboard(getActivity());
@@ -225,13 +228,36 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                     mUserLearnedDrawer = true;
                     savedInstances(getActivity(), userKey, mUserLearnedDrawer + "");
                 }
-                getActivity().invalidateOptionsMenu();
+                //getActivity().invalidateOptionsMenu();
+
+                if (app_sharedpreference!=null){
+                    HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+
+
+
+                }
+                else {
+
+                    HomeActivity.tvCartCount.setText("0");
+
+                }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                getActivity().invalidateOptionsMenu();
+                //getActivity().invalidateOptionsMenu();
+                if (app_sharedpreference!=null)
+                {
+                    HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                    System.out.println("hi I am Sachin"+String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                }
+                else
+                {
+
+                    HomeActivity.tvCartCount.setText("0");
+
+                }
 
             }
 
@@ -256,15 +282,18 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
+                System.out.println("I am Sachin");
+
             }
         });
-
 
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
         mDrawerLayout.closeDrawers();
     }
 
@@ -371,7 +400,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic) {
+    public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic)
+    {
         app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
         app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
         app_sharedpreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
@@ -408,5 +438,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         } else {
             Log.e("Shared_pref1", "null");
         }
+
+
+
+
     }
 }
