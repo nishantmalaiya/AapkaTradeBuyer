@@ -126,12 +126,6 @@ public class AndroidUtils {
             imageView.setColorFilter(ContextCompat.getColor(context, color));
     }
 
-    public static ImageView getColoredImage(ImageView imageView, Context context, int color) {
-        if (imageView != null)
-            imageView.setColorFilter(ContextCompat.getColor(context, color));
-        return imageView;
-    }
-
     public static int screenHeight(Context ctx) {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) ctx).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
