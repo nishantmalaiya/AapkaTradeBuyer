@@ -42,8 +42,8 @@ public class CheckPermission {
             , Manifest.permission.RECEIVE_SMS
             , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NETWORK_STATE};
 
-           
-         
+
+
 
 
 
