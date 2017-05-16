@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.payment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -29,8 +30,8 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.payment.payment_method.CreditDebitFragment;
 import com.example.pat.aapkatrade.payment.payment_method.NetBankingFragment;
@@ -38,7 +39,6 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -58,14 +58,14 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     String accessCode = "28DCA441";
     String merchantId = "TESTCFZATRDPRLTD";
     String amount = "10";
-    String orderid,order_number;
-    String Merchant_transaction_reference ="756756876" ;
+    String orderid, order_number;
+    String Merchant_transaction_reference = "756756876";
     String HashData_prepare;
     String success_url = "http://staging.aapkatrade.com/payment/PHP_VPC_3Party_Order_DR.php";
     String hash_pack;
     String url;
     Handler mHandler = new Handler();
-    JSONObject  json;
+    JSONObject json;
 
     private int[] tabIcons = {
 
@@ -81,12 +81,11 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     private ProgressBarHandler progressBarHandler;
 
     String buyer_id;
-    List<String> values ;
+    List<String> values;
     Map<String, List<String>> params;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_payment);
@@ -111,7 +110,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                 .setBodyParameter("vpc_AccessCode", accessCode)
                 .setBodyParameter("vpc_Merchant", merchantId)
                 .setBodyParameter("vpc_OrderInfo", "Test Product")
-                .setBodyParameter("vpc_Amount", String.valueOf(amount*100))
+                .setBodyParameter("vpc_Amount", String.valueOf(amount * 100))
                 .setBodyParameter("vpc_Currency", "INR")
                 .setBodyParameter("vpc_Locale", "en_INR")
                 .setBodyParameter("virtualPaymentClientURL", "https://migs.mastercard.com.au/vpcpay")
@@ -120,7 +119,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
-                    @SuppressLint("JavascriptInterface")
+                    @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled"})
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
@@ -145,15 +144,13 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                             }
                         });
 
-                        webview.setWebViewClient(new WebViewClient()
-                        {
-                            public boolean shouldOverrideUrlLoading(WebView viewx, String urlx)
-                            {
-                                if (urlx.contains(success_url))
-                                {
+                        webview.setWebViewClient(new WebViewClient() {
+                            @SuppressLint("SetJavaScriptEnabled")
+                            public boolean shouldOverrideUrlLoading(WebView viewx, String urlx) {
+                                if (urlx.contains(success_url)) {
                                     Log.e("html2", urlx);
 
-                                    params = new HashMap<String, List<String>>();
+                                    params = new HashMap<>();
                                     String[] urlParts = urlx.split("\\?");
                                     if (urlParts.length > 1) {
                                         String query = urlParts[1];
@@ -164,18 +161,16 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                                                 key = URLDecoder.decode(pair[0], "UTF-8");
 
                                                 String value = "";
-                                                if (pair.length > 1)
-                                                {
+                                                if (pair.length > 1) {
                                                     value = URLDecoder.decode(pair[1], "UTF-8");
                                                 }
-                                              values = params.get(key);
-                                                if (values == null)
-                                                {
-                                                    values = new ArrayList<String>();
-
+                                                values = params.get(key);
+                                                if (values == null) {
+                                                    values = new ArrayList<>();
                                                     params.put(key, values);
                                                 }
-                                                System.out.println("value---------"+value.toString());
+                                                AndroidUtils.showErrorLog(context, params, "_____*****________");
+                                                System.out.println("value---------" + value);
                                                 values.add(value);
                                             } catch (UnsupportedEncodingException e1) {
                                                 e1.printStackTrace();
@@ -183,14 +178,9 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                                         }
                                     }
                                     Log.e("queryParameter", params.toString());
+                                    //viewx.loadUrl(urlx);
 
-                                    viewx.loadUrl(urlx);
-                                    // startActivity(new Intent(PaymentActivity.this,Payment_confirmation_Activity.class));
-                                    callwebservice__make_payment(values);
-                                }
-                                else
-                                {
-
+                                    callWebServiceMakePayment(values);
                                 }
                                 viewx.isPrivateBrowsingEnabled();
                                 viewx.getSettings().setJavaScriptEnabled(true);
@@ -199,22 +189,26 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                             }
 
                             @Override
-                            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
-                            {
+                            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                                super.onPageStarted(view, url, favicon);
+                                progressBarHandler.show();
+                            }
+
+                            @Override
+                            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                                 // TODO Auto-generated method stub
                                 System.out.println(">>>>>>>>>>>>>>onReceivedError>>>>>>>>>>>>>>>>>>");
                                 Toast.makeText(PaymentActivity.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
-                            public void onPageFinished(WebView view, String url)
-                            {
+                            public void onPageFinished(WebView view, String url) {
                                 progressBarHandler.hide();
                                 Log.e("pagefinished", "pagefinished");
 
                                 //super.onPageFinished(view, url);
-                                webview.loadUrl("javascript:window.HtmlViewer.showHTML" +
-                                        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+//                                webview.loadUrl("javascript:window.HtmlViewer.showHTML" +
+//                                        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                             }
                         });
                     }
@@ -223,8 +217,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                 });
     }
 
-    private void setUpToolBar()
-    {
+    private void setUpToolBar() {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AppCompatImageView back_imagview = (AppCompatImageView) findViewById(R.id.back_imagview);
 
@@ -247,7 +240,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PaymentCompletionActivity.class);
+                Intent intent = new Intent(context, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -262,17 +255,14 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -284,8 +274,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab)
-    {
+    public void onTabSelected(TabLayout.Tab tab) {
         Log.e("hi---", "IIIIIIIII" + tab.getPosition());
         if (tab.getPosition() == 0) {
             // tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
@@ -303,8 +292,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public void onTabUnselected(TabLayout.Tab tab)
-    {
+    public void onTabUnselected(TabLayout.Tab tab) {
         if (tab.getPosition() == 0) {
             // tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.text_order_tab));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
@@ -321,8 +309,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public void onTabReselected(TabLayout.Tab tab)
-    {
+    public void onTabReselected(TabLayout.Tab tab) {
         if (tab.getPosition() == 0) {
             //tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
@@ -339,8 +326,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-    private void setupTabIcons()
-    {
+    private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(AndroidUtils.setImageColor(context, tabIcons[0], R.color.orange));
         tabLayout.getTabAt(1).setIcon(AndroidUtils.setImageColor(context, tabIcons[1], R.color.text_order_tab));
         tabLayout.getTabAt(2).setIcon(AndroidUtils.setImageColor(context, tabIcons[2], R.color.text_order_tab));
@@ -348,8 +334,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-    private void setupViewPager(ViewPager viewPager)
-    {
+    private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new NetBankingFragment(), "NET BANKING");
         adapter.addFrag(new CreditDebitFragment(), "DEBIT/CREDIT CARD");
@@ -358,8 +343,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter
-    {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -389,9 +373,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
 
-
-    private void callwebservice__make_payment(List<String> data)
-    {
+    private void callWebServiceMakePayment(List<String> data) {
         ArrayList<String> data_n = new ArrayList<>();
         progressBarHandler.show();
 
@@ -401,29 +383,61 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
         }*/
 
-        System.out.println("data-----------data"+data.size());
+        System.out.println("data-----------data" + data.size());
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/make_payment";
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("data_n", params.toString())
-               // .setBodyParameters("",data)
+                // .setBodyParameters("",data)
 
                 .asString()
-                .setCallback(new FutureCallback<String>()
-                {
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, String result)
-                    {
+                    public void onCompleted(Exception e, String result) {
                         //  AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
-                        System.out.println("result-----------"+result.toString());
+                        System.out.println("result-----------" + result);
                         progressBarHandler.hide();
+                        HashMap<String, String> stringStringHashMap = new HashMap<>();
+                        result = result.substring(1, result.length()-1);
+                        String keyValueStringArray[] = result.split(",");
+                        for(int i = 0; i < keyValueStringArray.length; i++){
+                            String pair  = keyValueStringArray[i];
+                            KeyValue keyValue = new KeyValue(pair.split("=")[0], pair.split("=")[1].substring(1, pair.split("=")[1].length()-1));
+                            AndroidUtils.showErrorLog(context, keyValue.key.toString()+"**********"+keyValue.value.toString());
+                            stringStringHashMap.put(keyValue.key.toString(), keyValue.value.toString());
+                        }
+
+                        AndroidUtils.showErrorLog(context, stringStringHashMap.containsKey("vpc_Message")+"**********"+stringStringHashMap.toString()/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+
+                        if(stringStringHashMap.containsKey("vpc_Message") && stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")){
+                            Intent intent = new Intent(context, PaymentCompletionActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("isSuccess", "true");
+                            intent.putExtra("vpc_Amount", stringStringHashMap.get("vpc_Amount"));
+                            intent.putExtra("vpc_TransactionNo", stringStringHashMap.get("vpc_TransactionNo"));
+                            intent.putExtra("vpc_ReceiptNo", stringStringHashMap.get("vpc_ReceiptNo"));
+
+                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_Amount")+"vpc_Amount**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_TransactionNo")+"vpc_TransactionNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_ReceiptNo")+"vpc_ReceiptNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_Message")+"vpc_Message**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(context, PaymentCompletionActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("isSuccess", "false");
+                            startActivity(intent);
+                        }
                         //Toast.makeText(getApplicationContext(),result.toString(),Toast.LENGTH_SHORT).show();
 
                     }
                 });
     }
+
+
 
 
 }

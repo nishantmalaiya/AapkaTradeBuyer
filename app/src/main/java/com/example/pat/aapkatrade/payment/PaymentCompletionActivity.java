@@ -21,57 +21,99 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Validation;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PaymentCompletionActivity extends AppCompatActivity {
     private Context context;
-    private TextView tvStatusTitle, tvStatusMsg;
+    private TextView tvStatusTitle, tvStatusMsg, tvHeaderTransaction, tvHeaderAmountPaid, tvSubHeaderTransaction, tvSubHeaderAmountPaid, tvReceiptNo;
     private LinearLayout circleTile1Layout, circleTile2Layout;
     private ImageView tickImageView;
     private RelativeLayout rlDoneLayout;
     private ImageView circleImageView1, circleImageView2;
+    private boolean isSuccess = false;
+    private double transactionAmount;
+    private String transactionNo, receiptNo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_completion);
         context = PaymentCompletionActivity.this;
+        if (getIntent() != null) {
+            if (getIntent().getExtras().get("isSuccess").toString().equals("true")) {
+                isSuccess = true;
+            }
+            if (isSuccess) {
+                transactionAmount = Double.parseDouble(getIntent().getExtras().get("vpc_Amount").toString()) / 100;
+                transactionNo = getIntent().getExtras().get("vpc_TransactionNo").toString();
+                receiptNo = getIntent().getExtras().get("vpc_ReceiptNo").toString();
+            }
+        }
         setUpToolBar();
         initView();
+        rlDoneLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callHomeActivity();
+            }
+        });
+
+        if (!isSuccess) {
+            tvSubHeaderTransaction.setText(transactionNo);
+            tvSubHeaderAmountPaid.setText(new StringBuilder(getString(R.string.rupay)).append("  ").append(transactionAmount));
+            tvReceiptNo.setText(Validation.isEmptyStr(receiptNo) ? "RECEIPT" : new StringBuilder("Receipt No : ").append(receiptNo));
+        } else {
+            tickImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cross));
+
+        }
 
     }
 
     private void initView() {
         tvStatusTitle = (TextView) findViewById(R.id.tvStatusTitle);
         tvStatusMsg = (TextView) findViewById(R.id.tvStatusMsg);
+        tickImageView = (ImageView) findViewById(R.id.tickImageView);
+
         circleTile1Layout = (LinearLayout) findViewById(R.id.circleTile1Layout);
         circleTile2Layout = (LinearLayout) findViewById(R.id.circleTile2Layout);
         circleImageView1 = (ImageView) circleTile1Layout.findViewById(R.id.circleImageView);
         circleImageView2 = (ImageView) circleTile2Layout.findViewById(R.id.circleImageView);
 
         circleImageView1.setImageResource(R.drawable.ic_transaction);
-        ((TextView) circleTile1Layout.findViewById(R.id.tvHeader)).setText("Transaction ID");
-        ((TextView) circleTile1Layout.findViewById(R.id.tvSubHeader)).setText("APKTRADE23548464");
+        tvHeaderTransaction = (TextView) circleTile1Layout.findViewById(R.id.tvHeader);
+        tvSubHeaderTransaction = (TextView) circleTile1Layout.findViewById(R.id.tvSubHeader);
+        tvHeaderTransaction.setText("Transaction ID");
+        tvSubHeaderTransaction.setText("APKTRADE23548464");
 
         circleImageView2.setImageResource(R.drawable.ic_amount_paid2);
+        tvHeaderAmountPaid = (TextView) circleTile2Layout.findViewById(R.id.tvHeader);
+        tvSubHeaderAmountPaid = (TextView) circleTile2Layout.findViewById(R.id.tvSubHeader);
         ((TextView) circleTile2Layout.findViewById(R.id.tvHeader)).setText("Amount Paid");
         ((TextView) circleTile2Layout.findViewById(R.id.tvSubHeader)).setText("APKTRADE23548464");
 
+        tvReceiptNo = (TextView) findViewById(R.id.tvReceiptNo);
         rlDoneLayout = (RelativeLayout) findViewById(R.id.rlDoneLayout);
         AndroidUtils.setBackgroundSolid(rlDoneLayout, context, R.color.golden_text, 10, GradientDrawable.RECTANGLE);
     }
 
     private void setUpToolBar() {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
+        ImageView back_imagview = (ImageView) findViewById(R.id.back_imagview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        back_imagview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callHomeActivity();
+            }
+        });
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                callHomeActivity();
             }
         });
         setSupportActionBar(toolbar);
@@ -102,11 +144,16 @@ public class PaymentCompletionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void callHomeActivity() {
         Intent intent = new Intent(context, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        callHomeActivity();
     }
 }
