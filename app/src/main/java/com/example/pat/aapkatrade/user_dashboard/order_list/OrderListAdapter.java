@@ -64,12 +64,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         OrderListHolder homeHolder = (OrderListHolder) holder;
 
 
-        homeHolder.productName.setText(itemList.get(position).productName);
+        homeHolder.productName.setText(itemList.get(position).product_name);
 
         homeHolder.tvOrderDate.setText(itemList.get(position).order_date);
         homeHolder.tvOrderPrize.setText(itemList.get(position).product_price);
-        Log.e("itemList_image",itemList.get(position).product_image);
-        Picasso.with(context).load(itemList.get(position).product_image)
+
+        Picasso.with(context).load(itemList.get(position).image_url)
 
                 .error(R.drawable.ic_profile_user)
                 .into(((OrderListHolder) holder).productImage);
@@ -78,7 +78,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         homeHolder.img_order_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-call_order_detail_webservice(itemList.get(position).OrderId);
+
+                Intent i =new Intent(context, OrderDetailsActivity.class);
+i.putExtra("OrderId",itemList.get(position).order_id);
+                i.putExtra("userId",userId);
+
+                context.startActivity(i);
+
+
+
             }
         });
 
@@ -87,79 +95,7 @@ call_order_detail_webservice(itemList.get(position).OrderId);
 
     }
 
-    private void call_order_detail_webservice(String orderId) {
 
-        Ion.with(context)
-                .load(context.getResources().getString(R.string.webservice_base_url) + "/buyer_order_details")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", userId)
-                .setBodyParameter("ORDER_ID", orderId)
-
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
-
-
-                        } else {
-
-
-                            if (result.get("error").getAsString().contains("false")) {
-
-
-                                AndroidUtils.showErrorLog(context,"orderDetailData",result.toString());
-
-
-                                Intent i =new Intent(context, OrderDetailsActivity.class);
-
-
-                                context.startActivity(i);
-
-
-//                                JsonObject jsonObject = result.getAsJsonObject();
-//
-//
-//                                JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
-//
-//                                JsonArray list = jsonObject1.getAsJsonArray("list");
-//
-//
-//
-//                                for (int i = 0; i < list.size(); i++) {
-//                                    JsonObject jsonObject2 = (JsonObject) list.get(i);
-//                                    String product_name = jsonObject2.get("product_name").getAsString();
-//
-//                                    String orderid = jsonObject2.get("ORDER_ID").getAsString();
-//
-//                                    String product_price = jsonObject2.get("product_price").getAsString();
-//
-//                                    String product_qty = jsonObject2.get("product_qty").getAsString();
-//                                    String image_url = jsonObject2.get("image_url").getAsString();
-//
-////
-//                                    Log.e("image_url_orderList", image_url);
-//
-//                                    String created_at = jsonObject2.get("created_at").getAsString();
-//
-//
-//                                    //orderListDatas.add(new OrderListData(orderid,product_name, product_price, product_qty, created_at, image_url));
-//
-//
-//                                }
-
-
-//                                orderListAdapter = new OrderListAdapter(getActivity(), orderListDatas);
-//                                order_list.setAdapter(orderListAdapter);
-//                                orderListAdapter.notifyDataSetChanged();
-//                                progress_handler.hide();
-                            }
-                        }
-                    }
-
-                });
-    }
 
     private void showMessage(String s) {
 

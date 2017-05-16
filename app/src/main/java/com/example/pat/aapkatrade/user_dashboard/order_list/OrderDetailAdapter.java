@@ -30,15 +30,15 @@ import java.util.List;
 public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private List<OrderListData> itemList;
+
     private Context context;
-    OrderListHolder viewHolder;
+    OrderDetailHolder viewHolder;
     AppSharedPreference appSharedPreference;
     String userId;
-    private List<OrderListData> orderListDatas;
+    private List<OrderDetailData> orderListDatas;
 
-    public OrderDetailAdapter(Context context, List<OrderListData> itemList) {
-        this.itemList = itemList;
+    public OrderDetailAdapter(Context context, List<OrderDetailData> itemList) {
+        this.orderListDatas = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
         appSharedPreference = new AppSharedPreference(context);
@@ -50,7 +50,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_order_detail, parent, false);
-        viewHolder = new OrderListHolder(view);
+        viewHolder = new OrderDetailHolder(view);
 
         return viewHolder;
     }
@@ -58,105 +58,22 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        OrderListHolder homeHolder = (OrderListHolder) holder;
+        OrderDetailHolder homeHolder = (OrderDetailHolder) holder;
+        homeHolder.tvDateTime.setText(orderListDatas.get(position).DateTime);
+        homeHolder.tvPrize.setText(orderListDatas.get(position).Prize);
 
+        homeHolder.tvDiscount.setText(orderListDatas.get(position).discount);
+        homeHolder.tvProductQty.setText(orderListDatas.get(position).ProductQty);
+        homeHolder.tvProductName.setText(orderListDatas.get(position).ProductName);
 
-        homeHolder.productName.setText(itemList.get(position).productName);
-
-        homeHolder.tvOrderDate.setText(itemList.get(position).order_date);
-        homeHolder.tvOrderPrize.setText(itemList.get(position).product_price);
-        Log.e("itemList_image",itemList.get(position).product_image);
-        Picasso.with(context).load(itemList.get(position).product_image)
+        Picasso.with(context).load(orderListDatas.get(position).ProductImage)
 
                 .error(R.drawable.ic_profile_user)
-                .into(((OrderListHolder) holder).productImage);
-
-
-        homeHolder.img_order_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-call_order_detail_webservice(itemList.get(position).OrderId);
-            }
-        });
-
-
+                .into(((OrderDetailHolder) holder).imgProductImage);
 
 
     }
 
-    private void call_order_detail_webservice(String orderId) {
-
-        Ion.with(context)
-                .load(context.getResources().getString(R.string.webservice_base_url) + "/buyer_order_details")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", userId)
-                .setBodyParameter("ORDER_ID", orderId)
-
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
-
-
-                        } else {
-
-
-                            if (result.get("error").getAsString().contains("false")) {
-
-
-                                AndroidUtils.showErrorLog(context,"orderDetailData",result.toString());
-
-
-                                Intent i =new Intent(context, OrderDetailsActivity.class);
-
-
-                                context.startActivity(i);
-
-
-//                                JsonObject jsonObject = result.getAsJsonObject();
-//
-//
-//                                JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
-//
-//                                JsonArray list = jsonObject1.getAsJsonArray("list");
-//
-//
-//
-//                                for (int i = 0; i < list.size(); i++) {
-//                                    JsonObject jsonObject2 = (JsonObject) list.get(i);
-//                                    String product_name = jsonObject2.get("product_name").getAsString();
-//
-//                                    String orderid = jsonObject2.get("ORDER_ID").getAsString();
-//
-//                                    String product_price = jsonObject2.get("product_price").getAsString();
-//
-//                                    String product_qty = jsonObject2.get("product_qty").getAsString();
-//                                    String image_url = jsonObject2.get("image_url").getAsString();
-//
-////
-//                                    Log.e("image_url_orderList", image_url);
-//
-//                                    String created_at = jsonObject2.get("created_at").getAsString();
-//
-//
-//                                    //orderListDatas.add(new OrderListData(orderid,product_name, product_price, product_qty, created_at, image_url));
-//
-//
-//                                }
-
-
-//                                orderListAdapter = new OrderListAdapter(getActivity(), orderListDatas);
-//                                order_list.setAdapter(orderListAdapter);
-//                                orderListAdapter.notifyDataSetChanged();
-//                                progress_handler.hide();
-                            }
-                        }
-                    }
-
-                });
-    }
 
     private void showMessage(String s) {
 
@@ -166,7 +83,7 @@ call_order_detail_webservice(itemList.get(position).OrderId);
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return orderListDatas.size();
     }
 
     public String getCurrentTimeStamp() {
