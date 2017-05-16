@@ -133,6 +133,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
                                 call_to_startactivity.putExtra("class_name", context.getClass().getSimpleName());
 
+                                System.out.println("data is available");
+
                                 startActivity(call_to_startactivity);
                             } else {
 
