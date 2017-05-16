@@ -2,6 +2,9 @@ package com.example.pat.aapkatrade.payment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -27,6 +30,7 @@ public class PaymentCompletionActivity extends AppCompatActivity {
     private LinearLayout circleTile1Layout, circleTile2Layout;
     private ImageView tickImageView;
     private RelativeLayout rlDoneLayout;
+    private ImageView circleImageView1, circleImageView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +47,15 @@ public class PaymentCompletionActivity extends AppCompatActivity {
         tvStatusMsg = (TextView) findViewById(R.id.tvStatusMsg);
         circleTile1Layout = (LinearLayout) findViewById(R.id.circleTile1Layout);
         circleTile2Layout = (LinearLayout) findViewById(R.id.circleTile2Layout);
+        circleImageView1 = (ImageView) circleTile1Layout.findViewById(R.id.circleImageView);
+        circleImageView2 = (ImageView) circleTile2Layout.findViewById(R.id.circleImageView);
 
-        ((CircleImageView) circleTile1Layout.findViewById(R.id.circleImageView)).setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_amount_paid2));
-        AndroidUtils.setBackgroundSolid(((CircleImageView) circleTile1Layout.findViewById(R.id.circleImageView)), context, R.color.white, 0, GradientDrawable.RING);
-        AndroidUtils.setImageColor(((CircleImageView) circleTile1Layout.findViewById(R.id.circleImageView)), context, R.color.white);
+        circleImageView1.setImageResource(R.drawable.ic_transaction);
         ((TextView) circleTile1Layout.findViewById(R.id.tvHeader)).setText("Transaction ID");
         ((TextView) circleTile1Layout.findViewById(R.id.tvSubHeader)).setText("APKTRADE23548464");
 
-        ((CircleImageView) circleTile2Layout.findViewById(R.id.circleImageView)).setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_amount_paid2));
-        ((TextView) circleTile2Layout.findViewById(R.id.tvHeader)).setText("Transaction ID");
+        circleImageView2.setImageResource(R.drawable.ic_amount_paid2);
+        ((TextView) circleTile2Layout.findViewById(R.id.tvHeader)).setText("Amount Paid");
         ((TextView) circleTile2Layout.findViewById(R.id.tvSubHeader)).setText("APKTRADE23548464");
 
         rlDoneLayout = (RelativeLayout) findViewById(R.id.rlDoneLayout);

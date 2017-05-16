@@ -247,16 +247,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
+
+                        System.out.println("result--------------"+result.toString());
+
                         if (result != null)
                         {
 
                             home_result = result;
-                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
-                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
-                            String cart_count = jsonResult.get("cart_count")==null?"0": jsonResult.get("cart_count").getAsString();
+                            String cart_count = jsonResult.get("cart_count") == null ? "0" : jsonResult.get("cart_count").getAsString();
 
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
                             //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
@@ -295,7 +296,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                 String product_name = jsonObject_latest_post.get("prodname").getAsString();
                                 String imageurl = jsonObject_latest_post.get("image_url").getAsString();
 
-                                System.out.println("imageurl--------------"+imageurl);
+                                System.out.println("imageurl--------------" + imageurl);
 
                                 String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
                                         jsonObject_latest_post.get("state_name").getAsString() + "," +
