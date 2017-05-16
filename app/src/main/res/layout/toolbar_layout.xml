@@ -1,15 +1,16 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/green"
-    android:elevation="4dp"
-
+    android:elevation="@dimen/five_dip"
     android:minHeight="?attr/actionBarSize"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    app:contentInsetStartWithNavigation="0dp">
+    app:contentInsetStartWithNavigation="0dp"
+    tools:ignore="UnusedAttribute">
 
 
     <RelativeLayout
@@ -24,7 +25,8 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/fifteen_dip"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
+            app:srcCompat="@drawable/ic_arrow_back_white_24dp"
+            tools:ignore="RtlHardcoded" />
 
         <ImageView
             android:id="@+id/iconHome"
@@ -35,7 +37,9 @@
             android:layout_toRightOf="@+id/back_imagview"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_navigation_home" />
+            android:src="@drawable/ic_navigation_home"
+            tools:ignore="RtlHardcoded"
+            android:contentDescription="@string/type_image" />
 
         <ImageView
             android:id="@+id/logoWord"
@@ -46,7 +50,9 @@
             android:layout_toRightOf="@+id/iconHome"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/logo_word" />
+            android:src="@drawable/logo_word"
+            tools:ignore="RtlHardcoded"
+            android:contentDescription="@string/type_image" />
 
         <TextView
             android:id="@+id/header_name"
@@ -57,7 +63,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textsize_medium"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/toolbarRightText"
@@ -67,7 +74,8 @@
             android:layout_marginRight="@dimen/twenty_dip"
             android:textColor="@color/orange"
             android:textSize="@dimen/textsize_medium"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
 
         <RelativeLayout
             android:id="@+id/cart_container"
@@ -79,7 +87,7 @@
             android:layout_marginLeft="@dimen/twenty_dip"
             android:padding="@dimen/five_dip"
             android:visibility="gone"
-            >
+            tools:ignore="RtlHardcoded">
 
             <RelativeLayout
                 android:layout_width="@dimen/twenty_dip"
@@ -87,28 +95,29 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="0.5dp"
-                android:padding="@dimen/two_dip"
-                android:background="@color/green_transparent">
+                android:background="@color/green_transparent"
+                android:padding="@dimen/two_dip">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="1dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
+                    android:layout_margin="1dp"
                     android:background="@drawable/circle_white_transparent">
 
                     <TextView
                         android:id="@+id/tvCart"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:gravity="center"
                         android:text="10"
                         android:textColor="@color/white"
                         android:textSize="@dimen/ten_dip"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -123,10 +132,11 @@
                     android:layout_width="@dimen/thirty_dip"
                     android:layout_height="@dimen/thirty_dip"
                     android:clickable="true"
-                    android:paddingRight="@dimen/five_dip"
+                    android:paddingEnd="@dimen/five_dip"
                     android:paddingTop="@dimen/five_dip"
-                    android:src="@drawable/ic_cart" />
-
+                    android:src="@drawable/ic_cart"
+                    tools:ignore="RtlCompat,RtlHardcoded,RtlSymmetry"
+                    android:contentDescription="@string/type_image" />
 
 
             </RelativeLayout>

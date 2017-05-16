@@ -258,7 +258,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             String cart_count = jsonResult.get("cart_count") == null ? "0" : jsonResult.get("cart_count").getAsString();
 
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
-                            //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
                             HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
