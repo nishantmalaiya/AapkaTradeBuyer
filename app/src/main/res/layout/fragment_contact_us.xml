@@ -1,17 +1,15 @@
-<ScrollView android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:isScrollContainer="false"
     android:background="#F1F5F8"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:isScrollContainer="false">
 
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.example.pat.aapkatrade.contact_us.ContactUsFragment">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
 
         <LinearLayout
@@ -22,17 +20,15 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                >
+                android:layout_marginBottom="@dimen/ten_dip"
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:layout_marginTop="@dimen/ten_dip">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    >
+                    android:padding="@dimen/ten_dip">
 
 
                     <LinearLayout
@@ -41,16 +37,15 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
 
-                        >
+                        tools:ignore="RtlHardcoded">
 
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="@dimen/seventy_dip"
+                            android:layout_height="@dimen/seventy_dip"
+                            android:contentDescription="@string/type_image"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_customer_care"
-                            />
-
+                            android:src="@drawable/ic_customer_care" />
 
 
                     </LinearLayout>
@@ -58,68 +53,68 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/five_dip"
                         android:layout_toRightOf="@+id/LinearlayoutImage"
-                        android:layout_marginLeft="5dp"
 
-                        >
+                        tools:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tvCustomerCareHeading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Customer Care"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_alignParentTop="true"
                             android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="@string/customer_care"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fifteen_dip"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
 
 
                         <ImageView
                             android:id="@+id/imgPhone"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_phone_orange"
+                            android:layout_width="@dimen/twenty_dip"
+                            android:layout_height="@dimen/twenty_dip"
                             android:layout_below="@+id/tvCustomerCareHeading"
-                            android:layout_marginTop="4dp"
-                            />
+                            android:layout_marginTop="@dimen/five_dip"
+                            android:contentDescription="@string/type_image"
+                            android:src="@drawable/ic_phone_orange" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="9812345678"
                             android:layout_below="@+id/tvCustomerCareHeading"
+                            android:layout_marginLeft="@dimen/five_dip"
+                            android:layout_marginTop="@dimen/two_dip"
                             android:layout_toRightOf="@+id/imgPhone"
+                            android:text="@string/customer_care_no"
                             android:textColor="@color/black"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="2dp"
-                            />
+                            tools:ignore="RtlHardcoded" />
 
 
                         <ImageView
                             android:id="@+id/imgEmail"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_email"
+                            android:layout_width="@dimen/twenty_dip"
+                            android:layout_height="@dimen/twenty_dip"
                             android:layout_below="@+id/imgPhone"
-                            android:layout_marginTop="4dp"
-                            />
+                            android:layout_marginTop="@dimen/five_dip"
+                            android:contentDescription="@string/type_image"
+                            android:src="@drawable/ic_email" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="info@aapkatrade.com"
                             android:layout_below="@+id/imgPhone"
+                            android:layout_marginLeft="@dimen/five_dip"
+                            android:layout_marginTop="@dimen/two_dip"
                             android:layout_toRightOf="@+id/imgEmail"
+                            android:text="@string/web_info_live_url"
                             android:textColor="@color/black"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="2dp"
-                            />
+                            tools:ignore="RtlHardcoded" />
 
 
                     </RelativeLayout>
-
 
 
                 </RelativeLayout>
@@ -139,16 +134,14 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                >
+                android:layout_marginBottom="@dimen/ten_dip"
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    >
+                    android:padding="@dimen/ten_dip">
 
 
                     <LinearLayout
@@ -157,13 +150,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
 
-                        >
+                        tools:ignore="RtlHardcoded">
 
 
                         <ImageView
                             android:id="@+id/imageView"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="@dimen/seventy_dip"
+                            android:layout_height="@dimen/seventy_dip"
+                            android:contentDescription="@string/type_image"
                             android:scaleType="fitXY"
                             android:src="@drawable/ic_follow_us" />
 
@@ -173,63 +167,64 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/five_dip"
                         android:layout_toRightOf="@+id/LinearlayoutFollow"
-                        android:layout_marginLeft="5dp"
-                        >
+                        tools:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tvFollowHeading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Follow us"
+                            android:text="@string/follow_us"
                             android:textColor="@color/black"
+                            android:textSize="@dimen/fifteen_dip"
                             android:textStyle="bold"
-                            android:textSize="16sp"
-                            />
+                            tools:ignore="SpUsage" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvFollowHeading"
-                            android:orientation="horizontal"
-                            >
+                            android:orientation="horizontal">
 
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginTop="6dp"
+                                android:layout_width="@dimen/thirty_dip"
+                                android:layout_height="@dimen/thirty_dip"
+                                android:layout_marginTop="@dimen/five_dip"
+                                android:contentDescription="@string/type_image"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/facebook_icon" />
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_margin="6dp"
+                                android:layout_width="@dimen/thirty_dip"
+                                android:layout_height="@dimen/thirty_dip"
+                                android:layout_margin="@dimen/five_dip"
+                                android:contentDescription="@string/type_image"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/twittericon" />
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_margin="6dp"
+                                android:layout_width="@dimen/thirty_dip"
+                                android:layout_height="@dimen/thirty_dip"
+                                android:layout_margin="@dimen/five_dip"
+                                android:contentDescription="@string/type_image"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/icon_whatapp" />
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_margin="6dp"
+                                android:layout_width="@dimen/thirty_dip"
+                                android:layout_height="@dimen/thirty_dip"
+                                android:layout_margin="@dimen/five_dip"
+                                android:contentDescription="@string/type_image"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/gplus" />
-
 
 
                         </LinearLayout>
 
 
                     </RelativeLayout>
-
 
 
                 </RelativeLayout>
@@ -249,16 +244,14 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                >
+                android:layout_marginBottom="@dimen/ten_dip"
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    >
+                    android:padding="@dimen/ten_dip">
 
 
                     <LinearLayout
@@ -267,16 +260,15 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
 
-                        >
+                        tools:ignore="RtlHardcoded">
 
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="@dimen/seventy_dip"
+                            android:layout_height="@dimen/seventy_dip"
+                            android:contentDescription="@string/type_image"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_visit_us"
-                            />
-
+                            android:src="@drawable/ic_visit_us" />
 
 
                     </LinearLayout>
@@ -284,34 +276,32 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/fifteen_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_toRightOf="@+id/LinearlayoutVisit"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        >
+                        tools:ignore="RtlHardcoded">
 
 
                         <TextView
                             android:id="@+id/tvVisitHeading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Visit us"
+                            android:text="@string/visit_us"
                             android:textColor="@color/black"
+                            android:textSize="@dimen/fifteen_dip"
                             android:textStyle="bold"
-                            android:textSize="16sp"
-                            />
+                            tools:ignore="SpUsage" />
 
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="www.aapkatrade.com"
                             android:layout_below="@+id/tvVisitHeading"
-                            android:textColor="@color/black"
-                            />
+                            android:text="@string/web_live_url"
+                            android:textColor="@color/black" />
 
 
                     </RelativeLayout>
-
 
 
                 </RelativeLayout>
@@ -323,16 +313,12 @@
         </LinearLayout>
 
 
-
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            >
-
+            android:layout_marginBottom="@dimen/twenty_dip"
+            android:layout_marginLeft="@dimen/ten_dip"
+            android:layout_marginRight="@dimen/ten_dip">
 
 
             <RelativeLayout
@@ -340,36 +326,33 @@
                 android:layout_height="wrap_content">
 
 
-
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_layout_etSubject"
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/input_layout_busi_type"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:textColorHint="@color/hint_color"
-                    >
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/twenty_dip"
+                    android:textColorHint="@color/hint_color">
 
                     <EditText
                         android:id="@+id/etSubject"
+                        style="@style/myedittext"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fifty_dip"
-                        android:hint="Subject"
-                        android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:paddingLeft="8dp"
                         android:layout_below="@+id/relativeQuestion"
+                        android:hint="@string/subject"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/ten_dip"
                         android:textColorHint="@color/green"
                         android:textSize="@dimen/textsize"
                         android:theme="@style/myedittext"
-                        style="@style/myedittext"
-                        />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
                 </android.support.design.widget.TextInputLayout>
-
 
 
                 <android.support.design.widget.TextInputLayout
@@ -377,26 +360,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_layout_etSubject"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="@color/hint_color"
-                    >
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
+                    android:textColorHint="@color/hint_color">
 
                     <EditText
                         android:id="@+id/etUserName"
+                        style="@style/myedittext"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fifty_dip"
-                        android:hint="User Name"
-                        android:maxLines="1"
-                        android:paddingLeft="8dp"
-                        android:imeOptions="actionNext"
                         android:layout_below="@+id/input_layout_etSubject"
+                        android:hint="@string/user_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/ten_dip"
                         android:textColorHint="@color/green"
                         android:textSize="@dimen/textsize"
                         android:theme="@style/myedittext"
-                        style="@style/myedittext"
-                        />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -407,28 +390,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_layout_UserName"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="@color/hint_color"
-                    >
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
+                    android:textColorHint="@color/hint_color">
 
                     <EditText
                         android:id="@+id/etMobileNo"
+                        style="@style/myedittext"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fifty_dip"
-                        android:hint="Mobile Number"
-                        android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:paddingLeft="8dp"
                         android:layout_below="@+id/etUserName"
+                        android:hint="@string/mobile_no"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/ten_dip"
                         android:textColorHint="@color/green"
                         android:textSize="@dimen/textsize"
                         android:theme="@style/myedittext"
-                        style="@style/myedittext"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -439,28 +421,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_layout_MobileNo"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="@color/hint_color"
-                    >
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
+                    android:textColorHint="@color/hint_color">
 
 
                     <EditText
                         android:id="@+id/etEmail"
+                        style="@style/myedittext"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fifty_dip"
-                        android:hint="Email"
-                        android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:paddingLeft="8dp"
                         android:layout_below="@+id/etMobileNo"
+                        android:hint="@string/email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/ten_dip"
                         android:textColorHint="@color/green"
                         android:textSize="@dimen/textsize"
-                        android:inputType="textEmailAddress"
                         android:theme="@style/myedittext"
-                        style="@style/myedittext"
-                        />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -471,50 +452,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_layout_Email"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="@color/hint_color"
-                    >
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
+                    android:textColorHint="@color/hint_color">
 
                     <EditText
                         android:id="@+id/etQuery"
+                        style="@style/myedittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Query"
+                        android:hint="@string/query"
                         android:imeOptions="actionDone"
-                        android:paddingLeft="8dp"
+                        android:inputType="text"
+                        android:paddingLeft="@dimen/ten_dip"
                         android:textColorHint="@color/green"
                         android:textSize="@dimen/textsize"
                         android:theme="@style/myedittext"
-                        style="@style/myedittext"
-                        />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
                     android:id="@+id/buttonSave"
-                    android:gravity="center_horizontal|center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/fifty_dip"
-                    android:layout_centerHorizontal="true"
-                    android:text="Submit"
-                    android:background="@drawable/orange_back"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/input_layout_query"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/twenty_dip"
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/twenty_dip"
+                    android:background="@drawable/orange_back"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/submit"
+                    android:textColor="@color/white" />
 
 
             </RelativeLayout>
 
 
         </android.support.v7.widget.CardView>
-
 
 
     </LinearLayout>

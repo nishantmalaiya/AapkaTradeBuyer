@@ -200,6 +200,20 @@
     <string name="buyer">Buyer</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="trackorder_title">TRACK </string>
+    <string name="subject">Subject</string>
+    <string name="user_name">User Name</string>
+    <string name="query">Query</string>
+    <string name="visit_us">Visit Us</string>
+    <string name="web_live_url">www.aapkatrade.com</string>
+    <string name="web_info_live_url">info@aapkatrade.com</string>
+    <string name="follow_us">Follow us</string>
+    <string name="customer_care_no">9812345678</string>
+    <string name="customer_care">Customer Care\\</string>
+    <string name="title_activity_payment_completion">PaymentCompletionActivity</string>
+    <string name="payment_success">Payment Successful</string>
+    <string name="message">Message</string>
+    <string name="receipt">Receipt</string>
+    <string name="done">Done</string>
 
 
 </resources>

@@ -22,6 +22,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
 
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -139,7 +140,7 @@ public class MyCartActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
-                if (app_sharedpreference.getSharedPref("userid", "notlogin").equals("notlogin"))
+                if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin"))
                 {
                     Intent i = new Intent(MyCartActivity.this, LoginActivity.class);
                     startActivity(i);
