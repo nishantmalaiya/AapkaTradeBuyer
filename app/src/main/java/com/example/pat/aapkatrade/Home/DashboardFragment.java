@@ -204,7 +204,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                 LocationManagerCheck locationManagerCheck = new LocationManagerCheck(
                         getActivity());
-                Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
 
                     currentLatitude = appSharedPreference.getSharedPref("CurrentLatitude");
