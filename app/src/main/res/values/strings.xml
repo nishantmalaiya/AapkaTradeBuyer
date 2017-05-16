@@ -220,7 +220,7 @@
     <string name="message">Message</string>
     <string name="receipt">Receipt</string>
     <string name="done">Done</string>
-
+    <string name="cancel_order">Cancel Order</string>
 
 
 </resources>
