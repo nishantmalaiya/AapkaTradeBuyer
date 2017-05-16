@@ -17,27 +17,30 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class OrderListHolder extends RecyclerView.ViewHolder {
 
     View view;
-    TextView  tvOrderDate, tvOrderPrize,productName;
+    TextView tvOrderDate, tvOrderPrize, productName;
     Button btn_trackorder;
 
     CircleImageView productImage;
     ImageView img_order_detail;
-    Button orderTrack;
+    Button orderTrack, btn_cancel_order;
 
     public OrderListHolder(View itemView) {
         super(itemView);
 
-        productName=(TextView)itemView.findViewById(R.id.productName);
 
-        img_order_detail=(ImageView)itemView.findViewById(R.id.img_order_detail);
+        productName = (TextView) itemView.findViewById(R.id.productName);
 
-        orderTrack=(Button) itemView.findViewById(R.id.track_order);
+        img_order_detail = (ImageView) itemView.findViewById(R.id.img_order_detail);
+        btn_cancel_order = (Button) itemView.findViewById(R.id.btn_cancel_order);
+
+        orderTrack = (Button) itemView.findViewById(R.id.track_order);
         tvOrderDate = (TextView) itemView.findViewById(R.id.tvOrderDate);
         tvOrderPrize = (TextView) itemView.findViewById(R.id.tvOrderPrize);
 
-        btn_trackorder = (Button) itemView.findViewById(R.id.btn_trackorder);
 
-        productImage=(CircleImageView)itemView.findViewById(R.id.circleImage);
+        productImage = (CircleImageView) itemView.findViewById(R.id.circleImage);
         view = itemView;
+
+
     }
 }

@@ -161,6 +161,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_weight="1"
+                    android:id="@+id/btn_cancel_order"
 android:text="@string/cancel"
                     android:textColor="@color/white"
                     android:layout_margin="@dimen/two_dip"
