@@ -109,7 +109,8 @@ public class HomeActivity extends AppCompatActivity
 
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status) {
+        if (permission_status)
+        {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -123,7 +124,9 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             AppConfig.deleteCache(HomeActivity.this);
 
-        } else {
+        }
+        else
+        {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -156,10 +159,10 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
-
 
         final MenuItem alertMenuItem = menu.findItem(R.id.cart_total_item);
 
@@ -618,11 +621,10 @@ public class HomeActivity extends AppCompatActivity
         {
             System.out.println("activity again started-----------");
             home_activity = 2;
-
         }
-        else {
+        else
+        {
             tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-
         }
     }
 
