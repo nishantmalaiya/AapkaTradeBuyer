@@ -256,7 +256,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
     private void callwebservice__delete_cart(String product_id, final int position)
     {
-
         progressBarHandler.show();
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_remove";
@@ -265,12 +264,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
         System.out.println("devece_id------------"+android_id);
 
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("device_id", android_id)
+                .setBodyParameter("user_id",user_id)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -278,16 +284,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result.toString().equals("null")){
-
-                            Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
-                        }
-                        else
+                        if (result!=null)
                         {
+
                             System.out.println("result--------------"+ result);
                             JsonObject jsonObject = result.getAsJsonObject("result");
                             String total_amount = jsonObject.get("total_amount").getAsString();
                             String cart_count = jsonObject.get("total_qty").getAsString();
+
                             if (cart_count.equals("0"))
                             {
 
@@ -303,9 +307,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                             }
 
-                          
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
- 
+
                             HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                             MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
@@ -320,6 +323,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                             progressBarHandler.hide();
 
                         }
+                        else
+                        {
+                            Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });
@@ -333,12 +340,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_update";
 
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("quantity", quantity)
+                .setBodyParameter("user_id",user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
 
                 .asJsonObject()
@@ -355,7 +369,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
  
-                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                        HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
 
                         MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");

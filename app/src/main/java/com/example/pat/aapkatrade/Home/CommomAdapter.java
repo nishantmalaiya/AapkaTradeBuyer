@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 
+import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.CommonHolder_listProduct;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
@@ -26,6 +27,7 @@ import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.ShopDetailActivity;
 import com.example.pat.aapkatrade.shopdetail.productdetail.ProductDetailActivity;
+import com.example.pat.aapkatrade.shopdetail.shop_all_product.ShopAllProductActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -401,16 +403,23 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
 
-    private void callwebservice__add_tocart(String product_id, String device_id, String product_name, String price, String qty) {
+       private void callwebservice__add_tocart(String product_id, String device_id, String product_name, String price, String qty) {
         progressBarHandler.show();
         System.out.println("price-----------------------" + price);
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
 
-        Ion.with(context)
+           String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+           if (user_id.equals("notlogin"))
+           {
+               user_id="";
+           }
+
+           Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("product_id", product_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .setBodyParameter("name", product_name)
@@ -419,16 +428,11 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
 
-
-                        if (result.toString().equals("null")) {
-
-                            System.out.println("result------------------------" + result);
-
-
-                            Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
-                        } else {
+                        if (result!=null)
+                        {
                             System.out.println("result--------------" + result);
                             String message = result.get("message").getAsString();
                             JsonObject jsonObject = result.getAsJsonObject("result");
@@ -437,17 +441,31 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 progressBarHandler.hide();
                                 Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
 
-                            } else {
+                            }
+                            else if (message.equals("Product Quantity exceeded")){
+
+                                progressBarHandler.hide();
+                                Toast.makeText(context, "Product is not Available in Stock", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else
+                            {
 
                                 Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
                                 String cart_count = jsonObject.get("total_qty").getAsString();
+
                                 appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
-                                //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
+
+                                //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
                                 ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
                                 progressBarHandler.hide();
-
                             }
 
+                        }
+                        else
+                        {
+                            System.out.println("result------------------------" + result);
+                            Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
                         }
 
                     }

@@ -55,7 +55,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
     private ViewGroup view;
     private LinearLayoutManager linearLayoutManager;
     private int page = 1;
-    private TextView tvCartCount;
+    public static TextView tvCartCount;
     private int categoryListActivity = 1;
 
 

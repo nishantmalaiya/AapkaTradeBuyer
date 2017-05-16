@@ -49,7 +49,8 @@ import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class ProductDetailActivity extends AppCompatActivity
+{
     private Context context;
     private ProgressBarHandler progressBarHandler;
     private ViewPager viewPager;

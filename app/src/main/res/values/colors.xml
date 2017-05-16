@@ -7,6 +7,7 @@
     <color name="color_voilet">#FF6600</color>
     <color name="green">#63BEAC</color>
     <color name="green_transparent">#0063BEAC</color>
+    <color name="green_transparent2">#E6069f81</color>
     <color name="teal">#008080</color>
     <color name="purple">#800080</color>
     <color name="purple_2">#8E5CD5</color>
@@ -68,6 +69,7 @@
     <color name="color_progress_default">#e8e7e7</color>
     <color name="shop_product_item">#7E7E7E</color>
     <color name="grey_more_light2">#F1F5F8</color>
+    <color name="golden_text">#F0C10F</color>
 
 
 </resources>

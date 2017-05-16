@@ -22,6 +22,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
 
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -46,7 +47,8 @@ public class MyCartActivity extends AppCompatActivity
     private ProgressBarHandler progressBarHandler;
     public static CardView cardviewProductDeatails,cardBottom;
     AppSharedPreference app_sharedpreference;
-
+    private int page = 1;
+    LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,6 +68,22 @@ public class MyCartActivity extends AppCompatActivity
         initView();
 
         setup_layout();
+
+        mycartRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int lastVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition();
+                if (totalItemCount > 0) {
+                    if ((totalItemCount - 1) == lastVisibleItemCount) {
+                        page = page + 1;
+                        cartList(String.valueOf(page));
+                    }
+                }
+            }
+        });
 
 
     }
@@ -109,6 +127,8 @@ public class MyCartActivity extends AppCompatActivity
 
     private void initView()
     {
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
         cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
 
         cardBottom = (CardView) findViewById(R.id.cardBottom);
@@ -139,7 +159,7 @@ public class MyCartActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
-                if (app_sharedpreference.getSharedPref("userid", "notlogin").equals("notlogin"))
+                if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin"))
                 {
                     Intent i = new Intent(MyCartActivity.this, LoginActivity.class);
                     startActivity(i);
@@ -151,8 +171,6 @@ public class MyCartActivity extends AppCompatActivity
                     Intent i = new Intent(MyCartActivity.this, AddAddressActivity.class);
                     startActivity(i);
                     //overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-
-
                 }
 
 
@@ -172,11 +190,9 @@ public class MyCartActivity extends AppCompatActivity
 
     private void setup_layout()
     {
-
         mycartRecyclerView = (RecyclerView) findViewById(R.id.order_list);
 
-        getAllShopProducts("");
-
+        cartList("0");
 
     }
 
@@ -198,17 +214,25 @@ public class MyCartActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void getAllShopProducts(String pageNumber)
+    private void cartList(String pageNumber)
     {
 
-        System.out.println("deveice -id----------"+ AppConfig.getCurrentDeviceId(context));
-
         progressBarHandler.show();
+
+        String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
+        System.out.println("deveice -id----------"+ user_id+"ghsdfs"+AppConfig.getCurrentDeviceId(context));
 
         Ion.with(MyCartActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("user_id",user_id)
+                .setBodyParameter("page",pageNumber)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -261,6 +285,8 @@ public class MyCartActivity extends AppCompatActivity
                         {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                         }
+
+
 
                     }
                 });

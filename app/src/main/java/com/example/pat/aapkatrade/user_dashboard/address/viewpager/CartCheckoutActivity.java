@@ -54,6 +54,8 @@ public class CartCheckoutActivity extends AppCompatActivity
     TextView addressLine1,addressLine2,addressLine3;
     RelativeLayout relativeChangeAddress;
     String userid;
+    int page=1;
+    LinearLayoutManager linearLayoutManager;
 
 
     @Override
@@ -86,11 +88,31 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         setup_layout();
 
+        mycartRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int lastVisibleItemCount = linearLayoutManager.findLastVisibleItemPosition();
+                if (totalItemCount > 0) {
+                    if ((totalItemCount - 1) == lastVisibleItemCount) {
+                        page = page + 1;
+                        cartList(String.valueOf(page));
+                    }
+                }
+            }
+        });
+
+
     }
 
 
     private void initView()
     {
+
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
 
         linearAddressLayout = (LinearLayout) findViewById(R.id.linearAddressLayout);
 
@@ -147,7 +169,7 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         mycartRecyclerView = (RecyclerView) findViewById(R.id.order_list);
 
-        getAllShopProducts("");
+        cartList("0");
 
 
         relativePayment.setOnClickListener(new View.OnClickListener()
@@ -201,16 +223,25 @@ public class CartCheckoutActivity extends AppCompatActivity
     }
 
 
-    private void getAllShopProducts(String pageNumber)
+    private void cartList(String pageNumber)
     {
 
         progressBarHandler.show();
+
+        String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
 
         Ion.with(CartCheckoutActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
+                .setBodyParameter("user_id", user_id)
+                .setBodyParameter("page",pageNumber)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -279,7 +310,6 @@ public class CartCheckoutActivity extends AppCompatActivity
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("buyer_id", buyer_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
