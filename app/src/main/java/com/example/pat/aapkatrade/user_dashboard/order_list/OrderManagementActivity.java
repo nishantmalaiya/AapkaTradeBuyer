@@ -128,16 +128,16 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     public void onTabSelected(TabLayout.Tab tab) {
         Log.e("hi---", "IIIIIIIII" + tab.getPosition());
         if (tab.getPosition() == 0) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[0], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 1) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[1],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[1], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 2) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[2],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[2], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 3) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[3],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[3], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         }
     }
@@ -145,16 +145,16 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
         if (tab.getPosition() == 0) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.text_order_tab));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[0], R.color.text_order_tab));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 1) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[1],R.color.text_order_tab));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[1], R.color.text_order_tab));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 2) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[2],R.color.text_order_tab));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[2], R.color.text_order_tab));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 3) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[3],R.color.text_order_tab));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[3], R.color.text_order_tab));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         }
     }
@@ -162,27 +162,26 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
         if (tab.getPosition() == 0) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[0], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 1) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[1],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[1], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 2) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[2],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[2], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         } else if (tab.getPosition() == 3) {
-            tab.setIcon(AndroidUtils.setImageColor(context,tabIcons[3],R.color.orange));
+            tab.setIcon(AndroidUtils.setImageColor(context, tabIcons[3], R.color.orange));
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
         }
     }
 
 
-    private void setupTabIcons()
-    {
-        tabLayout.getTabAt(0).setIcon(AndroidUtils.setImageColor(context,tabIcons[0],R.color.orange));
-        tabLayout.getTabAt(1).setIcon(AndroidUtils.setImageColor(context,tabIcons[1],R.color.text_order_tab));
-        tabLayout.getTabAt(2).setIcon(AndroidUtils.setImageColor(context,tabIcons[2],R.color.text_order_tab));
-        tabLayout.getTabAt(3).setIcon(AndroidUtils.setImageColor(context,tabIcons[3],R.color.text_order_tab));
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(AndroidUtils.setImageColor(context, tabIcons[0], R.color.orange));
+        tabLayout.getTabAt(1).setIcon(AndroidUtils.setImageColor(context, tabIcons[1], R.color.text_order_tab));
+        tabLayout.getTabAt(2).setIcon(AndroidUtils.setImageColor(context, tabIcons[2], R.color.text_order_tab));
+        tabLayout.getTabAt(3).setIcon(AndroidUtils.setImageColor(context, tabIcons[3], R.color.text_order_tab));
     }
 
 

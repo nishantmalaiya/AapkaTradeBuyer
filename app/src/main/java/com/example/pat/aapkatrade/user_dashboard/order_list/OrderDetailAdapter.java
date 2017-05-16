@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.user_dashboard.order_list.order_details.OrderDetailsActivity;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -30,18 +27,18 @@ import java.util.List;
  * Created by PPC16 on 17-Jan-17.
  */
 
-public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private List<OrderListData> itemList;
+
     private Context context;
-    OrderListHolder viewHolder;
+    OrderDetailHolder viewHolder;
     AppSharedPreference appSharedPreference;
     String userId;
-    private List<OrderListData> orderListDatas;
+    private List<OrderDetailData> orderListDatas;
 
-    public OrderListAdapter(Context context, List<OrderListData> itemList) {
-        this.itemList = itemList;
+    public OrderDetailAdapter(Context context, List<OrderDetailData> itemList) {
+        this.orderListDatas = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
         appSharedPreference = new AppSharedPreference(context);
@@ -52,8 +49,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.row_order_list, parent, false);
-        viewHolder = new OrderListHolder(view);
+        View view = inflater.inflate(R.layout.row_order_detail, parent, false);
+        viewHolder = new OrderDetailHolder(view);
 
         return viewHolder;
     }
@@ -61,40 +58,21 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        OrderListHolder homeHolder = (OrderListHolder) holder;
+        OrderDetailHolder homeHolder = (OrderDetailHolder) holder;
+        homeHolder.tvDateTime.setText(orderListDatas.get(position).DateTime);
+        homeHolder.tvPrize.setText(orderListDatas.get(position).Prize);
 
+        homeHolder.tvDiscount.setText(orderListDatas.get(position).discount);
+        homeHolder.tvProductQty.setText(orderListDatas.get(position).ProductQty);
+        homeHolder.tvProductName.setText(orderListDatas.get(position).ProductName);
 
-        homeHolder.productName.setText(itemList.get(position).product_name);
-
-        homeHolder.tvOrderDate.setText(itemList.get(position).order_date);
-        homeHolder.tvOrderPrize.setText(itemList.get(position).product_price);
-
-        Picasso.with(context).load(itemList.get(position).image_url)
+        Picasso.with(context).load(orderListDatas.get(position).ProductImage)
 
                 .error(R.drawable.ic_profile_user)
-                .into(((OrderListHolder) holder).productImage);
-
-
-        homeHolder.img_order_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i =new Intent(context, OrderDetailsActivity.class);
-i.putExtra("OrderId",itemList.get(position).order_id);
-                i.putExtra("userId",userId);
-
-                context.startActivity(i);
-
-
-
-            }
-        });
-
-
+                .into(((OrderDetailHolder) holder).imgProductImage);
 
 
     }
-
 
 
     private void showMessage(String s) {
@@ -105,7 +83,7 @@ i.putExtra("OrderId",itemList.get(position).order_id);
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return orderListDatas.size();
     }
 
     public String getCurrentTimeStamp() {
