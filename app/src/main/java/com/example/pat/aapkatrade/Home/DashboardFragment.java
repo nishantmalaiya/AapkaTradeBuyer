@@ -250,8 +250,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                         if (result != null) {
 
                             home_result = result;
-                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
-                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
+//                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
+//                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
