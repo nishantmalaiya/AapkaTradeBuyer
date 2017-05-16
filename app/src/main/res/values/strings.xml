@@ -8,12 +8,14 @@
     <string name="aapka_data" translatable="false">AAPKA <font color='white'>TRADE</font></string>
     <string name="login" translatable="false">LOGIN</string>
     <string name="change_password_heading" translatable="false">Change Password</string>
+    <string name="email_or_mobile" translatable="false">Email/Mobile</string>
     <string name="write_and_review">Write And Review</string>
 
 
     <string name="forgotpassword" translatable="false">Forget Password?</string>
     <string name="new_user" translatable="false">New User?</string>
-
+    <string name="pleaseWait">wait!</string>
+    <string name="webpage_being_loaded">data being loaded</string>
 
     <string name="comp_doc" translatable="false">Company Document</string>
     <string name="drawer_open" translatable="false">draweropen</string>
@@ -51,7 +53,7 @@
     <string name="email" translatable="false">Email</string>
     <string name="emailId" translatable="false">Email ID*</string>
     <string name="or" translatable="false">OR</string>
-    <string name="mobile_no" translatable="false">Mobile No</string>
+    <string name="mobile_no" translatable="false">mobile no</string>
     <string name="send_otp" translatable="false">SEND OTP</string>
     <string name="otp_data_1" translatable="false">Make sure your information is</string>
     <string name="otp_data_2" translatable="false">correct before continuing</string>
@@ -194,11 +196,10 @@
     <string name="Rs">\u20B9</string>
     <string name="place_order">Place Order</string>
     <string name="b">Bharat</string>
+    <string name="readMore">......Read More</string>
     <string name="buyer">Buyer</string>
-    <string name="email_or_mobile">Email/Mobile</string>
-    <string name="pleaseWait">wait!</string>
-    <string name="webpage_being_loaded">data being loaded</string>
     <string name="privacy_policy">Privacy Policy</string>
+
     <string name="readMore">......Read More</string>
     <string name="trackorder_title">TRACK </string>
     <string name="name">Name</string>

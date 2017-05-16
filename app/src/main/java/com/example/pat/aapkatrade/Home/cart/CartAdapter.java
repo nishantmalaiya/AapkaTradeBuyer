@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.CustomQuantityDialog;
 import com.example.pat.aapkatrade.general.AppConfig;
@@ -50,7 +52,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     AppSharedPreference appSharedPreference;
     private ProgressBarHandler progressBarHandler;
     public static ArrayList<CartData>  place_order = new ArrayList<>();
-
+    public  static int popup_position =0;
 
 
     public CartAdapter(Context context, List<CartData> itemList)
@@ -105,14 +107,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                 .addSeparator()
                 .addMenuItem(new DroppyMenuItem("More"));
 
-        CustomQuantityDialog.commonInterface = new CommonInterface() {
+        CustomQuantityDialog.commonInterface = new CommonInterface()
+        {
             @Override
             public Object getData(Object object) {
 
-                textViewQuantity.setText(object.toString());
-
+                callwebservice__update_cart(itemList.get(popup_position).id,popup_position,object.toString());
                 return null;
             }
+
+
+
         };
 
 
@@ -130,7 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         itemList.get(position).setQuantity("1");
                         holder.textView64.setText(itemList.get(position).quantity);
                         cart_price = Double.valueOf(itemList.get(position).price) *1;
-                       /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
+                        /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
                         holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"1",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
                         callwebservice__update_cart(itemList.get(position).id,position,"1");
@@ -175,7 +180,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         break;
                     case 5:
-                        showPopup("Quantity", position);
+                        showPopup("Quantity",holder.tvProductSubtotalPrice,position,itemList.get(position).price, holder.textView64);
+                        popup_position = position;
                         break;
 
                 }
@@ -208,15 +214,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     public void onClick(View v)
     {
 
+
     }
 
-    public void showPopup(String description, final int pos)
+    public void showPopup(String description,TextView textView_subtotal, final int pos,String price,TextView textView_qty)
     {
 
-        CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context);
+        CustomQuantityDialog customQuantityDialog = new CustomQuantityDialog(context,textView_subtotal,pos,price,textView_qty);
         FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
         customQuantityDialog.show(fm, "Quantity");
-
 
 
 //        boolean wrapInScrollView = true;
@@ -290,13 +296,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                             }
                             else
-                             {
+                            {
 
-                                 MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
-                                 MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
+                                MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
+                                MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
 
                             }
+
+                          
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+ 
+                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                             MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                             MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
@@ -342,7 +352,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
                         String total_amount = jsonresult.get("total_amount").getAsString();
                         String cart_count = jsonresult.get("total_qty").getAsString();
-                        appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
+
+                        appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+ 
+                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+
 
                         MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                         MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
@@ -352,8 +366,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                         System.out.println("cart updated "+result.toString());
                         //notifyDataSetChanged();
                         progressBarHandler.hide();
-
-
                     }
                 });
     }
@@ -361,4 +373,3 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
 
 
 }
-

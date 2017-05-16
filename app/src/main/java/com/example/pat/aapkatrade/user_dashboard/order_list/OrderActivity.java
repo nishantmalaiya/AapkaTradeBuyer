@@ -139,6 +139,10 @@ public class OrderActivity extends AppCompatActivity {
                                 JsonObject jsonObject_result = result.getAsJsonObject("result");
 
 
+                            System.out.println("message_data==================" + result.get("message").getAsString());
+
+
+
                                 JsonArray orders = jsonObject_result.getAsJsonArray("orders");
 
 

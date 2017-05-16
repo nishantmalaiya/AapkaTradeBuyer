@@ -17,7 +17,7 @@ import com.example.pat.aapkatrade.R;
 public class CartHolder extends RecyclerView.ViewHolder
 {
 
-    View view;
+    public View view;
     public TextView tvProductName, tvProductUnit,tvProductPrice,textView64,tvProductSubtotalPrice;
     public ImageView productimage;
     public Button buttonAddtoCart;
@@ -32,7 +32,9 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         textView64 = (TextView) itemView.findViewById(R.id.textView64);
 
-       //        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
+        tvProductSubtotalPrice = (TextView)  itemView.findViewById(R.id.tvProductSubtotalPrice);
+
+//        spinner=(Spinner)itemView.findViewById(R.id.spinner_addto_card);
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
         productimage = (ImageView) itemView.findViewById(R.id.imgProduct);
@@ -41,10 +43,10 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
 
-        tvProductSubtotalPrice = (TextView) itemView.findViewById(R.id.tvProductSubtotalPrice);
         //  tvProductNumber = (TextView) itemView.findViewById(R.id.tvProductNumber);
 
         buttonAddtoCart = (Button) itemView.findViewById(R.id.buttonAddtoCart);
+
 
 
         view = itemView;
