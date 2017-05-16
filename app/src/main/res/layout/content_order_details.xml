@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
+
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:id="@+id/nestedScrollView"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Xitefun Casual"
-                        android:textColor="@color/orange" />
+                       />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -58,7 +60,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/tvQtyHeading"
                             android:text="5"
-                            android:textColor="@color/orange" />
+                          />
 
 
                     </RelativeLayout>
@@ -81,7 +83,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@+id/tvOrderIdHeading"
                         android:text="4156454"
-                        android:textColor="@color/orange" />
+                         />
 
                     <TextView
                         android:id="@+id/tvDateHeading"
@@ -102,7 +104,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@+id/tvDateHeading"
                         android:text="12/10/2017"
-                        android:textColor="@color/orange" />
+                        />
 
 
                     <TextView
@@ -123,7 +125,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@+id/tvStatusHeading"
                         android:text="Available"
-                        android:textColor="@color/orange" />
+                      />
 
 
                 </RelativeLayout>
@@ -265,7 +267,32 @@
 
 
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/ten_dip"
+
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+
+
+        android:layout_height="@dimen/fourty_dip">
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cancelorder"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/two_dip"
+            android:background="@color/greenshad_Order"
+            android:layout_height="match_parent">
+
+        </Button>
+    </RelativeLayout>
+
+</RelativeLayout>
 
 
 

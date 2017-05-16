@@ -59,12 +59,12 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         OrderDetailHolder homeHolder = (OrderDetailHolder) holder;
-        homeHolder.tvDateTime.setText(orderListDatas.get(position).DateTime);
+        homeHolder.tvDateTime.setText("Time:"+orderListDatas.get(position).DateTime);
         homeHolder.tvPrize.setText(orderListDatas.get(position).Prize);
 
-        homeHolder.tvDiscount.setText(orderListDatas.get(position).discount);
-        homeHolder.tvProductQty.setText(orderListDatas.get(position).ProductQty);
-        homeHolder.tvProductName.setText(orderListDatas.get(position).ProductName);
+        homeHolder.tvDiscount.setText(orderListDatas.get(position).discount+"OFF");
+        homeHolder.tvProductQty.setText("Qty:"+orderListDatas.get(position).ProductQty);
+        homeHolder.tvProductName.setText("Name:"+orderListDatas.get(position).ProductName);
 
         Picasso.with(context).load(orderListDatas.get(position).ProductImage)
 

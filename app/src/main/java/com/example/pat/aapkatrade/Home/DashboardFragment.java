@@ -33,7 +33,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
-import com.example.pat.aapkatrade.general.LocationManagerCheck;
+import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -202,7 +202,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onClick(View v) {
 
-                LocationManagerCheck locationManagerCheck = new LocationManagerCheck(
+                LocationManager_check locationManagerCheck = new LocationManager_check(
                         getActivity());
                 Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
@@ -251,8 +251,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                         if (result != null)
                         {
+
                             home_result = result;
- 
+
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
                             String cart_count = jsonResult.get("cart_count") == null ? "0" : jsonResult.get("cart_count").getAsString();

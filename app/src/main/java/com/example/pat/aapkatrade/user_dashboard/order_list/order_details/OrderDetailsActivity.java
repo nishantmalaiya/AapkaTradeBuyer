@@ -146,16 +146,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                 String created_at = jsonObject_order.get("created_at").getAsString();
 
 
-
                                 TvOrderDate.setText(created_at);
                                 OrderStatus.setText(status);
                                 tvOrderAddress.setText(OrderAddress);
                                 tvEmail.setText(email);
                                 tvPhoneNo.setText(phone);
                                 tvpincodetv.setText(pincode);
-
-
-
 
 
                                 JsonArray list = jsonObject1.getAsJsonArray("detail");
