@@ -200,6 +200,12 @@
     <string name="buyer">Buyer</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="trackorder_title">TRACK </string>
+
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="available">Available</string>
+    <string name="datetime"><![CDATA[Date & Time]]></string>
+
     <string name="subject">Subject</string>
     <string name="user_name">User Name</string>
     <string name="query">Query</string>
@@ -214,6 +220,7 @@
     <string name="message">Message</string>
     <string name="receipt">Receipt</string>
     <string name="done">Done</string>
+
 
 
 </resources>
