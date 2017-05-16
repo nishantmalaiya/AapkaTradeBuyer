@@ -97,6 +97,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "1")
+                .setBodyParameter("platform","android")
+                .setBodyParameter("device_id",AppConfig.getCurrentDeviceId(context))
                 .setBodyParameter("name", formBuyerData.getFirstName())
                 .setBodyParameter("lastname", formBuyerData.getLastName())
                 .setBodyParameter("country_id", formBuyerData.getCountryId())
@@ -130,6 +132,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 call_to_startactivity.putExtra("address", etAddress.getText().toString());
 
                                 call_to_startactivity.putExtra("class_name", context.getClass().getSimpleName());
+
+                                System.out.println("data is available");
 
                                 startActivity(call_to_startactivity);
                             } else {

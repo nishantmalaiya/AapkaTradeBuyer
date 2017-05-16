@@ -265,6 +265,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
         System.out.println("devece_id------------"+android_id);
 
         String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+
         if (user_id.equals("notlogin"))
         {
             user_id="";
@@ -284,48 +285,55 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result!=null)
+                        String error_message = result.get("error").getAsString();
+
+                        if (error_message.equals("false"))
                         {
 
-                            System.out.println("result--------------"+ result);
-                            JsonObject jsonObject = result.getAsJsonObject("result");
-                            String total_amount = jsonObject.get("total_amount").getAsString();
-                            String cart_count = jsonObject.get("total_qty").getAsString();
-
-                            if (cart_count.equals("0"))
+                            if (result != null)
                             {
+                                System.out.println("result--------------" + result);
+                                JsonObject jsonObject = result.getAsJsonObject("result");
+                                String total_amount = jsonObject.get("total_amount").getAsString();
+                                String cart_count = jsonObject.get("total_qty").getAsString();
 
-                                MyCartActivity.cardviewProductDeatails.setVisibility(View.INVISIBLE);
-                                MyCartActivity.cardBottom.setVisibility(View.INVISIBLE);
+                                if (cart_count.equals("0"))
+                                {
+                                    MyCartActivity.cardviewProductDeatails.setVisibility(View.INVISIBLE);
+                                    MyCartActivity.cardBottom.setVisibility(View.INVISIBLE);
+                                }
+                                else
+                                {
+                                    MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
+                                    MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
 
+                                }
+                                appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+
+                                HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+
+                                MyCartActivity.tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
+                                MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs) + total_amount);
+                                MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs) + total_amount);
+                                MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs) + total_amount);
+
+                                place_order.remove(position);
+                                itemList.remove(position);
+                                notifyDataSetChanged();
+                                progressBarHandler.hide();
                             }
                             else
                             {
-
-                                MyCartActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
-                                MyCartActivity.cardBottom.setVisibility(View.VISIBLE);
-
+                                Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
+                                progressBarHandler.hide();
                             }
-
-                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
-
-                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-
-                            MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
-                            MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                            MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                            MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
-
-                            place_order.remove(position);
-                            itemList.remove(position);
-                            notifyDataSetChanged();
-
-                            progressBarHandler.hide();
 
                         }
                         else
                         {
-                            Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
+                            progressBarHandler.hide();
+                            Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -362,24 +370,39 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        JsonObject jsonresult = result.getAsJsonObject("result");
 
-                        String total_amount = jsonresult.get("total_amount").getAsString();
-                        String cart_count = jsonresult.get("total_qty").getAsString();
-
-                        appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
- 
-                        HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                        String error_message = result.get("error").getAsString();
 
 
-                        MyCartActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
-                        MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                        MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                        MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                        if (error_message.equals("false"))
+                        {
 
-                        System.out.println("cart updated "+result.toString());
-                        //notifyDataSetChanged();
-                        progressBarHandler.hide();
+                            JsonObject jsonresult = result.getAsJsonObject("result");
+
+                            String total_amount = jsonresult.get("total_amount").getAsString();
+                            String cart_count = jsonresult.get("total_qty").getAsString();
+
+                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+
+                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+
+                            MyCartActivity.tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
+                            MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs) + total_amount);
+                            MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs) + total_amount);
+                            MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs) + total_amount);
+
+                            System.out.println("cart updated " + result.toString());
+                            //notifyDataSetChanged();
+                            progressBarHandler.hide();
+
+                        }
+                        else
+                        {
+
+                            progressBarHandler.hide();
+                            Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
                 });
     }
