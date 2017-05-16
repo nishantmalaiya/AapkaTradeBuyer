@@ -70,14 +70,16 @@ public class CancelOrderFragment extends Fragment {
     private void get_web_data() {
         orderListDatas.clear();
         progress_handler.show();
-        Log.e("hi1234", user_id + "##cancel##" + AndroidUtils.getUserType(user_type) + "@@@@" + user_type);
+
+        Log.e("hi1234", user_id + "##blank##" + AndroidUtils.getUserType(user_type) + "@@@@@@@" + user_type);
 
         Ion.with(getActivity())
-                .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
+                .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id", user_id)
+                .setBodyParameter("buyer_id", user_id)
                 .setBodyParameter("type", "1")
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -103,13 +105,15 @@ public class CancelOrderFragment extends Fragment {
                                     JsonObject jsonObject2 = (JsonObject) list.get(i);
                                     String product_name = jsonObject2.get("product_name").getAsString();
 
+                                    String orderid = jsonObject2.get("ORDER_ID").getAsString();
+
                                     String product_price = jsonObject2.get("product_price").getAsString();
 
                                     String product_qty = jsonObject2.get("product_qty").getAsString();
                                     String image_url = jsonObject2.get("image_url").getAsString();
 
-                                    String orderid = jsonObject2.get("ORDER_ID").getAsString();
-
+//
+                                    Log.e("image_url_orderList", image_url);
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
@@ -128,9 +132,7 @@ public class CancelOrderFragment extends Fragment {
                         }
                     }
 
-
                 });
     }
-
 
 }

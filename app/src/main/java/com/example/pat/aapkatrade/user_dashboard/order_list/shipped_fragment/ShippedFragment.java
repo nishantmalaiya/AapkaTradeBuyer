@@ -51,7 +51,7 @@ public class ShippedFragment extends Fragment
 
         setup_layout(view);
 
-        get_web_data();
+       // get_web_data();
 
         return view;
 

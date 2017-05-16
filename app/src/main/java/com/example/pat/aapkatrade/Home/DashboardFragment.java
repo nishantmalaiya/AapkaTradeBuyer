@@ -106,9 +106,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
+            appSharedPreference = new AppSharedPreference(getActivity());
             initializeview(view, container);
         }
-        appSharedPreference = new AppSharedPreference(getActivity());
+
 
         return view;
     }
@@ -236,123 +237,130 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         progress_handler.show();
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+
+        if (user_id.equals("notlogin")) {
+            user_id = "";
+        }
+
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("city_id", "")
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
-                            home_result = result;
-                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
-                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
-                            String cart_count = jsonResult.get("cart_count")==null?"0": jsonResult.get("cart_count").getAsString();
-
-                            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
-                            //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
-                            HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                            if (result.get("error").getAsString().contains("false"))
 
 
-                            JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
-                            imageIdList = new ArrayList<>();
+                            {
 
-                            for (int l = 0; l < jsonarray_top_banner.size(); l++) {
+                                String cart_count = jsonResult.get("cart_count") == null ? "0" : jsonResult.get("cart_count").getAsString();
 
-                                JsonObject jsonObject_top_banner = (JsonObject) jsonarray_top_banner.get(l);
-                                String banner_imageurl = jsonObject_top_banner.get("image_url").getAsString();
+                                appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                                //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
+                                HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
-                                imageIdList.add(banner_imageurl);
+
+                                JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
+                                imageIdList = new ArrayList<>();
+
+                                for (int l = 0; l < jsonarray_top_banner.size(); l++) {
+                                    JsonObject jsonObject_top_banner = (JsonObject) jsonarray_top_banner.get(l);
+                                    String banner_imageurl = jsonObject_top_banner.get("image_url").getAsString();
+
+                                    imageIdList.add(banner_imageurl);
+
+                                }
+
+                                setupviewpager(imageIdList);
+
+                                JsonArray latest_post = jsonResult.getAsJsonArray("latest_post");
+
+                                JsonArray latest_update = jsonResult.getAsJsonArray("latest_update");
+
+                                System.out.println("jsonArray---------" + latest_post.toString());
+
+                                for (int i = 0; i < latest_post.size(); i++) {
+
+                                    JsonObject jsonObject_latest_post = (JsonObject) latest_post.get(i);
+
+                                    System.out.println("jsonArray jsonObject2" + jsonObject_latest_post.toString());
+
+                                    String product_id = jsonObject_latest_post.get("id").getAsString();
+
+                                    String product_name = jsonObject_latest_post.get("prodname").getAsString();
+                                    String imageurl = jsonObject_latest_post.get("image_url").getAsString();
+
+                                    System.out.println("imageurl--------------" + imageurl);
+
+                                    String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
+                                            jsonObject_latest_post.get("state_name").getAsString() + "," +
+                                            jsonObject_latest_post.get("country_name").getAsString();
+                                    String categoryName = jsonObject_latest_post.get("category_name").getAsString();
+                                    commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl, productlocation, categoryName));
+
+                                }
+
+                                commomAdapter_latestpost = new CommomAdapter(context, commomDatas_latestpost, "list", "latestdeals");
+                                recyclerlatestpost.setAdapter(commomAdapter_latestpost);
+
+                                commomAdapter_latestpost.notifyDataSetChanged();
+
+                                for (int i = 0; i < latest_update.size(); i++) {
+
+                                    JsonObject jsonObject_latest_update = (JsonObject) latest_post.get(i);
+
+                                    System.out.println("jsonArray jsonObject2" + jsonObject_latest_update.toString());
+
+                                    String update_product_id = jsonObject_latest_update.get("id").getAsString();
+
+                                    String update_product_name = jsonObject_latest_update.get("prodname").getAsString();
+                                    String imageurl = jsonObject_latest_update.get("image_url").getAsString();
+
+
+                                    String productlocation = jsonObject_latest_update.get("city_name").getAsString() + "," +
+                                            jsonObject_latest_update.get("state_name").getAsString() + "," +
+                                            jsonObject_latest_update.get("country_name").getAsString();
+
+                                    String categoryName = jsonObject_latest_update.get("category_name").getAsString();
+                                    commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "", imageurl, productlocation, categoryName));
+
+                                }
+
+                                commomAdapter_latestproduct = new CommomAdapter(context, commomDatas_latestupdate, "gridtype", "latestupdate");
+                                recyclerlatestupdate.setAdapter(commomAdapter_latestproduct);
+                                commomAdapter_latestproduct.notifyDataSetChanged();
+                                if (scrollView.getVisibility() == View.INVISIBLE) {
+                                    scrollView.setVisibility(View.VISIBLE);
+                                }
+
+                                progress_handler.hide();
+                                coordinatorLayout.setVisibility(View.VISIBLE);
+
+                            } else {
+
+
+                                progress_handler.hide();
+                                coordinatorLayout.setVisibility(View.VISIBLE);
+                                connection_problem_message();
 
                             }
-
-
-                            setupviewpager(imageIdList);
-
-                            JsonArray latest_post = jsonResult.getAsJsonArray("latest_post");
-
-                            JsonArray latest_update = jsonResult.getAsJsonArray("latest_update");
-
-                            System.out.println("jsonArray---------" + latest_post.toString());
-
-                            for (int i = 0; i < latest_post.size(); i++) {
-
-                                JsonObject jsonObject_latest_post = (JsonObject) latest_post.get(i);
-
-                                System.out.println("jsonArray jsonObject2" + jsonObject_latest_post.toString());
-
-                                String product_id = jsonObject_latest_post.get("id").getAsString();
-
-                                String product_name = jsonObject_latest_post.get("prodname").getAsString();
-                                String imageurl = jsonObject_latest_post.get("image_url").getAsString();
-
-                                System.out.println("imageurl--------------"+imageurl);
-
-                                String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
-                                        jsonObject_latest_post.get("state_name").getAsString() + "," +
-                                        jsonObject_latest_post.get("country_name").getAsString();
-                                String categoryName = jsonObject_latest_post.get("category_name").getAsString();
-                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl, productlocation, categoryName));
-
-                            }
-
-                            commomAdapter_latestpost = new CommomAdapter(context, commomDatas_latestpost, "list", "latestdeals");
-                            recyclerlatestpost.setAdapter(commomAdapter_latestpost);
-
-                            commomAdapter_latestpost.notifyDataSetChanged();
-
-                            for (int i = 0; i < latest_update.size(); i++) {
-
-                                JsonObject jsonObject_latest_update = (JsonObject) latest_post.get(i);
-
-                                System.out.println("jsonArray jsonObject2" + jsonObject_latest_update.toString());
-
-                                String update_product_id = jsonObject_latest_update.get("id").getAsString();
-
-                                String update_product_name = jsonObject_latest_update.get("prodname").getAsString();
-                                String imageurl = jsonObject_latest_update.get("image_url").getAsString();
-
-
-                                String productlocation = jsonObject_latest_update.get("city_name").getAsString() + "," +
-                                        jsonObject_latest_update.get("state_name").getAsString() + "," +
-                                        jsonObject_latest_update.get("country_name").getAsString();
-
-
-                                String categoryName = jsonObject_latest_update.get("category_name").getAsString();
-                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "", imageurl, productlocation, categoryName));
-
-                            }
-
-                            commomAdapter_latestproduct = new CommomAdapter(context, commomDatas_latestupdate, "gridtype", "latestupdate");
-                            recyclerlatestupdate.setAdapter(commomAdapter_latestproduct);
-                            commomAdapter_latestproduct.notifyDataSetChanged();
-                            if (scrollView.getVisibility() == View.INVISIBLE) {
-                                scrollView.setVisibility(View.VISIBLE);
-                            }
-
-                            progress_handler.hide();
-                            coordinatorLayout.setVisibility(View.VISIBLE);
-
-                        } else {
-
-
-                            progress_handler.hide();
-                            coordinatorLayout.setVisibility(View.VISIBLE);
-                            connection_problem_message();
-
                         }
                     }
 
                 });
+
 
 //        Intent serviceIntent = new Intent(getActivity(), SendContactService.class);
 //        context.startService(serviceIntent);

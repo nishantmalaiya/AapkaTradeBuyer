@@ -200,12 +200,13 @@
     <string name="buyer">Buyer</string>
     <string name="privacy_policy">Privacy Policy</string>
 
-    <string name="readMore">......Read More</string>
+
     <string name="trackorder_title">TRACK </string>
     <string name="name">Name</string>
     <string name="status">Status</string>
     <string name="available">Available</string>
     <string name="datetime"><![CDATA[Date & Time]]></string>
+    <string name="cancelorder">Cancel Order</string>
 
 
 </resources>

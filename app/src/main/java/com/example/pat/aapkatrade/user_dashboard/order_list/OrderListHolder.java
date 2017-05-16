@@ -22,6 +22,7 @@ public class OrderListHolder extends RecyclerView.ViewHolder {
 
     CircleImageView productImage;
     ImageView img_order_detail;
+    Button orderTrack;
 
     public OrderListHolder(View itemView) {
         super(itemView);
@@ -30,7 +31,7 @@ public class OrderListHolder extends RecyclerView.ViewHolder {
 
         img_order_detail=(ImageView)itemView.findViewById(R.id.img_order_detail);
 
-
+        orderTrack=(Button) itemView.findViewById(R.id.track_order);
         tvOrderDate = (TextView) itemView.findViewById(R.id.tvOrderDate);
         tvOrderPrize = (TextView) itemView.findViewById(R.id.tvOrderPrize);
 
