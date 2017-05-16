@@ -107,7 +107,7 @@ public class OrderActivity extends AppCompatActivity {
         Log.e("hi////", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id) + "GGGGGGG" + appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"));
 
         Ion.with(context)
-                .load(getResources().getString(R.string.webservice_base_url) + "/seller_order_list")
+                .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_details")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
 
@@ -115,7 +115,6 @@ public class OrderActivity extends AppCompatActivity {
                 .setBodyParameter("buyer_id", appSharedPreference.getSharedPref("userid", user_id))
 
 
-               
                 .setBodyParameter("type", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"))
 
 
@@ -138,6 +137,7 @@ public class OrderActivity extends AppCompatActivity {
                             String error = result.get("error").getAsString();
                             if (error.contains("false")) {
                                 JsonObject jsonObject_result = result.getAsJsonObject("result");
+
 
                             System.out.println("message_data==================" + result.get("message").getAsString());
 
@@ -174,7 +174,7 @@ public class OrderActivity extends AppCompatActivity {
 
                                     String product_image = jsonObject2.get("image_url").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at, product_image));
+//                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at, product_image));
 
 
                                 }

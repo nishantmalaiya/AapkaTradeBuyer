@@ -1,0 +1,29 @@
+package com.example.pat.aapkatrade.user_dashboard.order_list;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.pat.aapkatrade.R;
+
+/**
+ * Created by PPC17 on 15-May-17.
+ */
+
+class OrderDetailHolder extends RecyclerView.ViewHolder {
+
+    ImageView imgProductImage;
+    TextView tvProductName, tvPrize, tvProductQty, tvDateTime,tvDiscount;
+
+    public OrderDetailHolder(View itemView) {
+        super(itemView);
+        imgProductImage = (ImageView) itemView.findViewById(R.id.imgProductImage);
+        tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
+        tvDiscount=(TextView)itemView.findViewById(R.id.tvProductDiscount);
+        tvPrize = (TextView) itemView.findViewById(R.id.tvOrderPrize);
+        tvProductQty = (TextView) itemView.findViewById(R.id.tvProductQty);
+        tvDateTime = (TextView) itemView.findViewById(R.id.tvDateTime);
+
+    }
+}
