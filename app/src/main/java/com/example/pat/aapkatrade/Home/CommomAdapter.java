@@ -51,7 +51,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ProgressBarHandler progressBarHandler;
 
 
-    public CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
+    public CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype)
+    {
         this.context = context;
         this.commomDatas = commomDatas;
         this.arrangementtype = arrangementtype;
@@ -65,8 +66,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         CommomHolder viewHolder1;
         CommonHolder_grid viewHolder2;
@@ -398,12 +399,14 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return commomDatas.size();
     }
 
+       private void callwebservice__add_tocart(String product_id, String device_id, String product_name, String price, String qty)
+       {
 
-       private void callwebservice__add_tocart(String product_id, String device_id, String product_name, String price, String qty) {
         progressBarHandler.show();
         System.out.println("price-----------------------" + price);
 
@@ -431,18 +434,21 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
+                        System.out.println("result-----------"+result);
+
                         if (result!=null)
                         {
                             System.out.println("result--------------" + result);
                             String message = result.get("message").getAsString();
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
-                            if (message.equals("This Item Already Exist.....")) {
+                            if (message.equals("This Item Already Exist....."))
+                            {
                                 progressBarHandler.hide();
                                 Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
-
                             }
-                            else if (message.equals("Product Quantity exceeded")){
+                            else if (message.equals("Product Quantity exceeded"))
+                            {
 
                                 progressBarHandler.hide();
                                 Toast.makeText(context, "Product is not Available in Stock", Toast.LENGTH_SHORT).show();
@@ -450,7 +456,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             }
                             else
                             {
-
                                 Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
                                 String cart_count = jsonObject.get("total_qty").getAsString();
 
@@ -464,7 +469,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         }
                         else
                         {
-                            System.out.println("result------------------------" + result);
+
+                            progressBarHandler.hide();
                             Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
                         }
 

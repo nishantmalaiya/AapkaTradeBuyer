@@ -179,7 +179,8 @@ public class ShopAllProductActivity extends AppCompatActivity {
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
                         progressBarHandler.hide();
                         if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());

@@ -236,6 +236,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void get_home_data()
     {
         progress_handler.show();
+
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
         String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
@@ -257,7 +258,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        System.out.println("result--------------"+result.toString());
 
                         if (result != null)
                         {
@@ -273,7 +273,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
                             HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
-
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
                             imageIdList = new ArrayList<>();
 
@@ -283,7 +282,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                 String banner_imageurl = jsonObject_top_banner.get("image_url").getAsString();
 
                                 imageIdList.add(banner_imageurl);
-
                             }
 
                             setupviewpager(imageIdList);
@@ -294,7 +292,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                             System.out.println("jsonArray---------" + latest_post.toString());
 
-                            for (int i = 0; i < latest_post.size(); i++) {
+                            for (int i = 0; i < latest_post.size(); i++)
+                            {
 
                                 JsonObject jsonObject_latest_post = (JsonObject) latest_post.get(i);
 

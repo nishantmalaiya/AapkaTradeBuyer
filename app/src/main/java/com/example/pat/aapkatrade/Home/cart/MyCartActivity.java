@@ -237,8 +237,10 @@ public class MyCartActivity extends AppCompatActivity
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        progressBarHandler.hide();
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+
                         if (result != null)
                         {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
@@ -279,10 +281,14 @@ public class MyCartActivity extends AppCompatActivity
                                 mycartRecyclerView.setAdapter(cartAdapter);
                                 cardviewProductDeatails.setVisibility(View.VISIBLE);
                                 cardBottom.setVisibility(View.VISIBLE);
+                                progressBarHandler.hide();
+
                             }
                         }
                         else
                         {
+                            progressBarHandler.hide();
+
                             AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                         }
 
