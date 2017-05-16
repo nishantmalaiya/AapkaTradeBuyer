@@ -103,7 +103,11 @@
         <activity android:name=".dialogs.track_order.orderdetail.Order_detail" />
         <activity android:name=".dialogs.track_order.singleproductdetail.SingleproductDetail" />
         <activity android:name=".termandcondition.TermsAndConditionActivity" />
-        <activity android:name=".privacypolicy.PrivacyPolicyActivity"></activity>
+        <activity android:name=".privacypolicy.PrivacyPolicyActivity" />
+        <activity
+            android:name=".payment.PaymentCompletionActivity"
+            android:label="@string/title_activity_payment_completion"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

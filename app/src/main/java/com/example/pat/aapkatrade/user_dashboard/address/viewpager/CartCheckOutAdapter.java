@@ -120,9 +120,11 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
         CustomQuantityDialog.commonInterface = new CommonInterface()
         {
             @Override
-            public Object getData(Object object) {
+            public Object getData(Object object)
+            {
 
                 callwebservice__update_cart(itemList.get(cart_popup_position).id,cart_popup_position,object.toString());
+
                 return null;
             }
 
@@ -250,12 +252,19 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
 
         System.out.println("devece_id------------"+android_id);
 
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("device_id", android_id)
+                .setBodyParameter("user_id",user_id)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -263,12 +272,9 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result.toString().equals("null")){
+                        if (result!=null){
 
-                            Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+
                             System.out.println("result--------------"+ result);
                             JsonObject jsonObject = result.getAsJsonObject("result");
                             String total_amount = jsonObject.get("total_amount").getAsString();
@@ -278,13 +284,13 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                             {
                                 CartCheckoutActivity.cardviewProductDeatails.setVisibility(View.INVISIBLE);
                                 CartCheckoutActivity.linearAddressLayout.setVisibility(View.INVISIBLE);
-                               // CartCheckoutActivity.cardBottom.setVisibility(View.INVISIBLE);
+                                // CartCheckoutActivity.cardBottom.setVisibility(View.INVISIBLE);
                             }
                             else
                             {
                                 CartCheckoutActivity.cardviewProductDeatails.setVisibility(View.VISIBLE);
                                 CartCheckoutActivity.linearAddressLayout.setVisibility(View.VISIBLE);
-                              //  CartCheckoutActivity.cardBottom.setVisibility(View.VISIBLE);
+                                //  CartCheckoutActivity.cardBottom.setVisibility(View.VISIBLE);
                             }
 
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
@@ -292,13 +298,19 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                             CartCheckoutActivity.tvPriceItemsHeading.setText("Price("+cart_count+"items)");
                             CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs)+total_amount);
                             CartCheckoutActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs)+total_amount);
-                           // CartCheckoutActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
+                            // CartCheckoutActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs)+total_amount);
 
                             place_order.remove(position);
                             itemList.remove(position);
                             notifyDataSetChanged();
 
                             progressBarHandler.hide();
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(context,"Server is not responding please try ",Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -312,15 +324,21 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
         progressBarHandler.show();
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_update";
+
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("id", product_id)
                 .setBodyParameter("quantity", quantity)
-
+                .setBodyParameter("user_id",user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {

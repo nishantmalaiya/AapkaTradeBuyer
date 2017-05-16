@@ -33,7 +33,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.ServiceEnquiry;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
@@ -250,8 +250,17 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                                 for (int i = 0; i < openCloseDayArray.size(); i++) {
                                     JsonObject jsonObjectDays = (JsonObject) openCloseDayArray.get(i);
                                     OpenCloseShopData openCloseShopData = new OpenCloseShopData(jsonObjectDays.get("days").getAsString().substring(0, 3), jsonObjectDays.get("open_time") == null ? "" : jsonObjectDays.get("open_time").getAsString(), jsonObjectDays.get("close_time") == null ? "" : jsonObjectDays.get("close_time").getAsString());
-                                    openCloseDayArrayList.add(openCloseShopData);
+                                    if (jsonObjectDays.get("days").getAsString().toLowerCase().contains("mon")  && jsonObjectDays.get("days").getAsString().toLowerCase().contains("fri")) {
+                                            for (int j = 0; j < 5; j++) {
+                                                String[] daysName = {"Mon", "Tue", "Wed", "Thu", "Fri"};
+                                                OpenCloseShopData openCloseShopData1 = new OpenCloseShopData(daysName[j], openCloseShopData.openingTime, openCloseShopData.closingTime);
+                                                openCloseDayArrayList.add(openCloseShopData1);
+                                            }
+                                    } else {
+                                        openCloseDayArrayList.add(openCloseShopData);
 
+                                    }
+                                    removeUnavailedDays(openCloseDayArrayList);
                                 }
 
                                 mLayoutManagerShoplist = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -283,6 +292,15 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
 
                 });
 
+    }
+
+    private void removeUnavailedDays(ArrayList<OpenCloseShopData> openCloseDayArrayList) {
+        for (int i = 0; i < openCloseDayArrayList.size(); i++){
+            if(Validation.isEmptyStr(openCloseDayArrayList.get(i).openingTime) || Validation.isEmptyStr(openCloseDayArrayList.get(i).closingTime)){
+                openCloseDayArrayList.remove(i);
+                i--;
+            }
+        }
     }
 
 
@@ -426,7 +444,7 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
                 boolean permission_status = CheckPermission.checkPermissions(ShopDetailActivity.this);
                 if (permission_status) {
                     progressBarHandler.show();
-                    LocationManager_check locationManagerCheck = new LocationManager_check(ShopDetailActivity.this);
+                    LocationManagerCheck locationManagerCheck = new LocationManagerCheck(ShopDetailActivity.this);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {
                         Intent intent = new Intent(ShopDetailActivity.this, GoogleMapActivity.class);

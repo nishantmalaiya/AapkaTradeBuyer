@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.ShopListByCategoryActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.location.Mylocation;
@@ -43,7 +42,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
         this.listDataHeader = listDataHeader;
         appSharedPreference = new AppSharedPreference(context);
 
-
     }
 
     @Override
@@ -54,7 +52,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
     @Override
     public void onBindViewHolder(NavigationViewHolder viewHolder, int position) {
-
 
         final int currentPosition = position;
         final ImageView imageView = viewHolder.imageViewIcon;
@@ -73,7 +70,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
                 });
 
-
         viewHolder.rl_category_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +78,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
                 if (permission_status) {
                     mylocation = new Mylocation(context);
-                    LocationManager_check locationManagerCheck = new LocationManager_check(context);
+                    LocationManagerCheck locationManagerCheck = new LocationManagerCheck(context);
                     if (locationManagerCheck.isLocationServiceAvailable()) {
                         String currentLatitude = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString(), "0.0");
                         String currentLongitude = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString(), "0.0");

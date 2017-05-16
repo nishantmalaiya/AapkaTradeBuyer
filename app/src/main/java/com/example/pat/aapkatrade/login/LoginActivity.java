@@ -17,8 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
+import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -145,7 +147,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void callLoginWebService(String login_url, String input_username, String input_password) {
+    private void callLoginWebService(String login_url, String input_username, String input_password)
+    {
+
         AndroidUtils.showErrorLog(context, "Login : "+input_username+"  Password : "+ input_password, "*************   "+login_url);
 
         progressBarHandler.show();
@@ -158,27 +162,31 @@ public class LoginActivity extends AppCompatActivity {
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
                         progressBarHandler.hide();
-                        if (result != null) {
+                        if (result != null)
+                        {
 
                             String error = result.get("error").getAsString();
-                            if (error.contains("true"))
 
+                            if (error.contains("true"))
                             {
                                 String message = result.get("message").getAsString();
                                 showMessage(message);
-                            }
 
+                            }
                             else
                             {
 
                                 showMessage(getResources().getString(R.string.welcomebuyer));
                                 Log.e("webservice_returndata", result.toString());
+
                                 saveDataInSharedPreference(result);
-                                Intent Homedashboard = new Intent(context, HomeActivity.class);
-                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(Homedashboard);
+
+                                callwebservice__update_cart();
+
 
                             }
                         }
@@ -190,7 +198,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveDataInSharedPreference(JsonObject webservice_returndata)
     {
-
 
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
@@ -210,11 +217,13 @@ public class LoginActivity extends AppCompatActivity {
         appSharedpreference.setSharedPref(SharedPreferenceConstants.STATUS.toString(), jsonObject.get("status").getAsString());
         appSharedpreference.setSharedPref(SharedPreferenceConstants.ORDER.toString(), webservice_returndata.get("order").getAsString());
         appSharedpreference.setSharedPref(SharedPreferenceConstants.CREATED_AT.toString(), webservice_returndata.get("createdAt").getAsString());
+
+
     }
 
 
-    private void initView() {
-
+    private void initView()
+    {
         forgotPassword = (TextView) findViewById(R.id.tv_forgotpassword);
         loginText = (TextView) findViewById(R.id.tv_login);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -235,6 +244,67 @@ public class LoginActivity extends AppCompatActivity {
     public void showMessage(String message) {
         AndroidUtils.showSnackBar(coordinatorLayout, message);
     }
+
+
+    private void callwebservice__update_cart()
+    {
+
+        progressBarHandler.show();
+
+        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/update_cart_user";
+
+        String user_id = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+
+        System.out.println("user_id--------------"+user_id);
+
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
+        Ion.with(context)
+                .load(login_url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("user_id",user_id)
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+                        System.out.println("update_cart_user--------------"+result.toString());
+
+                        if (result != null)
+                        {
+
+                            String error = result.get("error").getAsString();
+
+                            if (error.contains("true"))
+                            {
+                                String message = result.get("message").getAsString();
+                                showMessage(message);
+
+                            }
+                            else
+                            {
+
+                                Intent Homedashboard = new Intent(context, HomeActivity.class);
+                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(Homedashboard);
+
+                            }
+                        }
+
+
+                    }
+                });
+
+
+
+    }
+
 
 
 }

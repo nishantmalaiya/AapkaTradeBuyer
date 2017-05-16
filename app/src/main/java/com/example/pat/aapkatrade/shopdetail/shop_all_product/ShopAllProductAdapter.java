@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.shopdetail.productdetail.ProductDetailActivity;
 import com.google.gson.JsonObject;
@@ -186,10 +187,17 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
 
         System.out.println("devece_id------------"+android_id);
 
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
+
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("product_id", product_id)
                 .setBodyParameter("device_id", android_id)
                 .setBodyParameter("name",product_name)
@@ -202,38 +210,47 @@ public class ShopAllProductAdapter extends RecyclerView.Adapter<ShopAllProductHo
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result.isJsonNull())
+                        if (result!=null)
                         {
+                            System.out.println("result--------------" + result);
+                            String message = result.get("message").getAsString();
+                            JsonObject jsonObject = result.getAsJsonObject("result");
 
-                            Toast.makeText(context,"Server is not responding please try again",Toast.LENGTH_SHORT).show();
+                            if (message.equals("This Item Already Exist....."))
+                            {
+                                progressBarHandler.hide();
+                                Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else if (message.equals("Product Quantity exceeded")){
+
+                                progressBarHandler.hide();
+                                Toast.makeText(context, "Product is not Available in Stock", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else
+                            {
+
+                                Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
+                                String cart_count = jsonObject.get("total_qty").getAsString();
+                                appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+
+                                //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
+                                ShopAllProductActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                                progressBarHandler.hide();
+
+
+
+                            }
+
+
                         }
                         else
                         {
-                               System.out.println("result--------------" + result);
-                               String message = result.get("message").getAsString();
-                               JsonObject jsonObject = result.getAsJsonObject("result");
 
-                               if (message.equals("This Item Already Exist....."))
-                               {
-                                   progressBarHandler.hide();
-                                   Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
-
-                               }
-                               else
-                               {
-
-                                   Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
-                                   String cart_count = jsonObject.get("total_qty").getAsString();
-                                   appSharedPreference.setSharedPrefInt("cart_count", Integer.valueOf(cart_count));
-                                   //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
-                                   ShopAllProductActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt("cart_count", 0)));
-                                   progressBarHandler.hide();
-
-
-
-                               }
-
-                           }
+                            progressBarHandler.hide();
+                            Toast.makeText(context,"Server is not responding please try again",Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });

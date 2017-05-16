@@ -42,7 +42,6 @@ public class AddAddressActivity extends AppCompatActivity
     ProgressBarHandler progress_handler;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -91,7 +90,6 @@ public class AddAddressActivity extends AppCompatActivity
                 appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(),  String.valueOf(position));
                 state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
                 spState.setSelection(Integer.valueOf(state_id));
-
 
             }
 

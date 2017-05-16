@@ -14,7 +14,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
 
 
                         mylocation = new Mylocation(MainActivity.this);
-                        LocationManager_check locationManagerCheck = new LocationManager_check(MainActivity.this);
+                        LocationManagerCheck locationManagerCheck = new LocationManagerCheck(MainActivity.this);
 
                         Location location = null;
                         if (locationManagerCheck.isLocationServiceAvailable())
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
             switch (requestCode) {
 
                 case 1:
-                    LocationManager_check locationManagerCheck = new LocationManager_check(MainActivity.this);
+                    LocationManagerCheck locationManagerCheck = new LocationManagerCheck(MainActivity.this);
                     if (locationManagerCheck.isLocationServiceAvailable())
                     {
                         Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
