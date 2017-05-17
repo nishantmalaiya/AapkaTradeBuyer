@@ -77,7 +77,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Log.e("reach", "reach3");
                 getBuyerFormData();
                 validateFields();
-                if (isAllFieldSet == 0) {
+                if (isAllFieldSet == 0)
+                {
                     callWebServiceForBuyerRegistration();
 
                 }

@@ -343,13 +343,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
 
-
 //
-
-
         } else
-
-
         {
 
 
@@ -407,10 +402,10 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
        private void callwebservice__add_tocart(String product_id, String device_id, String product_name, String price, String qty)
        {
 
-        progressBarHandler.show();
-        System.out.println("price-----------------------" + price);
+           progressBarHandler.show();
+           System.out.println("price-----------------------" + price);
 
-        String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
+           String login_url = context.getResources().getString(R.string.webservice_base_url) + "/add_cart";
 
            String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
            if (user_id.equals("notlogin"))
@@ -438,32 +433,44 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                         if (result!=null)
                         {
-                            System.out.println("result--------------" + result);
-                            String message = result.get("message").getAsString();
-                            JsonObject jsonObject = result.getAsJsonObject("result");
 
-                            if (message.equals("This Item Already Exist....."))
-                            {
-                                progressBarHandler.hide();
-                                Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
-                            }
-                            else if (message.equals("Product Quantity exceeded"))
+                            String error_message = result.get("error").getAsString();
+
+                            if (error_message.equals("false"))
                             {
 
-                                progressBarHandler.hide();
-                                Toast.makeText(context, "Product is not Available in Stock", Toast.LENGTH_SHORT).show();
+                                System.out.println("result--------------" + result);
+                                String message = result.get("message").getAsString();
+                                JsonObject jsonObject = result.getAsJsonObject("result");
+
+                                if (message.equals("This Item Already Exist....."))
+                                {
+                                    progressBarHandler.hide();
+                                    Toast.makeText(context, "This Item Already Exist in Cart", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (message.equals("Product Quantity exceeded"))
+                                {
+
+                                    progressBarHandler.hide();
+                                    Toast.makeText(context, "Product Quantity exceeded", Toast.LENGTH_SHORT).show();
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
+                                    String cart_count = jsonObject.get("total_qty").getAsString();
+
+                                    appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                                    //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
+                                    ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                                    progressBarHandler.hide();
+                                }
 
                             }
                             else
                             {
-                                Toast.makeText(context, "Product Successfully Added on Cart", Toast.LENGTH_SHORT).show();
-                                String cart_count = jsonObject.get("total_qty").getAsString();
-
-                                appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
-
-                                //int j = appSharedPreference.getSharedPrefInt("cart_count",0);
-                                ShopDetailActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-                                progressBarHandler.hide();
+                                 progressBarHandler.hide();
+                                 Toast.makeText(context, "Server is not responding please try again", Toast.LENGTH_SHORT).show();
                             }
 
                         }
