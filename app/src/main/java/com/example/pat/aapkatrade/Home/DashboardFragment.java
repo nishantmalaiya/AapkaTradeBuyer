@@ -34,6 +34,7 @@ import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.Particul
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.LocationManagerCheck;
+
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -106,9 +107,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
+            appSharedPreference = new AppSharedPreference(getActivity());
             initializeview(view, container);
         }
-        appSharedPreference = new AppSharedPreference(getActivity());
+
 
         return view;
     }
@@ -204,6 +206,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                 LocationManagerCheck locationManagerCheck = new LocationManagerCheck(
                         getActivity());
+                Location location = null;
                 if (locationManagerCheck.isLocationServiceAvailable()) {
 
                     currentLatitude = appSharedPreference.getSharedPref("CurrentLatitude");
@@ -231,16 +234,25 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-    public void get_home_data() {
+    public void get_home_data()
+    {
         progress_handler.show();
 
         coordinatorLayout.setVisibility(View.INVISIBLE);
+
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+
+        if (user_id.equals("notlogin"))
+        {
+            user_id="";
+        }
 
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("city_id", "")
+                .setBodyParameter("user_id",user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -250,27 +262,28 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                         if (result != null)
                         {
-
                             home_result = result;
-
+                         /*   Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
+                            Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
+                         */
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
-                            String cart_count = jsonResult.get("cart_count") == null ? "0" : jsonResult.get("cart_count").getAsString();
+                            String cart_count = jsonResult.get("cart_count")==null?"0": jsonResult.get("cart_count").getAsString();
 
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                            //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
                             HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
                             imageIdList = new ArrayList<>();
 
-                            for (int l = 0; l < jsonarray_top_banner.size(); l++) {
-
+                            for (int l = 0; l < jsonarray_top_banner.size(); l++)
+                            {
                                 JsonObject jsonObject_top_banner = (JsonObject) jsonarray_top_banner.get(l);
                                 String banner_imageurl = jsonObject_top_banner.get("image_url").getAsString();
 
                                 imageIdList.add(banner_imageurl);
                             }
-
 
                             setupviewpager(imageIdList);
 
@@ -292,7 +305,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                 String product_name = jsonObject_latest_post.get("prodname").getAsString();
                                 String imageurl = jsonObject_latest_post.get("image_url").getAsString();
 
-                                System.out.println("imageurl--------------" + imageurl);
+                                System.out.println("imageurl--------------"+imageurl);
 
                                 String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
                                         jsonObject_latest_post.get("state_name").getAsString() + "," +
@@ -322,7 +335,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                 String productlocation = jsonObject_latest_update.get("city_name").getAsString() + "," +
                                         jsonObject_latest_update.get("state_name").getAsString() + "," +
                                         jsonObject_latest_update.get("country_name").getAsString();
-
 
                                 String categoryName = jsonObject_latest_update.get("category_name").getAsString();
                                 commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "", imageurl, productlocation, categoryName));
