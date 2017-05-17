@@ -50,7 +50,7 @@ public class CancelOrderDialog extends DialogFragment {
 
     public CancelOrderDialog(String orderid, int position) {
         this.orderid = orderid;
-        this.position=position;
+        this.position = position;
         // Required empty public constructor
     }
 
@@ -78,7 +78,7 @@ public class CancelOrderDialog extends DialogFragment {
 
 ///// set spinner adapter
 
-        AndroidUtils.showErrorLog(getActivity(),"get Name",getActivity().getClass().getSimpleName());
+        AndroidUtils.showErrorLog(getActivity(), "get Name", getActivity().getClass().getSimpleName());
 
         spinnerCancelReason = (Spinner) v.findViewById(R.id.spinnerCancelReason);
 
@@ -103,19 +103,16 @@ public class CancelOrderDialog extends DialogFragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity().getClass().getSimpleName().contains("OrderManagementActivity"))
-                {
+                if (getActivity().getClass().getSimpleName().contains("OrderManagementActivity")) {
 
                     callCancelOrderWebservice();
 
-                }
-                else{
+                } else {
 
 
                     callCancelSubOrderWebservice();
 
                 }
-
 
 
             }
@@ -156,9 +153,19 @@ public class CancelOrderDialog extends DialogFragment {
                                 progressDialogHandler.hide();
 
                                 getDialog().dismiss();
-                                AndroidUtils.showErrorLog(getActivity(), result.toString());
-BlankFragment.commonInterface.getData(position);
 
+
+                                if(position==-1)
+                                {
+                                    OrderDetailsActivity.commonInterface.getData(position);
+
+                                }
+                                else{
+
+                                    AndroidUtils.showErrorLog(getActivity(), result.toString());
+                                    BlankFragment.commonInterface.getData(position);
+
+                                }
 
 
 //                                getActivity().finish();
@@ -170,12 +177,9 @@ BlankFragment.commonInterface.getData(position);
 //                                getActivity().startActivity(list_product);
 
 
-                            }
+                            } else {
 
-                            else
-                                {
-
-                                    getDialog().dismiss();
+                                getDialog().dismiss();
                                 progressDialogHandler.hide();
                             }
 
@@ -249,8 +253,6 @@ BlankFragment.commonInterface.getData(position);
                                 OrderDetailsActivity.commonInterface.getData(position);
 
 
-
-
 //                                getActivity().finish();
 //
 //
@@ -260,10 +262,7 @@ BlankFragment.commonInterface.getData(position);
 //                                getActivity().startActivity(list_product);
 
 
-                            }
-
-                            else
-                            {
+                            } else {
 
                                 getDialog().dismiss();
                                 progressDialogHandler.hide();
@@ -301,9 +300,6 @@ BlankFragment.commonInterface.getData(position);
 
 
     }
-
-
-
 
 
 }
