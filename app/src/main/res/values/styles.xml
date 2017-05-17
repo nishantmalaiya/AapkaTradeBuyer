@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
@@ -90,8 +90,6 @@
         <item name="android:textColorLink">@color/grey</item>
 
     </style>
-
-
 
 
     <style name="nofocus_edittext_theme" parent="TextAppearance.AppCompat">
@@ -241,14 +239,13 @@
     </style>
 
 
-    <style name="TextInputLayout"  parent="TextAppearance.Design.Hint">
+    <style name="TextInputLayout" parent="TextAppearance.Design.Hint">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/white</item>
         <item name="colorAccent">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
-
 
 
     </style>

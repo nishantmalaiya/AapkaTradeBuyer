@@ -33,7 +33,7 @@ import com.directions.route.RoutingListener;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -249,7 +249,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
         permission_status = CheckPermission.checkPermissions(GoogleMapActivity.this);
         if (permission_status) {
-            LocationManager_check locationManagerCheck = new LocationManager_check(
+            LocationManagerCheck locationManagerCheck = new LocationManagerCheck(
                     this);
             Location location = null;
 

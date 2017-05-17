@@ -95,20 +95,14 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         Bundle bundle = getIntent().getExtras();
 
         String price = bundle.getString("price");
-
         buyer_id = bundle.getString("userid");
-
         order_number = bundle.getString("order_number");
-
         double damount = Double.valueOf(price);
         int amount = (int) damount;
-
         setUpToolBar();
-
         webview = (WebView) findViewById(R.id.webview);
         progressBarHandler = new ProgressBarHandler(this);
         progressBarHandler.show();
-
 
         Ion.with(PaymentActivity.this)
                 .load("http://staging.aapkatrade.com/payment/PHP_VPC_3Party_Order_DO.php")
@@ -223,28 +217,10 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                                         "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                             }
                         });
-
-
                     }
 
 
                 });
-
-
-        // viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
-        //setupViewPager(viewPager);
-
-       //        tabLayout = (TabLayout) findViewById(R.id.tabs);
-      //        tabLayout.setupWithViewPager(viewPager);
-      //        tabLayout.addOnTabSelectedListener(this);
-     //
-     //
-     //        tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#FF6600"));
-        //setupTabIcons();
-
-
-
-
     }
 
     private void setUpToolBar()
@@ -271,7 +247,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, HomeActivity.class);
+                Intent intent = new Intent(context, PaymentCompletionActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
