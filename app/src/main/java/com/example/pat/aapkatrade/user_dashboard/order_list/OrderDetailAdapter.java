@@ -2,6 +2,8 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.CancelOrderDialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
@@ -70,6 +73,19 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 .error(R.drawable.ic_profile_user)
                 .into(((OrderDetailHolder) holder).imgProductImage);
+        homeHolder.rlCancelSubOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+
+
+                CancelOrderDialog cancel_order_dialog = new CancelOrderDialog(orderListDatas.get(position).SubOrderId,position);
+                cancel_order_dialog.show(fm, "Track Order");
+
+            }
+        });
+
 
 
     }

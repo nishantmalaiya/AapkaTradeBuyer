@@ -2,6 +2,8 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,9 +14,15 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 
+import com.example.pat.aapkatrade.dialogs.CancelOrderDialog;
+import com.example.pat.aapkatrade.dialogs.track_order.Track_order_dialog;
+import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.ActivityOTPVerify;
+import com.example.pat.aapkatrade.user_dashboard.order_list.cancel_order_fragment.CancelOrderFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.order_details.OrderDetailsActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -39,6 +47,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     AppSharedPreference appSharedPreference;
     String userId;
     private List<OrderListData> orderListDatas;
+    ProgressBarHandler progressBarHandler;
 
     public OrderListAdapter(Context context, List<OrderListData> itemList) {
         this.itemList = itemList;
@@ -47,6 +56,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         appSharedPreference = new AppSharedPreference(context);
 
         userId = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
+        progressBarHandler = new ProgressBarHandler(context);
     }
 
     @Override
@@ -79,22 +89,91 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View v) {
 
-                Intent i =new Intent(context, OrderDetailsActivity.class);
-i.putExtra("OrderId",itemList.get(position).order_id);
-                i.putExtra("userId",userId);
+                Intent i = new Intent(context, OrderDetailsActivity.class);
+                i.putExtra("OrderId", itemList.get(position).order_id);
+                i.putExtra("userId", userId);
 
                 context.startActivity(i);
 
 
+            }
+        });
 
+        homeHolder.btn_cancel_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+
+
+                CancelOrderDialog cancel_order_dialog = new CancelOrderDialog(itemList.get(position).order_id,position);
+                cancel_order_dialog.show(fm, "Track Order");
             }
         });
 
 
 
 
-    }
+        homeHolder.orderTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callTrackOrderWebservice();
+            }
 
+            private void callTrackOrderWebservice() {
+                progressBarHandler.show();
+
+                String track_order_url = context.getString(R.string.webservice_base_url) + "/order_track";
+
+
+                Ion.with(context)
+                        .load(track_order_url)
+                        .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("order_id", itemList.get(position).order_id)
+
+
+                        .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+
+                        if (result != null) {
+                            String error = result.get("error").getAsString();
+                            if (error.contains("false")) {
+                                progressBarHandler.hide();
+
+
+                                AndroidUtils.showErrorLog(context, result.toString());
+
+
+                                Intent go_to_trackorder = new Intent(context, Order_detail.class);
+                                go_to_trackorder.putExtra("class_name", context.getClass().getName());
+                                go_to_trackorder.putExtra("result", result.toString());
+                                context.startActivity(go_to_trackorder);
+
+
+                            } else {
+                                progressBarHandler.hide();
+                            }
+
+
+                        }
+
+                        progressBarHandler.hide();
+
+                        Log.e("result", result.toString());
+//               JsonObject res result.get("otp_id").getAsString();
+
+
+                    }
+                });
+
+
+            }
+        });
+
+
+    }
 
 
     private void showMessage(String s) {

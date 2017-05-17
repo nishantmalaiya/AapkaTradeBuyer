@@ -4,7 +4,7 @@
     <string name="my_profile_heading" translatable="false">My Profile</string>
     <string name="my_profile_detail_heading" translatable="false">Hello,<font color="#0000FF"> Arvind </font> - To Update your account information.</string>
     <string name="save" translatable="false">Save</string>
-    <string name="submit" translatable="false">Submit</string>
+    <string name="submit" translatable="false">SUBMIT</string>
     <string name="aapka_data" translatable="false">AAPKA <font color='white'>TRADE</font></string>
     <string name="login" translatable="false">LOGIN</string>
     <string name="change_password_heading" translatable="false">Change Password</string>
@@ -222,6 +222,8 @@
     <string name="done">Done</string>
     <string name="cancel_order">Cancel Order</string>
     <string name="payment_unsuccess">Payment Unsuccess</string>
-
-
+    <string name="cancelingRequest">Cancellation Request</string>
+    <string name="reason">Reason</string>
+    <string name="comments">Comments</string>
+    <string name="type_comment">Type your Comments</string>
 </resources>

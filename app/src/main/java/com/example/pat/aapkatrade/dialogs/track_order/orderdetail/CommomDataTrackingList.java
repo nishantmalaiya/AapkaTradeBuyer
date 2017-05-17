@@ -11,7 +11,7 @@ public class CommomDataTrackingList implements Parcelable {
     public String imageurl, price, name, id, productname, productPrize, address, shopName, expected_Delivery_Address;
 
 
-    public CommomDataTrackingList(String imageurl, String price, String name, String id, String productname, String address, String shopName, String expected_Delivery_Address) {
+    public CommomDataTrackingList(String imageurl, String price, String name, String id, String productname, String address, String expected_Delivery_Address) {
         this.imageurl = imageurl;
         this.price = price;
         this.name = name;
@@ -19,7 +19,7 @@ public class CommomDataTrackingList implements Parcelable {
         this.productname = productname;
 
         this.address = address;
-        this.shopName = shopName;
+
         this.expected_Delivery_Address = expected_Delivery_Address;
     }
 
@@ -32,7 +32,7 @@ public class CommomDataTrackingList implements Parcelable {
         productname = in.readString();
 
         address = in.readString();
-        shopName = in.readString();
+
         expected_Delivery_Address = in.readString();
 
 
@@ -61,7 +61,7 @@ public class CommomDataTrackingList implements Parcelable {
                 ", productname='" + productname + '\'' +
 
                 ", address='" + address + '\'' +
-                ", shopName='" + shopName + '\'' +
+
                 ", expected_Delivery_Address='" + expected_Delivery_Address + '\'' +
                 '}';
     }
@@ -80,7 +80,7 @@ public class CommomDataTrackingList implements Parcelable {
         dest.writeString(productname);
 
         dest.writeString(address);
-        dest.writeString(shopName);
+
         dest.writeString(expected_Delivery_Address);
     }
 

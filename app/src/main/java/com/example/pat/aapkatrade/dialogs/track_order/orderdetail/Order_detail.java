@@ -46,6 +46,7 @@ public class Order_detail extends AppCompatActivity {
     ArrayList<ProductDatas> productDatasArrayList = new ArrayList<>();
     private CommonHolderOrderListAdapter commomAdapter_latestpost;
     LinearLayoutManager llmanager_productlist;
+    String result;
 
     TextView tvOrderid, tvOrderDate, tvAmountPaid, tvAddress, tvMobile;
 
@@ -57,14 +58,15 @@ public class Order_detail extends AppCompatActivity {
         setContentView(R.layout.activity_order_detail);
         context = this;
         class_name = getIntent().getStringExtra("class_name");
+        result = getIntent().getStringExtra("result");
+
         initview();
 
-        json_response = "{\"error\":false,\"message\":\"Order Track!\",\"code\":\"200\",\"result\":{\"id\":133,\"ORDER_ID\":\"AT210417060350\",\"payment_method\":null,\"user_id\":41,\"name\":\"Md Sabir\",\"email\":\"\",\"phone\":\"9907340880\",\"pincode\":\"110025\",\"address\":\"H65 Ground Floor Abul Fazal Anclave Part I, Jamia Nagar\",\"city\":\"Md Sabir\",\"state\":\"Delhi\",\"landmark\":\"\",\"product_id\":0,\"bank_id\":0,\"deliveryday\":0,\"product_name\":\"\",\"product_qty\":3,\"product_express\":null,\"product_price\":2040,\"product_subtotal\":0,\"product_option\":\"\",\"reason\":\"\",\"comments\":\"\",\"status\":0,\"payment_status\":1,\"vpc_AuthorizeId\":\"499113\",\"vpc_BatchNo\":\"20170421\",\"vpc_Card\":\"MC\",\"vpc_Message\":\"Approved\",\"vpc_ReceiptNo\":\"711122499113\",\"vpc_TransactionNo\":\"2000000012\",\"payment_datetime\":\"2017-04-21 18:04:31\",\"created_at\":\"2017-04-21 18:03:50\",\"updated_at\":\"2017-04-21 18:03:50\",\"orders\":{\"id\":133,\"ORDER_ID\":\"AT210417060350\",\"payment_method\":null,\"user_id\":41,\"name\":\"Md Sabir\",\"email\":\"\",\"phone\":\"9907340880\",\"pincode\":\"110025\",\"address\":\"H65 Ground Floor Abul Fazal Anclave Part I, Jamia Nagar\",\"city\":\"Md Sabir\",\"state\":\"Delhi\",\"landmark\":\"\",\"product_id\":0,\"bank_id\":0,\"deliveryday\":0,\"product_name\":\"\",\"product_qty\":3,\"product_express\":null,\"product_price\":2040,\"product_subtotal\":0,\"product_option\":\"\",\"reason\":\"\",\"comments\":\"\",\"status\":0,\"payment_status\":1,\"vpc_AuthorizeId\":\"499113\",\"vpc_BatchNo\":\"20170421\",\"vpc_Card\":\"MC\",\"vpc_Message\":\"Approved\",\"vpc_ReceiptNo\":\"711122499113\",\"vpc_TransactionNo\":\"2000000012\",\"payment_datetime\":\"2017-04-21 18:04:31\",\"created_at\":\"2017-04-21 18:03:50\",\"updated_at\":\"2017-04-21 18:03:50\"},\"orders_details\":[{\"id\":130,\"orders_id\":133,\"ORDER_ID\":\"AT210417060350\",\"payment_method\":null,\"user_id\":41,\"product_id\":567,\"deliveryday\":0,\"product_name\":\"Round Wheel\",\"product_qty\":2,\"product_price\":2000,\"product_net_price\":\"1800\",\"discount\":\"10\",\"product_option\":\"\",\"reason\":\"\",\"comments\":\"\",\"status\":0,\"cancel_datetime\":\"0000-00-00 00:00:00\",\"cancel_reason\":\"\",\"cancel_comments\":\"\",\"created_at\":\"2017-04-21 18:03:50\",\"updated_at\":\"2017-04-21 18:03:50\",\"image_url\":\"http://www.staging.aapkatrade.com/public/upload/567/small_car-accessories-shop.jpg\"},{\"id\":130,\"orders_id\":133,\"ORDER_ID\":\"AT210417060350\",\"payment_method\":null,\"user_id\":41,\"product_id\":567,\"deliveryday\":0,\"product_name\":\"Round Wheel\",\"product_qty\":2,\"product_price\":2000,\"product_net_price\":\"1800\",\"discount\":\"10\",\"product_option\":\"\",\"reason\":\"\",\"comments\":\"\",\"status\":0,\"cancel_datetime\":\"0000-00-00 00:00:00\",\"cancel_reason\":\"\",\"cancel_comments\":\"\",\"created_at\":\"2017-04-21 18:03:50\",\"updated_at\":\"2017-04-21 18:03:50\",\"image_url\":\"http://www.staging.aapkatrade.com/public/upload/567/small_s-k-auto-spares-salem-ho-salem-0.jpg\"},{\"id\":131,\"orders_id\":133,\"ORDER_ID\":\"AT210417060350\",\"payment_method\":null,\"user_id\":41,\"product_id\":573,\"deliveryday\":0,\"product_name\":\"Worldone 480 Business Card Holder BC105 - Set of 2 \",\"product_qty\":1,\"product_price\":240,\"product_net_price\":\"240\",\"discount\":\"0\",\"product_option\":\"\",\"reason\":\"\",\"comments\":\"\",\"status\":0,\"cancel_datetime\":\"0000-00-00 00:00:00\",\"cancel_reason\":\"\",\"cancel_comments\":\"\",\"created_at\":\"2017-04-21 18:03:50\",\"updated_at\":\"2017-04-21 18:03:50\",\"image_url\":\"http://www.staging.aapkatrade.com/public/upload/573/small_5-Worldone 480 Business Card Holder BC 105- 2 Nos.jpg\"}]}}";
 
         setUpToolBar();
 
 
-        String_to_json_conversion(json_response);
+        String_to_json_conversion(result);
 
     }
 
@@ -148,8 +150,13 @@ public class Order_detail extends AppCompatActivity {
                     imageUrlArrayList.add(image_url);
 
 
-                    commomDatas_order.add(new CommomDataTrackingList(image_url, product_price_order, product_name, product_id, "demo", Address, "demo",
-                            "demo"));
+                    commomDatas_order.add(new CommomDataTrackingList(image_url, product_price_order,"", product_id,product_name,
+                            Address,  product_net_price
+
+                            ));
+
+
+
 
                     commomAdapter_latestpost = new CommonHolderOrderListAdapter(context, commomDatas_order, "OrderedProductList", "latestdeals");
                     recyclerProductList.setAdapter(commomAdapter_latestpost);

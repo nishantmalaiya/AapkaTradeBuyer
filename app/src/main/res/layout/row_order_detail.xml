@@ -72,6 +72,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/rlCancelSubOrder"
                     android:layout_weight="0.5">
 
 

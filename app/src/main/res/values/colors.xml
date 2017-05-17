@@ -28,6 +28,9 @@
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
     <color name="grey_light2">#D2CECD</color>
+
+    <color name="grey_light3">#F8F8F8</color>
+
     <color name="grey_gradient2">#737C7A</color>
     <color name="grey_buy_now">#797574</color>
     <color name="grey_quantity_spinner">#787575</color>
