@@ -57,11 +57,11 @@
         <TextView
             android:id="@+id/header_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/thirty_dip"
             android:layout_marginLeft="@dimen/thirty_five_dip"
             android:layout_toRightOf="@+id/iconHome"
             android:textColor="@color/white"
-            android:textSize="@dimen/textsize_medium"
+            android:textSize="@dimen/textsize_large"
             android:textStyle="bold"
             android:visibility="gone"
             tools:ignore="RtlHardcoded" />

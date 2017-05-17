@@ -36,14 +36,12 @@ public class AppSharedPreference extends Application {
     }
 
     public int getSharedPrefInt(String pref_key) {
-
         return sharedPreferences.getInt(pref_key, 0);
     }
 
     public void setSharedPref(String pref_key, String text) {
         editor.putString(pref_key, text);
         editor.commit();
-
     }
 
     public void setSharedPrefInt(String pref_key, int n) {

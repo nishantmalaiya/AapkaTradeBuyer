@@ -20,7 +20,9 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,7 +37,7 @@ public class PaymentCompletionActivity extends AppCompatActivity {
     private boolean isSuccess = false;
     private double transactionAmount;
     private String transactionNo, receiptNo;
-
+    private AppSharedPreference appSharedPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class PaymentCompletionActivity extends AppCompatActivity {
                 isSuccess = true;
             }
             if (isSuccess) {
-                transactionAmount = Double.parseDouble(getIntent().getExtras().get("vpc_Amount").toString()) / 100;
+                transactionAmount = Double.parseDouble(getIntent().getExtras().get("vpc_Amount").toString())/100;
                 transactionNo = getIntent().getExtras().get("vpc_TransactionNo").toString();
                 receiptNo = getIntent().getExtras().get("vpc_ReceiptNo").toString();
             }
@@ -61,18 +63,23 @@ public class PaymentCompletionActivity extends AppCompatActivity {
             }
         });
 
-        if (!isSuccess) {
+        if (isSuccess) {
             tvSubHeaderTransaction.setText(transactionNo);
-            tvSubHeaderAmountPaid.setText(new StringBuilder(getString(R.string.rupay)).append("  ").append(transactionAmount));
+            tvSubHeaderAmountPaid.setText(new StringBuilder(getString(R.string.rupay_text)).append("  ").append(transactionAmount));
             tvReceiptNo.setText(Validation.isEmptyStr(receiptNo) ? "RECEIPT" : new StringBuilder("Receipt No : ").append(receiptNo));
+            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0);
         } else {
+            tvStatusTitle.setText(getString(R.string.payment_unsuccess));
             tickImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cross));
-
+            tvSubHeaderTransaction.setText(Validation.isEmptyStr(transactionNo)?"Not Available": transactionNo);
+            tvSubHeaderAmountPaid.setText(Validation.isEmptyStr(String.valueOf(transactionAmount))?"Not Available": new StringBuilder(getString(R.string.rupay_text)).append("  ").append(transactionAmount));
+            tvReceiptNo.setText(Validation.isEmptyStr(receiptNo) ? "Receipt Not Available" : new StringBuilder("Receipt No : ").append(receiptNo));
         }
 
     }
 
     private void initView() {
+        appSharedPreference = new AppSharedPreference(context);
         tvStatusTitle = (TextView) findViewById(R.id.tvStatusTitle);
         tvStatusMsg = (TextView) findViewById(R.id.tvStatusMsg);
         tickImageView = (ImageView) findViewById(R.id.tickImageView);
