@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.OrderDetailsDatas;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderDetailAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderDetailData;
@@ -37,6 +38,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     OrderDetailAdapter orderDetailAdapter;
     ProgressBarHandler progressBarHandler;
     ArrayList<OrderDetailData> orderDetailDatas;
+    public static CommonInterface commonInterface;
 
     TextView tvOrderId, TvOrderDate, OrderStatus, tvpincodetv, tvOrderAddress, tvEmail, tvPhoneNo;
 
@@ -51,6 +53,21 @@ public class OrderDetailsActivity extends AppCompatActivity {
         userId = getIntent().getExtras().getString("userId");
         OrderId = getIntent().getExtras().getString("OrderId");
         call_order_detail_webservice(OrderId);
+
+        commonInterface=new CommonInterface() {
+            @Override
+            public Object getData(Object object) {
+
+                orderDetailDatas.remove(Integer.parseInt(object.toString()));
+
+                orderDetailAdapter.notifyDataSetChanged();
+
+
+                return null;
+            }
+        };
+
+
 
     }
 
@@ -160,6 +177,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                 for (int i = 0; i < list.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) list.get(i);
                                     String product_name = jsonObject2.get("product_name").getAsString();
+                                    String subOrderId = jsonObject2.get("id").getAsString();
 
 
                                     String product_price = jsonObject2.get("product_price").getAsString();
@@ -173,7 +191,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                     String discount = jsonObject2.get("discount").getAsString() + "%";
 
 
-                                    orderDetailDatas.add(new OrderDetailData(product_image, product_name, product_price, product_qty, DateTime, discount));
+                                    orderDetailDatas.add(new OrderDetailData(subOrderId,product_image, product_name, product_price, product_qty, DateTime, discount));
 
 
                                 }

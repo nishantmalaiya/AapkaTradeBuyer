@@ -102,21 +102,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         homeHolder.btn_cancel_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
+                FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
 
 
-                 CancelOrderDialog cancel_order_dialog = new CancelOrderDialog(itemList.get(position).order_id);
+                CancelOrderDialog cancel_order_dialog = new CancelOrderDialog(itemList.get(position).order_id,position);
                 cancel_order_dialog.show(fm, "Track Order");
             }
         });
-
-
-
-
-
-
-
-
 
 
 
