@@ -122,7 +122,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                     @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled"})
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-
+                        AndroidUtils.showErrorLog(context, "************%%%%%%%", result.toString());
                         url = result.get("url").getAsString();
                         webview.getSettings().setBuiltInZoomControls(true);
                         webview.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -411,18 +411,18 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
                         AndroidUtils.showErrorLog(context, stringStringHashMap.containsKey("vpc_Message")+"**********"+stringStringHashMap.toString()/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
 
-                        if(stringStringHashMap.containsKey("vpc_Message") && stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")){
+                        if(isExistInMap("vpc_Message", stringStringHashMap) && getValueFromMapByKey("vpc_Message", stringStringHashMap).equals("Approved")){
                             Intent intent = new Intent(context, PaymentCompletionActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("isSuccess", "true");
-                            intent.putExtra("vpc_Amount", stringStringHashMap.get("vpc_Amount"));
-                            intent.putExtra("vpc_TransactionNo", stringStringHashMap.get("vpc_TransactionNo"));
-                            intent.putExtra("vpc_ReceiptNo", stringStringHashMap.get("vpc_ReceiptNo"));
+                            intent.putExtra("vpc_Amount", getValueFromMapByKey("vpc_Amount", stringStringHashMap));
+                            intent.putExtra("vpc_TransactionNo", getValueFromMapByKey("vpc_TransactionNo", stringStringHashMap));
+                            intent.putExtra("vpc_ReceiptNo", getValueFromMapByKey("vpc_ReceiptNo", stringStringHashMap));
 
-                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_Amount")+"vpc_Amount**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
-                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_TransactionNo")+"vpc_TransactionNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
-                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_ReceiptNo")+"vpc_ReceiptNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
-                            AndroidUtils.showErrorLog(context, stringStringHashMap.get("vpc_Message")+"vpc_Message**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context,  intent.getStringExtra("isSuccess")+"vpc_Amount**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_Amount")+"vpc_TransactionNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_TransactionNo")+"vpc_ReceiptNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_ReceiptNo")+"vpc_Message**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
 
                             startActivity(intent);
                         } else {
@@ -437,7 +437,26 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                 });
     }
 
+    private boolean isExistInMap(String key, HashMap<String, String> stringStringHashMap){
+        for (Map.Entry m : stringStringHashMap.entrySet()) {
+            if(m.getKey().toString().trim().toLowerCase().equals(key.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private String getValueFromMapByKey(String key, HashMap<String, String> stringStringHashMap){
+        if(isExistInMap(key, stringStringHashMap)) {
+            for (Map.Entry m : stringStringHashMap.entrySet()) {
+                if (m.getKey().toString().trim().toLowerCase().equals(key.toLowerCase())) {
+                    AndroidUtils.showErrorLog(context, m.getKey().toString().trim() + " (if) " + m.getValue());
+                    return m.getValue().toString();
+                }
+            }
+        }
+        return "";
+    }
 
 
 }

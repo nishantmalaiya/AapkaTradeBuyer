@@ -176,7 +176,7 @@
     <string name="amount_paid">Amount Paid</string>
     <string name="check_availability_and_delivery">Check availability and delivery option</string>
 
-    <string name="select_payment_mode_title">select payment mode</string>
+    <string name="select_payment_mode_title">Select Payment Mode</string>
 
     <string name="postal_code">Postal Code</string>
     <string name="order_id">Order Id</string>
@@ -221,10 +221,9 @@
     <string name="receipt">Receipt</string>
     <string name="done">Done</string>
     <string name="cancel_order">Cancel Order</string>
+    <string name="payment_unsuccess">Payment Unsuccess</string>
     <string name="cancelingRequest">Cancellation Request</string>
     <string name="reason">Reason</string>
     <string name="comments">Comments</string>
     <string name="type_comment">Type your Comments</string>
-
-
 </resources>
