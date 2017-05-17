@@ -41,7 +41,6 @@ public class MyCartActivity extends AppCompatActivity
     private Context context;
     private ImageView locationImageView;
     public static TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
-    RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
     private ProgressBarHandler progressBarHandler;
@@ -240,7 +239,6 @@ public class MyCartActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-
                         if (result != null)
                         {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
@@ -254,7 +252,6 @@ public class MyCartActivity extends AppCompatActivity
                             tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
                             tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
                             tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
-
 
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
                             if (jsonProductList != null && jsonProductList.size() > 0)
@@ -291,8 +288,6 @@ public class MyCartActivity extends AppCompatActivity
 
                             AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                         }
-
-
 
                     }
                 });

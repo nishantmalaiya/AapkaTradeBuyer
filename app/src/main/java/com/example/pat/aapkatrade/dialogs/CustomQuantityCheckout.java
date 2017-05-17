@@ -12,17 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.Home.cart.CartAdapter;
-import com.example.pat.aapkatrade.Home.cart.CartData;
-import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
@@ -31,11 +23,13 @@ import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckOutAdapter;
+import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-public class CustomQuantityDialog extends DialogFragment
+public class CustomQuantityCheckout extends DialogFragment
 {
 
     EditText etManualQuantity;
@@ -49,13 +43,12 @@ public class CustomQuantityDialog extends DialogFragment
     AppSharedPreference app_sharedpreference;
 
 
-
-    public CustomQuantityDialog(Context context)
+    public CustomQuantityCheckout(Context context)
     {
 
     }
 
-    public CustomQuantityDialog(Context context,TextView textView,int position,String price,TextView textView_qty)
+    public CustomQuantityCheckout(Context context,TextView textView,int position,String price,TextView textView_qty)
     {
         this.context = context;
         this.tvsubtotal = textView;
@@ -99,7 +92,7 @@ public class CustomQuantityDialog extends DialogFragment
                         progressBarHandler = new ProgressBarHandler(context);
                         app_sharedpreference = new AppSharedPreference(context);
 
-                        callwebservice__update_cart(CartAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartAdapter.itemList.get(pos).product_id);
+                        callwebservice__update_cart(CartCheckOutAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartCheckOutAdapter.itemList.get(pos).product_id);
 
                        /* if (callwebservice__update_cart(CartAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartAdapter.itemList.get(pos).product_id))
                         {
@@ -183,12 +176,12 @@ public class CustomQuantityDialog extends DialogFragment
 
     public  void callwebservice__update_cart(String id, final int position,String quantity, String product_id)
     {
-
         progressBarHandler.show();
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_update";
 
         String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+
         if (user_id.equals("notlogin"))
         {
             user_id="";
@@ -203,7 +196,6 @@ public class CustomQuantityDialog extends DialogFragment
                 .setBodyParameter("quantity", quantity)
                 .setBodyParameter("user_id",user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -252,14 +244,12 @@ public class CustomQuantityDialog extends DialogFragment
 
                                     app_sharedpreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
-                                    HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                                   // HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
-                                    MyCartActivity.tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
-                                    MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs) + total_amount);
-                                    MyCartActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs) + total_amount);
-                                    MyCartActivity.tvLastPayableAmount.setText(context.getResources().getText(R.string.Rs) + total_amount);
+                                    CartCheckoutActivity.tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
+                                    CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs) + total_amount);
+                                    CartCheckoutActivity.tvAmountPayable.setText(context.getResources().getText(R.string.Rs) + total_amount);
 
-                                    System.out.println("cart updated " + result.toString());
 
                                     textView_qty.setText(etManualQuantity.getText().toString().trim());
                                     double cart_price = Double.valueOf(price) *Integer.valueOf(etManualQuantity.getText().toString().trim());
@@ -278,11 +268,11 @@ public class CustomQuantityDialog extends DialogFragment
                                 progressBarHandler.hide();
                                 Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
 
-
                             }
                         }
                         else
                         {
+
                             progressBarHandler.hide();
                             Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
 
@@ -293,11 +283,5 @@ public class CustomQuantityDialog extends DialogFragment
 
 
     }
-
-
-
-
-
-
 
 }
