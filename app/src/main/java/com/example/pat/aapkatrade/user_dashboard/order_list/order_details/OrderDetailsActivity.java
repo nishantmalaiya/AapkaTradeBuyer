@@ -1,6 +1,8 @@
 package com.example.pat.aapkatrade.user_dashboard.order_list.order_details;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.dialogs.CancelOrderDialog;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.OrderDetailsDatas;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderDetailAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderDetailData;
@@ -37,6 +43,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     OrderDetailAdapter orderDetailAdapter;
     ProgressBarHandler progressBarHandler;
     ArrayList<OrderDetailData> orderDetailDatas;
+    public static CommonInterface commonInterface;
+Button cancelOrder;
 
     TextView tvOrderId, TvOrderDate, OrderStatus, tvpincodetv, tvOrderAddress, tvEmail, tvPhoneNo;
 
@@ -51,6 +59,45 @@ public class OrderDetailsActivity extends AppCompatActivity {
         userId = getIntent().getExtras().getString("userId");
         OrderId = getIntent().getExtras().getString("OrderId");
         call_order_detail_webservice(OrderId);
+
+        cancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+
+
+                CancelOrderDialog cancel_order_dialog = new CancelOrderDialog(OrderId,-1);
+                cancel_order_dialog.show(fm, "Track Order");
+
+
+            }
+        });
+
+
+
+
+        commonInterface = new CommonInterface() {
+            @Override
+            public Object getData(Object object) {
+
+
+                orderDetailDatas.remove(Integer.parseInt(object.toString()));
+                if (orderDetailDatas.size() > 0) {
+
+                    orderDetailAdapter.notifyDataSetChanged();
+                }
+
+                else {
+                    finish();
+                }
+
+
+                return null;
+            }
+        };
+
 
     }
 
@@ -69,7 +116,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvPhoneNo = (TextView) findViewById(R.id.tvPhoneNo);
 
-
+        cancelOrder=(Button)findViewById(R.id.cancelOrder);
     }
 
 
@@ -160,6 +207,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                 for (int i = 0; i < list.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) list.get(i);
                                     String product_name = jsonObject2.get("product_name").getAsString();
+                                    String subOrderId = jsonObject2.get("id").getAsString();
 
 
                                     String product_price = jsonObject2.get("product_price").getAsString();
@@ -173,7 +221,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                     String discount = jsonObject2.get("discount").getAsString() + "%";
 
 
-                                    orderDetailDatas.add(new OrderDetailData(product_image, product_name, product_price, product_qty, DateTime, discount));
+                                    orderDetailDatas.add(new OrderDetailData(subOrderId, product_image, product_name, product_price, product_qty, DateTime, discount));
 
 
                                 }

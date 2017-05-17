@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -15,6 +16,7 @@ class OrderDetailHolder extends RecyclerView.ViewHolder {
 
     ImageView imgProductImage;
     TextView tvProductName, tvPrize, tvProductQty, tvDateTime,tvDiscount;
+    RelativeLayout rlCancelSubOrder;
 
     public OrderDetailHolder(View itemView) {
         super(itemView);
@@ -24,6 +26,7 @@ class OrderDetailHolder extends RecyclerView.ViewHolder {
         tvPrize = (TextView) itemView.findViewById(R.id.tvOrderPrize);
         tvProductQty = (TextView) itemView.findViewById(R.id.tvProductQty);
         tvDateTime = (TextView) itemView.findViewById(R.id.tvDateTime);
+        rlCancelSubOrder=(RelativeLayout)itemView.findViewById(R.id.rlCancelSubOrder);
 
     }
 }

@@ -14,6 +14,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
+import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
@@ -34,6 +35,7 @@ public class BlankFragment extends Fragment {
     private LinearLayout layout_container;
     private AppSharedPreference appSharedPreference;
     private String user_id, user_type;
+    public static CommonInterface commonInterface;
 
 
     @Override
@@ -52,6 +54,21 @@ public class BlankFragment extends Fragment {
 
         get_web_data();
 
+        commonInterface = new CommonInterface() {
+            @Override
+            public Object getData(Object object) {
+
+                AndroidUtils.showErrorLog(getActivity(), "getupdates", object.toString());
+
+
+                orderListDatas.remove(Integer.parseInt(object.toString()));
+
+                orderListAdapter.notifyDataSetChanged();
+
+                return null;
+            }
+        };
+
         return view;
     }
 
@@ -68,7 +85,7 @@ public class BlankFragment extends Fragment {
         orderListDatas.clear();
         progress_handler.show();
 
-        Log.e("hi1234", user_id + "##blank##" + AndroidUtils.getUserType(user_type) + "@@@@@@@" + user_type);
+
 
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_list")
@@ -131,4 +148,6 @@ public class BlankFragment extends Fragment {
 
                 });
     }
+
+
 }

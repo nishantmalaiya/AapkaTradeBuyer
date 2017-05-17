@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.BlankFragment;
 import com.example.pat.aapkatrade.dialogs.track_order.orderdetail.Order_detail;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSpinnerAdapter;
@@ -23,6 +24,8 @@ import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.progressbar.ProgressDialogHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActivity;
+import com.example.pat.aapkatrade.user_dashboard.order_list.order_details.OrderDetailsActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -42,16 +45,19 @@ public class CancelOrderDialog extends DialogFragment {
     ProgressDialogHandler progressDialogHandler;
     String orderid;
     Button submit;
+    View v;
+    int position;
 
-    public CancelOrderDialog(String orderid) {
+    public CancelOrderDialog(String orderid, int position) {
         this.orderid = orderid;
+        this.position = position;
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragmentcancelreason, container, false);
+        v = inflater.inflate(R.layout.fragmentcancelreason, container, false);
         this.container = container;
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -71,6 +77,8 @@ public class CancelOrderDialog extends DialogFragment {
 
 
 ///// set spinner adapter
+
+        AndroidUtils.showErrorLog(getActivity(), "get Name", getActivity().getClass().getSimpleName());
 
         spinnerCancelReason = (Spinner) v.findViewById(R.id.spinnerCancelReason);
 
@@ -95,8 +103,17 @@ public class CancelOrderDialog extends DialogFragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getActivity().getClass().getSimpleName().contains("OrderManagementActivity")) {
 
-                callCancelOrderWebservice();
+                    callCancelOrderWebservice();
+
+                } else {
+
+
+                    callCancelSubOrderWebservice();
+
+                }
+
 
             }
         });
@@ -110,7 +127,107 @@ public class CancelOrderDialog extends DialogFragment {
 
             if (comments.getText().length() != 0) {
                 progressDialogHandler.show();
+                String cancel_reason_url = getResources().getString(R.string.webservice_base_url) + "/cancel_all_order";
+
+                AndroidUtils.showErrorLog(getActivity(), "cancel order detail", orderid);
+                AndroidUtils.showErrorLog(getActivity(), "reason", spinnerCancelReason.getSelectedItem().toString());
+                AndroidUtils.showErrorLog(getActivity(), "comments", comments.getText().toString());
+
+                Ion.with(getActivity())
+                        .load(cancel_reason_url)
+                        .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("order_id", orderid)
+                        .setBodyParameter("reason", spinnerCancelReason.getSelectedItem().toString())
+                        .setBodyParameter("comments", comments.getText().toString())
+
+
+                        .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+
+                        if (result != null) {
+                            String error = result.get("error").getAsString();
+                            if (error.contains("false")) {
+                                progressDialogHandler.hide();
+
+                                getDialog().dismiss();
+
+
+                                if(position==-1)
+                                {
+                                    OrderDetailsActivity.commonInterface.getData(position);
+
+                                }
+                                else{
+
+                                    AndroidUtils.showErrorLog(getActivity(), result.toString());
+                                    BlankFragment.commonInterface.getData(position);
+
+                                }
+
+
+//                                getActivity().finish();
+//
+//
+//
+//
+//                                Intent list_product = new Intent(getActivity(), OrderManagementActivity.class);
+//                                getActivity().startActivity(list_product);
+
+
+                            } else {
+
+                                getDialog().dismiss();
+                                progressDialogHandler.hide();
+                            }
+
+
+                        } else {
+                            getDialog().dismiss();
+                            progressDialogHandler.hide();
+
+
+                        }
+
+
+//               JsonObject res result.get("otp_id").getAsString();
+
+
+                    }
+                });
+
+
+            } else {
+
+                AndroidUtils.showSnackBar((ViewGroup) v.findViewById(R.id.cardViewCancelDialog), "Please Enter Comments");
+                comments.setError("Please Enter Comments");
+            }
+
+
+        } else {
+
+            AndroidUtils.showSnackBar((ViewGroup) v.findViewById(R.id.cardViewCancelDialog), "Select Cancel Reason");
+
+
+        }
+
+
+    }
+
+
+    private void callCancelSubOrderWebservice() {
+
+        if (spinnerCancelReason.getSelectedItemPosition() != 0) {
+
+            if (comments.getText().length() != 0) {
+                progressDialogHandler.show();
                 String cancel_reason_url = getResources().getString(R.string.webservice_base_url) + "/cancel_order";
+
+                AndroidUtils.showErrorLog(getActivity(), "cancel order detail", orderid);
+                AndroidUtils.showErrorLog(getActivity(), "reason", spinnerCancelReason.getSelectedItem().toString());
+                AndroidUtils.showErrorLog(getActivity(), "comments", comments.getText().toString());
 
                 Ion.with(getActivity())
                         .load(cancel_reason_url)
@@ -131,25 +248,32 @@ public class CancelOrderDialog extends DialogFragment {
                             if (error.contains("false")) {
                                 progressDialogHandler.hide();
 
-
+                                getDialog().dismiss();
                                 AndroidUtils.showErrorLog(getActivity(), result.toString());
+                                OrderDetailsActivity.commonInterface.getData(position);
 
 
-                                Intent go_to_trackorder = new Intent(getActivity(), Order_detail.class);
-                                go_to_trackorder.putExtra("class_name", getActivity().getClass().getName());
-                                go_to_trackorder.putExtra("result", result.toString());
-                                startActivity(go_to_trackorder);
+//                                getActivity().finish();
+//
+//
+//
+//
+//                                Intent list_product = new Intent(getActivity(), OrderManagementActivity.class);
+//                                getActivity().startActivity(list_product);
 
 
                             } else {
+
+                                getDialog().dismiss();
                                 progressDialogHandler.hide();
                             }
 
 
                         } else {
+                            getDialog().dismiss();
                             progressDialogHandler.hide();
 
-                            Log.e("result", result.toString());
+
                         }
 
 
@@ -162,14 +286,20 @@ public class CancelOrderDialog extends DialogFragment {
 
             } else {
 
-                AndroidUtils.showSnackBar(container, "Please Enter Comments");
+                AndroidUtils.showSnackBar((ViewGroup) v.findViewById(R.id.cardViewCancelDialog), "Please Enter Comments");
+                comments.setError("Please Enter Comments");
             }
 
 
         } else {
-            AndroidUtils.showSnackBar(container, "Select Cancel Reason");
+
+            AndroidUtils.showSnackBar((ViewGroup) v.findViewById(R.id.cardViewCancelDialog), "Select Cancel Reason");
+
+
         }
 
 
     }
+
+
 }
