@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
-        rlTutorial = (RelativeLayout) findViewById(R.id.rlFirstTime);
+
 
         progressBarHandler = new ProgressBarHandler(this);
 
@@ -115,6 +115,7 @@ public class HomeActivity extends AppCompatActivity {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
+            rlTutorial = (RelativeLayout) findViewById(R.id.rlFirstTime);
             //  permissions  granted.
             setupToolBar();
             //setupNavigation();
@@ -124,15 +125,16 @@ public class HomeActivity extends AppCompatActivity {
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
             AppConfig.deleteCache(HomeActivity.this);
-//            if(rlTutorial.getVisibility()==View.GONE)
-//            {
-//                rlTutorial.setVisibility(View.VISIBLE);
-//            }
+
+
+
+
 
         } else {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
+            rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
             //  permissions  granted.
             setupToolBar();
             //setupNavigation();
@@ -144,13 +146,23 @@ public class HomeActivity extends AppCompatActivity {
             checked_wifispeed();
             AppConfig.deleteCache(HomeActivity.this);
 
-        }
+            if (appSharedPreference.getSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME)) == false)
 
-        if (appSharedPreference.getSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME)) == false)
+            {
 
-        {
+                appSharedPreference.setSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), true);
 
-            appSharedPreference.setSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), true);
+//
+
+                rlTutorial.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rlTutorial.setVisibility(View.GONE);
+                    }
+                });
+
+
+            }
 
 
         }
@@ -626,6 +638,40 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString())==1)
+
+        {
+
+
+            rlTutorial.setVisibility(View.GONE);
+
+
+
+        }
+        else{
+
+            appSharedPreference.setSharedPrefInt(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), 0);
+
+
+
+            rlTutorial.setVisibility(View.VISIBLE);
+
+            appSharedPreference.setSharedPrefInt(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), 1);
+
+//
+            rlTutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rlTutorial.setVisibility(View.GONE);
+                }
+            });
+
+
+
+        }
+
+
 
         if (home_activity == 1) {
             System.out.println("activity again started-----------");
