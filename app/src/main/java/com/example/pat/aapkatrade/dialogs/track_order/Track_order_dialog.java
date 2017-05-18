@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +43,8 @@ public class Track_order_dialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.rounded_dialog);
 //        getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
         initview(v);
         progressBarHandler = new ProgressBarHandler(getActivity());

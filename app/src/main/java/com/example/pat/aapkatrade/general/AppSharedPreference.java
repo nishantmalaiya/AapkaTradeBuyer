@@ -50,4 +50,15 @@ public class AppSharedPreference extends Application {
     }
 
 
+
+    public void setSharedPrefBoolean(String pref_key, boolean n) {
+        editor.putBoolean(pref_key, n);
+        editor.commit();
+    }
+
+    public boolean getSharedPrefBoolean(String pref_key) {
+        return sharedPreferences.getBoolean(pref_key,false);
+    }
+
+
 }
