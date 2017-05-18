@@ -70,12 +70,12 @@ public class ShopListByCategoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         Bundle b = intent.getExtras();
-//        if (b != null) {
+        if (b != null) {
             latitude = b.getString("latitude");
             longitude = b.getString("longitude");
             category_id = b.getString("category_id");
             AndroidUtils.showErrorLog(context, "_______________latitude"+latitude+"longitude"+longitude+"category_id"+category_id);
-//        }
+        }
 
         setUpToolBar();
         initView();

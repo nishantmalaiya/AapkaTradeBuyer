@@ -226,4 +226,9 @@
     <string name="reason">Reason</string>
     <string name="comments">Comments</string>
     <string name="type_comment">Type your Comments</string>
+    <string name="enter_mobile_or_email">Enter Mobile No / Email</string>
+    <string name="optional">Optional</string>
+    <string name="create_password">Create Password</string>
+    <string name="trouble_code">Trouble Receiving Code ?</string>
+    <string name="resend_code">Resend Code</string>
 </resources>
