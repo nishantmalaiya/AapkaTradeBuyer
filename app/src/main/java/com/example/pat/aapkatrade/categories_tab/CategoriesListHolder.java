@@ -20,7 +20,7 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
     View view;
 
     RelativeLayout relativeLayout1, linearlayoutMap;
-    TextView tvProductName, tvProductCategoryname,distance;
+    TextView tvProductName, tvProductCategoryname,distance,tvProductDestination;
     ImageView productimage;
 
 
@@ -39,7 +39,7 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
 
         distance=(TextView)itemView.findViewById(R.id.product_distance) ;
 
-
+        tvProductDestination = (TextView) itemView.findViewById(R.id.tvProductDestination);
 
         productimage = (ImageView) itemView.findViewById(R.id.productImage);
 

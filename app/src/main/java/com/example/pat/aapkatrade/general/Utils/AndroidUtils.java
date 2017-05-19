@@ -30,7 +30,7 @@ import java.util.Calendar;
 
 public class AndroidUtils {
 
-    public static String BaseUrl = "http://staging.aapkatrade.com/slim";
+    public static String BaseUrl = "https://aapkatrade.com";
 
     public static void showSnackBar(ViewGroup layout, String message) {
         if (layout != null) {

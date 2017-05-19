@@ -54,8 +54,9 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivi
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity
-{
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
+public class HomeActivity extends AppCompatActivity {
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -73,7 +74,7 @@ public class HomeActivity extends AppCompatActivity
     public static String userid, username;
     private NestedScrollView scrollView;
     private float initialX, initialY;
-    public static RelativeLayout rl_main_content, rl_searchview_dashboard;
+    public static RelativeLayout rl_main_content, rlTutorial;
     private AppSharedPreference appSharedPreference;
     private final int SPEECH_RECOGNITION_CODE = 1;
     private Mylocation mylocation;
@@ -86,12 +87,12 @@ public class HomeActivity extends AppCompatActivity
     int home_activity = 1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
+
 
         progressBarHandler = new ProgressBarHandler(this);
 
@@ -107,13 +108,14 @@ public class HomeActivity extends AppCompatActivity
 
         userDashboardFragment = new UserDashboardFragment();
 
+
         permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status)
-        {
+        if (permission_status) {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
+            rlTutorial = (RelativeLayout) findViewById(R.id.rlFirstTime);
             //  permissions  granted.
             setupToolBar();
             //setupNavigation();
@@ -124,12 +126,15 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             AppConfig.deleteCache(HomeActivity.this);
 
-        }
-        else
-        {
+
+
+
+
+        } else {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
+            rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
             //  permissions  granted.
             setupToolBar();
             //setupNavigation();
@@ -141,7 +146,27 @@ public class HomeActivity extends AppCompatActivity
             checked_wifispeed();
             AppConfig.deleteCache(HomeActivity.this);
 
+            if (appSharedPreference.getSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME)) == false)
+
+            {
+
+                appSharedPreference.setSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), true);
+
+//
+
+                rlTutorial.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rlTutorial.setVisibility(View.GONE);
+                    }
+                });
+
+
+            }
+
+
         }
+
 
     }
 
@@ -159,8 +184,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
 
@@ -521,8 +545,7 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void setForceTitleHide(boolean forceTitleHide)
-    {
+    private void setForceTitleHide(boolean forceTitleHide) {
 
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
@@ -613,17 +636,47 @@ public class HomeActivity extends AppCompatActivity
 
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
-        if (home_activity == 1)
+        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString())==1)
+
         {
+
+
+            rlTutorial.setVisibility(View.GONE);
+
+
+
+        }
+        else{
+
+            appSharedPreference.setSharedPrefInt(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), 0);
+
+
+
+            rlTutorial.setVisibility(View.VISIBLE);
+
+            appSharedPreference.setSharedPrefInt(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), 1);
+
+//
+            rlTutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rlTutorial.setVisibility(View.GONE);
+                }
+            });
+
+
+
+        }
+
+
+
+        if (home_activity == 1) {
             System.out.println("activity again started-----------");
             home_activity = 2;
-        }
-        else
-        {
+        } else {
             tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
         }
     }

@@ -304,8 +304,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/tvShopName"
-                                        android:layout_marginTop="@dimen/fifteen_dip"
-
+                                        android:layout_marginTop="@dimen/five_dip"
                                         android:textColor="@color/orange" />
 
                                     <TextView
@@ -313,18 +312,16 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/tvShopAddress"
-                                        android:layout_marginTop="@dimen/fifteen_dip"
+                                        android:layout_marginTop="@dimen/five_dip"
 
-                                        android:textColor="@color/orange" />
+                                        android:textColor="@color/black" />
 
                                     <TextView
                                         android:id="@+id/tvPhone"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/tvMobile"
-                                        android:layout_marginTop="@dimen/fifteen_dip"
-
-                                        android:textColor="@color/orange" />
+                                        android:textColor="@color/black" />
 
                                 </RelativeLayout>
 

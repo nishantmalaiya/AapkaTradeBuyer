@@ -27,6 +27,7 @@ public enum SharedPreferenceConstants {
     USER_TYPE("USER_TYPE"),
     LANGUAGE("LANGUAGE"),
     EMAIL_ID("EMAIL_ID"),
+    IS_FIRST_TIME("IS_FIRST_TIME"),
     MOBILE("MOBILE"),
     COUNTRY_ID("COUNTRY_ID"),
     STATE_ID("STATE_ID"),

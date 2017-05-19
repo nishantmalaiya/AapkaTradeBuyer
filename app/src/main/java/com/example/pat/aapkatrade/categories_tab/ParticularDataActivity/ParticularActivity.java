@@ -42,7 +42,7 @@ public class ParticularActivity extends AppCompatActivity {
     FrameLayout layout_container, layout_container_relativeSearch;
     MyRecyclerViewEffect myRecyclerViewEffect;
     JsonObject home_data;
-    String url;
+    String url,latitude = "0.0", longitude = "0.0";
     Mylocation mylocation;
     private Context context;
 
@@ -53,9 +53,24 @@ public class ParticularActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         context = ParticularActivity.this;
 
+
         Intent intent = getIntent();
 
+        Bundle b = intent.getExtras();
+        if (b != null)
+        {
+            url = intent.getStringExtra("url");
+            latitude = b.getString("latitude");
+            longitude = b.getString("longitude");
+            AndroidUtils.showErrorLog(context, "_______________latitude"+latitude+"longitude"+longitude);
+        }
+
+       /* Intent intent = getIntent();
+
         url = intent.getStringExtra("url");
+      */
+
+
 
         System.out.println("url---------------" + url);
         setContentView(R.layout.activity_shop_list_by_category);
@@ -90,10 +105,14 @@ public class ParticularActivity extends AppCompatActivity {
                 .load(url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("lat", latitude)
+                .setBodyParameter("long", longitude)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+
+                        System.out.println("result  result==================" + result);
 
                         if (result == null) {
                             progress_handler.hide();
@@ -130,7 +149,11 @@ public class ParticularActivity extends AppCompatActivity {
                                             jsonObject2.get("country_name").getAsString();
                                     String shopImage = jsonObject2.get("image_url").getAsString();
 
-                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, ""));
+                                    String distance = jsonObject2.get("distance").getAsString();
+
+                                    System.out.println("distance-------------"+distance);
+
+                                    shopListDatas.add(new CategoriesListData(shopId, shopName, shopImage, shopLocation, distance));
 
                                 }
                                 categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, shopListDatas);

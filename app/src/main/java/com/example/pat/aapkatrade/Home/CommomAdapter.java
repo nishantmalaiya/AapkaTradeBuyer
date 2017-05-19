@@ -347,6 +347,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else
         {
 
+            System.out.println("grid data-----------------"+commomDatas.get(position).name);
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
@@ -354,6 +355,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .into(grid_holder.product_imageview);
+
             grid_holder.tvProductName.setText(commomDatas.get(position).name);
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {
                 @Override

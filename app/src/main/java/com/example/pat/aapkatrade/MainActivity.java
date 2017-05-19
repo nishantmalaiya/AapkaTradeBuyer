@@ -16,14 +16,14 @@ import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.service.LocationService;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
     private ConnetivityCheck connetivityCheck;
@@ -38,10 +38,8 @@ public class MainActivity extends AppCompatActivity
     private AppSharedPreference appSharedpreference;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -66,11 +64,15 @@ public class MainActivity extends AppCompatActivity
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
 
+
         // Applying font
         tv_aapkatrade.setTypeface(tf);
         connetivityCheck = new ConnetivityCheck();
         custom_progress_bar = new Custom_progress_bar(MainActivity.this);
         custom_progress_bar.show();
+
+
+
 
 
         new Handler().postDelayed(new Runnable() {
@@ -80,19 +82,17 @@ public class MainActivity extends AppCompatActivity
                 if (ConnetivityCheck.isNetworkAvailable(MainActivity.this)) {
 
 
-                        mylocation = new Mylocation(MainActivity.this);
-                        LocationManagerCheck locationManagerCheck = new LocationManagerCheck(MainActivity.this);
+                    mylocation = new Mylocation(MainActivity.this);
+                    LocationManagerCheck locationManagerCheck = new LocationManagerCheck(MainActivity.this);
 
-                        Location location = null;
-                        if (locationManagerCheck.isLocationServiceAvailable())
-                        {
-                            Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
-                            startActivity(mainIntent);
-                            finish();
-                            if (pd != null)
-                            {
-                                pd.dismiss();
-                            }
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
+                        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+                        if (pd != null) {
+                            pd.dismiss();
+                        }
 
                         Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
                         startService(serviceIntent);
@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity
                     } else {
                         locationManagerCheck.createLocationServiceError(MainActivity.this);
                     }
-
 
 
                 } else {
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        AndroidUtils.showErrorLog(MainActivity.this,"work while on Resume");
+        AndroidUtils.showErrorLog(MainActivity.this, "work while on Resume");
 
 //        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
 //        startActivity(mainIntent);
@@ -134,46 +133,45 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        AndroidUtils.showErrorLog(MainActivity.this,"work while on postResume");
+        AndroidUtils.showErrorLog(MainActivity.this, "work while on postResume");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        AndroidUtils.showErrorLog(MainActivity.this,"work while on start");
+        AndroidUtils.showErrorLog(MainActivity.this, "work while on start");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        AndroidUtils.showErrorLog(MainActivity.this,"work while on stop");
+        AndroidUtils.showErrorLog(MainActivity.this, "work while on stop");
     }
 
     @Override
     protected void onDestroy() {
 
         super.onDestroy();
-        AndroidUtils.showErrorLog(MainActivity.this,"work while on onDestroy");
+        AndroidUtils.showErrorLog(MainActivity.this, "work while on onDestroy");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AndroidUtils.showErrorLog(MainActivity.this,"onPause");
+        AndroidUtils.showErrorLog(MainActivity.this, "onPause");
     }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        AndroidUtils.showErrorLog(MainActivity.this,"onActivityResult"+requestCode+"***"+resultCode);
+        AndroidUtils.showErrorLog(MainActivity.this, "onActivityResult" + requestCode + "***" + resultCode);
         if (resultCode == 0) {
             switch (requestCode) {
 
                 case 1:
                     LocationManagerCheck locationManagerCheck = new LocationManagerCheck(MainActivity.this);
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
                         Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(mainIntent);
                         finish();
@@ -183,20 +181,15 @@ public class MainActivity extends AppCompatActivity
 
                         Intent serviceIntent = new Intent(MainActivity.this, LocationService.class);
                         startService(serviceIntent);
-                    }
-                    else
-                    {
+                    } else {
                         locationManagerCheck.createLocationServiceError(MainActivity.this);
                     }
-
 
 
                     break;
             }
         }
     }
-
-
 
 
 }

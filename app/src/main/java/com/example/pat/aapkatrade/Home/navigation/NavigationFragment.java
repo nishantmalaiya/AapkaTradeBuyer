@@ -158,12 +158,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         navigation_recycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
         navigation_recycleview.setLayoutManager(navigation_linear_layout_manager);
 
-
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
-
-        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
-
+        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null)
+        {
             String Username = app_sharedpreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "notlogin");
             String Emailid = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
             String user_image = app_sharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
@@ -415,13 +413,14 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     {
         super.onResume();
 
-        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
-
+        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null)
+        {
 
             String userName = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
             String emailId = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
 
-            if (userName.contains("notlogin")) {
+            if (userName.contains("notlogin"))
+            {
                 setdata(getString(R.string.welcomeguest), "");
 
                 rl_logout.setVisibility(View.GONE);
@@ -430,7 +429,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             }
             else
             {
-
                 set_visibility_logout();
 
                 setdata(userName, emailId);
