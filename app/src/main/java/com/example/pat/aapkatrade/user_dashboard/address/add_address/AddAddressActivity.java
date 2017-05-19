@@ -1,7 +1,9 @@
 package com.example.pat.aapkatrade.user_dashboard.address.add_address;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,31 +28,30 @@ import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutA
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class AddAddressActivity extends AppCompatActivity
-{
+public class AddAddressActivity extends AppCompatActivity {
 
-    ArrayList<String> stateList = new ArrayList<>();
-    AppSharedPreference appSharedPreference;
-    String userid,firstName,lastName,address,mobile,state_id;
-    EditText etFirstName,etLastName,etMobileNo,etAddress;
-    Button buttonSave;
-    Spinner spState;
-    RelativeLayout activity_add_address;
-    ProgressBarHandler progress_handler;
+    private ArrayList<String> stateList = new ArrayList<>();
+    private AppSharedPreference appSharedPreference;
+    private String userid, firstName, lastName, address, mobile, state_id;
+    private EditText etFirstName, etLastName, etMobileNo, etAddress;
+    private Button buttonSave;
+    private Spinner spState;
+    private LinearLayout activity_add_address;
+    private ProgressBarHandler progress_handler;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_address);
 
-        stateList =  new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
+        stateList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
 
         progress_handler = new ProgressBarHandler(this);
 
@@ -65,9 +67,9 @@ public class AddAddressActivity extends AppCompatActivity
 
         address = appSharedPreference.getSharedPref(SharedPreferenceConstants.ADDRESS.toString(), "");
 
-        state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
+        state_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
 
-        System.out.println("state_id-----------"+state_id);
+        System.out.println("state_id-----------" + state_id);
 
         setuptoolbar();
 
@@ -75,20 +77,17 @@ public class AddAddressActivity extends AppCompatActivity
 
     }
 
-    private void setup_layout()
-    {
-        activity_add_address = (RelativeLayout)  findViewById(R.id.activity_add_address);
+    private void setup_layout() {
+        activity_add_address = (LinearLayout) findViewById(R.id.activity_add_address);
 
         spState = (Spinner) findViewById(R.id.spStateCategory);
 
-        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(),  String.valueOf(position));
-                state_id= appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
+                appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(), String.valueOf(position));
+                state_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
                 spState.setSelection(Integer.valueOf(state_id));
 
             }
@@ -100,7 +99,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         });
 
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(AddAddressActivity.this,R.layout.black_textcolor_spinner,stateList);
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(AddAddressActivity.this, R.layout.black_textcolor_spinner, stateList);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.black_textcolor_spinner);
         spState.setAdapter(spinnerArrayAdapter);
 
@@ -124,90 +123,48 @@ public class AddAddressActivity extends AppCompatActivity
 
         etAddress.setText(address);
 
-        buttonSave.setOnClickListener(new View.OnClickListener()
-        {
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                callAddCompanyWebService(userid, etFirstName.getText().toString(),etLastName.getText().toString(),etAddress.getText().toString());
+            public void onClick(View v) {
+                callAddCompanyWebService(userid, etFirstName.getText().toString(), etLastName.getText().toString(), etAddress.getText().toString());
             }
         });
 
 
-
-
     }
 
-    private void callAddCompanyWebService(String userId, final String firstName,final String lName , final String address)
-    {
+    private void callAddCompanyWebService(String userId, final String firstName, final String lName, final String address) {
         progress_handler.show();
         Ion.with(AddAddressActivity.this)
-                .load((getResources().getString(R.string.webservice_base_url))+"/edit_shipping_address")
+                .load((getResources().getString(R.string.webservice_base_url)) + "/edit_shipping_address")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", firstName)
-                .setBodyParameter("lastname",lName)
+                .setBodyParameter("lastname", lName)
                 .setBodyParameter("address", address)
                 .setBodyParameter("state_id", String.valueOf(spState.getSelectedItemPosition()))
                 .setBodyParameter("user_id", userId)
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
 
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
                         progress_handler.hide();
                         Intent checkout = new Intent(AddAddressActivity.this, CartCheckoutActivity.class);
-                        checkout.putExtra("fname",etFirstName.getText().toString());
-                        checkout.putExtra("lname",etLastName.getText().toString());
-                        checkout.putExtra("mobile",etMobileNo.getText().toString());
-                        checkout.putExtra("state_id",String.valueOf(spState.getSelectedItemPosition()));
-                        checkout.putExtra("address",etAddress.getText().toString());
+                        checkout.putExtra("fname", etFirstName.getText().toString());
+                        checkout.putExtra("lname", etLastName.getText().toString());
+                        checkout.putExtra("mobile", etMobileNo.getText().toString());
+                        checkout.putExtra("state_id", String.valueOf(spState.getSelectedItemPosition()));
+                        checkout.putExtra("address", etAddress.getText().toString());
                         startActivity(checkout);
-
-                       /*  if (result == null){
-
-
-                            progress_handler.hide();
-                        }
-                        else
-                        {
-                            JsonObject jsonObject = result.getAsJsonObject();
-                            String message = jsonObject.get("message").getAsString();
-
-                            System.out.println("message---------"+message);
-
-                            if (message.equals("Updated Successfully!"))
-                            {
-                                appSharedPreference.setSharedPref("username", firstName);
-                                appSharedPreference.setSharedPref("lname", lName);
-                                appSharedPreference.setSharedPref("address", address);
-                                appSharedPreference.setSharedPref("state_id", String.valueOf(spState.getSelectedItemPosition()));
-                                progress_handler.hide();
-                                Toast.makeText(getApplicationContext(),"Updated Successfully!",Toast.LENGTH_SHORT).show();
-
-                               Intent companylist = new Intent(AddAddressActivity.this, CartCheckoutActivity.class);
-                                startActivity(companylist);
-
-                                finish();
-                            }
-                            else
-                            {
-                                progress_handler.hide();
-                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-                            }
-
-                        }*/
                     }
                 });
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
 
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         findViewById(R.id.logoWord).setVisibility(View.GONE);
 
         TextView header_name = (TextView) findViewById(R.id.header_name);
@@ -218,11 +175,9 @@ public class AddAddressActivity extends AppCompatActivity
 
         AndroidUtils.setImageColor(homeIcon, this, R.color.white);
 
-        homeIcon.setOnClickListener(new View.OnClickListener()
-        {
+        homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 Intent intent = new Intent(AddAddressActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -232,8 +187,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
@@ -245,17 +199,14 @@ public class AddAddressActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -266,71 +217,4 @@ public class AddAddressActivity extends AppCompatActivity
     }
 
 
-    /*public void getState() {
-
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "state");
-        webservice_body_parameter.put("id", "101");//country id fixed 101 for India
-
-        //   CallWebService.getcountrystatedata(AddAddressActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
-
-        CallWebService.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject state_data_webservice)
-            {
-
-                System.out.println("Data is actualy--------"+stateList.size());
-
-
-
-                if (state_data_webservice != null)
-                {
-                    Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
-                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                    stateList.clear();
-                    State stateEntity_init = new State("-1", "Please Select State");
-                    stateList.add(stateEntity_init);
-
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                        stateList.add(stateEntity);
-                    }
-                    SpStateAdapter spStateAdapter = new SpStateAdapter(AddAddressActivity.this, stateList);
-                    spState.setAdapter(spStateAdapter);
-
-                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-                        {
-                           *//* stateID = stateList.get(position).stateId;
-                            cityList = new ArrayList<>();
-                            if (position > 0) {
-                                getCity(stateList.get(position).stateId);
-                            }*//*
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
-
-                        }
-
-                    });
-                }
-                else
-                {
-
-                  //  AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
-                }
-            }
-
-        };
-
-        System.out.println("Data is actualy--------"+stateList.size());
-    }
-*/
 }

@@ -35,32 +35,30 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class CartCheckoutActivity extends AppCompatActivity
-{
+public class CartCheckoutActivity extends AppCompatActivity {
 
     RelativeLayout relativePayment;
-    String fname,lname,mobile,state_id,address;
+    String fname, lname, mobile, state_id, address;
     AppSharedPreference app_sharedpreference;
-    ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
+    ArrayList<CartData> cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
-    public static TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
+    public static TextView tvContinue, tvPriceItemsHeading, tvPriceItems, tvLastPayableAmount, tvAmountPayable;
     RelativeLayout buttonContainer;
     RecyclerView mycartRecyclerView;
     CartCheckOutAdapter cartAdapter;
     private ProgressBarHandler progressBarHandler;
     public static CardView cardviewProductDeatails;
     public static LinearLayout linearAddressLayout;
-    TextView addressLine1,addressLine2,addressLine3;
+    TextView addressLine1, addressLine2, addressLine3;
     RelativeLayout relativeChangeAddress;
     String userid;
-    int page=1;
+    int page = 1;
     LinearLayoutManager linearLayoutManager;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_cart_checkout);
@@ -78,7 +76,7 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         lname = bundle.getString("lname");
 
-        mobile= bundle.getString("mobile");
+        mobile = bundle.getString("mobile");
 
         state_id = bundle.getString("state_id");
 
@@ -108,8 +106,7 @@ public class CartCheckoutActivity extends AppCompatActivity
     }
 
 
-    private void initView()
-    {
+    private void initView() {
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
@@ -118,7 +115,7 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
 
-        addressLine1 = (TextView)  findViewById(R.id.addressLine1);
+        addressLine1 = (TextView) findViewById(R.id.addressLine1);
 
         addressLine2 = (TextView) findViewById(R.id.addressLine2);
 
@@ -130,13 +127,13 @@ public class CartCheckoutActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Intent address = new Intent(CartCheckoutActivity.this,AddAddressActivity.class);
+                Intent address = new Intent(CartCheckoutActivity.this, AddAddressActivity.class);
                 startActivity(address);
 
             }
         });
 
-        addressLine1.setText(fname+" " +lname);
+        addressLine1.setText(fname + " " + lname);
 
         addressLine2.setText(address);
 
@@ -152,18 +149,16 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         tvPriceItems = (TextView) findViewById(R.id.tvPriceItems);
 
-        tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
+        tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs) + "4251");
 
-        tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
+        tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs) + "4251");
 
         AndroidUtils.setImageColor(locationImageView, context, R.color.green);
 
     }
 
 
-
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
         relativePayment = (RelativeLayout) findViewById(R.id.relativePayment);
 
@@ -172,27 +167,21 @@ public class CartCheckoutActivity extends AppCompatActivity
         cartList("0");
 
 
-        relativePayment.setOnClickListener(new View.OnClickListener()
-        {
+        relativePayment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-               String userid = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
+            public void onClick(View v) {
+                String userid = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "");
                 callwebservice__save_order(userid);
-
-
 
 
             }
         });
 
 
-
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -201,18 +190,15 @@ public class CartCheckoutActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -223,15 +209,13 @@ public class CartCheckoutActivity extends AppCompatActivity
     }
 
 
-    private void cartList(String pageNumber)
-    {
+    private void cartList(String pageNumber) {
 
         progressBarHandler.show();
 
         String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
-        if (user_id.equals("notlogin"))
-        {
-            user_id="";
+        if (user_id.equals("notlogin")) {
+            user_id = "";
         }
 
 
@@ -241,42 +225,39 @@ public class CartCheckoutActivity extends AppCompatActivity
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .setBodyParameter("user_id", user_id)
-                .setBodyParameter("page",pageNumber)
+                .setBodyParameter("page", pageNumber)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBarHandler.hide();
-                        if (result != null)
-                        {
+                        if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
 
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
                             String cart_count = jsonObject.get("total_qty").getAsString();
-                            String total_amount =  jsonObject.get("total_amount").getAsString();
+                            String total_amount = jsonObject.get("total_amount").getAsString();
 
-                            tvPriceItemsHeading.setText("Price("+cart_count+"items)");
-                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
-                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
-                           // tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
+                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs) + total_amount);
+                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs) + total_amount);
+                            // tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
 
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
-                            if (jsonProductList != null && jsonProductList.size() > 0)
-                            {
-                                for (int i = 0; i < jsonProductList.size(); i++)
-                                {
+                            if (jsonProductList != null && jsonProductList.size() > 0) {
+                                for (int i = 0; i < jsonProductList.size(); i++) {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String Id = jsonproduct.get("id").getAsString();
                                     String productName = jsonproduct.get("name").getAsString();
                                     String productqty = jsonproduct.get("quantity").getAsString();
                                     String price = jsonproduct.get("price").getAsString();
                                     String subtotal_price = jsonproduct.get("sub_total").getAsString();
-                                    System.out.println("price--------------------"+price);
+                                    System.out.println("price--------------------" + price);
 
                                     String productImage = jsonproduct.get("image_url").getAsString();
                                     String product_id = jsonproduct.get("product_id").getAsString();
-                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id,subtotal_price));
+                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage, product_id, subtotal_price));
                                 }
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 mycartRecyclerView.setLayoutManager(mLayoutManager);
@@ -287,9 +268,7 @@ public class CartCheckoutActivity extends AppCompatActivity
                                 cardviewProductDeatails.setVisibility(View.VISIBLE);
 
                             }
-                        }
-                        else
-                        {
+                        } else {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                         }
 
@@ -298,8 +277,7 @@ public class CartCheckoutActivity extends AppCompatActivity
     }
 
 
-    private void callwebservice__save_order(String buyer_id)
-    {
+    private void callwebservice__save_order(String buyer_id) {
 
         progressBarHandler.show();
 
@@ -311,35 +289,29 @@ public class CartCheckoutActivity extends AppCompatActivity
                 .setBodyParameter("buyer_id", buyer_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
                         //  AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
-                        System.out.println("result-----------"+result.toString());
+                        System.out.println("result-----------" + result.toString());
 
                         String message = result.get("message").getAsString();
-                        if (message.equals("Order Saved Successfully!"))
-                        {
+                        if (message.equals("Order Saved Successfully!")) {
                             JsonObject jsonObject = result.getAsJsonObject("result");
                             String order_number = jsonObject.get("tracking_no").getAsString();
                             progressBarHandler.hide();
                             Intent payment = new Intent(CartCheckoutActivity.this, PaymentActivity.class);
-                            payment.putExtra("order_number",order_number);
-                            payment.putExtra("userid",userid);
-                            payment.putExtra("price",tvAmountPayable.getText().toString().replace(getApplicationContext().getResources().getText(R.string.Rs),"").trim());
+                            payment.putExtra("order_number", order_number);
+                            payment.putExtra("userid", userid);
+                            payment.putExtra("price", tvAmountPayable.getText().toString().replace(getApplicationContext().getResources().getText(R.string.Rs), "").trim());
                             startActivity(payment);
 
 
-                        }
-                        else
-                        {
+                        } else {
                             progressBarHandler.hide();
-                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
                         }
-
 
 
                     }
