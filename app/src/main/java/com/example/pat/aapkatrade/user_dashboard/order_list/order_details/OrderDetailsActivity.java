@@ -81,18 +81,19 @@ Button cancelOrder;
         commonInterface = new CommonInterface() {
             @Override
             public Object getData(Object object) {
+if(Integer.parseInt(object.toString())!=-1) {
+    orderDetailDatas.remove(Integer.parseInt(object.toString()));
+    if (orderDetailDatas.size() > 0) {
 
+        orderDetailAdapter.notifyDataSetChanged();
+    } else {
+        finish();
+    }
+}
+else {
+    finish();
 
-                orderDetailDatas.remove(Integer.parseInt(object.toString()));
-                if (orderDetailDatas.size() > 0) {
-
-                    orderDetailAdapter.notifyDataSetChanged();
-                }
-
-                else {
-                    finish();
-                }
-
+}
 
                 return null;
             }
