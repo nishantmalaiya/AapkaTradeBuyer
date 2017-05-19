@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,9 @@ import java.util.ArrayList;
 /**
  * Created by Netforce on 7/25/2016.
  */
-public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder> {
+public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder>
+{
+
     private Context context;
     private ArrayList<CategoryHome> listDataHeader;
     private View view;
@@ -37,7 +40,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
     AppSharedPreference appSharedPreference;
 
 
-    public NavigationAdapter(Context context, ArrayList<CategoryHome> listDataHeader) {
+    public NavigationAdapter(Context context, ArrayList<CategoryHome> listDataHeader)
+    {
         this.context = context;
         this.listDataHeader = listDataHeader;
         appSharedPreference = new AppSharedPreference(context);
@@ -59,6 +63,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
         viewHolder.tvCategoryname.setText(listDataHeader.get(position).getCategoryName());
 
         setUpIconBackground(imageView);
+
+        Log.e("image_pat",listDataHeader.get(position).getCategoryIconPath());
+
         Ion.with(context).load(listDataHeader.get(position).getCategoryIconPath()).withBitmap().asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override
@@ -76,7 +83,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
 
                 boolean permission_status = CheckPermission.checkPermissions((Activity) context);
 
-                if (permission_status) {
+                if (permission_status)
+                {
                     mylocation = new Mylocation(context);
                     LocationManagerCheck locationManagerCheck = new LocationManagerCheck(context);
                     if (locationManagerCheck.isLocationServiceAvailable()) {

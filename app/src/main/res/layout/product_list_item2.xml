@@ -85,6 +85,21 @@
                      />
 
 
+                <TextView
+                    android:id="@+id/tvProductDestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Groceries"
+                    android:textColor="@color/item_details_color"
+                    android:layout_below="@+id/tvProductCategoryname"
+                    android:textSize="@dimen/textsize_medium"
+                    android:layout_marginLeft="@dimen/ten_dip"
+                    />
+
+
+
+
             </RelativeLayout>
 
 

@@ -281,6 +281,13 @@ public class MyCartActivity extends AppCompatActivity
                                 progressBarHandler.hide();
 
                             }
+                            else
+                             {
+
+                                progressBarHandler.hide();
+
+                                AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
+                            }
                         }
                         else
                         {

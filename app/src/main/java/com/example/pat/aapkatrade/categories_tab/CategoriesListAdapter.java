@@ -69,7 +69,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
-            Log.e("image_large", "image_large");
+            Log.e("image_large", "image_large"+product_imageurl);
 
         } else if (Tabletsize.isMedium(context)) {
             String product_imageurl = itemList.get(position).shopImage == null ? "" : itemList.get(position).shopImage.replace("small", "medium");
@@ -91,13 +91,15 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Log.e("image_small", "image_small");
         }
 
-
+        Log.e("distance", "distance"+itemList.get(position).shopImage);
         Picasso.with(context).load(itemList.get(position).shopImage)
                 .placeholder(R.drawable.default_noimage)
                 .error(R.drawable.default_noimage)
                 .into(homeHolder.productimage);
 
         homeHolder.distance.setText(itemList.get(position).distance);
+
+        homeHolder.tvProductDestination.setText(itemList.get(position).shopLocation);
 
         homeHolder.relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
