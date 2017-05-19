@@ -56,6 +56,7 @@
     <color name="white_shade">#E9E9E9</color>
     <color name="text_order_tab">#066C57</color>
 
+    <color name="transparent_color">#FFFFFFFF</color>
     <color name="red">#FA2B33</color>
 
     <color name="dark_green_color">#3c763d</color>

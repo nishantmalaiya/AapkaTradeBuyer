@@ -98,6 +98,8 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
 
         textViewQuantity.setText(itemList.get(position).quantity);
 
+        // holder.tvProductShopName.setText(itemList.get(position).);
+
         holder.tvProductName.setText(itemList.get(position).productName);
 
         holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+itemList.get(position).price);

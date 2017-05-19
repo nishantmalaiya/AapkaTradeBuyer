@@ -14,29 +14,26 @@
         android:layout_height="?android:attr/actionBarSize"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:src="@drawable/ic_cart"
+        android:src="@drawable/ic_cart_black"
         android:padding="@dimen/five_dip"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
         />
-
 
     <TextView
         android:id="@+id/tvCartCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif"
-        android:gravity="center"
+        android:text="0"
         android:padding="2dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/circle_white_transparent"
-        android:layout_marginLeft="6dp"
-        android:layout_marginStart="6dp"
         android:textColor="@android:color/white"
+        android:background="@drawable/circle_white_transparent"
         android:textSize="10dp"
          />
-
 
 
 </RelativeLayout>
