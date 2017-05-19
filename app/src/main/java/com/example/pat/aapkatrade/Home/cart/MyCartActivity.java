@@ -3,6 +3,8 @@ package com.example.pat.aapkatrade.Home.cart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 
+import com.example.pat.aapkatrade.dialogs.loginwithoutregistration.LoginWithoutRegistrationDialog;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 
 import com.example.pat.aapkatrade.general.AppConfig;
@@ -160,9 +163,8 @@ public class MyCartActivity extends AppCompatActivity
 
                 if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin"))
                 {
-                    Intent i = new Intent(MyCartActivity.this, LoginActivity.class);
-                    startActivity(i);
-                    overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                    LoginWithoutRegistrationDialog loginWithoutRegistrationDialog = new LoginWithoutRegistrationDialog(context);
+                    loginWithoutRegistrationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "LoginWithoutRegistrationDialog");
 
                 }
                 else
@@ -282,12 +284,12 @@ public class MyCartActivity extends AppCompatActivity
 
                             }
                             else
-                             {
+                            {
+
 
                                 progressBarHandler.hide();
 
                                 AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
-                            }
                         }
                         else
                         {

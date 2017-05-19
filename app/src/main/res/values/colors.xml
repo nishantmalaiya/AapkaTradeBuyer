@@ -25,6 +25,8 @@
     <color name="blue_gradient_dark">#FF212B39</color>
     <color name="bg_product_title">#F2F2F2</color>
     <color name="text_color_product_detail">#2E2E2E</color>
+    <color name="dialog_text">#4A4A4A</color>
+
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
     <color name="grey_light2">#D2CECD</color>

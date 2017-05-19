@@ -40,7 +40,9 @@ public enum SharedPreferenceConstants {
     CREATED_AT("CREATED_AT"),
     EMAIL_SMALL("email"),
     PASSWORD_SMALL("password"),
-    CART_COUNT("CART_COUNT");
+    CART_COUNT("CART_COUNT"),
+    CLIENT_ID("CLIENT_ID"),
+    OTP_ID("OTP_ID");
 
 
     private final String text;

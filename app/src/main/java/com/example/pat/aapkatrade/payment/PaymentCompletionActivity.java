@@ -29,8 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PaymentCompletionActivity extends AppCompatActivity {
     private Context context;
-    private TextView tvStatusTitle, tvStatusMsg, tvHeaderTransaction, tvHeaderAmountPaid, tvSubHeaderTransaction, tvSubHeaderAmountPaid, tvReceiptNo;
-    private LinearLayout circleTile1Layout, circleTile2Layout;
+    private TextView tvStatusTitle, tvDone, tvStatusMsg, tvHeaderTransaction, tvHeaderAmountPaid, tvSubHeaderTransaction, tvSubHeaderAmountPaid, tvReceiptNo;
+    private LinearLayout circleTile1Layout, circleTile2Layout, paymentCompletionRootLayout;
     private ImageView tickImageView;
     private RelativeLayout rlDoneLayout;
     private ImageView circleImageView1, circleImageView2;
@@ -63,19 +63,22 @@ public class PaymentCompletionActivity extends AppCompatActivity {
             }
         });
 
-        if (isSuccess) {
+        if (!isSuccess) {
             tvSubHeaderTransaction.setText(transactionNo);
             tvSubHeaderAmountPaid.setText(new StringBuilder(getString(R.string.rupay_text)).append("  ").append(transactionAmount));
             tvReceiptNo.setText(Validation.isEmptyStr(receiptNo) ? "RECEIPT" : new StringBuilder("Receipt No : ").append(receiptNo));
             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0);
         } else {
             tvStatusTitle.setText(getString(R.string.payment_unsuccess));
+            tvDone.setText("Try Again");
+            findViewById(R.id.doneIcon).setVisibility(View.GONE);
+            paymentCompletionRootLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.payment_not_received));
+            AndroidUtils.setBackgroundStroke(rlDoneLayout, context, R.color.green, 10, 2);
             tickImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cross));
             tvSubHeaderTransaction.setText(Validation.isEmptyStr(transactionNo)?"Not Available": transactionNo);
             tvSubHeaderAmountPaid.setText(Validation.isEmptyStr(String.valueOf(transactionAmount))?"Not Available": new StringBuilder(getString(R.string.rupay_text)).append("  ").append(transactionAmount));
             tvReceiptNo.setText(Validation.isEmptyStr(receiptNo) ? "Receipt Not Available" : new StringBuilder("Receipt No : ").append(receiptNo));
         }
-
     }
 
     private void initView() {
@@ -100,6 +103,8 @@ public class PaymentCompletionActivity extends AppCompatActivity {
         tvSubHeaderAmountPaid = (TextView) circleTile2Layout.findViewById(R.id.tvSubHeader);
         ((TextView) circleTile2Layout.findViewById(R.id.tvHeader)).setText("Amount Paid");
         ((TextView) circleTile2Layout.findViewById(R.id.tvSubHeader)).setText("APKTRADE23548464");
+        tvDone = (TextView) findViewById(R.id.tvDone);
+        paymentCompletionRootLayout = (LinearLayout) findViewById(R.id.paymentCompletionRootLayout);
 
         tvReceiptNo = (TextView) findViewById(R.id.tvReceiptNo);
         rlDoneLayout = (RelativeLayout) findViewById(R.id.rlDoneLayout);
