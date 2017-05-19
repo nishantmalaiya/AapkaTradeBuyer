@@ -94,7 +94,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             progressDialogHandler.hide();
-                            if (result.get("error").getAsString().contains("false")) {
+                            if (result!= null && result.get("error").getAsString().contains("false")) {
                                 AndroidUtils.showErrorLog(context, result);
                                 appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), result.get("user_id").getAsString());
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
