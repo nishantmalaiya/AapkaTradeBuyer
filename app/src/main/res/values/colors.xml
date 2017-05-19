@@ -75,6 +75,7 @@
     <color name="shop_product_item">#7E7E7E</color>
     <color name="grey_more_light2">#F1F5F8</color>
     <color name="golden_text">#F0C10F</color>
+    <color name="bg_screen1">#06A282</color>
 
 
 </resources>

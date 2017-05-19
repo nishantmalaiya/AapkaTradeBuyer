@@ -51,6 +51,7 @@ import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.UserDashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+import com.example.pat.aapkatrade.welcome.WelcomeActivity;
 
 import java.util.ArrayList;
 
@@ -147,7 +148,8 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
-
+        Intent i =new Intent(HomeActivity.this, WelcomeActivity.class);
+        startActivity(i);
     }
 
     private void checked_wifispeed() {
@@ -651,7 +653,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         if (home_activity == 1) {
-            System.out.println("activity again started-----------");
+
             home_activity = 2;
         } else {
             tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));

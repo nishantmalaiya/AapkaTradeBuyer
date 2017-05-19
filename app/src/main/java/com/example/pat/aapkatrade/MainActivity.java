@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -72,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         custom_progress_bar.show();
 
 
-
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -116,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }, SPLASH_DISPLAY_LENGTH);
+
 
 
     }

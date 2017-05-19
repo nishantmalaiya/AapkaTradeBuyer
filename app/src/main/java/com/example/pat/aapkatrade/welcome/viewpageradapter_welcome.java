@@ -1,39 +1,38 @@
-package com.example.pat.aapkatrade.Home.banner_home;
+package com.example.pat.aapkatrade.welcome;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 /**
  * Created by PPC21 on 13-Jan-17.
  */
 
-public class viewpageradapter_home extends PagerAdapter {
+public class viewpageradapter_welcome extends PagerAdapter {
 
     private Context mContext;
-    ArrayList<String> imageIdList;
+    int[] imagepath, layouts;
+    String[] slider_header;
 
 
-    public viewpageradapter_home(Context mContext, ArrayList<String> imageIdList) {
-        this.imageIdList = imageIdList;
+    public viewpageradapter_welcome(Context mContext, int layouts[], int imagepaths[], String[] slider_header) {
+        this.imagepath = imagepaths;
         this.mContext = mContext;
+        this.layouts = layouts;
+        this.slider_header = slider_header;
 
     }
 
 
     public int getCount() {
-        return imageIdList != null ? imageIdList.size() : -1;
+        return layouts.length;
 
     }
 
@@ -43,20 +42,25 @@ public class viewpageradapter_home extends PagerAdapter {
 
 
     public Object instantiateItem(ViewGroup container, int position) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.viewpager_item, container, false);
+        View itemView = LayoutInflater.from(mContext).inflate(layouts[position], container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.img_pager_item);
 
-        Picasso.with(mContext).load(imageIdList.get(position)).into(imageView);
+        Picasso.with(mContext).load(imagepath[position]).into(imageView);
 
-
+        TextView tvSlideHeader=(TextView)itemView.findViewById(R.id.tvSlideHeader);
+        tvSlideHeader.setText(slider_header[position]);
         container.addView(itemView);
 
         return itemView;
+
+
     }
 
 
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        View view = (View) object;
+        container.removeView(view);
+
     }
 }
