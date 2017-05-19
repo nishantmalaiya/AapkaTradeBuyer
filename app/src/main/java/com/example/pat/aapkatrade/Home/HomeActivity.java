@@ -127,13 +127,11 @@ public class HomeActivity extends AppCompatActivity {
             AppConfig.deleteCache(HomeActivity.this);
 
 
-
-
-
         } else {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
+            rlTutorial = (RelativeLayout) findViewById(R.id.rlFirstTime);
             rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
             //  permissions  granted.
             setupToolBar();
@@ -145,24 +143,6 @@ public class HomeActivity extends AppCompatActivity {
             setup_bottomNavigation();
             checked_wifispeed();
             AppConfig.deleteCache(HomeActivity.this);
-
-            if (appSharedPreference.getSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME)) == false)
-
-            {
-
-                appSharedPreference.setSharedPrefBoolean(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), true);
-
-//
-
-                rlTutorial.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rlTutorial.setVisibility(View.GONE);
-                    }
-                });
-
-
-            }
 
 
         }
@@ -639,7 +619,9 @@ public class HomeActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString())==1)
+        AndroidUtils.showErrorLog(context, "testing", appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()));
+
+        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()) == 1)
 
         {
 
@@ -647,17 +629,14 @@ public class HomeActivity extends AppCompatActivity {
             rlTutorial.setVisibility(View.GONE);
 
 
+        } else {
 
-        }
-        else{
-
-            appSharedPreference.setSharedPrefInt(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), 0);
-
+            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString(), 1);
 
 
             rlTutorial.setVisibility(View.VISIBLE);
 
-            appSharedPreference.setSharedPrefInt(String.valueOf(SharedPreferenceConstants.IS_FIRST_TIME), 1);
+            //  appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString(), 1);
 
 //
             rlTutorial.setOnClickListener(new View.OnClickListener() {
@@ -668,9 +647,7 @@ public class HomeActivity extends AppCompatActivity {
             });
 
 
-
         }
-
 
 
         if (home_activity == 1) {
