@@ -241,25 +241,23 @@ public class MyCartActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
 
                             JsonObject jsonObject = result.getAsJsonObject("result");
 
                             String cart_count = jsonObject.get("total_qty").getAsString();
-                            String total_amount =  jsonObject.get("total_amount").getAsString();
+                            String total_amount = jsonObject.get("total_amount").getAsString();
 
-                            tvPriceItemsHeading.setText("Price("+cart_count+"items)");
-                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
-                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
-                            tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+total_amount);
+                            tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
+                            tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs) + total_amount);
+                            tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs) + total_amount);
+                            tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs) + total_amount);
 
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
                             if (jsonProductList != null && jsonProductList.size() > 0)
                             {
-                                for (int i = 0; i < jsonProductList.size(); i++)
-                                {
+                                for (int i = 0; i < jsonProductList.size(); i++) {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String Id = jsonproduct.get("id").getAsString();
                                     String productName = jsonproduct.get("name").getAsString();
@@ -267,10 +265,10 @@ public class MyCartActivity extends AppCompatActivity
                                     String price = jsonproduct.get("price").getAsString();
                                     String subtotal_price = jsonproduct.get("sub_total").getAsString();
 
-                                    System.out.println("price--------------------"+price);
+                                    System.out.println("price--------------------" + price);
                                     String productImage = jsonproduct.get("image_url").getAsString();
                                     String product_id = jsonproduct.get("product_id").getAsString();
-                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage,product_id,subtotal_price));
+                                    cartDataArrayList.add(new CartData(Id, productName, productqty, price, productImage, product_id, subtotal_price));
 
 
                                 }
@@ -286,10 +284,10 @@ public class MyCartActivity extends AppCompatActivity
                             else
                             {
 
-
                                 progressBarHandler.hide();
 
                                 AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
+                            }
                         }
                         else
                         {
@@ -298,7 +296,10 @@ public class MyCartActivity extends AppCompatActivity
                             AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                         }
 
+
+
                     }
+
                 });
     }
 

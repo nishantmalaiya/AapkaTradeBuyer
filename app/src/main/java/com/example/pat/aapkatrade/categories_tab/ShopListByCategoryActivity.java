@@ -244,8 +244,7 @@ public class ShopListByCategoryActivity extends AppCompatActivity
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
 
-
-                            AndroidUtils.showErrorLog(context, "shoplist by filter daaaaaaaaaata is " + result.toString());
+                            
                             if (result == null) {
                                 layout_container.setVisibility(View.INVISIBLE);
                                 progress_handler.hide();
