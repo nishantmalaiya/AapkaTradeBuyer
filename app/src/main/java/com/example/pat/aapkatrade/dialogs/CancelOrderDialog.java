@@ -98,7 +98,12 @@ public class CancelOrderDialog extends DialogFragment {
         spinnerArrayAdapter.setDropDownViewResource(R.layout.black_textcolor_spinner);
 
         spinnerCancelReason.setAdapter(spinnerArrayAdapter);
-
+        dialog_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +114,20 @@ public class CancelOrderDialog extends DialogFragment {
 
                 } else {
 
+                    if(position==-1)
+                    {
+                        callCancelOrderWebservice();
 
-                    callCancelSubOrderWebservice();
+                    }
+                    else
+                    {
+
+                        callCancelSubOrderWebservice();
+
+                    }
+
+
+
 
                 }
 
@@ -153,7 +170,8 @@ public class CancelOrderDialog extends DialogFragment {
                                 progressDialogHandler.hide();
 
                                 getDialog().dismiss();
-
+                                String message = result.get("message").getAsString();
+                                AndroidUtils.showErrorLog(getActivity(), message.toString());
 
                                 if(position==-1)
                                 {
@@ -168,13 +186,7 @@ public class CancelOrderDialog extends DialogFragment {
                                 }
 
 
-//                                getActivity().finish();
-//
-//
-//
-//
-//                                Intent list_product = new Intent(getActivity(), OrderManagementActivity.class);
-//                                getActivity().startActivity(list_product);
+
 
 
                             } else {
@@ -192,8 +204,7 @@ public class CancelOrderDialog extends DialogFragment {
                         }
 
 
-//               JsonObject res result.get("otp_id").getAsString();
-
+//
 
                     }
                 });
@@ -249,17 +260,12 @@ public class CancelOrderDialog extends DialogFragment {
                                 progressDialogHandler.hide();
 
                                 getDialog().dismiss();
-                                AndroidUtils.showErrorLog(getActivity(), result.toString());
+                                String message = result.get("message").getAsString();
+                                AndroidUtils.showErrorLog(getActivity(), message.toString());
                                 OrderDetailsActivity.commonInterface.getData(position);
 
 
-//                                getActivity().finish();
-//
-//
-//
-//
-//                                Intent list_product = new Intent(getActivity(), OrderManagementActivity.class);
-//                                getActivity().startActivity(list_product);
+
 
 
                             } else {

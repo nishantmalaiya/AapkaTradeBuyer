@@ -34,6 +34,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManagerCheck;
+
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
@@ -263,7 +264,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
                             String cart_count = jsonResult.get("cart_count")==null?"0": jsonResult.get("cart_count").getAsString();
-
 
 
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
