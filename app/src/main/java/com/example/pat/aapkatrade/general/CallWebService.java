@@ -330,6 +330,7 @@ public class CallWebService {
     public static void resend_otp(Context context, String url, String webservicetype, HashMap<String, String> body_parameter, HashMap<String, String> headers) {
 
 
+
         HashMap<String, String> webservice_body_parameter = body_parameter;
         String authorization = webservice_body_parameter.get("authorization");
         if (authorization.equals(null)) {
@@ -440,10 +441,6 @@ public class CallWebService {
             String get_webservice_body_parameter_type = webservice_body_parameter.get("type");
             String get_webservice_body_parameter_email = webservice_body_parameter.get("email");
             String get_webservice_body_parameter_mobile = webservice_body_parameter.get("mobile");
-
-
-
-
 
 
 

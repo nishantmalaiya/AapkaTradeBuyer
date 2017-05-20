@@ -94,9 +94,19 @@ public class MyCartActivity extends AppCompatActivity
     {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
 
+        ImageView logoWord = (ImageView) findViewById(R.id.logoWord);
+
+        TextView header_name = (TextView) findViewById(R.id.header_name);
+
+        header_name.setText("My Cart");
+
+        header_name.setVisibility(View.VISIBLE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-       AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+
+        logoWord.setVisibility(View.INVISIBLE);
 
         homeIcon.setOnClickListener(new View.OnClickListener()
         {
@@ -116,7 +126,7 @@ public class MyCartActivity extends AppCompatActivity
         {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("null");
+            getSupportActionBar().setTitle("My Cart");
             getSupportActionBar().setElevation(0);
         }
 

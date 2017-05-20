@@ -76,6 +76,8 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
         et_email_forgot = (EditText) v.findViewById(R.id.et_email_forgot);
         et_mobile_no = (EditText) v.findViewById(R.id.et_mobile_no);
 
+
+
         btn_send_otp = (Button) v.findViewById(R.id.btn_send_otp);
         btn_send_otp.setOnClickListener(this);
         Change_Font.Change_Font_textview(getActivity(), tv_forgot_password);
@@ -101,7 +103,11 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
 
     private void Validatefields() {
 
-        if (Validation.isValidEmail(et_email_forgot.getText()!=null?"":et_email_forgot.getText().toString())) {
+        System.out.println("mobile =============="+et_mobile_no.getText().toString());
+
+        if (Validation.isValidEmail(et_email_forgot.getText()!=null?"":et_email_forgot.getText().toString()))
+        {
+
             call_forgotpasswod_webservice();
 
         } else if (Validation.isValidNumber(et_mobile_no.getText().toString(), Validation.getNumberPrefix(et_mobile_no.getText().toString()))) {
