@@ -73,7 +73,6 @@ public class HomeActivity extends AppCompatActivity
     private Boolean permission_status;
     public static String userid, username;
     private NestedScrollView scrollView;
-    private float initialX, initialY;
     public static RelativeLayout rl_main_content, rl_searchview_dashboard;
     private AppSharedPreference appSharedPreference;
     private final int SPEECH_RECOGNITION_CODE = 1;
@@ -161,9 +160,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void setupNavigationCustom() {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
-
     }
 
     @Override

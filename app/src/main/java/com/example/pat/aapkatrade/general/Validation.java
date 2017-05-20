@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.general;
 
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 
 import java.util.Calendar;
@@ -42,6 +43,8 @@ public class Validation {
 
     public static boolean isValidPassword(String password) {
         if(isNonEmptyStr(password) && password.length() >= 6){
+            Log.e("^^^^^^^^^^^^^^^$$$$$$$", ""+password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!&+-]).{6,30}"));
+
             return password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!&+-]).{6,30}");
         }
         return false;
