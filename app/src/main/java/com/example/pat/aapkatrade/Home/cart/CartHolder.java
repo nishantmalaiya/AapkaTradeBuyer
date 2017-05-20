@@ -18,7 +18,7 @@ public class CartHolder extends RecyclerView.ViewHolder
 {
 
     public View view;
-    public TextView tvProductName, tvProductUnit,tvProductPrice,textView64,tvProductSubtotalPrice;
+    public TextView tvProductName, tvProductShopName,tvProductPrice,textView64,tvProductSubtotalPrice;
     public ImageView productimage;
     public Button buttonAddtoCart;
     public Spinner spinner;
@@ -39,7 +39,7 @@ public class CartHolder extends RecyclerView.ViewHolder
 
         productimage = (ImageView) itemView.findViewById(R.id.imgProduct);
 
-        tvProductUnit = (TextView) itemView.findViewById(R.id.tvProductCategoryname);
+        tvProductShopName = (TextView) itemView.findViewById(R.id.tvProductShopName);
 
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
 

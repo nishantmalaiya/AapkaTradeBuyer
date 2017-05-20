@@ -48,12 +48,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     public TextView textViewQuantity;
     public DroppyMenuPopup droppyMenu;
     public LinearLayout linearLayoutQuantity;
-    public EditText editText;
     public static AppSharedPreference appSharedPreference;
     private ProgressBarHandler progressBarHandler;
     public  static ArrayList<CartData>  place_order = new ArrayList<>();
     public  static int popup_position =0;
-
 
 
     public CartAdapter(Context context){
@@ -71,7 +69,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
         appSharedPreference = new AppSharedPreference(context);
         progressBarHandler = new ProgressBarHandler(context);
         System.out.println("itemlist_cartdata-----------------"+itemList.size());
-
     }
 
     @Override
@@ -98,6 +95,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
         textViewQuantity.setText(itemList.get(position).quantity);
 
         holder.tvProductName.setText(itemList.get(position).productName);
+
+       // holder.tvProductShopName.setText(itemList.get(position).);
 
         holder.tvProductPrice.setText(context.getResources().getText(R.string.Rs)+itemList.get(position).price);
 
