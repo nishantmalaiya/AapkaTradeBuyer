@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.dialogs.loginwithoutregistration;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.CardView;
@@ -224,7 +225,16 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         appSharedPreference = new AppSharedPreference(context);
         dialog_close_image_view = (ImageView) view.findViewById(R.id.dialog_close_image_view);
         tvTourMsg = (TextView) view.findViewById(R.id.tvTourMsg);
-        tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow", 0));
+        if (Build.VERSION.SDK_INT>=24)
+        {
+            tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow",0));
+
+        }
+        else
+        {
+            tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow"));
+        }
+
         submit = (Button) view.findViewById(R.id.submit);
         etEmailOrMobile = (EditText) view.findViewById(R.id.etEmailOrMobile);
         loginWithoutRegistrationContainer = (CardView) view.findViewById(R.id.loginWithoutRegistrationContainer);
