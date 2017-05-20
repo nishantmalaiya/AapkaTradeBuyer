@@ -148,8 +148,7 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
-        Intent i =new Intent(HomeActivity.this, WelcomeActivity.class);
-        startActivity(i);
+
     }
 
     private void checked_wifispeed() {
@@ -638,7 +637,7 @@ public class HomeActivity extends AppCompatActivity {
 
             rlTutorial.setVisibility(View.VISIBLE);
 
-            //  appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString(), 1);
+
 
 //
             rlTutorial.setOnClickListener(new View.OnClickListener() {
