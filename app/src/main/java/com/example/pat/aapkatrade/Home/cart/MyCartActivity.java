@@ -237,7 +237,6 @@ public class MyCartActivity extends AppCompatActivity {
                             if (jsonProductList != null && jsonProductList.size() > 0) {
 
 
-
                                 for (int i = 0; i < jsonProductList.size(); i++) {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String Id = jsonproduct.get("id").getAsString();
@@ -271,6 +270,7 @@ public class MyCartActivity extends AppCompatActivity {
 
                         }
 
+
                         else
                         {
                                 progressBarHandler.hide();
@@ -278,6 +278,7 @@ public class MyCartActivity extends AppCompatActivity {
                                 AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                         
                          }
+
 
                 });
     }
