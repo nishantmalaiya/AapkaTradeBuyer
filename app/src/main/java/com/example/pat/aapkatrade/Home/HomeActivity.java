@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity
     private FrameLayout redCircle;
     public static TextView tvCartCount;
     int home_activity = 1;
-
+    private RelativeLayout rlTutorial;
 
 
     @Override
@@ -134,8 +134,8 @@ public class HomeActivity extends AppCompatActivity
             rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
 
         }
-        
-       
+
+
             //  permissions  granted.
             setupToolBar();
             //setupNavigation();
@@ -150,7 +150,7 @@ public class HomeActivity extends AppCompatActivity
 
         }
 
-    }
+
 
     private void checked_wifispeed() {
         int a = ConnetivityCheck.get_wifi_speed(this);
@@ -618,8 +618,7 @@ public class HomeActivity extends AppCompatActivity
 
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
 
@@ -641,7 +640,6 @@ public class HomeActivity extends AppCompatActivity
             rlTutorial.setVisibility(View.VISIBLE);
 
 
-
 //
             rlTutorial.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -657,19 +655,16 @@ public class HomeActivity extends AppCompatActivity
         if (home_activity == 1) {
 
 
-        if (home_activity == 1)
-        {
-            System.out.println("activity again started-----------");
+            if (home_activity == 1) {
+                System.out.println("activity again started-----------");
 
-            home_activity = 2;
+                home_activity = 2;
+            } else {
+                tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+            }
         }
-        else
-        {
-            tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-        }
+
     }
-
-
 }
 
 
