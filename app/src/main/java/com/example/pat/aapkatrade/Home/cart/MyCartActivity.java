@@ -270,7 +270,7 @@ public class MyCartActivity extends AppCompatActivity {
                             }
 
                         }
-                        else
+                        
                         
                     }
 
