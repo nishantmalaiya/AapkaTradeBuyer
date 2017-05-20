@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api" />
 
@@ -107,7 +110,8 @@
         <activity
             android:name=".payment.PaymentCompletionActivity"
             android:label="@string/title_activity_payment_completion"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".welcome.WelcomeActivity"></activity>
     </application>
 
 </manifest>

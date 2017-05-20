@@ -83,6 +83,7 @@
                         android:gravity="center_horizontal"
                         android:hint="@string/tracking_text"
                         android:textColorHint="#04956E"
+
                         app:hintTextAppearance="@style/TextInputLayout"
 
 
@@ -95,9 +96,12 @@
                             android:gravity="center_horizontal"
                             android:inputType="number"
                             android:maxLength="14"
+android:layout_marginLeft="@dimen/ten_dip"
+                            android:layout_marginRight="@dimen/ten_dip"
                             android:textColor="@color/white"
                             android:textColorHint="#04956E"
                             app:hintTextAppearance="@style/TextInputLayout"
+                           app:theme="@style/myedittextWhite"
 
                             />
 

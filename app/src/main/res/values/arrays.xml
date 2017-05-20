@@ -2,7 +2,7 @@
 <resources>
 
 
-    <string-array name="state_list" >
+    <string-array name="state_list">
         <item>Please Select State</item>
         <item>Andaman and Nicobar Islands</item>
         <item>Andhra Pradesh</item>
@@ -48,11 +48,7 @@
     </string-array>
 
 
-
-
     <array name="category_icon_background">
-
-
 
 
         <item>@drawable/circle_teal</item>
@@ -66,13 +62,37 @@
         <item>@drawable/circle_cherry_red</item>
 
 
-
-
     </array>
 
+    <integer-array name="welcome_screen">
+        <item>@drawable/welcome_slide_one</item>
+        <item>@drawable/welcome_slide_two</item>
+        <item>@drawable/welcome_slide_three</item>
+        <item>@drawable/welcome_slide_four</item>
+        <item>@drawable/welcome_slide_five</item>
+    </integer-array>
 
 
+    <string-array name="welcomeSliderHeaders">
+        <item>Welcome To  AapkaTrade</item>
+        <item>The Company\'s Mission is Anybody Can Do The Business</item>
+        <item>Aapkatrade for Buyers</item>
+        <item>You Can Shop all Your Needs</item>
+        <item>We Focus on Rural Areas</item>
 
+
+    </string-array>
+
+
+    <string-array name="welcomeSliderFooter">
+        <item>AapkaTrade is India\'s unique business platform where everybody can do the business.</item>
+        <item>We are taking your services and products no matter how small or big to all over india</item>
+        <item>We are taking your services and products no matter how small or big to all over india</item>
+        <item>Convenience of connecting with sellers anytime,anywhere wider marketplace with a range of products and suppliers One-stop shop for all requirements</item>
+        <item>Convenience of connecting with sellers anytime,anywhere wider marketplace with a range of products and suppliers One-stop shop for all requirements</item>
+
+
+    </string-array>
 
 
 </resources>

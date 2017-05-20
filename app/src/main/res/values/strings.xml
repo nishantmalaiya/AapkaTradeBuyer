@@ -232,9 +232,23 @@
     <string name="trouble_code">Trouble Receiving Code ?</string>
     <string name="resend_code">Resend Code</string>
     <string name="navigation">Navigation</string>
-    <string name="got_it" > Thanks Got it</string>
+    <string name="got_it"> Thanks Got it</string>
     <string name="tap_anywhere">Tap anywhere  to dismiss</string>
+
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://www.aapkatrade.com\",\n  }\n}]</string>
+    <string name="slide_1_title">Welcome to Aapka Trade</string>
+    <string name="slide_1_description">AapkaTrade is India\'s uniques business platform where everybody can do the business</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">START</string>
+    <string name="slide1HeaderText">Welcome To  AapkaTrade</string>
+    <string name="slide2HeaderText">The Company\'s Mission is Anybody Can Do The Business</string>
+    <string name="slide3HeaderText">Aapkatrade for Buyers</string>
+    <string name="slide4HeaderText">You Can Shop all Your Needs</string>
+    <string name="slide5HeaderText">We Focus on Rural Areas</string>
+
     <string name="enter_otp">Enter OTP</string>
     <string name="otp">OTP</string>
     <string name="proceed_to_checkout">Proceed to Payment</string>
+
 </resources>

@@ -60,6 +60,7 @@ public class CancelOrderDialog extends DialogFragment {
         v = inflater.inflate(R.layout.fragmentcancelreason, container, false);
         this.container = container;
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.rounded_dialog);
 
         initview(v);
 

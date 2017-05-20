@@ -76,6 +76,28 @@
     <color name="shop_product_item">#7E7E7E</color>
     <color name="grey_more_light2">#F1F5F8</color>
     <color name="golden_text">#F0C10F</color>
+    <color name="bg_screen1">#06A282</color>
+
+    ////////////////////// gradients color slider
+
+    <color name="Welcome_screen1_gradient_TopColor">#048d71</color>
+    <color name="Welcome_screen1_gradient_BottomColor">#04e7b9</color>
+
+
+    <color name="Welcome_screen2_gradient_TopColor">#cb3d61</color>
+    <color name="Welcome_screen2_gradient_BottomColor">#ee7795</color>
+
+
+    <color name="Welcome_screen3_gradient_TopColor">#147ebf</color>
+    <color name="Welcome_screen3_gradient_BottomColor">#5dc1fe</color>
+
+
+    <color name="Welcome_screen4_gradient_TopColor">#8e25c3</color>
+    <color name="Welcome_screen4_gradient_BottomColor">#d586fd</color>
+
+
+    <color name="Welcome_screen5_gradient_TopColor">#b2470c</color>
+    <color name="Welcome_screen5_gradient_BottomColor">#ff782e</color>
 
 
 </resources>

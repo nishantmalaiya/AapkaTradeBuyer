@@ -51,6 +51,7 @@ import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.UserDashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+import com.example.pat.aapkatrade.welcome.WelcomeActivity;
 
 import java.util.ArrayList;
 
@@ -124,12 +125,18 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             AppConfig.deleteCache(HomeActivity.this);
 
-        }
-        else
-        {
+
+
+        } else {
             setContentView(R.layout.activity_homeactivity);
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
+            rlTutorial = (RelativeLayout) findViewById(R.id.rlFirstTime);
+            rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
+
+        }
+        
+       
             //  permissions  granted.
             setupToolBar();
             //setupNavigation();
@@ -140,6 +147,7 @@ public class HomeActivity extends AppCompatActivity
             setup_bottomNavigation();
             checked_wifispeed();
             AppConfig.deleteCache(HomeActivity.this);
+
 
         }
 
@@ -617,9 +625,45 @@ public class HomeActivity extends AppCompatActivity
     {
         super.onResume();
 
+
+        AndroidUtils.showErrorLog(context, "testing", appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()));
+
+        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()) == 1)
+
+        {
+
+
+            rlTutorial.setVisibility(View.GONE);
+
+
+        } else {
+
+            appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString(), 1);
+
+
+            rlTutorial.setVisibility(View.VISIBLE);
+
+
+
+//
+            rlTutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rlTutorial.setVisibility(View.GONE);
+                }
+            });
+
+
+        }
+
+
+        if (home_activity == 1) {
+
+
         if (home_activity == 1)
         {
             System.out.println("activity again started-----------");
+
             home_activity = 2;
         }
         else
