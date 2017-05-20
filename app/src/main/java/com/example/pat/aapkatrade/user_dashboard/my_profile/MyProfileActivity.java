@@ -21,6 +21,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
@@ -129,12 +130,12 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     private void getshared_pref_data() {
-        user_image = app_sharedpreference.getSharedPref("profile_pic", "");
-        fname = app_sharedpreference.getSharedPref("name", "");
-        lname = app_sharedpreference.getSharedPref("lname", "");
-        email = app_sharedpreference.getSharedPref("emailid", "");
-        mobile = app_sharedpreference.getSharedPref("mobile", "");
-        address = app_sharedpreference.getSharedPref("address", "");
+        user_image = app_sharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "");
+        fname = app_sharedpreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "");
+        lname = app_sharedpreference.getSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), "");
+        email = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "");
+        mobile = app_sharedpreference.getSharedPref(SharedPreferenceConstants.MOBILE.toString(), "");
+        address = app_sharedpreference.getSharedPref(SharedPreferenceConstants.ADDRESS.toString(), "");
 
     }
 
