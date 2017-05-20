@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.dialogs.track_order;
 
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.DialogFragment;
@@ -45,7 +46,7 @@ public class Track_order_dialog extends DialogFragment {
         final View v = inflater.inflate(R.layout.fragment_track_order_dialog, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.rounded_dialog);
-//        getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
+
         initview(v);
         progressBarHandler = new ProgressBarHandler(getActivity());
 
@@ -135,7 +136,7 @@ public class Track_order_dialog extends DialogFragment {
 
         tracking_id = (EditText) v.findViewById(R.id.et_orderid);
         validate_order_id = (Button) v.findViewById(R.id.btn_trackorder);
-
+        tracking_id.getBackground().mutate().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
 
     }
 

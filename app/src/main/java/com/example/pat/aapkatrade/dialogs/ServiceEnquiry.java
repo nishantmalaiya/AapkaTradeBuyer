@@ -57,7 +57,7 @@ public class ServiceEnquiry extends DialogFragment {
                              Bundle savedInstanceState) {
         viewgrp = container;
         v = inflater.inflate(R.layout.fragment_service_enquiry, container, false);
-        getDialog().getWindow().setBackgroundDrawableResource(R.color.transparent);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.rounded_dialog);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         progressBarHandler =new ProgressBarHandler(getActivity());
         initView(v);

@@ -90,7 +90,19 @@
         <item name="android:textColorLink">@color/grey</item>
 
     </style>
+    <style name="myedittextWhite" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/green</item>
+        <item name="colorAccent">@color/green</item>
 
+        <item name="android:textColorHint">@color/hint_color</item>
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="android:textSize">@dimen/textsize_medium</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorHighlight">@color/white</item>
+        <item name="android:textColorLink">@color/white</item>
+
+    </style>
 
     <style name="nofocus_edittext_theme" parent="TextAppearance.AppCompat">
 

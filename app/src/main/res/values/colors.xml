@@ -79,24 +79,24 @@
 
     ////////////////////// gradients color slider
 
-    <color name="Welcome_screen1_gradient_TopColor">#069f80</color>
-    <color name="Welcome_screen1_gradient_BottomColor">#01caa1</color>
+    <color name="Welcome_screen1_gradient_TopColor">#048d71</color>
+    <color name="Welcome_screen1_gradient_BottomColor">#04e7b9</color>
 
 
-    <color name="Welcome_screen2_gradient_TopColor">#f44974</color>
-    <color name="Welcome_screen2_gradient_BottomColor">#ff5681</color>
+    <color name="Welcome_screen2_gradient_TopColor">#cb3d61</color>
+    <color name="Welcome_screen2_gradient_BottomColor">#ee7795</color>
 
 
-    <color name="Welcome_screen3_gradient_TopColor">#14a3fc</color>
-    <color name="Welcome_screen3_gradient_BottomColor">#41b6fd</color>
+    <color name="Welcome_screen3_gradient_TopColor">#147ebf</color>
+    <color name="Welcome_screen3_gradient_BottomColor">#5dc1fe</color>
 
 
-    <color name="Welcome_screen4_gradient_TopColor">#c870f4</color>
-    <color name="Welcome_screen4_gradient_BottomColor">#d37efe</color>
+    <color name="Welcome_screen4_gradient_TopColor">#8e25c3</color>
+    <color name="Welcome_screen4_gradient_BottomColor">#d586fd</color>
 
 
-    <color name="Welcome_screen5_gradient_TopColor">#e85301</color>
-    <color name="Welcome_screen5_gradient_BottomColor">#fe630d</color>
+    <color name="Welcome_screen5_gradient_TopColor">#b2470c</color>
+    <color name="Welcome_screen5_gradient_BottomColor">#ff782e</color>
 
 
 </resources>
