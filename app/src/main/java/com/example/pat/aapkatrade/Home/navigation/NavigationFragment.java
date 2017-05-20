@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -46,41 +45,30 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener {
-
-
-    public static final String preFile = "textFile";
-    public static final String userKey = "key";
+public class NavigationFragment extends Fragment{
     public static ActionBarDrawerToggle mDrawerToggle;
     public static DrawerLayout mDrawerLayout;
-    private boolean mUserLearnedDrawer;
-    private boolean mFromSavedInstance;
     private View view;
-    private String Fname;
     private int lastExpandedPosition = -1;
-    AppSharedPreference app_sharedpreference;
+    private AppSharedPreference appSharedpreference;
     public static final String PREFS_NAME = "call_recorder";
     private List<String> categoryids;
     private List<String> categoryname;
     private Context context;
-    private TextView footer;
-    private RelativeLayout header;
     private TextView textViewName, emailid;
     private NavigationAdapter category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
-    private RelativeLayout rl_category, rl_logout, rl_policy, rl_terms;
-    private View rl_main_content;
+    private RelativeLayout rlCategory, rlLogout, rlPolicy, rlTerms;
+    private View rlMainContent;
     private ProgressBarHandler progressBarHandler;
-    private RecyclerView navigation_recycleview;
-    private LinearLayoutManager navigation_linear_layout_manager;
-    private ImageView navigation_close;
-    private AppCompatImageView user_pic_img_vew;
+    private RecyclerView navigationRecycleview;
+    private LinearLayoutManager navigationLinearLayoutManager;
+    private ImageView navigationClose;
+    private AppCompatImageView profilePic;
 
     public NavigationFragment() {
     }
@@ -89,11 +77,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
+        context = getContext();
         progressBarHandler = new ProgressBarHandler(context);
-        app_sharedpreference = new AppSharedPreference(getActivity());
-
-
-
+        appSharedpreference = new AppSharedPreference(context);
 
         initView(view);
         return view;
@@ -104,16 +90,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     private void initView(View view) {
 
-        user_pic_img_vew = (android.support.v7.widget.AppCompatImageView) view.findViewById(R.id.circular_profile_image_home);
-
-        navigation_close = (ImageView) view.findViewById(R.id.navigation_close);
-        rl_logout = (RelativeLayout) view.findViewById(R.id.rl_logout);
-        rl_logout.setOnClickListener(new View.OnClickListener() {
+        profilePic = (android.support.v7.widget.AppCompatImageView) view.findViewById(R.id.circular_profile_image_home);
+        navigationClose = (ImageView) view.findViewById(R.id.navigation_close);
+        rlLogout = (RelativeLayout) view.findViewById(R.id.rl_logout);
+        rlLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save_shared_pref("notlogin", "notlogin", "notlogin", "notlogin");
-
-
+                saveSharedPref("notlogin", "notlogin", "notlogin", "notlogin");
                 Intent Homedashboard = new Intent(getActivity(), HomeActivity.class);
                 Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(Homedashboard);
@@ -121,8 +104,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             }
         });
 
-        rl_terms = (RelativeLayout) view.findViewById(R.id.rl_terms);
-        rl_terms.setOnClickListener(new View.OnClickListener() {
+        rlTerms = (RelativeLayout) view.findViewById(R.id.rl_terms);
+        rlTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TermsAndConditionActivity.class);
@@ -132,8 +115,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             }
         });
 
-        rl_policy = (RelativeLayout) view.findViewById(R.id.rl_policy);
-        rl_policy.setOnClickListener(new View.OnClickListener() {
+        rlPolicy = (RelativeLayout) view.findViewById(R.id.rl_policy);
+        rlPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PrivacyPolicyActivity.class);
@@ -142,11 +125,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             }
         });
-        navigation_close.setOnClickListener(new View.OnClickListener() {
+        navigationClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.closeDrawers();
-                 HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt("cart_count", 0)));
+                HomeActivity.tvCartCount.setText(String.valueOf(appSharedpreference.getSharedPrefInt("cart_count", 0)));
             }
         });
         categoryname = new ArrayList<>();
@@ -154,57 +137,30 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         textViewName = (TextView) view.findViewById(R.id.tv_name);
         emailid = (TextView) view.findViewById(R.id.tv_email);
         prepareListData();
-        navigation_linear_layout_manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        navigation_recycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
-        navigation_recycleview.setLayoutManager(navigation_linear_layout_manager);
+        navigationLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        navigationRecycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
+        navigationRecycleview.setLayoutManager(navigationLinearLayoutManager);
 
-        rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
+        rlCategory = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
-        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null)
-        {
-            String Username = app_sharedpreference.getSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), "notlogin");
-            String Emailid = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
-            String user_image = app_sharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
-            Log.e("Shared_pref2", "null" + Username);
+        if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+            String userName = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
+            String emailId = appSharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
+            String userProfilePic = appSharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
 
-            if (Username.contains("notlogin")) {
-
-                rl_logout.setVisibility(View.GONE);
-                setdata(getString(R.string.welcomeguest), "");
-
-
+            if (userName.contains("notlogin")) {
+                rlLogout.setVisibility(View.GONE);
+                setData(getString(R.string.welcomeguest), "");
             } else {
-
-                set_visibility_logout();
-
-                setdata(Username, Emailid);
-
-                Ion.with(user_pic_img_vew)
-                        .error(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                        .placeholder(ContextCompat.getDrawable(getActivity(), R.drawable.ic_profile_user))
-                        .load(user_image);
-
-
+                rlLogout.setVisibility(View.VISIBLE);
+                setData(userName, emailId);
+                Ion.with(profilePic)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_profile_user))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_profile_user))
+                        .load(userProfilePic);
             }
         } else {
-            AndroidUtils.showErrorLog(getActivity(),"sharedpref null");
-        }
-    }
-
-    private void set_visibility_logout() {
-
-        rl_logout.setVisibility(View.VISIBLE);
-
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        context = getActivity();
-        mUserLearnedDrawer = Boolean.valueOf(readFromPreferences(getActivity(), userKey, "false"));
-        if (savedInstanceState != null) {
-            mFromSavedInstance = true;
+            AndroidUtils.showErrorLog(getActivity(), "sharedpref null");
         }
     }
 
@@ -216,49 +172,28 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar, R.string.drawer_open, R
                 .string.drawer_close) {
             @Override
-            public void onDrawerOpened(View drawerView)
-            {
-                rl_main_content = getActivity().findViewById(R.id.rl_main_content);
-                rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
+            public void onDrawerOpened(View drawerView) {
+                rlMainContent = getActivity().findViewById(R.id.rl_main_content);
+                rlMainContent.setBackgroundColor(Color.parseColor("#33000000"));
                 hideSoftKeyboard(getActivity());
                 super.onDrawerOpened(drawerView);
-                if (!mUserLearnedDrawer) {
-                    mUserLearnedDrawer = true;
-                    savedInstances(getActivity(), userKey, mUserLearnedDrawer + "");
-                }
-                //getActivity().invalidateOptionsMenu();
-
-                if (app_sharedpreference!=null){
-                    HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-
-
-
-                }
-                else {
-
+                if (appSharedpreference != null) {
+                    HomeActivity.tvCartCount.setText(String.valueOf(appSharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                } else {
                     HomeActivity.tvCartCount.setText("0");
-
                 }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                //getActivity().invalidateOptionsMenu();
-                if (app_sharedpreference!=null)
-                {
-                    HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-                    System.out.println("hi I am Sachin"+String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
-                }
-                else
-                {
-
+                if (appSharedpreference != null) {
+                    HomeActivity.tvCartCount.setText(String.valueOf(appSharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                    System.out.println("hi I am Sachin" + String.valueOf(appSharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                } else {
                     HomeActivity.tvCartCount.setText("0");
-
                 }
-
             }
-
         };
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -268,51 +203,25 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 mDrawerToggle.syncState();
             }
         });
-
-
         toolbar.setNavigationIcon(R.drawable.menu_24dp);
-
-
         mDrawerToggle.setDrawerIndicatorEnabled(false);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.menu24dp));
-
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(context, R.drawable.menu24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.LEFT);
+                mDrawerLayout.openDrawer(Gravity.START);
                 System.out.println("I am Sachin");
-
             }
         });
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
         mDrawerLayout.closeDrawers();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    public static void savedInstances(Context context, String preferenceName, String preferenceValue) {
-        SharedPreferences sharePreference = context.getSharedPreferences(preFile, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharePreference.edit();
-        editor.putString(preferenceName, preferenceValue);
-        editor.apply();
-    }
-
-    public static String readFromPreferences(Context context, String preferenceName, String defaultValue) {
-        SharedPreferences sharePreference = context.getSharedPreferences(preFile, MODE_PRIVATE);
-        return sharePreference.getString(preferenceName, defaultValue);
-    }
-
-
+    @SuppressWarnings("ConstantConditions")
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
@@ -320,19 +229,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public void setdata(String username, String email) {
-        Fname = username;
-
-        Log.e("Username", username);
+    public void setData(String username, String email) {
         textViewName.setText(username);
         emailid.setText(email);
-
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     private void prepareListData() {
@@ -378,7 +277,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                         });
                     }
                 }
-                set_recycleview_adapter();
+                setRecycleviewAdapter();
 
 
             }
@@ -389,55 +288,45 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void set_recycleview_adapter() {
-
+    private void setRecycleviewAdapter() {
         if (listDataHeader.size() != 0) {
             category_adapter = new NavigationAdapter(context, listDataHeader);
-            navigation_recycleview.setAdapter(category_adapter);
+            navigationRecycleview.setAdapter(category_adapter);
         }
     }
 
 
-    public void save_shared_pref(String user_id, String user_name, String email_id, String profile_pic)
-    {
-        app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
-        app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
-        app_sharedpreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
-        app_sharedpreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), profile_pic);
-
+    public void saveSharedPref(String user_id, String user_name, String email_id, String profile_pic) {
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), user_name);
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), email_id);
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), profile_pic);
     }
 
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
-        if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null)
-        {
+        if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
+            AndroidUtils.showErrorLog(context, "USERNAME***--->>"+appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin"));
+            String userName = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
+            String emailId = appSharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
 
-            String userName = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
-            String emailId = app_sharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
+            if (userName.contains("notlogin")) {
+                setData(getString(R.string.welcomeguest), "");
 
-            if (userName.contains("notlogin"))
-            {
-                setdata(getString(R.string.welcomeguest), "");
-
-                rl_logout.setVisibility(View.GONE);
+                rlLogout.setVisibility(View.GONE);
 
                 Log.e("Shared_pref2", "null" + userName);
-            }
-            else
-            {
-                set_visibility_logout();
+            } else {
+                rlLogout.setVisibility(View.VISIBLE);
 
-                setdata(userName, emailId);
+                setData(userName, emailId);
             }
         } else {
             Log.e("Shared_pref1", "null");
         }
-
-
 
 
     }

@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppConfig;
@@ -147,10 +146,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void callLoginWebService(String login_url, String input_username, String input_password)
-    {
+    private void callLoginWebService(String login_url, String input_username, String input_password) {
 
-        AndroidUtils.showErrorLog(context, "Login : "+input_username+"  Password : "+ input_password, "*************   "+login_url);
+        AndroidUtils.showErrorLog(context, "Login : " + input_username + "  Password : " + input_password, "*************   " + login_url);
 
         progressBarHandler.show();
         Ion.with(context)
@@ -162,30 +160,25 @@ public class LoginActivity extends AppCompatActivity {
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
                         progressBarHandler.hide();
-                        if (result != null)
-                        {
+                        if (result != null) {
 
                             String error = result.get("error").getAsString();
 
-                            if (error.contains("true"))
-                            {
+                            if (error.contains("true")) {
                                 String message = result.get("message").getAsString();
                                 showMessage(message);
 
-                            }
-                            else
-                            {
+                            } else {
 
                                 showMessage(getResources().getString(R.string.welcomebuyer));
                                 Log.e("webservice_returndata", result.toString());
 
                                 saveDataInSharedPreference(result);
 
-                                callwebservice__update_cart();
+                                callwebserviceUpdateCart();
 
 
                             }
@@ -196,8 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveDataInSharedPreference(JsonObject webservice_returndata)
-    {
+    private void saveDataInSharedPreference(JsonObject webservice_returndata) {
 
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
@@ -222,8 +214,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void initView()
-    {
+    private void initView() {
         forgotPassword = (TextView) findViewById(R.id.tv_forgotpassword);
         loginText = (TextView) findViewById(R.id.tv_login);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -246,8 +237,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void callwebservice__update_cart()
-    {
+    private void callwebserviceUpdateCart() {
 
         progressBarHandler.show();
 
@@ -255,40 +245,33 @@ public class LoginActivity extends AppCompatActivity {
 
         String user_id = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
 
-        System.out.println("user_id--------------"+user_id);
+        System.out.println("user_id--------------" + user_id);
 
-        if (user_id.equals("notlogin"))
-        {
-            user_id="";
+        if (user_id.equals("notlogin")) {
+            user_id = "";
         }
 
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id",user_id)
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-                        System.out.println("update_cart_user--------------"+result.toString());
+                    public void onCompleted(Exception e, JsonObject result) {
+                        System.out.println("update_cart_user--------------" + result.toString());
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
                             String error = result.get("error").getAsString();
 
-                            if (error.contains("true"))
-                            {
+                            if (error.contains("true")) {
                                 String message = result.get("message").getAsString();
                                 showMessage(message);
 
-                            }
-                            else
-                            {
+                            } else {
 
                                 Intent Homedashboard = new Intent(context, HomeActivity.class);
                                 Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -302,9 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
 
-
     }
-
 
 
 }
