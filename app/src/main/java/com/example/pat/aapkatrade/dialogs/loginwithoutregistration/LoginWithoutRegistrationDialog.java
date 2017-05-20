@@ -46,7 +46,8 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     private CardView loginWithoutRegistrationContainer;
     private LinearLayout row2Layout;
     private RelativeLayout passwordLayout, otpLayout;
-    private boolean isStep1 = true;
+    private boolean isStep1 = true, isAlreadyExistUser = false;
+    private String type = "2";
 
 
     public LoginWithoutRegistrationDialog(Context context) {
@@ -65,7 +66,10 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isStep1){
+                /*if(isStep1 && isAlreadyExistUser){
+                    type = "1";
+                    callLoginWebService();
+                }else */if(isStep1){
                     callStep1WebService();
                 } else {
                     callStep2WebService();
@@ -92,6 +96,31 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         });
 
         return v;
+    }
+
+    private void callLoginWebService() {
+        progressDialogHandler.show();
+        final String emailPhone = etEmailOrMobile.getText().toString();
+        if (Validation.isValidEmail(emailPhone) || Validation.isValidNumber(emailPhone, Validation.getNumberPrefix(emailPhone))) {
+            Ion.with(context)
+                    .load(new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("login").toString())
+                    .setHeader("Authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setBodyParameter("emailphone", emailPhone)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            progressDialogHandler.hide();
+                            if (result!= null && result.get("error").getAsString().contains("false")) {
+                                AndroidUtils.showErrorLog(context,"Login WebService Result Found --> ", result);
+
+                            }else {
+                                AndroidUtils.showErrorLog(context, "Login WebService Null Result Found");
+                            }
+                        }
+                    });
+        }
     }
 
 
@@ -127,6 +156,13 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                             } else  if (result!= null && result.get("error").getAsString().contains("true")) {
                                 AndroidUtils.showErrorLog(context, "Register WebService Error Found", result);
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
+                                if(result.get("message").getAsString().contains("already") || result.get("message").getAsString().contains("exist")){
+                                    tvOTP.setVisibility(View.VISIBLE);
+                                    otpLayout.setVisibility(View.VISIBLE);
+                                    isStep1 = false;
+                                    type = "1";
+                                    callLoginWebService();
+                                }
                             }else {
                                 AndroidUtils.showErrorLog(context, "Register WebService Null Result Found");
                             }
@@ -155,7 +191,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                 .setBodyParameter("otp", etOTP.getText().toString())
                 .setBodyParameter("client_id", appSharedPreference.getSharedPref(SharedPreferenceConstants.CLIENT_ID.toString()))
                 .setBodyParameter("password", etPassword.getText().toString())
-                .setBodyParameter("type", "2")
+                .setBodyParameter("type", type)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -165,18 +201,21 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                             AndroidUtils.showErrorLog(context, result);
                             appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), result.get("user_id").getAsString());
                             AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
-                            if(result.get("message").getAsString().contains("successfully") && result.get("message").getAsString().contains("login")){
+                            if(result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login")){
                                 Intent intent = new Intent(context, AddAddressActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
 
+                        }else  if (result!= null && result.get("error").getAsString().contains("true")) {
+                            AndroidUtils.showErrorLog(context, "Verify Buyer WebService Error Found", result);
+                            if(result.get("message")!=null)
+                            AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
                         } else {
-                            AndroidUtils.showErrorLog(context, "Register WebService Null Result Found");
+                            AndroidUtils.showErrorLog(context, "Verify Buyer WebService Null Result Found");
                         }
                     }
                 });
-
     }
 
 

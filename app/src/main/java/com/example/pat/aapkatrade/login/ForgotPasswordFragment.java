@@ -76,8 +76,6 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
         et_email_forgot = (EditText) v.findViewById(R.id.et_email_forgot);
         et_mobile_no = (EditText) v.findViewById(R.id.et_mobile_no);
 
-
-
         btn_send_otp = (Button) v.findViewById(R.id.btn_send_otp);
         btn_send_otp.setOnClickListener(this);
         Change_Font.Change_Font_textview(getActivity(), tv_forgot_password);
@@ -102,21 +100,18 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
     }
 
     private void Validatefields() {
-
-        System.out.println("mobile =============="+et_mobile_no.getText().toString());
-
-        if (Validation.isValidEmail(et_email_forgot.getText()!=null?"":et_email_forgot.getText().toString()))
-        {
-
+        //et_email_forgot.getText().toString() != null ? "" : et_email_forgot.getText().toString()
+        if (Validation.isValidEmail(et_email_forgot.getText().toString())) {
             call_forgotpasswod_webservice();
+            AndroidUtils.showErrorLog(getActivity(), "EmailAddress", et_email_forgot.getText().toString());
 
         } else if (Validation.isValidNumber(et_mobile_no.getText().toString(), Validation.getNumberPrefix(et_mobile_no.getText().toString()))) {
-
+            AndroidUtils.showErrorLog(getActivity(), "phoneNo", et_mobile_no.getText().toString());
             call_forgotpasswod_webservice();
 
 
         } else {
-
+            AndroidUtils.showErrorLog(getActivity(), "error in Validation", "error in Validation");
         }
 
 
@@ -148,11 +143,11 @@ public class ForgotPasswordFragment extends Fragment implements View.OnClickList
                 if (data != null) {
                     String error = data.get("error").getAsString();
                     if (error.contains("false")) {
-                        Log.e("data",data.toString());
+                        Log.e("data", data.toString());
 
                         Intent go_to_activity_otp_verify = new Intent(getActivity(), ActivityOTPVerify.class);
                         go_to_activity_otp_verify.putExtra("class_name", getActivity().getClass().getName());
-                        go_to_activity_otp_verify.putExtra("otp_id",data.get("otp_id").getAsString());
+                        go_to_activity_otp_verify.putExtra("otp_id", data.get("otp_id").getAsString());
                         startActivity(go_to_activity_otp_verify);
                     }
                     String message = data.get("message").getAsString();

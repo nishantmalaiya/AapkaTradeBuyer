@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import com.example.pat.aapkatrade.general.progressbar.Custom_progress_bar;
 import com.example.pat.aapkatrade.location.GeoCoderAddress;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.service.LocationService;
+import com.example.pat.aapkatrade.welcome.WelcomeActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
         custom_progress_bar.show();
 
 
-
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -87,9 +87,29 @@ public class MainActivity extends AppCompatActivity {
 
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {
-                        Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(mainIntent);
-                        finish();
+                        AndroidUtils.showErrorLog(MainActivity.this, "viewpager welcome", appSharedpreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()));
+                        if (appSharedpreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()) == 1)
+
+                        {
+
+
+                            Intent mainIntent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(mainIntent);
+                            finish();
+
+
+                        } else {
+
+                            // appSharedpreference.setSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString(), 1);
+
+
+                            Intent mainIntent = new Intent(MainActivity.this, WelcomeActivity.class);
+                            startActivity(mainIntent);
+                            finish();
+
+                        }
+
+
                         if (pd != null) {
                             pd.dismiss();
                         }

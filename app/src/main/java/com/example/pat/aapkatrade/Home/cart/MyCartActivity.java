@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 
@@ -33,28 +34,26 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 
 
+public class MyCartActivity extends AppCompatActivity {
 
-public class MyCartActivity extends AppCompatActivity
-{
-
-    ArrayList<CartData>  cartDataArrayList = new ArrayList<>();
+    ArrayList<CartData> cartDataArrayList = new ArrayList<>();
     private Context context;
     private ImageView locationImageView;
-    public static TextView tvContinue,tvPriceItemsHeading,tvPriceItems,tvLastPayableAmount,tvAmountPayable;
+    public static TextView tvContinue, tvPriceItemsHeading, tvPriceItems, tvLastPayableAmount, tvAmountPayable;
     RecyclerView mycartRecyclerView;
     CartAdapter cartAdapter;
     private ProgressBarHandler progressBarHandler;
-    public static CardView cardviewProductDeatails,cardBottom;
+    public static CardView cardviewProductDeatails, cardBottom;
     AppSharedPreference app_sharedpreference;
     private int page = 1;
     LinearLayoutManager linearLayoutManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_cart);
@@ -90,29 +89,16 @@ public class MyCartActivity extends AppCompatActivity
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
-
-        ImageView logoWord = (ImageView) findViewById(R.id.logoWord);
-
-        TextView header_name = (TextView) findViewById(R.id.header_name);
-
-        header_name.setText("My Cart");
-
-        header_name.setVisibility(View.VISIBLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
 
-        logoWord.setVisibility(View.INVISIBLE);
-
-        homeIcon.setOnClickListener(new View.OnClickListener()
-        {
+        homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent intent = new Intent(context, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -122,23 +108,18 @@ public class MyCartActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("My Cart");
+            getSupportActionBar().setTitle("null");
             getSupportActionBar().setElevation(0);
         }
-
-
-
 
 
     }
 
 
-    private void initView()
-    {
+    private void initView() {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
         cardviewProductDeatails = (CardView) findViewById(R.id.cardviewProductDeatails);
@@ -155,30 +136,21 @@ public class MyCartActivity extends AppCompatActivity
 
         tvPriceItems = (TextView) findViewById(R.id.tvPriceItems);
 
-        tvPriceItems.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
-
-        tvAmountPayable.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
 
         tvContinue = (TextView) findViewById(R.id.tvplaceOrder);
 
         tvLastPayableAmount = (TextView) findViewById(R.id.tvLastPayableAmount);
 
-        tvLastPayableAmount.setText(getApplicationContext().getResources().getText(R.string.Rs)+"4251");
 
-        tvContinue.setOnClickListener(new View.OnClickListener()
-        {
+        tvContinue.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin"))
-                {
+                if (app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin").equals("notlogin")) {
                     LoginWithoutRegistrationDialog loginWithoutRegistrationDialog = new LoginWithoutRegistrationDialog(context);
                     loginWithoutRegistrationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "LoginWithoutRegistrationDialog");
 
-                }
-                else
-                    {
+                } else {
                     Intent i = new Intent(MyCartActivity.this, AddAddressActivity.class);
                     startActivity(i);
                     //overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -199,8 +171,7 @@ public class MyCartActivity extends AppCompatActivity
 
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
         mycartRecyclerView = (RecyclerView) findViewById(R.id.order_list);
 
         cartList("0");
@@ -225,31 +196,28 @@ public class MyCartActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void cartList(String pageNumber)
-    {
+    private void cartList(String pageNumber) {
 
         progressBarHandler.show();
 
         String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
-        if (user_id.equals("notlogin"))
-        {
-            user_id="";
+        if (user_id.equals("notlogin")) {
+            user_id = "";
         }
 
-        System.out.println("deveice -id----------"+ user_id+"ghsdfs"+AppConfig.getCurrentDeviceId(context));
+        System.out.println("deveice -id----------" + user_id + "ghsdfs" + AppConfig.getCurrentDeviceId(context));
 
         Ion.with(MyCartActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/list_cart")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id",user_id)
-                .setBodyParameter("page",pageNumber)
+                .setBodyParameter("user_id", user_id)
+                .setBodyParameter("page", pageNumber)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
                         if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
@@ -267,6 +235,8 @@ public class MyCartActivity extends AppCompatActivity
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
 
                             if (jsonProductList != null && jsonProductList.size() > 0) {
+
+
 
                                 for (int i = 0; i < jsonProductList.size(); i++) {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
@@ -293,24 +263,21 @@ public class MyCartActivity extends AppCompatActivity
 
                             } else {
 
+
                                 progressBarHandler.hide();
 
                                 AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                             }
+
                         }
                         else
-                        {
-                            progressBarHandler.hide();
-
-                            AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
-                        }
-
-
-
+                        
                     }
 
                 });
     }
-
-
 }
+
+
+
+

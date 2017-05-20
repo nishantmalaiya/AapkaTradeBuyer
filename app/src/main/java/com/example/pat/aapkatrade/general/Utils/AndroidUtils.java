@@ -87,12 +87,12 @@ public class AndroidUtils {
         layout.setBackground(shape);
     }
 
-    public static void setBackgroundSolid(View layout, Context context, int bgColor, int cornerRadius, int oval, int border_width, int border_color) {
+    public static void setBackgroundSolid(View layout, Context context, int bgColor, int cornerRadius, int viewShape, int border_width, int border_color) {
         GradientDrawable shape = new GradientDrawable();
         shape.setCornerRadius(cornerRadius);
         shape.setStroke(border_width, ContextCompat.getColor(context, border_color));
         shape.setColor(ContextCompat.getColor(context, bgColor));
-        shape.setShape(oval);
+        shape.setShape(viewShape);
         layout.setBackground(shape);
     }
 
@@ -139,7 +139,7 @@ public class AndroidUtils {
     }
 
     public static String getTag(Context context) {
-        return context== null?"":context.getClass().getSimpleName();
+        return context == null ? "" : context.getClass().getSimpleName();
     }
 
     public static Drawable setImageColor(Context context, int imageDrawable, int color) {
@@ -169,6 +169,13 @@ public class AndroidUtils {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         int dp = (int) (px / (metrics.densityDpi / 160f));
         return dp;
+    }
+
+    public static void setGradientColor(View layout, int viewShape, int startColor, int endColor, GradientDrawable.Orientation orientation, int cornerRadius) {
+        GradientDrawable gradient = new GradientDrawable(orientation, new int[]{startColor, endColor});
+        gradient.setShape(viewShape);
+        gradient.setCornerRadius(cornerRadius);
+        layout.setBackground(gradient);
     }
 
 

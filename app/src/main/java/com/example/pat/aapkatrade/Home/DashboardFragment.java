@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.ParticularDataActivity.ParticularActivity;
@@ -46,9 +47,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 import me.relex.circleindicator.CircleIndicator;
 
@@ -202,9 +205,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                 if (locationManagerCheck.isLocationServiceAvailable()) {
 
-                    currentLatitude = appSharedPreference.getSharedPref("CurrentLatitude");
-                    currentLongitude = appSharedPreference.getSharedPref("CurrentLongitude");
-                    stateName = appSharedPreference.getSharedPref("CurrentStateName");
+                    currentLatitude = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LATTITUDE.toString());
+                    currentLongitude = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_LONGITUDE.toString());
+                    stateName = appSharedPreference.getSharedPref(SharedPreferenceConstants.CURRENT_STATE_NAME.toString());
+
+
+                    AndroidUtils.showErrorLog(context, "currentLatitude", currentLatitude + "******");
+                    AndroidUtils.showErrorLog(context, "currentLongitude", currentLongitude + "******");
+                    AndroidUtils.showErrorLog(context, "stateName", stateName + "******");
 
 
                     Intent intentAsync = new Intent(getActivity(), Search.class);
@@ -227,56 +235,52 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-    public void get_home_data()
-    {
+    public void get_home_data() {
         progress_handler.show();
 
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
         String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
 
-        if (user_id.equals("notlogin"))
-        {
-            user_id="";
+        if (user_id.equals("notlogin")) {
+            user_id = "";
         }
 
 
-        System.out.println("dsahgdadh-------------"+user_id+AppConfig.getCurrentDeviceId(context));
+        System.out.println("dsahgdadh-------------" + user_id + AppConfig.getCurrentDeviceId(context));
 
         Ion.with(getActivity())
                 .load(getResources().getString(R.string.webservice_base_url) + "/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("city_id", "")
-                .setBodyParameter("user_id",user_id)
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
                             home_result = result;
                          /*   Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
                             Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
                          */
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
-                            String cart_count = jsonResult.get("cart_count")==null?"0": jsonResult.get("cart_count").getAsString();
+                            String cart_count = jsonResult.get("cart_count") == null ? "0" : jsonResult.get("cart_count").getAsString();
 
 
                             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
                             //int j = appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(),0);
                             HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
-                            Log.e("cart_count---------",String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                            Log.e("cart_count---------", String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                             JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
                             imageIdList = new ArrayList<>();
 
-                            for (int l = 0; l < jsonarray_top_banner.size(); l++)
-                            {
+                            for (int l = 0; l < jsonarray_top_banner.size(); l++) {
                                 JsonObject jsonObject_top_banner = (JsonObject) jsonarray_top_banner.get(l);
                                 String banner_imageurl = jsonObject_top_banner.get("image_url").getAsString();
 
@@ -291,8 +295,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                             System.out.println("latest_update---------" + latest_update.toString());
 
-                            for (int i = 0; i < latest_post.size(); i++)
-                            {
+                            for (int i = 0; i < latest_post.size(); i++) {
 
                                 JsonObject jsonObject_latest_post = (JsonObject) latest_post.get(i);
 
@@ -304,7 +307,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                                 String imageurl = jsonObject_latest_post.get("image_url").getAsString();
 
-                                System.out.println("imageurl--------------"+imageurl);
+                                System.out.println("imageurl--------------" + imageurl);
 
                                 String productlocation = jsonObject_latest_post.get("city_name").getAsString() + "," +
                                         jsonObject_latest_post.get("state_name").getAsString() + "," +
@@ -329,7 +332,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                                 String update_product_name = jsonObject_latest_update.get("prodname").getAsString();
 
-                                System.out.println("update_product_name-----------------"+update_product_name);
+                                System.out.println("update_product_name-----------------" + update_product_name);
 
                                 String imageurl = jsonObject_latest_update.get("image_url").getAsString();
 
@@ -424,12 +427,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private void go_to_product_list_activity() {
-        if (home_result != null)
-        {
+        if (home_result != null) {
             boolean permission_status = CheckPermission.checkPermissions((Activity) context);
 
-            if (permission_status)
-            {
+            if (permission_status) {
                 mylocation = new Mylocation(context);
                 LocationManagerCheck locationManagerCheck = new LocationManagerCheck(context);
                 if (locationManagerCheck.isLocationServiceAvailable()) {
@@ -448,8 +449,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     locationManagerCheck.createLocationServiceError((Activity) context);
                 }
 
-            }
-            else {
+            } else {
                 AndroidUtils.showErrorLog(context, "error in permission");
             }
 
@@ -463,8 +463,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
             boolean permission_status = CheckPermission.checkPermissions((Activity) context);
 
-            if (permission_status)
-            {
+            if (permission_status) {
                 mylocation = new Mylocation(context);
                 LocationManagerCheck locationManagerCheck = new LocationManagerCheck(context);
                 if (locationManagerCheck.isLocationServiceAvailable()) {
@@ -483,8 +482,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     locationManagerCheck.createLocationServiceError((Activity) context);
                 }
 
-            }
-            else {
+            } else {
                 AndroidUtils.showErrorLog(context, "error in permission");
             }
 
@@ -496,7 +494,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 
             */
-
 
 
         } else {
