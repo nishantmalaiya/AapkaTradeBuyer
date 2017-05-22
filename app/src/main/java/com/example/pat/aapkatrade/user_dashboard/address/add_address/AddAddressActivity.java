@@ -131,7 +131,6 @@ public class AddAddressActivity extends AppCompatActivity {
             spState.setSelection(Integer.valueOf(state_id));
         }
 
-
         etFirstName = (EditText) findViewById(R.id.etFirstName);
 
         etLastName = (EditText) findViewById(R.id.etLastName);
