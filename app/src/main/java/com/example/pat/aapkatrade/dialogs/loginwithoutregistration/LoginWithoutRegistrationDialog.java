@@ -99,6 +99,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         tvResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AndroidUtils.showErrorLog(context, " Code Resend clicked");
                 callStep1WebService();
             }
         });
@@ -122,6 +123,21 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                             progressDialogHandler.hide();
                             if (result!= null && result.get("error").getAsString().contains("false")) {
                                 AndroidUtils.showErrorLog(context,"Login WebService Result Found --> ", result);
+
+                                AndroidUtils.showErrorLog(context, result);
+                                appSharedPreference.setSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString(), result.get("user_id").getAsString());
+
+                                AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
+                                JsonObject resultJsonObject = result.get("result").getAsJsonObject();
+                                if (resultJsonObject != null) {
+                                    appSharedPreference.setSharedPref(SharedPreferenceConstants.CLIENT_ID.toString(), resultJsonObject.get("client_id").getAsString());
+                                    appSharedPreference.setSharedPref(SharedPreferenceConstants.OTP_ID.toString(), resultJsonObject.get("otp_id").getAsString());
+                                    isStep1 = false;
+                                    visibleHiddenLayouts();
+
+                                } else {
+                                    AndroidUtils.showErrorLog(context, "Null Result Tag");
+                                }
 
                             }else {
                                 AndroidUtils.showErrorLog(context, "Login WebService Null Result Found");
@@ -191,6 +207,9 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     }
 
     private void callStep2WebService() {
+
+        AndroidUtils.showErrorLog(context, " URL  ---> "+new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString());
+        AndroidUtils.showErrorLog(context, "Data to sent UserID : "+appSharedPreference.getSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString())+"  OTP "+etOTP.getText().toString()+"  CLIENT_ID  :  "+appSharedPreference.getSharedPref(SharedPreferenceConstants.CLIENT_ID.toString())+" PASSWORD : "+ etPassword.getText().toString()+"type: "+type);
         progressDialogHandler.show();
         Ion.with(context)
                 .load(new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString())
