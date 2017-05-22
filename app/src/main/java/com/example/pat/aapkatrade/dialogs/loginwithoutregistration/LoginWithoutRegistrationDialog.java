@@ -40,7 +40,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     private AppSharedPreference appSharedPreference;
     private ImageView dialog_close_image_view, editMobile;
     private Context context;
-    private TextView tvTourMsg, tvPassword, tvOTP;
+    private TextView tvTourMsg, tvPassword, tvOTP, tvResend;
     private EditText etEmailOrMobile, etOTP, etPassword;
     private Button submit;
     private CardView loginWithoutRegistrationContainer;
@@ -59,6 +59,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login_without_registration, container, false);
         //noinspection ConstantConditions
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.rounded_dialog);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         initView(v);
@@ -92,6 +93,13 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                 } else {
                     etEmailOrMobile.setEnabled(true);
                 }
+            }
+        });
+
+        tvResend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callStep1WebService();
             }
         });
 
@@ -158,6 +166,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
                                 if(result.get("message").getAsString().contains("already") || result.get("message").getAsString().contains("exist")){
                                     tvOTP.setVisibility(View.VISIBLE);
+                                    row2Layout.setVisibility(View.VISIBLE);
                                     otpLayout.setVisibility(View.VISIBLE);
                                     isStep1 = false;
                                     type = "1";
@@ -247,6 +256,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         etOTP = (EditText) view.findViewById(R.id.etOTP);
         editMobile.setVisibility(View.GONE);
         etPassword = (EditText) view.findViewById(R.id.etPassword);
+        tvResend = (TextView) view.findViewById(R.id.tvResend);
     }
 
 }
