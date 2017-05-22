@@ -61,7 +61,7 @@ public class UserDashboardFragment extends Fragment {
 
     private void setup_layout(View v) {
         imageviewpp = (CircleImageView) v.findViewById(R.id.imageviewpp);
-        String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString());
+        String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(),"demo");
 
         if(a!=null)
         {

@@ -1,5 +1,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
@@ -26,6 +28,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
+            android:id="@+id/navigation_profile"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/navigation_profile_bg"
@@ -35,14 +38,15 @@
 
             <requestFocus />
 
-            <android.support.v7.widget.AppCompatImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circular_profile_image_home"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/hundred_dip"
+                android:layout_height="@dimen/hundred_dip"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_profile_user" />
+
+                android:src="@drawable/ic_profile_user" />
 
 
             <RelativeLayout
