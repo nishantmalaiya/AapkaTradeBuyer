@@ -33,8 +33,10 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.privacypolicy.PrivacyPolicyActivity;
 import com.example.pat.aapkatrade.termandcondition.TermsAndConditionActivity;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
@@ -44,6 +46,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -62,13 +66,13 @@ public class NavigationFragment extends Fragment{
     private TextView textViewName, emailid;
     private NavigationAdapter category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
-    private RelativeLayout rlCategory, rlLogout, rlPolicy, rlTerms;
+    private RelativeLayout rlprofilepic, rlLogout, rlPolicy, rlTerms;
     private View rlMainContent;
     private ProgressBarHandler progressBarHandler;
     private RecyclerView navigationRecycleview;
     private LinearLayoutManager navigationLinearLayoutManager;
     private ImageView navigationClose;
-    private AppCompatImageView profilePic;
+    private CircleImageView profilePic;
 
     public NavigationFragment() {
     }
@@ -90,7 +94,25 @@ public class NavigationFragment extends Fragment{
 
     private void initView(View view) {
 
-        profilePic = (android.support.v7.widget.AppCompatImageView) view.findViewById(R.id.circular_profile_image_home);
+
+
+        rlprofilepic=(RelativeLayout)view.findViewById(R.id.navigation_profile) ;
+        rlprofilepic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not").contains("not")) {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                } else {
+                    Log.e("hiiii", appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not"));
+                    startActivity(new Intent(getActivity(), MyProfileActivity.class));
+
+                    //showOrHideBottomNavigation(true);
+                }
+
+            }
+        });
+
+        profilePic = (CircleImageView) view.findViewById(R.id.circular_profile_image_home);
         navigationClose = (ImageView) view.findViewById(R.id.navigation_close);
         rlLogout = (RelativeLayout) view.findViewById(R.id.rl_logout);
         rlLogout.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +163,7 @@ public class NavigationFragment extends Fragment{
         navigationRecycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
         navigationRecycleview.setLayoutManager(navigationLinearLayoutManager);
 
-        rlCategory = (RelativeLayout) this.view.findViewById(R.id.rl_category);
+//        rlCategory = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
         if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
             String userName = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");

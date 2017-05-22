@@ -40,7 +40,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     private AppSharedPreference appSharedPreference;
     private ImageView dialog_close_image_view, editMobile;
     private Context context;
-    private TextView tvTourMsg, tvPassword, tvOTP;
+    private TextView tvTourMsg, tvPassword, tvOTP, tvResend;
     private EditText etEmailOrMobile, etOTP, etPassword;
     private Button submit;
     private CardView loginWithoutRegistrationContainer;
@@ -59,6 +59,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login_without_registration, container, false);
         //noinspection ConstantConditions
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.rounded_dialog);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         initView(v);
@@ -95,6 +96,14 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
             }
         });
 
+        tvResend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AndroidUtils.showErrorLog(context, " Code Resend clicked");
+                callStep1WebService();
+            }
+        });
+
         return v;
     }
 
@@ -114,6 +123,21 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                             progressDialogHandler.hide();
                             if (result!= null && result.get("error").getAsString().contains("false")) {
                                 AndroidUtils.showErrorLog(context,"Login WebService Result Found --> ", result);
+
+                                AndroidUtils.showErrorLog(context, result);
+                                appSharedPreference.setSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString(), result.get("user_id").getAsString());
+
+                                AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
+                                JsonObject resultJsonObject = result.get("result").getAsJsonObject();
+                                if (resultJsonObject != null) {
+                                    appSharedPreference.setSharedPref(SharedPreferenceConstants.CLIENT_ID.toString(), resultJsonObject.get("client_id").getAsString());
+                                    appSharedPreference.setSharedPref(SharedPreferenceConstants.OTP_ID.toString(), resultJsonObject.get("otp_id").getAsString());
+                                    isStep1 = false;
+                                    visibleHiddenLayouts();
+
+                                } else {
+                                    AndroidUtils.showErrorLog(context, "Null Result Tag");
+                                }
 
                             }else {
                                 AndroidUtils.showErrorLog(context, "Login WebService Null Result Found");
@@ -159,6 +183,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
                                 if(result.get("message").getAsString().contains("already") || result.get("message").getAsString().contains("exist")){
                                     tvOTP.setVisibility(View.VISIBLE);
+                                    row2Layout.setVisibility(View.VISIBLE);
                                     otpLayout.setVisibility(View.VISIBLE);
                                     isStep1 = false;
                                     type = "1";
@@ -183,6 +208,9 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
     }
 
     private void callStep2WebService() {
+
+        AndroidUtils.showErrorLog(context, " URL  ---> "+new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString());
+        AndroidUtils.showErrorLog(context, "Data to sent UserID : "+appSharedPreference.getSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString())+"  OTP "+etOTP.getText().toString()+"  CLIENT_ID  :  "+appSharedPreference.getSharedPref(SharedPreferenceConstants.CLIENT_ID.toString())+" PASSWORD : "+ etPassword.getText().toString()+"type: "+type);
         progressDialogHandler.show();
         Ion.with(context)
                 .load(new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString())
@@ -252,6 +280,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         etOTP = (EditText) view.findViewById(R.id.etOTP);
         editMobile.setVisibility(View.GONE);
         etPassword = (EditText) view.findViewById(R.id.etPassword);
+        tvResend = (TextView) view.findViewById(R.id.tvResend);
     }
 
 }

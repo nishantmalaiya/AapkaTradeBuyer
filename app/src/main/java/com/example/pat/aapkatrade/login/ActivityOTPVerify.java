@@ -422,6 +422,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
                             appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_LANDMARK.toString(), jsonObject1.get("sh_landmark").getAsString());
                             appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PINCODE.toString(), jsonObject1.get("sh_pincode").getAsString());
 
+
                             Intent intent = new Intent(context, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -475,8 +476,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 //                Log.e("data2", webservice_returndata.toString());
 
-                if (webservice_returndata != null)
-                {
+                if (webservice_returndata != null) {
                     Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
 
@@ -484,8 +484,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
                     String message = jsonObject.get("message").getAsString();
 
 
-                    if (error.equals("false"))
-                    {
+                    if (error.equals("false")) {
                         String user_id = jsonObject.get("user_id").getAsString();
                         appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
 
