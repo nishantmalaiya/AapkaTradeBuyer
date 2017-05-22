@@ -445,7 +445,8 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 //                Log.e("data2", webservice_returndata.toString());
 
-                if (webservice_returndata != null) {
+                if (webservice_returndata != null)
+                {
                     Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
 
@@ -453,12 +454,12 @@ public class ActivityOTPVerify extends AppCompatActivity {
                     String message = jsonObject.get("message").getAsString();
 
 
-                    if (error.equals("false")) {
+                    if (error.equals("false"))
+                    {
                         String user_id = jsonObject.get("user_id").getAsString();
                         appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), user_id);
 
                         showMessage(message);
-
 
                         Intent Homedashboard = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                         Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -551,7 +552,6 @@ public class ActivityOTPVerify extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-
 
                         if (result != null) {
 
