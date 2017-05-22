@@ -268,20 +268,16 @@ public class MyCartActivity extends AppCompatActivity {
                                 AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                             }
 
+                        } else {
+                            progressBarHandler.hide();
+
+                            AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
+
                         }
 
-
-                        else
-                        {
-                                progressBarHandler.hide();
-
-                                AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
-                        
-                         }
-
-
+                    }
                 });
-    }
+                }
 }
 
 
