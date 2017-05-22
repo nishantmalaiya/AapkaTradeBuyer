@@ -337,10 +337,10 @@ public class RegistrationActivity extends AppCompatActivity {
             } else if (!Validation.isValidPassword(formBuyerData.getPassword())) {
                 putError(4);
                 isAllFieldSet++;
-            } else if (!Validation.isValidPassword(formBuyerData.getConfirmPassword())) {
+            }/* else if (!Validation.isValidPassword(formBuyerData.getConfirmPassword())) {
                 putError(15);
                 isAllFieldSet++;
-            } else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
+            }*/ else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
                 putError(5);
                 isAllFieldSet++;
             } else if (!agreement_check.isChecked()) {
