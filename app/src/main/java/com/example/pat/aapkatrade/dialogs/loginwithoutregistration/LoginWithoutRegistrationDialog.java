@@ -144,7 +144,8 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
 
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
                                 JsonObject resultJsonObject = result.get("result").getAsJsonObject();
-                                if (resultJsonObject != null) {
+                                if (resultJsonObject != null)
+                                {
                                     appSharedPreference.setSharedPref(SharedPreferenceConstants.CLIENT_ID.toString(), resultJsonObject.get("client_id").getAsString());
                                     appSharedPreference.setSharedPref(SharedPreferenceConstants.OTP_ID.toString(), resultJsonObject.get("otp_id").getAsString());
                                     isStep1 = false;
@@ -201,10 +202,14 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                             AndroidUtils.showErrorLog(context, result);
                             appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), result.get("user_id").getAsString());
                             AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
-                            if(result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login")){
+                            if(result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login"))
+                            {
+
+
                                 Intent intent = new Intent(context, AddAddressActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
+
                             }
 
                         }else  if (result!= null && result.get("error").getAsString().contains("true")) {

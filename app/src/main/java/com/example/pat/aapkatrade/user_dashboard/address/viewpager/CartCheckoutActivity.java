@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class CartCheckoutActivity extends AppCompatActivity {
 
     RelativeLayout relativePayment;
-    String fname, lname, mobile, state_id, address;
+    String fname, mobile, state_id, address;
     AppSharedPreference app_sharedpreference;
     ArrayList<CartData> cartDataArrayList = new ArrayList<>();
     private Context context;
@@ -74,7 +74,6 @@ public class CartCheckoutActivity extends AppCompatActivity {
 
         fname = bundle.getString("fname");
 
-        lname = bundle.getString("lname");
 
         mobile = bundle.getString("mobile");
 
@@ -133,7 +132,7 @@ public class CartCheckoutActivity extends AppCompatActivity {
             }
         });
 
-        addressLine1.setText(fname + " " + lname);
+        addressLine1.setText(fname);
 
         addressLine2.setText(address);
 
