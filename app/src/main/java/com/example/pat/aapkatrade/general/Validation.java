@@ -104,7 +104,7 @@ public class Validation {
     }
 
     public static boolean isNumber(String s) {
-        return TextUtils.isDigitsOnly(s);
+        return isNonEmptyStr(s) && TextUtils.isDigitsOnly(s);
     }
 
 }

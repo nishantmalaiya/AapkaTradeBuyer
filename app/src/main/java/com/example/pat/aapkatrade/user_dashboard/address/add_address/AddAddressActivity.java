@@ -28,6 +28,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSpinnerAdapter;
+import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 import com.google.gson.JsonArray;
@@ -39,15 +40,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class AddAddressActivity extends AppCompatActivity
-{
+public class AddAddressActivity extends AppCompatActivity {
 
     private ArrayList<String> stateList = new ArrayList<>();
     private AppSharedPreference appSharedPreference;
-    private String userid, firstName, lastName, address, mobile, state_id,cityID = "";;
-    private EditText etFirstName, etLastName, etMobileNo, etAddress,etPincode,etLandMark;
+    private String userid, firstName, lastName, address, mobile, state_id, cityID = "";
+    ;
+    private EditText etFirstName, etLastName, etMobileNo, etAddress, etPincode, etLandMark;
     private Button buttonSave;
-    public Spinner spState,spCity;
+    public Spinner spState, spCity;
     public RelativeLayout activity_add_address;
     private ProgressBarHandler progress_handler;
     Context context;
@@ -55,8 +56,7 @@ public class AddAddressActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
@@ -91,8 +91,7 @@ public class AddAddressActivity extends AppCompatActivity
 
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
         activity_add_address = (RelativeLayout) findViewById(R.id.activity_add_address);
 
@@ -102,8 +101,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(), String.valueOf(position));
                 state_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.STATE_ID.toString(), "");
@@ -111,8 +109,7 @@ public class AddAddressActivity extends AppCompatActivity
 
                 cityList = new ArrayList<>();
                 AndroidUtils.showErrorLog(context, "State Id is ::::::::" + position);
-                if (position > 0)
-                {
+                if (position > 0) {
                   /*  findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
                     findViewById(R.id.view1).setVisibility(View.VISIBLE);*/
                     getCity(String.valueOf(position));
@@ -120,8 +117,7 @@ public class AddAddressActivity extends AppCompatActivity
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView)
-            {
+            public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
 
@@ -131,7 +127,10 @@ public class AddAddressActivity extends AppCompatActivity
         spinnerArrayAdapter.setDropDownViewResource(R.layout.black_textcolor_spinner);
         spState.setAdapter(spinnerArrayAdapter);
 
-        spState.setSelection(Integer.valueOf(state_id));
+        if (Validation.isNumber(state_id)) {
+            spState.setSelection(Integer.valueOf(state_id));
+        }
+
 
         etFirstName = (EditText) findViewById(R.id.etFirstName);
 
@@ -147,7 +146,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         buttonSave = (Button) findViewById(R.id.buttonSave);
 
-        etFirstName.setText(firstName);
+        etFirstName.setText(firstName.contains("not") ? "" : firstName);
 
         etLastName.setText(lastName);
 
@@ -159,42 +158,38 @@ public class AddAddressActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                System.out.println("userid------------"+userid+etFirstName.getText().toString()+etLastName.getText().toString()+etAddress.getText().toString());
-                callAddCompanyWebService(userid, etFirstName.getText().toString(), etLastName.getText().toString(), etAddress.getText().toString(),etMobileNo.getText().toString(),etPincode.getText().toString(),etLandMark.getText().toString());
+                System.out.println("userid------------" + userid + etFirstName.getText().toString() + etLastName.getText().toString() + etAddress.getText().toString());
+                callAddCompanyWebService(userid, etFirstName.getText().toString(), etLastName.getText().toString(), etAddress.getText().toString(), etMobileNo.getText().toString(), etPincode.getText().toString(), etLandMark.getText().toString());
 
             }
         });
 
 
-
     }
 
-    private void callAddCompanyWebService(String userId, final String firstName, final String lName, final String address,final String phone,final String Pincode, final String landmark)
-    {
+    private void callAddCompanyWebService(String userId, final String firstName, final String lName, final String address, final String phone, final String Pincode, final String landmark) {
         progress_handler.show();
 
-        System.out.println("spState.getSelectedItem().toString()========"+spState.getSelectedItem().toString());
+        System.out.println("spState.getSelectedItem().toString()========" + spState.getSelectedItem().toString());
 
         Ion.with(AddAddressActivity.this)
                 .load((getResources().getString(R.string.webservice_base_url)) + "/edit_shipping_address")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("name", firstName+lName)
+                .setBodyParameter("name", firstName + lName)
                 .setBodyParameter("pincode", Pincode)
                 .setBodyParameter("address", address)
                 .setBodyParameter("state", String.valueOf(spState.getSelectedItemPosition()))
-                .setBodyParameter("city",String.valueOf(spState.getSelectedItemPosition()))
+                .setBodyParameter("city", String.valueOf(spState.getSelectedItemPosition()))
                 .setBodyParameter("buyer_id", userId)
-                .setBodyParameter("phone",phone)
-                .setBodyParameter("landmark",landmark)
+                .setBodyParameter("phone", phone)
+                .setBodyParameter("landmark", landmark)
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
 
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-                        System.out.println("result-------------"+result);
+                    public void onCompleted(Exception e, JsonObject result) {
+                        System.out.println("result-------------" + result);
 
                         progress_handler.hide();
                         Intent checkout = new Intent(AddAddressActivity.this, CartCheckoutActivity.class);
@@ -206,7 +201,6 @@ public class AddAddressActivity extends AppCompatActivity
                         startActivity(checkout);
 
 
-
                     }
                 });
     }
@@ -215,15 +209,12 @@ public class AddAddressActivity extends AppCompatActivity
         stateList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
         CustomSpinnerAdapter spinnerArrayAdapter = new CustomSpinnerAdapter(context, stateList);
         spState.setAdapter(spinnerArrayAdapter);
-        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cityList = new ArrayList<>();
                 AndroidUtils.showErrorLog(context, "State Id is ::::::::" + position);
-                if (position > 0)
-                {
+                if (position > 0) {
 
                     findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
                     findViewById(R.id.view1).setVisibility(View.VISIBLE);
@@ -231,6 +222,7 @@ public class AddAddressActivity extends AppCompatActivity
 
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -239,9 +231,7 @@ public class AddAddressActivity extends AppCompatActivity
     }
 
 
-
-    private void getCity(String stateId)
-    {
+    private void getCity(String stateId) {
         progress_handler.show();
         //findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
         Ion.with(context)
@@ -292,8 +282,7 @@ public class AddAddressActivity extends AppCompatActivity
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
 
         ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         findViewById(R.id.logoWord).setVisibility(View.GONE);
@@ -318,8 +307,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
@@ -330,17 +318,14 @@ public class AddAddressActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -356,7 +341,6 @@ public class AddAddressActivity extends AppCompatActivity
         AndroidUtils.showSnackBar(registrationLayout, message);
     }
 */
-
 
 
 }
