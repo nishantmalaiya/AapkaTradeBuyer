@@ -51,7 +51,7 @@ public class RegistrationActivity extends AppCompatActivity
     private LinearLayout registrationLayout;
     private ArrayList<String> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-    private AppSharedPreference appSharedPreference;
+
     private String stateID = "", cityID = "";
     private DatePickerDialog datePickerDialog;
     private ProgressBarHandler progressBarHandler;
@@ -66,7 +66,9 @@ public class RegistrationActivity extends AppCompatActivity
 
         context = RegistrationActivity.this;
 
+
         appSharedPreference = new AppSharedPreference(RegistrationActivity.this);
+
 
         setUpToolBar();
 
@@ -82,8 +84,7 @@ public class RegistrationActivity extends AppCompatActivity
                 Log.e("reach", "reach3");
                 getBuyerFormData();
                 validateFields();
-                if (isAllFieldSet == 0)
-                {
+                if (isAllFieldSet == 0) {
                     callWebServiceForBuyerRegistration();
 
                 }
@@ -104,8 +105,8 @@ public class RegistrationActivity extends AppCompatActivity
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "1")
-                .setBodyParameter("platform","android")
-                .setBodyParameter("device_id",AppConfig.getCurrentDeviceId(context))
+                .setBodyParameter("platform", "android")
+                .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .setBodyParameter("name", formBuyerData.getFirstName())
                 .setBodyParameter("lastname", formBuyerData.getLastName())
                 .setBodyParameter("country_id", formBuyerData.getCountryId())

@@ -553,7 +553,6 @@ public class ActivityOTPVerify extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-
                         if (result != null) {
 
                             System.out.println("update_cart_user--------------" + result.toString());
