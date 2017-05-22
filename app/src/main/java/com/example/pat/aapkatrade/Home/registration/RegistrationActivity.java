@@ -91,8 +91,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    private void callWebServiceForBuyerRegistration() {
+    private void callWebServiceForBuyerRegistration()
+    {
+
+        Log.e("country_id",formBuyerData.getCountryId()+formBuyerData.getStateId());
+
         Log.e("reach", " Buyer Data--------->\n" + formBuyerData.toString());
+
         progressBarHandler.show();
         Ion.with(RegistrationActivity.this)
                 .load(getResources().getString(R.string.webservice_base_url) + "/buyerregister")
@@ -132,7 +137,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                 call_to_startactivity.putExtra("country_id", "101");
                                 call_to_startactivity.putExtra("state_id", stateID);
                                 call_to_startactivity.putExtra("address", etAddress.getText().toString());
-
                                 call_to_startactivity.putExtra("class_name", context.getClass().getSimpleName());
 
                                 System.out.println("data is available");
@@ -164,7 +168,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 cityList = new ArrayList<>();
                 AndroidUtils.showErrorLog(context, "State Id is ::::::::" + position);
                 if (position > 0) {
-
+                    stateID = String.valueOf(position);
                     findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
                     findViewById(R.id.view1).setVisibility(View.VISIBLE);
                     getCity(String.valueOf(position));
@@ -309,7 +313,8 @@ public class RegistrationActivity extends AppCompatActivity {
         Log.e("reach", "validateFiledsCalled");
 
 
-        if (formBuyerData != null) {
+        if (formBuyerData != null)
+        {
             if (Validation.isEmptyStr(formBuyerData.getFirstName())) {
                 putError(0);
                 isAllFieldSet++;
@@ -319,10 +324,10 @@ public class RegistrationActivity extends AppCompatActivity {
             } else if (!Validation.isValidNumber(formBuyerData.getMobile(), Validation.getNumberPrefix(formBuyerData.getMobile()))) {
                 putError(3);
                 isAllFieldSet++;
-            } else if (spState != null && spState.getSelectedItemPosition() == 0) {
+            } else if (spState == null || spState.getSelectedItemPosition() == 0) {
                 showMessage("Please Select State");
                 isAllFieldSet++;
-            } else if (spCity.getSelectedItemPosition() == 0) {
+            } else if (spCity == null || spCity.getSelectedItemPosition() == 0) {
                 showMessage("Please Select City");
                 isAllFieldSet++;
             } else if (Validation.isEmptyStr(formBuyerData.getAddress())) {

@@ -59,10 +59,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 Intent registerUserActivity = new Intent(context, RegistrationActivity.class);
                 startActivity(registerUserActivity);
-
 
             }
 
@@ -163,15 +161,20 @@ public class LoginActivity extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonObject result) {
 
                         progressBarHandler.hide();
-                        if (result != null) {
+                        if (result != null)
+                        {
+
+                            System.out.println("result--------------"+result.toString());
 
                             String error = result.get("error").getAsString();
 
-                            if (error.contains("true")) {
+                            if (error.contains("true"))
+                            {
                                 String message = result.get("message").getAsString();
                                 showMessage(message);
 
-                            } else {
+                            }
+                            else {
 
                                 showMessage(getResources().getString(R.string.welcomebuyer));
                                 Log.e("webservice_returndata", result.toString());
@@ -189,7 +192,8 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveDataInSharedPreference(JsonObject webservice_returndata) {
+    private void saveDataInSharedPreference(JsonObject webservice_returndata)
+    {
 
         JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
         Log.e("hi", jsonObject.toString());
@@ -220,10 +224,21 @@ public class LoginActivity extends AppCompatActivity {
         appSharedpreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), jsonObject.get("profile_pic").getAsString());
 
 
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS.toString(), jsonObject.get("sh_address").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_NAME.toString(), jsonObject.get("sh_name").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PHONE.toString(), jsonObject.get("sh_phone").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_STATE.toString(), jsonObject.get("sh_state").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_CITY.toString(), jsonObject.get("sh_city").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_LANDMARK.toString(), jsonObject.get("sh_landmark").getAsString());
+        appSharedpreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PINCODE.toString(), jsonObject.get("sh_pincode").getAsString());
+
+
+
     }
 
 
-    private void initView() {
+    private void initView()
+    {
         forgotPassword = (TextView) findViewById(R.id.tv_forgotpassword);
         loginText = (TextView) findViewById(R.id.tv_login);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -241,13 +256,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void showMessage(String message) {
+    public void showMessage(String message)
+    {
         AndroidUtils.showSnackBar(coordinatorLayout, message);
     }
 
 
-    private void callwebserviceUpdateCart() {
-
+    private void callwebserviceUpdateCart()
+    {
         progressBarHandler.show();
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/update_cart_user";
