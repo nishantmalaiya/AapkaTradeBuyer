@@ -45,6 +45,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,7 +70,7 @@ public class NavigationFragment extends Fragment{
     private RecyclerView navigationRecycleview;
     private LinearLayoutManager navigationLinearLayoutManager;
     private ImageView navigationClose;
-    private AppCompatImageView profilePic;
+    private CircleImageView profilePic;
 
     public NavigationFragment() {
     }
@@ -90,7 +92,7 @@ public class NavigationFragment extends Fragment{
 
     private void initView(View view) {
 
-        profilePic = (android.support.v7.widget.AppCompatImageView) view.findViewById(R.id.circular_profile_image_home);
+        profilePic = (CircleImageView) view.findViewById(R.id.circular_profile_image_home);
         navigationClose = (ImageView) view.findViewById(R.id.navigation_close);
         rlLogout = (RelativeLayout) view.findViewById(R.id.rl_logout);
         rlLogout.setOnClickListener(new View.OnClickListener() {
