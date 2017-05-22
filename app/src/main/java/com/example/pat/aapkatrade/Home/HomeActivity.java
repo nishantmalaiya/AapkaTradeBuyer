@@ -638,7 +638,6 @@ public class HomeActivity extends AppCompatActivity {
             rlTutorial.setVisibility(View.VISIBLE);
 
 
-
 //
             rlTutorial.setOnClickListener(new View.OnClickListener() {
                 @Override
