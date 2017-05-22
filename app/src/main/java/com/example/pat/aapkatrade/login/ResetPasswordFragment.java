@@ -169,6 +169,8 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                         if (result != null) {
                             String error = result.get("error").getAsString();
                             if (error.contains("false")) {
+
+
                                 Intent go_to_activity_otp_verify = new Intent(getActivity(), HomeActivity.class);
                                 go_to_activity_otp_verify.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -176,6 +178,44 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                             }
                             String message = result.get("message").getAsString();
                             showmessage(message);
+
+
+                            JsonObject user_data = result.getAsJsonObject("user_data");
+
+                            String userid = user_data.get("buyer_id").getAsString();
+                            String fname = user_data.get("name").getAsString();
+                            String userName = user_data.get("name").getAsString();
+                            String lastname = user_data.get("lastname").getAsString();
+                            String email = user_data.get("email").getAsString();
+
+                            String mobile = user_data.get("mobile").getAsString();
+                            String profilepic = user_data.get("profile_pic").getAsString();
+
+
+                            String address = user_data.get("address").getAsString();
+                            String sh_phone = user_data.get("sh_phone").getAsString();
+                            String sh_state = user_data.get("sh_state").getAsString();
+
+                            String sh_city = user_data.get("sh_city").getAsString();
+                            String sh_landmark = user_data.get("sh_landmark").getAsString();
+                            String sh_pincode = user_data.get("sh_pincode").getAsString();
+
+
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), userid);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), userName);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), fname);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), lastname);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), email);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.MOBILE.toString(), mobile);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), profilepic);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_NAME.toString(), address);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PHONE.toString(), sh_phone);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_STATE.toString(), sh_state);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_CITY.toString(), sh_city);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_LANDMARK.toString(), sh_landmark);
+                            appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PINCODE.toString(), sh_pincode);
+
+
                             progressBarHandler.hide();
                         } else {
                             Log.e("error_json", e.toString());

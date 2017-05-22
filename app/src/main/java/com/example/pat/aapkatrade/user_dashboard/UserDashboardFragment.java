@@ -21,6 +21,7 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -60,6 +61,17 @@ public class UserDashboardFragment extends Fragment {
 
     private void setup_layout(View v) {
         imageviewpp = (CircleImageView) v.findViewById(R.id.imageviewpp);
+        String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString());
+
+        if(a!=null)
+        {
+            Picasso.with(getActivity())
+                    .load(a)
+                    .error(R.drawable.banner)
+                    .placeholder(R.drawable.default_noimage)
+                    .error(R.drawable.default_noimage)
+                    .into(imageviewpp);
+        }
 
 
         textViewName = (TextView) v.findViewById(R.id.textViewName);

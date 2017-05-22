@@ -25,27 +25,23 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 public class ForgotPassword extends AppCompatActivity {
-    private TextView tv_forgot_password, tv_forgot_password_description;
-    private Button btn_send_otp;
-    private EditText et_email_forgot, et_mobile_no;
+
     private CoordinatorLayout activity_forgot__password;
-    private AppSharedPreference appSharedPreference;
-    private String usertype = "buyer";
-    private ProgressBarHandler progressBarHandler;
+
+
     private Context context;
-    private String classname;
+
     private ForgotPasswordFragment forgot_password_fragment;
     private ResetPasswordFragment reset_passwordFragment;
 
-    String class_index,otp_id;
+    String class_index, otp_id;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot__password);
-        context=ForgotPassword.this;
-        appSharedPreference = new AppSharedPreference(this);
+        context = ForgotPassword.this;
 
 
         class_index = getIntent().getStringExtra("forgot_index");
@@ -81,8 +77,8 @@ public class ForgotPassword extends AppCompatActivity {
             otp_id = getIntent().getStringExtra("otp_id");
             if (reset_passwordFragment == null) {
                 reset_passwordFragment = new ResetPasswordFragment();
-                Bundle b=new Bundle();
-                b.putString("otp_id",otp_id);
+                Bundle b = new Bundle();
+                b.putString("otp_id", otp_id);
                 reset_passwordFragment.setArguments(b);
             }
             String tagName = reset_passwordFragment.getClass().getName();
