@@ -40,8 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class RegistrationActivity extends AppCompatActivity
-{
+public class RegistrationActivity extends AppCompatActivity {
 
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -59,15 +58,11 @@ public class RegistrationActivity extends AppCompatActivity
     private CheckBox agreement_check;
 
 
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
         context = RegistrationActivity.this;
-
-
-        appSharedPreference = new AppSharedPreference(RegistrationActivity.this);
 
 
         setUpToolBar();
@@ -96,8 +91,7 @@ public class RegistrationActivity extends AppCompatActivity
 
     }
 
-    private void callWebServiceForBuyerRegistration()
-    {
+    private void callWebServiceForBuyerRegistration() {
         Log.e("reach", " Buyer Data--------->\n" + formBuyerData.toString());
         progressBarHandler.show();
         Ion.with(RegistrationActivity.this)
@@ -123,8 +117,7 @@ public class RegistrationActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
 
-                            if (result.get("error").getAsString().equals("false"))
-                            {
+                            if (result.get("error").getAsString().equals("false")) {
                                 Log.e("registration_buyer", result.toString());
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
 
@@ -146,9 +139,7 @@ public class RegistrationActivity extends AppCompatActivity
 
                                 startActivity(call_to_startactivity);
 
-                            }
-                            else
-                            {
+                            } else {
                                 progressBarHandler.hide();
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                             }
@@ -163,20 +154,16 @@ public class RegistrationActivity extends AppCompatActivity
     }
 
 
-    private void getState()
-    {
+    private void getState() {
         stateList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
         CustomSpinnerAdapter spinnerArrayAdapter = new CustomSpinnerAdapter(context, stateList);
         spState.setAdapter(spinnerArrayAdapter);
-        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cityList = new ArrayList<>();
                 AndroidUtils.showErrorLog(context, "State Id is ::::::::" + position);
-                if (position > 0)
-                {
+                if (position > 0) {
 
                     findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
                     findViewById(R.id.view1).setVisibility(View.VISIBLE);
@@ -184,16 +171,15 @@ public class RegistrationActivity extends AppCompatActivity
 
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
     }
 
-    private void getCity(String stateId)
-    {
+    private void getCity(String stateId) {
         progressBarHandler.show();
         findViewById(R.id.input_layout_city).setVisibility(View.VISIBLE);
         Ion.with(context)
@@ -283,8 +269,7 @@ public class RegistrationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void initView()
-    {
+    private void initView() {
         progressBarHandler = new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spState = (Spinner) findViewById(R.id.spStateCategory);
@@ -418,8 +403,7 @@ public class RegistrationActivity extends AppCompatActivity
     }
 
 
-    public void getBuyerFormData()
-    {
+    public void getBuyerFormData() {
         formBuyerData.setStateId(stateID == null ? "" : stateID);
         formBuyerData.setCityId(cityID == null ? "" : cityID);
         formBuyerData.setAddress(etAddress.getText().toString());

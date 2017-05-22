@@ -400,18 +400,18 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                         System.out.println("result-----------" + result);
                         progressBarHandler.hide();
                         HashMap<String, String> stringStringHashMap = new HashMap<>();
-                        result = result.substring(1, result.length()-1);
+                        result = result.substring(1, result.length() - 1);
                         String keyValueStringArray[] = result.split(",");
-                        for(int i = 0; i < keyValueStringArray.length; i++){
-                            String pair  = keyValueStringArray[i];
-                            KeyValue keyValue = new KeyValue(pair.split("=")[0], pair.split("=")[1].substring(1, pair.split("=")[1].length()-1));
-                            AndroidUtils.showErrorLog(context, keyValue.key.toString()+"**********"+keyValue.value.toString());
+                        for (int i = 0; i < keyValueStringArray.length; i++) {
+                            String pair = keyValueStringArray[i];
+                            KeyValue keyValue = new KeyValue(pair.split("=")[0], pair.split("=")[1].substring(1, pair.split("=")[1].length() - 1));
+                            AndroidUtils.showErrorLog(context, keyValue.key.toString() + "**********" + keyValue.value.toString());
                             stringStringHashMap.put(keyValue.key.toString(), keyValue.value.toString());
                         }
 
-                        AndroidUtils.showErrorLog(context, stringStringHashMap.containsKey("vpc_Message")+"**********"+stringStringHashMap.toString()/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                        AndroidUtils.showErrorLog(context, stringStringHashMap.containsKey("vpc_Message") + "**********" + stringStringHashMap.toString()/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
 
-                        if(isExistInMap("vpc_Message", stringStringHashMap) && getValueFromMapByKey("vpc_Message", stringStringHashMap).equals("Approved")){
+                        if (isExistInMap("vpc_Message", stringStringHashMap) && getValueFromMapByKey("vpc_Message", stringStringHashMap).equals("Approved")) {
                             Intent intent = new Intent(context, PaymentCompletionActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("isSuccess", "true");
@@ -419,10 +419,10 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                             intent.putExtra("vpc_TransactionNo", getValueFromMapByKey("vpc_TransactionNo", stringStringHashMap));
                             intent.putExtra("vpc_ReceiptNo", getValueFromMapByKey("vpc_ReceiptNo", stringStringHashMap));
 
-                            AndroidUtils.showErrorLog(context,  intent.getStringExtra("isSuccess")+"vpc_Amount**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
-                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_Amount")+"vpc_TransactionNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
-                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_TransactionNo")+"vpc_ReceiptNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
-                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_ReceiptNo")+"vpc_Message**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("isSuccess") + "vpc_Amount**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_Amount") + "vpc_TransactionNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_TransactionNo") + "vpc_ReceiptNo**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
+                            AndroidUtils.showErrorLog(context, intent.getStringExtra("vpc_ReceiptNo") + "vpc_Message**********"/*+stringStringHashMap.get("vpc_Message").toLowerCase().equals("approved")*/);
 
                             startActivity(intent);
                         } else {
@@ -437,17 +437,17 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                 });
     }
 
-    private boolean isExistInMap(String key, HashMap<String, String> stringStringHashMap){
+    private boolean isExistInMap(String key, HashMap<String, String> stringStringHashMap) {
         for (Map.Entry m : stringStringHashMap.entrySet()) {
-            if(m.getKey().toString().trim().toLowerCase().equals(key.toLowerCase())){
+            if (m.getKey().toString().trim().toLowerCase().equals(key.toLowerCase())) {
                 return true;
             }
         }
         return false;
     }
 
-    private String getValueFromMapByKey(String key, HashMap<String, String> stringStringHashMap){
-        if(isExistInMap(key, stringStringHashMap)) {
+    private String getValueFromMapByKey(String key, HashMap<String, String> stringStringHashMap) {
+        if (isExistInMap(key, stringStringHashMap)) {
             for (Map.Entry m : stringStringHashMap.entrySet()) {
                 if (m.getKey().toString().trim().toLowerCase().equals(key.toLowerCase())) {
                     AndroidUtils.showErrorLog(context, m.getKey().toString().trim() + " (if) " + m.getValue());
