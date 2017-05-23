@@ -13,49 +13,62 @@
         android:layout_height="match_parent" />
 
 
-    <me.relex.circleindicator.CircleIndicator
-        android:id="@+id/indicator_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fourty_dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-
-        android:layout_marginBottom="@dimen/ten_dip"
-        android:layout_marginLeft="16dp"
-        app:ci_animator="@anim/indicator_animator"
-        app:ci_drawable="@drawable/selecteditem_dot"
-        app:ci_drawable_unselected="@drawable/nonselected_item"
-        app:ci_height="3dp"
-        app:ci_margin="3dp"
-        app:ci_width="8dp" />
 
 
-    <View
+
+
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/indicator_welcome"
-        android:alpha=".5"
-        android:background="@android:color/white" />
-
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:text="@string/next"
-        android:textColor="@android:color/white" />
+        android:layout_height="@dimen/fifty_dip">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
 
-    <Button
-        android:id="@+id/btn_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:background="@null"
-        android:text="@string/skip"
-        android:textColor="@android:color/white" />
+            android:alpha=".5"
+            android:background="@android:color/white" />
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+       android:textAlignment="center"
+            android:layout_alignParentRight="true"
+
+            android:background="@null"
+            android:text="@string/next"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/btn_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:layout_alignParentLeft="true"
+            android:background="@null"
+            android:text="@string/skip"
+            android:textColor="@android:color/white" />
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/fourty_dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+
+          android:gravity="center_vertical"
+            app:ci_animator="@anim/indicator_animator"
+            app:ci_drawable="@drawable/selecteditem_dot"
+            app:ci_drawable_unselected="@drawable/nonselected_item"
+            app:ci_height="3dp"
+            app:ci_margin="3dp"
+            app:ci_width="8dp" />
+    </RelativeLayout>
+
+
+
+
 
 
 </RelativeLayout>
