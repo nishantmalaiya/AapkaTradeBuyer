@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.CardView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,8 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                 /*if(isStep1 && isAlreadyExistUser){
                     type = "1";
                     callLoginWebService();
-                }else */if(isStep1){
+                }else */
+                if (isStep1) {
                     callStep1WebService();
                 } else {
                     callStep2WebService();
@@ -88,7 +90,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         editMobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etEmailOrMobile.isEnabled()){
+                if (etEmailOrMobile.isEnabled()) {
                     etEmailOrMobile.setEnabled(false);
                 } else {
                     etEmailOrMobile.setEnabled(true);
@@ -100,7 +102,9 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 AndroidUtils.showErrorLog(context, " Code Resend clicked");
-                callStep1WebService();
+                if (type.equals("2"))
+                    callStep1WebService();
+                else callLoginWebService();
             }
         });
 
@@ -121,8 +125,8 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             progressDialogHandler.hide();
-                            if (result!= null && result.get("error").getAsString().contains("false")) {
-                                AndroidUtils.showErrorLog(context,"Login WebService Result Found --> ", result);
+                            if (result != null && result.get("error").getAsString().contains("false")) {
+                                AndroidUtils.showErrorLog(context, "Login WebService Result Found --> ", result);
 
                                 AndroidUtils.showErrorLog(context, result);
                                 appSharedPreference.setSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString(), result.get("user_id").getAsString());
@@ -139,7 +143,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                                     AndroidUtils.showErrorLog(context, "Null Result Tag");
                                 }
 
-                            }else {
+                            } else {
                                 AndroidUtils.showErrorLog(context, "Login WebService Null Result Found");
                             }
                         }
@@ -147,6 +151,35 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         }
     }
 
+    private void saveDataInSharedPreference(JsonObject webservice_returndata) {
+
+        JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
+        Log.e("hi", jsonObject.toString());
+
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), webservice_returndata.get("user_id").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), jsonObject.get("name").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), jsonObject.get("lastname").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), jsonObject.get("email").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.MOBILE.toString(), jsonObject.get("mobile").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.COUNTRY_ID.toString(), jsonObject.get("country_id").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.STATE_ID.toString(), jsonObject.get("state_id").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.CITY_ID.toString(), jsonObject.get("city_id").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.ADDRESS.toString(), jsonObject.get("address").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.DEVICE_ID.toString(), jsonObject.get("device_id").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.UPDATED_AT.toString(), jsonObject.get("updated_at").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.STATUS.toString(), jsonObject.get("status").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.ORDER.toString(), webservice_returndata.get("order").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.CREATED_AT.toString(), webservice_returndata.get("createdAt").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS.toString(), jsonObject.get("sh_address").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PHONE.toString(), jsonObject.get("sh_phone").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_NAME.toString(), jsonObject.get("sh_name").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_STATE.toString(), jsonObject.get("sh_state").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_CITY.toString(), jsonObject.get("sh_city").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_LANDMARK.toString(), jsonObject.get("sh_landmark").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.SHIPPING_ADDRESS_PINCODE.toString(), jsonObject.get("sh_pincode").getAsString());
+        appSharedPreference.setSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), jsonObject.get("profile_pic").getAsString());
+    }
 
     private void callStep1WebService() {
         progressDialogHandler.show();
@@ -162,14 +195,13 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             progressDialogHandler.hide();
-                            if (result!= null && result.get("error").getAsString().contains("false")) {
+                            if (result != null && result.get("error").getAsString().contains("false")) {
                                 AndroidUtils.showErrorLog(context, result);
                                 appSharedPreference.setSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString(), result.get("user_id").getAsString());
 
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
                                 JsonObject resultJsonObject = result.get("result").getAsJsonObject();
-                                if (resultJsonObject != null)
-                                {
+                                if (resultJsonObject != null) {
                                     appSharedPreference.setSharedPref(SharedPreferenceConstants.CLIENT_ID.toString(), resultJsonObject.get("client_id").getAsString());
                                     appSharedPreference.setSharedPref(SharedPreferenceConstants.OTP_ID.toString(), resultJsonObject.get("otp_id").getAsString());
                                     isStep1 = false;
@@ -178,10 +210,10 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                                 } else {
                                     AndroidUtils.showErrorLog(context, "Null Result Tag");
                                 }
-                            } else  if (result!= null && result.get("error").getAsString().contains("true")) {
+                            } else if (result != null && result.get("error").getAsString().contains("true")) {
                                 AndroidUtils.showErrorLog(context, "Register WebService Error Found", result);
                                 AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
-                                if(result.get("message").getAsString().contains("already") || result.get("message").getAsString().contains("exist")){
+                                if (result.get("message").getAsString().contains("already") || result.get("message").getAsString().contains("exist")) {
                                     tvOTP.setVisibility(View.VISIBLE);
                                     row2Layout.setVisibility(View.VISIBLE);
                                     otpLayout.setVisibility(View.VISIBLE);
@@ -189,7 +221,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                                     type = "1";
                                     callLoginWebService();
                                 }
-                            }else {
+                            } else {
                                 AndroidUtils.showErrorLog(context, "Register WebService Null Result Found");
                             }
                         }
@@ -209,8 +241,8 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
 
     private void callStep2WebService() {
 
-        AndroidUtils.showErrorLog(context, " URL  ---> "+new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString());
-        AndroidUtils.showErrorLog(context, "Data to sent UserID : "+appSharedPreference.getSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString())+"  OTP "+etOTP.getText().toString()+"  CLIENT_ID  :  "+appSharedPreference.getSharedPref(SharedPreferenceConstants.CLIENT_ID.toString())+" PASSWORD : "+ etPassword.getText().toString()+"type: "+type);
+        AndroidUtils.showErrorLog(context, " URL  ---> " + new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString());
+        AndroidUtils.showErrorLog(context, "Data to sent UserID : " + appSharedPreference.getSharedPref(SharedPreferenceConstants.TEMP_USER_ID.toString()) + "  OTP " + etOTP.getText().toString() + "  CLIENT_ID  :  " + appSharedPreference.getSharedPref(SharedPreferenceConstants.CLIENT_ID.toString()) + " PASSWORD : " + etPassword.getText().toString() + "type: " + type);
         progressDialogHandler.show();
         Ion.with(context)
                 .load(new StringBuilder(getString(R.string.webservice_base_url)).append("/").append("varify_buyer_otp").toString())
@@ -226,12 +258,12 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressDialogHandler.hide();
-                        if (result!= null  && result.get("error").getAsString().contains("false")) {
+                        if (result != null && result.get("error").getAsString().contains("false")) {
                             AndroidUtils.showErrorLog(context, result);
                             appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), result.get("user_id").getAsString());
                             AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
-                            if(result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login"))
-                            {
+                            saveDataInSharedPreference(result);
+                            if (result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login")) {
 
 
                                 Intent intent = new Intent(context, AddAddressActivity.class);
@@ -240,10 +272,10 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
 
                             }
 
-                        }else  if (result!= null && result.get("error").getAsString().contains("true")) {
+                        } else if (result != null && result.get("error").getAsString().contains("true")) {
                             AndroidUtils.showErrorLog(context, "Verify Buyer WebService Error Found", result);
-                            if(result.get("message")!=null)
-                            AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
+                            if (result.get("message") != null)
+                                AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
                         } else {
                             AndroidUtils.showErrorLog(context, "Verify Buyer WebService Null Result Found");
                         }
@@ -258,13 +290,10 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         appSharedPreference = new AppSharedPreference(context);
         dialog_close_image_view = (ImageView) view.findViewById(R.id.dialog_close_image_view);
         tvTourMsg = (TextView) view.findViewById(R.id.tvTourMsg);
-        if (Build.VERSION.SDK_INT>=24)
-        {
-            tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow",0));
+        if (Build.VERSION.SDK_INT >= 24) {
+            tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow", 0));
 
-        }
-        else
-        {
+        } else {
             tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow"));
         }
 
