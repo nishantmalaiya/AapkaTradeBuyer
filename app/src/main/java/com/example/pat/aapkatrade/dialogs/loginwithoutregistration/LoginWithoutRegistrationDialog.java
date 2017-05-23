@@ -265,7 +265,7 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                             saveDataInSharedPreference(result);
                             if (result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login")) {
 
-
+                                dismiss();
                                 Intent intent = new Intent(context, AddAddressActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
