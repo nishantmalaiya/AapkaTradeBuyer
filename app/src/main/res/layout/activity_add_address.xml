@@ -46,8 +46,6 @@
                         android:layout_marginTop="40dp"
                         >
 
-
-
                         <EditText
                             android:id="@+id/etFirstName"
                             android:layout_width="match_parent"
@@ -63,22 +61,6 @@
                             android:textSize="14sp"
                             />
 
-                        <EditText
-                            android:id="@+id/etLastName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/twenty_dip"
-                            android:layout_marginRight="@dimen/twenty_dip"
-                            android:hint="Last Name"
-                            android:background="@drawable/edit_text_green_back"
-                            android:padding="@dimen/ten_dip"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:textColorHint="@color/hint_color"
-                            android:textSize="14sp"
-                            android:layout_below="@+id/etFirstName"
-                            android:layout_marginTop="@dimen/twenty_dip"
-                            />
 
 
                         <EditText
@@ -95,7 +77,7 @@
                             android:maxLength="10"
                             android:textColorHint="@color/hint_color"
                             android:textSize="14sp"
-                            android:layout_below="@+id/etLastName"
+                            android:layout_below="@+id/etFirstName"
                             android:layout_marginTop="@dimen/twenty_dip"
                             android:editable="false"
                             />
@@ -120,69 +102,42 @@
                             />
 
 
-                        <RelativeLayout
-                            android:id="@+id/spBussinessCategoryLayout"
+                        <EditText
+                            android:id="@+id/etStateCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/two_dip"
-                            android:layout_marginTop="22dp"
+                            android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip"
+                            android:layout_marginTop="@dimen/twenty_dip"
+                            android:hint="State"
                             android:background="@drawable/edit_text_green_back"
+                            android:padding="@dimen/ten_dip"
+                            android:inputType="text"
                             android:layout_below="@+id/etPincode"
-                            android:layout_marginLeft="@dimen/twenty_dip"
-                            android:layout_marginRight="@dimen/twenty_dip"
-                            >
-
-                            <Spinner
-                                android:id="@+id/spStateCategory"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:background="@drawable/simple_spinner_back"
-                                android:gravity="center_horizontal" />
-
-                            <ImageView
-                                android:layout_width="@dimen/twenty_dip"
-                                android:layout_height="@dimen/twenty_dip"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="@dimen/ten_dip"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ic_arrow" />
-
-                        </RelativeLayout>
+                            android:maxLines="1"
+                            android:textColorHint="@color/hint_color"
+                            android:textSize="14sp"
+                            />
 
 
-                        <RelativeLayout
-                            android:id="@+id/spBussinessCategoryCityLayout"
+
+                        <EditText
+                            android:id="@+id/etCityCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/two_dip"
-                            android:layout_marginTop="22dp"
-                            android:background="@drawable/edit_text_green_back"
-                            android:layout_below="@+id/spBussinessCategoryLayout"
                             android:layout_marginLeft="@dimen/twenty_dip"
                             android:layout_marginRight="@dimen/twenty_dip"
-                            >
+                            android:layout_marginTop="@dimen/twenty_dip"
+                            android:hint="City"
+                            android:background="@drawable/edit_text_green_back"
+                            android:padding="@dimen/ten_dip"
+                            android:inputType="text"
+                            android:layout_below="@+id/etStateCategory"
+                            android:maxLines="1"
+                            android:textColorHint="@color/hint_color"
+                            android:textSize="14sp"
+                            />
 
-                            <Spinner
-                                android:id="@+id/spCityCategory"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:background="@drawable/simple_spinner_back" />
-
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ic_arrow" />
-
-
-                        </RelativeLayout>
 
 
                         <EditText
@@ -195,7 +150,7 @@
                             android:background="@drawable/edit_text_green_back"
                             android:padding="@dimen/ten_dip"
                             android:inputType="text"
-                            android:layout_below="@+id/spBussinessCategoryCityLayout"
+                            android:layout_below="@+id/etCityCategory"
                             android:maxLines="1"
                             android:textColorHint="@color/hint_color"
                             android:textSize="14sp"
@@ -218,7 +173,6 @@
                             android:layout_marginTop="@dimen/twenty_dip"
                             android:layout_marginBottom="@dimen/twenty_five_dip"
                             />
-
 
 
 

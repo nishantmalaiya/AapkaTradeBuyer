@@ -116,11 +116,11 @@ public class MyProfileActivity extends AppCompatActivity {
         });
 
 
-        String a = app_sharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString());
+        String imageUrl = app_sharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString());
 
-        if (a != null) {
+        if (Validation.isNonEmptyStr(imageUrl)) {
             Picasso.with(context)
-                    .load(a)
+                    .load(imageUrl)
                     .error(R.drawable.banner)
                     .placeholder(R.drawable.default_noimage)
                     .error(R.drawable.default_noimage)

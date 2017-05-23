@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,18 +38,22 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
+import com.example.pat.aapkatrade.MainActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.dialogs.track_order.Track_order_dialog;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
+import com.example.pat.aapkatrade.general.LocationManagerCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginActivity;
+import com.example.pat.aapkatrade.service.LocationService;
 import com.example.pat.aapkatrade.user_dashboard.UserDashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.example.pat.aapkatrade.welcome.WelcomeActivity;
@@ -527,7 +532,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setForceTitleHide(boolean forceTitleHide) {
-
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
     }
@@ -597,7 +601,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
 
-
         }
 
     }
@@ -619,34 +622,20 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         AndroidUtils.showErrorLog(context, "testing", appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()));
-
-        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()) == 1)
-
-        {
-
-
+        if (appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString()) == 1) {
             rlTutorial.setVisibility(View.GONE);
-
-
         } else {
-
             appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.IS_FIRST_TIME.toString(), 1);
-
-
             rlTutorial.setVisibility(View.VISIBLE);
 
 
-//
             rlTutorial.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     rlTutorial.setVisibility(View.GONE);
                 }
             });
-
-
         }
 
 
