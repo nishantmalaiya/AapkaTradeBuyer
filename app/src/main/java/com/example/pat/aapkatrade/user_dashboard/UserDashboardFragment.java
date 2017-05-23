@@ -65,12 +65,10 @@ public class UserDashboardFragment extends Fragment {
 
         String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "demo");
 
-      
 
-        if(Validation.isNonEmptyStr(imageUrl))
-        {
+        if (Validation.isNonEmptyStr(a)) {
             Picasso.with(getContext())
-                    .load(imageUrl)
+                    .load(a)
 
                     .error(R.drawable.banner)
                     .placeholder(R.drawable.default_noimage)
