@@ -307,6 +307,12 @@ public class CancelOrderDialog extends DialogFragment {
 
 
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+     progressDialogHandler.hide();
+    }
 
 
 }
