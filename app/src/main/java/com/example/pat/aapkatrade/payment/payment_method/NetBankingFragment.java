@@ -130,6 +130,11 @@ public class NetBankingFragment extends Fragment
                     }
                 });
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+        progressBar.hide();
+    }
 
 }
