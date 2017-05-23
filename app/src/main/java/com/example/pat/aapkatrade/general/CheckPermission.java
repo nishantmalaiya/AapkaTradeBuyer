@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class CheckPermission {
 
     public static boolean checkPermissions(Activity c) {
 
-        call_progress_bar(c);
+        callProgressBar(c);
         show();
 
         int result;
@@ -72,7 +71,7 @@ public class CheckPermission {
         return true;
     }
 
-    public static void call_progress_bar(Activity activity) {
+    public static void callProgressBar(Activity activity) {
 
         ViewGroup layout = (ViewGroup) activity.findViewById(android.R.id.content).getRootView();
 
@@ -106,8 +105,6 @@ public class CheckPermission {
 
     public static void show() {
         mProgressBar.setVisibility(View.VISIBLE);
-
-
         Log.e("show_working", "show_working");
     }
 

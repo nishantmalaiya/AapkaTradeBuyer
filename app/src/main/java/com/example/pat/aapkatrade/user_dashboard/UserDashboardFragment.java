@@ -16,6 +16,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
+import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.google.gson.JsonObject;
@@ -61,11 +62,16 @@ public class UserDashboardFragment extends Fragment {
 
     private void setup_layout(View v) {
         imageviewpp = (CircleImageView) v.findViewById(R.id.imageviewpp);
+
         String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "demo");
 
-        if (a != null) {
-            Picasso.with(getActivity())
-                    .load(a)
+      
+
+        if(Validation.isNonEmptyStr(imageUrl))
+        {
+            Picasso.with(getContext())
+                    .load(imageUrl)
+
                     .error(R.drawable.banner)
                     .placeholder(R.drawable.default_noimage)
                     .error(R.drawable.default_noimage)

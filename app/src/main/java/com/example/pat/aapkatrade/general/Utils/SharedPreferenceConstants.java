@@ -52,6 +52,7 @@ public enum SharedPreferenceConstants {
     SHIPPING_ADDRESS_PINCODE("SHIPPING_ADDRESS_PINCODE"),
     SHIPPING_ADDRESS("SHIPPING_ADDRESS");
 
+
     private final String text;
 
     SharedPreferenceConstants(final String text) {
