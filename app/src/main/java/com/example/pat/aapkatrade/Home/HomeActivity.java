@@ -248,8 +248,16 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.cart_total_item:
 
                 // Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
-                startActivity(intent);
+
+                if(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)==0)
+                {
+                    Toast.makeText(getApplicationContext(),"My Cart have no items please add items in cart",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(HomeActivity.this, MyCartActivity.class);
+                    startActivity(intent);
+                }
 
                 break;
             case R.id.login:

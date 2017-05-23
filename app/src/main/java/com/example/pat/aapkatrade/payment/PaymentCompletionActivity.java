@@ -63,7 +63,7 @@ public class PaymentCompletionActivity extends AppCompatActivity {
             }
         });
 
-        if (!isSuccess) {
+        if (isSuccess) {
             tvSubHeaderTransaction.setText(transactionNo);
             tvSubHeaderAmountPaid.setText(new StringBuilder(getString(R.string.rupay_text)).append("  ").append(transactionAmount));
             tvReceiptNo.setText(Validation.isEmptyStr(receiptNo) ? "RECEIPT" : new StringBuilder("Receipt No : ").append(receiptNo));

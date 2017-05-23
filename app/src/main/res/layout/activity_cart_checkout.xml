@@ -87,7 +87,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:maxLines="2"
-                                            android:text="Arvind kumar Yadav" />
+                                            android:text="" />
 
                                     </LinearLayout>
 
@@ -101,7 +101,7 @@
                                             style="@style/myAddress"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/address_line2" />
+                                            android:text="" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -116,7 +116,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
 
-                                            android:text="9811531065" />
+                                            android:text="" />
                                     </LinearLayout>
 
 
@@ -126,6 +126,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="0.5dp"
                                     android:background="@color/slate_gray"
+                                    android:visibility="invisible"
                                     ></View>
 
                                 <RelativeLayout
@@ -133,6 +134,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="10dp"
+                                    android:visibility="invisible"
                                     >
 
                                     <TextView
