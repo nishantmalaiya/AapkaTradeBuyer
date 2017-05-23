@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
@@ -583,8 +584,17 @@ public class ShopDetailActivity extends AppCompatActivity implements DatePickerD
         int id = item.getItemId();
         switch (id) {
             case R.id.cart_total_item:
-                Intent intent = new Intent(ShopDetailActivity.this, MyCartActivity.class);
-                startActivity(intent);
+
+                if(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)==0)
+                {
+                    Toast.makeText(getApplicationContext(),"My Cart have no items please add items in cart",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(ShopDetailActivity.this, MyCartActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             case android.R.id.home:
                 finish();

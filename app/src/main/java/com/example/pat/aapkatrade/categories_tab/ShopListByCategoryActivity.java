@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
@@ -585,8 +586,17 @@ public class ShopListByCategoryActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.cart_total_item:
-                Intent intent = new Intent(ShopListByCategoryActivity.this, MyCartActivity.class);
-                startActivity(intent);
+
+                if(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)==0)
+                {
+                    Toast.makeText(getApplicationContext(),"My Cart have no items please add items in cart",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(ShopListByCategoryActivity.this, MyCartActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.filter:
                 FilterDialog filterDialog = new FilterDialog(context, category_id, filterHashMap);
