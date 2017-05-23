@@ -376,13 +376,6 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
     private void callWebServiceMakePayment(List<String> data) {
         ArrayList<String> data_n = new ArrayList<>();
         progressBarHandler.show();
-
-       /* for (int i = 0; i<=params.size(); i++)
-        {
-            data_n.add(new ArrayList<String>(params.values())).get(i));
-
-        }*/
-
         System.out.println("data-----------data" + data.size());
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/make_payment";
         Ion.with(context)
@@ -390,20 +383,16 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("data_n", params.toString())
-                // .setBodyParameters("",data)
-
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
                     public void onCompleted(Exception e, String result) {
-                        //  AndroidUtils.showErrorLog(context,result,"dghdfghsaf dawbnedvhaewnbedvsab dsadduyf");
-                        System.out.println("result-----------" + result);
+                        AndroidUtils.showErrorLog(context,"result-----------" + result);
                         progressBarHandler.hide();
                         HashMap<String, String> stringStringHashMap = new HashMap<>();
                         result = result.substring(1, result.length() - 1);
                         String keyValueStringArray[] = result.split(",");
-                        for (int i = 0; i < keyValueStringArray.length; i++) {
-                            String pair = keyValueStringArray[i];
+                        for (String pair : keyValueStringArray) {
                             KeyValue keyValue = new KeyValue(pair.split("=")[0], pair.split("=")[1].substring(1, pair.split("=")[1].length() - 1));
                             AndroidUtils.showErrorLog(context, keyValue.key.toString() + "**********" + keyValue.value.toString());
                             stringStringHashMap.put(keyValue.key.toString(), keyValue.value.toString());
