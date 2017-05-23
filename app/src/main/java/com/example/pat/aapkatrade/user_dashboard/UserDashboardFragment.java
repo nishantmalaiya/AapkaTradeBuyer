@@ -62,12 +62,14 @@ public class UserDashboardFragment extends Fragment {
 
     private void setup_layout(View v) {
         imageviewpp = (CircleImageView) v.findViewById(R.id.imageviewpp);
-        String imageUrl = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(),"demo");
 
-        if(Validation.isNonEmptyStr(imageUrl))
-        {
+        String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "demo");
+
+
+        if (Validation.isNonEmptyStr(a)) {
             Picasso.with(getContext())
-                    .load(imageUrl)
+                    .load(a)
+
                     .error(R.drawable.banner)
                     .placeholder(R.drawable.default_noimage)
                     .error(R.drawable.default_noimage)
@@ -181,4 +183,14 @@ public class UserDashboardFragment extends Fragment {
 
 
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+        progressBarHandler.hide();
+    }
+
+
+
+
 }

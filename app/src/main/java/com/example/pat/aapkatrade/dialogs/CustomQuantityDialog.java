@@ -297,6 +297,14 @@ public class CustomQuantityDialog extends DialogFragment
 
 
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+        progressBarHandler.hide();
+
+
+    }
 
 
 

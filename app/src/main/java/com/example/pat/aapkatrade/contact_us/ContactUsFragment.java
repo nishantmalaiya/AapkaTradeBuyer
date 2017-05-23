@@ -156,5 +156,10 @@ public class ContactUsFragment extends Fragment {
                 });
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+        progress_handler.hide();
+    }
 }

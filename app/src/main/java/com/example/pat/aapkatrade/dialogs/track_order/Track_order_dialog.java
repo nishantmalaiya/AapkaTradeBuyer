@@ -140,5 +140,10 @@ public class Track_order_dialog extends DialogFragment {
 
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+       progressBarHandler.hide();
+    }
 }

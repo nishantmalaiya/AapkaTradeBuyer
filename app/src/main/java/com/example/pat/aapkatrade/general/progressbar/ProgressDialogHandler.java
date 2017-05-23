@@ -36,5 +36,4 @@ public class ProgressDialogHandler {
         progressDialog.hide();
     }
 
-
 }
