@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.CardView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -226,17 +227,26 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressDialogHandler.hide();
-                        if (result!= null  && result.get("error").getAsString().contains("false")) {
+                        if (result!= null  && result.get("error").getAsString().contains("false"))
+                        {
+
                             AndroidUtils.showErrorLog(context, result);
                             appSharedPreference.setSharedPref(SharedPreferenceConstants.USER_ID.toString(), result.get("user_id").getAsString());
                             AndroidUtils.showSnackBar(loginWithoutRegistrationContainer, result.get("message").getAsString());
+
+
                             if(result.get("message").getAsString().toLowerCase().contains("successfully") && result.get("message").getAsString().toLowerCase().contains("login"))
                             {
+
+                                JsonObject jsonObject = result.getAsJsonObject("all_info");
+                                Log.e("hi", jsonObject.toString());
+
 
 
                                 Intent intent = new Intent(context, AddAddressActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
+
 
                             }
 
@@ -261,11 +271,10 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         if (Build.VERSION.SDK_INT>=24)
         {
             tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow",0));
-
         }
         else
         {
-            tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'> LOGIN </font>flow"));
+            tvTourMsg.setText(Html.fromHtml("Get started with our secure <font color = \'#F96004\'><b> LOGIN <'/b></font>flow"));
         }
 
         submit = (Button) view.findViewById(R.id.submit);
@@ -281,6 +290,11 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
         editMobile.setVisibility(View.GONE);
         etPassword = (EditText) view.findViewById(R.id.etPassword);
         tvResend = (TextView) view.findViewById(R.id.tvResend);
+
+
+
     }
+
+
 
 }
