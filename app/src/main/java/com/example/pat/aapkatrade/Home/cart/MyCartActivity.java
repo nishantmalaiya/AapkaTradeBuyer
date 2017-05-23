@@ -10,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -196,8 +197,10 @@ public class MyCartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void cartList(String pageNumber) {
+    private void cartList(String pageNumber)
+    {
 
+        //cartDataArrayList.clear();
         progressBarHandler.show();
 
         String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
@@ -219,6 +222,8 @@ public class MyCartActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
+                        Log.e("my_cart--------",result.toString());
+
                         if (result != null) {
                             AndroidUtils.showErrorLog(context, "-jsonObject------------" + result.toString());
 
@@ -234,10 +239,11 @@ public class MyCartActivity extends AppCompatActivity {
 
                             JsonArray jsonProductList = jsonObject.getAsJsonArray("items");
 
-                            if (jsonProductList != null && jsonProductList.size() > 0) {
+                            if (jsonProductList != null && jsonProductList.size() > 0)
+                            {
 
-
-                                for (int i = 0; i < jsonProductList.size(); i++) {
+                                for (int i = 0; i < jsonProductList.size(); i++)
+                                {
                                     JsonObject jsonproduct = (JsonObject) jsonProductList.get(i);
                                     String Id = jsonproduct.get("id").getAsString();
                                     String productName = jsonproduct.get("name").getAsString();
@@ -268,7 +274,9 @@ public class MyCartActivity extends AppCompatActivity {
                                 AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
                             }
 
-                        } else {
+                        }
+                        else
+                        {
                             progressBarHandler.hide();
 
                             AndroidUtils.showErrorLog(context, "-jsonObject------------NULL RESULT FOUND");
