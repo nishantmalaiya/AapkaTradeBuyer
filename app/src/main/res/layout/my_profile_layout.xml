@@ -37,9 +37,10 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageviewpp"
                 android:layout_width="@dimen/hundred_dip"
+
                 android:layout_height="@dimen/hundred_dip"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_profile_user" />
+                android:background="@drawable/ic_profile_user" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
