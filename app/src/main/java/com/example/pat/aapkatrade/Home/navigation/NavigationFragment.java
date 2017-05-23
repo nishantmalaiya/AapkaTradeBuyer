@@ -31,6 +31,7 @@ import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CallWebService;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
+import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.interfaces.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.LoginActivity;
@@ -54,7 +55,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment{
+public class NavigationFragment extends Fragment {
     public static ActionBarDrawerToggle mDrawerToggle;
     public static DrawerLayout mDrawerLayout;
     private View view;
@@ -96,8 +97,7 @@ public class NavigationFragment extends Fragment{
     private void initView(View view) {
 
 
-
-        rlprofilepic=(RelativeLayout)view.findViewById(R.id.navigation_profile) ;
+        rlprofilepic = (RelativeLayout) view.findViewById(R.id.navigation_profile);
         rlprofilepic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,7 +180,7 @@ public class NavigationFragment extends Fragment{
 
                 String a = appSharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString());
 
-                if (!a.isEmpty()) {
+                if (Validation.isNonEmptyStr(a)) {
                     Picasso.with(context)
                             .load(a)
                             .error(R.drawable.banner)
@@ -188,7 +188,6 @@ public class NavigationFragment extends Fragment{
                             .error(R.drawable.default_noimage)
                             .into(profilePic);
                 }
-
 
 
             }
@@ -342,7 +341,7 @@ public class NavigationFragment extends Fragment{
         super.onResume();
 
         if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
-            AndroidUtils.showErrorLog(context, "USERNAME***--->>"+appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin"));
+            AndroidUtils.showErrorLog(context, "USERNAME***--->>" + appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin"));
             String userName = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
             String emailId = appSharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
 
