@@ -61,10 +61,9 @@ public class UserDashboardFragment extends Fragment {
 
     private void setup_layout(View v) {
         imageviewpp = (CircleImageView) v.findViewById(R.id.imageviewpp);
-        String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(),"demo");
+        String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "demo");
 
-        if(a!=null)
-        {
+        if (a != null) {
             Picasso.with(getActivity())
                     .load(a)
                     .error(R.drawable.banner)

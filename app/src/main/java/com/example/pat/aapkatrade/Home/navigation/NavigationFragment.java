@@ -40,6 +40,7 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,21 +166,31 @@ public class NavigationFragment extends Fragment{
 
 //        rlCategory = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
-        if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin") != null) {
-            String userName = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "notlogin");
-            String emailId = appSharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "notlogin");
-            String userProfilePic = appSharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "notlogin");
+        if (appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not") != null) {
+            String userName = appSharedpreference.getSharedPref(SharedPreferenceConstants.USER_NAME.toString(), "not");
+            String emailId = appSharedpreference.getSharedPref(SharedPreferenceConstants.EMAIL_ID.toString(), "not");
 
-            if (userName.contains("notlogin")) {
+
+            if (userName.contains("not")) {
                 rlLogout.setVisibility(View.GONE);
                 setData(getString(R.string.welcomeguest), "");
             } else {
                 rlLogout.setVisibility(View.VISIBLE);
                 setData(userName, emailId);
-                Ion.with(profilePic)
-                        .error(ContextCompat.getDrawable(context, R.drawable.ic_profile_user))
-                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_profile_user))
-                        .load(userProfilePic);
+
+                String a = appSharedpreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString());
+
+                if (!a.isEmpty()) {
+                    Picasso.with(context)
+                            .load(a)
+                            .error(R.drawable.banner)
+                            .placeholder(R.drawable.default_noimage)
+                            .error(R.drawable.default_noimage)
+                            .into(profilePic);
+                }
+
+
+
             }
         } else {
             AndroidUtils.showErrorLog(getActivity(), "sharedpref null");

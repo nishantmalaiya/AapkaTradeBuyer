@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -76,10 +77,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private ArrayList<String> imageIdList;
     private ImageView[] dots;
 
+    Button btn_tryagain;
     public static SearchView searchView;
     ImageView home_ads;
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
     RelativeLayout view_all_latest_post, view_all_latest_update;
+    LinearLayout rl_retry;
     ViewPager vp;
     NestedScrollView scrollView;
     Timer banner_timer = new Timer();
@@ -167,7 +170,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         recyclerlatestpost = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
         recyclerlatestpost.setLayoutManager(llManagerEclipseCollection);
 
-
+        rl_retry = (LinearLayout) view.findViewById(R.id.rl_retry);
         scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
 
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
@@ -191,7 +194,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
         get_home_data();
-
+        btn_tryagain = (Button) view.findViewById(R.id.btn_tryagain);
 
         rl_searchview_dashboard = (RelativeLayout) v.findViewById(R.id.rl_searchview);
 
@@ -263,6 +266,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                         if (result != null) {
                             home_result = result;
+                            if (rl_retry.getVisibility() == View.VISIBLE) {
+                                rl_retry.setVisibility(View.GONE);
+                            }
                          /*   Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(0,4000));
                             Log.e(AppConfig.getCurrentDeviceId(context)+"-data===============", result.toString().substring(4000, result.toString().length()-1));
                          */
@@ -504,26 +510,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
     public void connection_problem_message() {
+        btn_tryagain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+            }
+        });
 
-        Snackbar snackbar = Snackbar
-                .make(getActivity().findViewById(R.id.rl_main_content), "No internet connection!", Snackbar.LENGTH_LONG)
-                .setAction("RETRY", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+        rl_retry.setVisibility(View.VISIBLE);
 
-                        Intent intent = getActivity().getIntent();
-                        getActivity().finish();
-                        startActivity(intent);
-                    }
-                });
-        // Changing message text color
-        snackbar.setActionTextColor(Color.RED);
-
-        // Changing action button text color
-        View sbView = snackbar.getView();
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(Color.YELLOW);
-        snackbar.show();
 
     }
 
