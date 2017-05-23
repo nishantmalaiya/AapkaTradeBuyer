@@ -373,8 +373,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                 });
 
-//        Intent serviceIntent = new Intent(getActivity(), SendContactService.class);
-//        context.startService(serviceIntent);
+
     }
 
 
@@ -522,6 +521,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         rl_retry.setVisibility(View.VISIBLE);
 
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Ion.getDefault(getActivity()).cancelAll(getActivity());
+        progress_handler.hide();
     }
 
 
