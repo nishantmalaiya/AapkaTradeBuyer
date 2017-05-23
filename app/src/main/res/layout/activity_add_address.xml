@@ -117,7 +117,6 @@
                             android:maxLines="1"
                             android:textColorHint="@color/hint_color"
                             android:textSize="14sp"
-                            android:maxLength="6"
                             />
 
 
@@ -137,7 +136,6 @@
                             android:maxLines="1"
                             android:textColorHint="@color/hint_color"
                             android:textSize="14sp"
-                            android:maxLength="6"
                             />
 
 

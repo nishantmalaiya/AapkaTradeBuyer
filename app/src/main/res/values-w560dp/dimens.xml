@@ -21,6 +21,7 @@
 
     <dimen name="thirty_five_dip">39dp</dimen>
     <dimen name="fifty_dip">55dp</dimen>
+    <dimen name="seven_hundred_seventy_dip">847dp</dimen>
     <dimen name="hundred_dip">110dp</dimen>
     <dimen name="twenty_dip">22dp</dimen>
 

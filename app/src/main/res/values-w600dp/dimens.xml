@@ -21,6 +21,7 @@
     <dimen name="textsize">14sp</dimen>
     <dimen name="thirty_five_dip">46dp</dimen>
     <dimen name="fifty_dip">65dp</dimen>
+    <dimen name="seven_hundred_seventy_dip">1001dp</dimen>
     <dimen name="hundred_dip">130dp</dimen>
     <dimen name="twenty_dip">26dp</dimen>
 

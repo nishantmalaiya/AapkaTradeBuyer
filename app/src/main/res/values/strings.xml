@@ -251,5 +251,6 @@
     <string name="otp">OTP</string>
     <string name="proceed_to_checkout">Proceed to Payment</string>
     <string name="company_name">AAPKA TRADE</string>
+    <string name="tryagain">Try Again</string>
 
 </resources>

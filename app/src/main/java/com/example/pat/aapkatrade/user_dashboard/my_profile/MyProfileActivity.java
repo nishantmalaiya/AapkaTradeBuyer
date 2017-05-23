@@ -132,37 +132,23 @@ public class MyProfileActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String et = etFName.getText().toString();
 
-                System.out.println("et-----------" + et);
 
-                if (!Validation.isEmptyStr(etFName.getText().toString())) {
+                if (Validation.isValidEmail(etEmail.getText().toString()) || Validation.isEmptyStr(etEmail.getText().toString())) {
 
-                    if (!Validation.isEmptyStr(etLName.getText().toString())) {
+                    if (!Validation.isEmptyStr(etMobileNo.getText().toString()) || Validation.isValidNumber(etMobileNo.getText().toString(), Validation.getNumberPrefix(etMobileNo.getText().toString()))) {
+                        edit_profile_webservice();
 
-                        if (Validation.isValidEmail(etEmail.getText().toString())) {
 
-                            if (!Validation.isEmptyStr(etMobileNo.getText().toString())) {
-
-                                if (!Validation.isEmptyStr(etAddress.getText().toString())) {
-
-                                    edit_profile_webservice();
-
-                                } else {
-                                    AndroidUtils.showErrorLog(context, "Please Enter Address");
-                                }
-                            } else {
-                                AndroidUtils.showErrorLog(context, "Please Enter Mobile Number");
-                            }
-                        } else {
-                            AndroidUtils.showErrorLog(context, "Please Enter Valid Email Address");
-                        }
                     } else {
-                        AndroidUtils.showErrorLog(context, "Please Enter Last Name");
+                        AndroidUtils.showSnackBar(coordinatorlayout_myprofile, "Please Enter Valid Mobile Number");
+                        etMobileNo.setError("Please Enter Valid Mobile Number");
                     }
                 } else {
-                    AndroidUtils.showErrorLog(context, "Please Enter First Name");
+                    AndroidUtils.showSnackBar(coordinatorlayout_myprofile, "Please Enter Valid Email Address");
+                    etEmail.setError("Please Enter Valid Email Address");
                 }
+
             }
         });
     }
@@ -189,7 +175,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 .setBodyParameter("mobile", etMobileNo.getText().toString())
                 .setBodyParameter("email", etEmail.getText().toString())
                 .setBodyParameter("address", etAddress.getText().toString())
-                .setBodyParameter("user_id", app_sharedpreference.getSharedPref("userid", ""))
+                .setBodyParameter("user_id", app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), ""))
                 .setBodyParameter("user_type", "1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -227,10 +213,14 @@ public class MyProfileActivity extends AppCompatActivity {
                                         String update_mobile = jsonObject1.get("mobile").getAsString();
                                         String update_address = jsonObject1.get("address").getAsString();
 
-                                        app_sharedpreference.setSharedPref("name", update_name);
-                                        app_sharedpreference.setSharedPref("lname", update_lastname);
-                                        app_sharedpreference.setSharedPref("mobile", update_mobile);
-                                        app_sharedpreference.setSharedPref("address", update_address);
+                                        app_sharedpreference.setSharedPref(SharedPreferenceConstants.USER_NAME.toString(), update_name);
+                                        app_sharedpreference.setSharedPref(SharedPreferenceConstants.FIRST_NAME.toString(), update_name);
+
+                                        app_sharedpreference.setSharedPref(SharedPreferenceConstants.LAST_NAME.toString(), update_lastname);
+
+                                        app_sharedpreference.setSharedPref(SharedPreferenceConstants.MOBILE.toString(), update_mobile);
+                                        app_sharedpreference.setSharedPref(SharedPreferenceConstants.ADDRESS.toString(), update_address);
+
 
                                         System.out.println("Username Data-----------" + update_name);
 

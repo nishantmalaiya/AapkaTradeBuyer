@@ -22,6 +22,7 @@
     <dimen name="textsize">14sp</dimen>
     <dimen name="thirty_five_dip">70dp</dimen>
     <dimen name="fifty_dip">100dp</dimen>
+    <dimen name="seven_hundred_seventy_dip">1540dp</dimen>
     <dimen name="hundred_dip">200dp</dimen>
     <dimen name="imageview_height">110dp</dimen>
     <dimen name="imageview_weight">110dp</dimen>

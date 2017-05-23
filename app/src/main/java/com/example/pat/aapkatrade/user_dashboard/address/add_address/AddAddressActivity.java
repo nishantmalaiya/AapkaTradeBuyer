@@ -44,7 +44,6 @@ import java.util.Arrays;
 public class AddAddressActivity extends AppCompatActivity
 {
 
-
     private ArrayList<String> stateList = new ArrayList<>();
     private AppSharedPreference appSharedPreference;
     private String userid, Name, address, mobile, state_id,cityID = "",city_id,pincode,landmark;
@@ -102,7 +101,6 @@ public class AddAddressActivity extends AppCompatActivity
     private void setup_layout()
     {
 
-
         activity_add_address = (RelativeLayout) findViewById(R.id.activity_add_address);
 
         etState = (EditText) findViewById(R.id.etStateCategory);
@@ -112,7 +110,6 @@ public class AddAddressActivity extends AppCompatActivity
         etCity = (EditText) findViewById(R.id.etCityCategory);
 
         etCity.setText(city_id);
-
 
 
        /* spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -158,9 +155,7 @@ public class AddAddressActivity extends AppCompatActivity
          }
          */
 
-
         etFirstName = (EditText) findViewById(R.id.etFirstName);
-
 
         etMobileNo = (EditText) findViewById(R.id.etMobileNo);
 
@@ -243,7 +238,6 @@ public class AddAddressActivity extends AppCompatActivity
                                     {
 
                                         showMessage("Please Enter State Name");
-
 
                                     }
 
