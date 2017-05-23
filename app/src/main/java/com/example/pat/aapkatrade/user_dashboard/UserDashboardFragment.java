@@ -176,6 +176,21 @@ public class UserDashboardFragment extends Fragment {
                 textViewName.setText("");
                 tvEmail.setText("");
             } else {
+
+                String a = appSharedPreference.getSharedPref(SharedPreferenceConstants.PROFILE_PIC.toString(), "demo");
+
+
+                if (Validation.isNonEmptyStr(a)) {
+                    Picasso.with(getContext())
+                            .load(a)
+
+                            .error(R.drawable.banner)
+                            .placeholder(R.drawable.default_noimage)
+                            .error(R.drawable.default_noimage)
+                            .into(imageviewpp);
+                }
+
+
                 textViewName.setText(Username);
                 tvEmail.setText(Emailid);
             }
@@ -183,14 +198,13 @@ public class UserDashboardFragment extends Fragment {
 
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         Ion.getDefault(getActivity()).cancelAll(getActivity());
         progressBarHandler.hide();
     }
-
-
 
 
 }
