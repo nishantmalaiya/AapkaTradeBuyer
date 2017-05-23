@@ -14,8 +14,8 @@
 
     <string name="forgotpassword" translatable="false">Forget Password?</string>
     <string name="new_user" translatable="false">New User?</string>
-    <string name="pleaseWait">wait!</string>
-    <string name="webpage_being_loaded">data being loaded</string>
+    <string name="pleaseWait">Wait !</string>
+    <string name="webpage_being_loaded">Data is loading &#8230;&#8230;&#8230;</string>
 
     <string name="comp_doc" translatable="false">Company Document</string>
     <string name="drawer_open" translatable="false">draweropen</string>
