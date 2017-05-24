@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.payment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
@@ -255,7 +257,22 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
             @Override
             public void onClick(View v) {
-                finish();
+                new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Transaction Cancel?")
+                        .setMessage("Are you sure you want to cancel this transaction?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                Intent intent = new Intent(context, HomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
         findViewById(R.id.logoWord).setVisibility(View.GONE);
@@ -507,5 +524,24 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         return "";
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Transaction Cancel?")
+                        .setMessage("Are you sure you want to cancel this transaction?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        Intent intent = new Intent(context, HomeActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
 
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
+
+    }
 }
