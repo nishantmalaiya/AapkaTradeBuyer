@@ -97,7 +97,11 @@ public class BlankFragment extends Fragment {
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        System.out.println("result-------------"+result);
+
                         if (result == null) {
                             progress_handler.hide();
                             layout_container.setVisibility(View.INVISIBLE);
@@ -126,14 +130,12 @@ public class BlankFragment extends Fragment {
                                     String product_qty = jsonObject2.get("product_qty").getAsString();
                                     String image_url = jsonObject2.get("image_url").getAsString();
 
-//
                                     Log.e("image_url_orderList", image_url);
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
 
                                     orderListDatas.add(new OrderListData(orderid, product_name, product_price, product_qty, created_at, image_url));
-
 
                                 }
 
