@@ -149,11 +149,11 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                         /// itemList.set(position, new CartData(itemList.get(position).id,itemList.get(position).productName,"1",cart_price,itemList.get(position).product_image,itemList.get(position).product_id));
                         //holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"1",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
-                        //callwebservice__update_cart(itemList.get(position).id,position,"1");
+                        //callWebServiceUpdateCart(itemList.get(position).id,position,"1");
 
                         callwebservice__update_cart(itemList.get(position).id,position,"1",itemList.get(position).product_id,holder,cart_price);
 
-                      /*  if (callwebservice__update_cart(itemList.get(position).id,position,"1",itemList.get(position).product_id,holder,cart_price))
+                      /*  if (callWebServiceUpdateCart(itemList.get(position).id,position,"1",itemList.get(position).product_id,holder,cart_price))
                         {
                             holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                             holder.textView64.setText(itemList.get(position).quantity);
@@ -166,12 +166,12 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                         System.out.println("cart_price----------"+cart_price);
                         //holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"2",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
-                        //callwebservice__update_cart(itemList.get(position).id,position,"2");
+                        //callWebServiceUpdateCart(itemList.get(position).id,position,"2");
 
                         callwebservice__update_cart(itemList.get(position).id,position,"2",itemList.get(position).product_id,holder,cart_price);
 
 
-                        /* if (callwebservice__update_cart(itemList.get(position).id,position,"2",itemList.get(position).product_id))
+                        /* if (callWebServiceUpdateCart(itemList.get(position).id,position,"2",itemList.get(position).product_id))
                         {
                             holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                             holder.textView64.setText(itemList.get(position).quantity);
@@ -184,11 +184,11 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                         cart_price = Double.valueOf(itemList.get(position).price) *3;
                         //holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"3",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
-                        //callwebservice__update_cart(itemList.get(position).id,position,"3");
+                        //callWebServiceUpdateCart(itemList.get(position).id,position,"3");
 
                         callwebservice__update_cart(itemList.get(position).id,position,"3",itemList.get(position).product_id,holder,cart_price);
 
-                       /*  if (callwebservice__update_cart(itemList.get(position).id,position,"3",itemList.get(position).product_id))
+                       /*  if (callWebServiceUpdateCart(itemList.get(position).id,position,"3",itemList.get(position).product_id))
                         {
                             holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                             holder.textView64.setText(itemList.get(position).quantity);
@@ -203,11 +203,11 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                         cart_price = Double.valueOf(itemList.get(position).price) *4;
                         //holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"4",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
-                        //callwebservice__update_cart(itemList.get(position).id,position,"4");
+                        //callWebServiceUpdateCart(itemList.get(position).id,position,"4");
 
                         callwebservice__update_cart(itemList.get(position).id,position,"4",itemList.get(position).product_id,holder,cart_price);
 
-                       /* if (callwebservice__update_cart(itemList.get(position).id,position,"4",itemList.get(position).product_id))
+                       /* if (callWebServiceUpdateCart(itemList.get(position).id,position,"4",itemList.get(position).product_id))
                         {
                             holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                             holder.textView64.setText(itemList.get(position).quantity);
@@ -219,11 +219,11 @@ public class CartCheckOutAdapter extends RecyclerView.Adapter<CartHolder> implem
                         cart_price = Double.valueOf(itemList.get(position).price) *5;
                         //holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                         place_order.add(position,new CartData(itemList.get(position).id,itemList.get(position).productName,"5",String.valueOf(cart_price),itemList.get(position).product_image,itemList.get(position).product_id,itemList.get(position).subtotal_price));
-                        //callwebservice__update_cart(itemList.get(position).id,position,"5");
+                        //callWebServiceUpdateCart(itemList.get(position).id,position,"5");
 
                         callwebservice__update_cart(itemList.get(position).id,position,"5",itemList.get(position).product_id,holder,cart_price);
 
-                       /* if (callwebservice__update_cart(itemList.get(position).id,position,"5",itemList.get(position).product_id))
+                       /* if (callWebServiceUpdateCart(itemList.get(position).id,position,"5",itemList.get(position).product_id))
                         {
                             holder.tvProductSubtotalPrice.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
                             holder.textView64.setText(itemList.get(position).quantity);
