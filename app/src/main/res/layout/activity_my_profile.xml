@@ -9,7 +9,6 @@
     android:orientation="vertical">
 
 
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,44 +34,41 @@
                 app:layout_collapseMode="parallax">
 
 
-
-
-
-
                 <FrameLayout
-                    android:layout_width="@dimen/hundred_dip"
                     android:id="@+id/fl_user_pic"
+                    android:layout_width="@dimen/hundred_dip"
+                    android:layout_height="@dimen/hundred_dip"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:layout_height="@dimen/hundred_dip"
-                    android:layout_centerHorizontal="true">
+                    android:gravity="center_horizontal|center_vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/user_imageview"
 
                         android:layout_width="@dimen/hundred_dip"
-android:padding="@dimen/two_dip"
-                        android:background="@drawable/circle_voilet"
                         android:layout_height="@dimen/hundred_dip"
                         android:layout_centerHorizontal="true"
+                        android:background="@drawable/circle_voilet"
+                        android:padding="@dimen/two_dip"
                         android:src="@drawable/ic_profile_user" />
 
                     <RelativeLayout
                         android:layout_width="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_gravity="right"
-                        android:background="@drawable/circle_voilet"
-                        android:layout_height="@dimen/fourty_dip">
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/thirty_dip"
-                        android:id="@+id/gif_cameras"
-                        android:layout_centerHorizontal="true"
-                        android:padding="@dimen/five_dip"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/white_radius"
+                        android:background="@drawable/circle_voilet">
 
-                        android:layout_height="@dimen/thirty_dip"
-                        android:src="@drawable/camera_animated"/>
+                        <pl.droidsonroids.gif.GifImageView
+                            android:id="@+id/gif_cameras"
+                            android:layout_width="@dimen/thirty_dip"
+                            android:layout_height="@dimen/thirty_dip"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/white_radius"
+
+                            android:padding="@dimen/five_dip"
+                            android:src="@drawable/camera_animated" />
                     </RelativeLayout>
 
                 </FrameLayout>
@@ -82,7 +78,6 @@ android:padding="@dimen/two_dip"
 
 
             <include layout="@layout/toolbar_layout" />
-
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
