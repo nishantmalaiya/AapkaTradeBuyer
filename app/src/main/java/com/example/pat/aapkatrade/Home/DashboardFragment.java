@@ -523,12 +523,4 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Ion.getDefault(getActivity()).cancelAll(getActivity());
-        progress_handler.hide();
-    }
-
-
 }

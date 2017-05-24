@@ -231,14 +231,4 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Ion.getDefault(getActivity()).cancelAll(getActivity());
-        progressBarHandler.hide();
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-
 }
