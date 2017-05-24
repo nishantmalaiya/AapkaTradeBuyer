@@ -33,10 +33,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
-import com.example.pat.aapkatrade.general.entity.KeyValue;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.payment.payment_method.CreditDebitFragment;
-import com.example.pat.aapkatrade.payment.payment_method.NetBankingFragment;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -49,8 +46,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.example.pat.aapkatrade.Home.cart.CartAdapter.appSharedPreference;
 
 
 public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener
@@ -361,14 +356,6 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         tabLayout.getTabAt(3).setIcon(AndroidUtils.setImageColor(context, tabIcons[3], R.color.text_order_tab));
     }
 
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new NetBankingFragment(), "NET BANKING");
-        adapter.addFrag(new CreditDebitFragment(), "DEBIT/CREDIT CARD");
-
-        viewPager.setAdapter(adapter);
-    }
 
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
