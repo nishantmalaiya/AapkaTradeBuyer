@@ -57,13 +57,23 @@ android:padding="@dimen/two_dip"
                         android:layout_height="@dimen/hundred_dip"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_profile_user" />
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/fourty_dip"
+                        android:layout_gravity="right"
+                        android:background="@drawable/circle_voilet"
+                        android:layout_height="@dimen/fourty_dip">
                     <pl.droidsonroids.gif.GifImageView
                         android:layout_width="@dimen/thirty_dip"
                         android:id="@+id/gif_cameras"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:layout_centerHorizontal="true"
+                        android:padding="@dimen/five_dip"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/white_radius"
+
                         android:layout_height="@dimen/thirty_dip"
                         android:src="@drawable/camera_animated"/>
+                    </RelativeLayout>
 
                 </FrameLayout>
 
