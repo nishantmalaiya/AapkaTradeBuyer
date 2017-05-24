@@ -1,62 +1,50 @@
 package com.example.pat.aapkatrade.dialogs;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.cart.CartAdapter;
-import com.example.pat.aapkatrade.Home.cart.CartData;
 import com.example.pat.aapkatrade.Home.cart.MyCartActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppConfig;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
-import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.interfaces.CommonInterface;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-public class CustomQuantityDialog extends DialogFragment
-{
+public class CustomQuantityDialog extends DialogFragment {
 
     EditText etManualQuantity;
-    TextView okTv, CancelTv,tvsubtotal,textView_qty;
+    TextView okTv, CancelTv, tvsubtotal, textView_qty;
     public static CommonInterface commonInterface;
     Context context;
     int pos;
     String price;
     ProgressBarHandler progressBarHandler;
 
-    AppSharedPreference app_sharedpreference;
+    AppSharedPreference appSharedPreference;
 
 
-
-    public CustomQuantityDialog(Context context)
-    {
+    public CustomQuantityDialog(Context context) {
 
     }
 
-    public CustomQuantityDialog(Context context,TextView textView,int position,String price,TextView textView_qty)
-    {
+    public CustomQuantityDialog(Context context, TextView textView, int position, String price, TextView textView_qty) {
         this.context = context;
         this.tvsubtotal = textView;
         this.textView_qty = textView_qty;
@@ -66,8 +54,7 @@ public class CustomQuantityDialog extends DialogFragment
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.layout_more_quantity, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -77,8 +64,7 @@ public class CustomQuantityDialog extends DialogFragment
     }
 
 
-    private void initView(View v)
-    {
+    private void initView(View v) {
         etManualQuantity = (EditText) v.findViewById(R.id.editText);
         okTv = (TextView) v.findViewById(R.id.okDialog);
         CancelTv = (TextView) v.findViewById(R.id.cancelDialog);
@@ -87,37 +73,17 @@ public class CustomQuantityDialog extends DialogFragment
             @Override
             public void onClick(View v) {
 
-                if (etManualQuantity.getText().toString().trim().equals(""))
-                {
+                if (etManualQuantity.getText().toString().trim().equals("")) {
                     etManualQuantity.setError("Please Enter Number");
-                }
-                else
-                {
-                    if (Integer.parseInt(etManualQuantity.getText().toString().trim()) > 0)
-                    {
+                } else {
+                    if (Integer.parseInt(etManualQuantity.getText().toString().trim()) > 0) {
 
                         progressBarHandler = new ProgressBarHandler(context);
-                        app_sharedpreference = new AppSharedPreference(context);
+                        appSharedPreference = new AppSharedPreference(context);
 
-                        callwebservice__update_cart(CartAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartAdapter.itemList.get(pos).product_id);
-
-                       /* if (callwebservice__update_cart(CartAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartAdapter.itemList.get(pos).product_id))
-                        {
-                            textView_qty.setText(etManualQuantity.getText().toString().trim());
-                            double cart_price = Double.valueOf(price) *Integer.valueOf(etManualQuantity.getText().toString().trim());
-                            System.out.println("cart_price dailog----------"+cart_price);
-                            tvsubtotal.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
-                            commonInterface.getData(Integer.parseInt(etManualQuantity.getText().toString().trim()));
-
-                        }
-                        else
-                        {
-                           System.out.println("call webservice is not ");
-                        }*/
+                        callWebServiceUpdateCart(CartAdapter.itemList.get(pos).id, 1, etManualQuantity.getText().toString(), CartAdapter.itemList.get(pos).product_id);
                         dismiss();
-                    }
-                    else
-                    {
+                    } else {
 
 
                     }
@@ -138,38 +104,27 @@ public class CustomQuantityDialog extends DialogFragment
             }
         });
 
-        etManualQuantity.addTextChangedListener(new TextWatcher()
-        {
+        etManualQuantity.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // TODO Auto-generated method stub
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (etManualQuantity.getText().toString().trim().equals(""))
-                {
+                if (etManualQuantity.getText().toString().trim().equals("")) {
                     etManualQuantity.setError("Please Enter Number");
-                }
-                else
-                {
-                    if (s.length() != 0)
-                    {
-                        if (Integer.parseInt(s.toString()) == 0)
-                        {
+                } else {
+                    if (s.length() != 0) {
+                        if (Integer.parseInt(s.toString()) == 0) {
                             etManualQuantity.setError("Please Enter Valid Quantity");
-                        }
-                        else
-                        {
+                        } else {
                             //tvQuantity.setText(s);
                         }
                     }
@@ -181,78 +136,65 @@ public class CustomQuantityDialog extends DialogFragment
     }
 
 
-    public  void callwebservice__update_cart(String id, final int position,String quantity, String product_id)
-    {
+    public void callWebServiceUpdateCart(String id, final int position, String quantity, String product_id) {
 
         progressBarHandler.show();
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/cart_update";
 
-        String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
-        if (user_id.equals("notlogin"))
-        {
-            user_id="";
+        String user_id = appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
+        if (user_id.equals("notlogin")) {
+            user_id = "";
         }
 
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("id",id)
-                .setBodyParameter("product_id",product_id)
+                .setBodyParameter("id", id)
+                .setBodyParameter("product_id", product_id)
                 .setBodyParameter("quantity", quantity)
-                .setBodyParameter("user_id",user_id)
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
 
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
-                        System.out.println("result new update--------------"+result);
+                        System.out.println("result new update--------------" + result);
 
-                        if (result!=null)
-                        {
+                        if (result != null) {
                             String error_message = result.get("error").getAsString();
 
-                            if (error_message.equals("false"))
-                            {
+                            if (error_message.equals("false")) {
                                 String message = result.get("message").getAsString();
 
-                                if (message.equals("Product quantity exceeded"))
-                                {
+                                if (message.equals("Product quantity exceeded")) {
                                     progressBarHandler.hide();
                                     Toast.makeText(context, " Product quantity exceeded", Toast.LENGTH_SHORT).show();
 
-                                }
-                                else if (message.equals("Failed to update cart"))
-                                {
+                                } else if (message.equals("Failed to update cart")) {
 
                                     progressBarHandler.hide();
                                     Toast.makeText(context, "Failed to update cart", Toast.LENGTH_SHORT).show();
 
 
-                                }
-                                else if (message.equals("Invalid Device ID!"))
-                                {
+                                } else if (message.equals("Invalid Device ID!")) {
 
                                     progressBarHandler.hide();
                                     Toast.makeText(context, "Invalid Device ID!", Toast.LENGTH_SHORT).show();
 
 
-                                }
-                                else
-                                {
+                                } else {
                                     JsonObject jsonresult = result.getAsJsonObject("result");
 
                                     String total_amount = jsonresult.get("total_amount").getAsString();
                                     String cart_count = jsonresult.get("total_qty").getAsString();
 
-                                    app_sharedpreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
+                                    appSharedPreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
-                                    HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                                    HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                                     MyCartActivity.tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
                                     MyCartActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs) + total_amount);
@@ -262,50 +204,29 @@ public class CustomQuantityDialog extends DialogFragment
                                     System.out.println("cart updated " + result.toString());
 
                                     textView_qty.setText(etManualQuantity.getText().toString().trim());
-                                    double cart_price = Double.valueOf(price) *Integer.valueOf(etManualQuantity.getText().toString().trim());
-                                    System.out.println("cart_price dailog----------"+cart_price);
-                                    tvsubtotal.setText(context.getResources().getText(R.string.Rs)+String.valueOf(cart_price));
+                                    double cart_price = Double.valueOf(price) * Integer.valueOf(etManualQuantity.getText().toString().trim());
+                                    System.out.println("cart_price dailog----------" + cart_price);
+                                    tvsubtotal.setText(context.getResources().getText(R.string.Rs) + String.valueOf(cart_price));
                                     commonInterface.getData(Integer.parseInt(etManualQuantity.getText().toString().trim()));
-
                                     //notifyDataSetChanged();
                                     progressBarHandler.hide();
-
                                 }
-
-                            }
-                            else
-                            {
+                            } else {
                                 progressBarHandler.hide();
                                 Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
-
-
                             }
-                        }
-                        else
-                        {
+                        } else {
                             progressBarHandler.hide();
                             Toast.makeText(context, "Server is not responding please try ", Toast.LENGTH_SHORT).show();
-
-
                         }
                     }
                 });
-
-
     }
-
-
-
 
     @Override
     public void onStop() {
         super.onStop();
         Ion.getDefault(getActivity()).cancelAll(getActivity());
         progressBarHandler.hide();
-
-
     }
-
-
-
 }
