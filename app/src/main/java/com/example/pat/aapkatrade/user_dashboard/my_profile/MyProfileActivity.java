@@ -33,6 +33,7 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.SharedPreferenceConstants;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -60,6 +61,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private CircleImageView userImageView;
     private Button btnSave;
     private Bitmap imageForPreview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
         etAddress = (EditText) findViewById(R.id.etAddress);
         etAddress.setText(address);
+
 
         etEmail.setKeyListener(null);
 

@@ -35,16 +35,38 @@
                 app:layout_collapseMode="parallax">
 
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/user_imageview"
+
+
+
+
+                <FrameLayout
                     android:layout_width="@dimen/hundred_dip"
-                    android:layout_height="@dimen/hundred_dip"
-                    android:layout_centerHorizontal="true"
+                    android:id="@+id/fl_user_pic"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal|center_vertical"
+                    android:layout_height="@dimen/hundred_dip"
+                    android:layout_centerHorizontal="true">
 
-                    android:src="@drawable/ic_profile_user" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_imageview"
+
+                        android:layout_width="@dimen/hundred_dip"
+android:padding="@dimen/two_dip"
+                        android:background="@drawable/circle_voilet"
+                        android:layout_height="@dimen/hundred_dip"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_profile_user" />
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="@dimen/thirty_dip"
+                        android:id="@+id/gif_cameras"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:layout_height="@dimen/thirty_dip"
+                        android:src="@drawable/camera_animated"/>
+
+                </FrameLayout>
+
 
             </RelativeLayout>
 
@@ -90,7 +112,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-
             android:background="@drawable/button_orange_back"
             android:gravity="center"
             android:text="@string/save"
