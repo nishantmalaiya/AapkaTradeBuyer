@@ -403,15 +403,8 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
     private void callWebServiceMakePayment(List<String> data)
     {
-        ArrayList<String> data_n = new ArrayList<>();
+
         progressBarHandler.show();
-
-       /* for (int i = 0; i<=params.size(); i++)
-        {
-            data_n.add(new ArrayList<String>());
-
-        }
-       */
 
         List<String> order_id = params.get("vpc_MerchTxnRef");
         List<String> transaction_no = params.get("vpc_TransactionNo");
@@ -421,26 +414,28 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
         List<String> vpc_Message = params.get("vpc_Message");
       final  List<String> vpc_ReceiptNo = params.get("vpc_ReceiptNo");
       final  List<String> vpc_TransactionNo = params.get("vpc_TransactionNo");
-      final List<String> vpc_Amount = params.get("vpc_Amount");
+      final  List<String> vpc_Amount = params.get("vpc_Amount");
 
-      //  System.out.println("data-----------data" + params.toString());
+        //  System.out.println("data-----------data" + params.toString());
 
-     //   System.out.println("order_id--"+order_id+"transaction_no--"+transaction_no+"batch_no--"+batch_no+"vpc_AuthorizeId--"+vpc_AuthorizeId+"vpc_Card--"+vpc_Card+"vpc_Message--"+vpc_Message+"vpc_ReceiptNo--"+vpc_ReceiptNo+"vpc_TransactionNo--"+vpc_TransactionNo);
+        System.out.println("order_id--"+order_id.toString()+"transaction_no--"+transaction_no.toString()+"batch_no--"+batch_no.toString()+"vpc_AuthorizeId--"+vpc_AuthorizeId.toString()+"vpc_Card--"+vpc_Card.toString()+"vpc_Message--"+vpc_Message.toString()+"vpc_ReceiptNo--"+vpc_ReceiptNo.toString()+"vpc_TransactionNo--"+vpc_TransactionNo.toString());
 
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/make_payment";
+
+
+        System.out.println("login_url--------------"+login_url);
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 //.setBodyParameter("data_n", params.toString())
-                .setBodyParameter("vpc_TransactionNo",transaction_no.toString())
-                .setBodyParameter("vpc_BatchNo",batch_no.toString())
-                .setBodyParameter("order_id",order_id.toString())
-                .setBodyParameter("vpc_AuthorizeId",vpc_AuthorizeId.toString())
-                .setBodyParameter("vpc_Card",vpc_Card.toString())
-                .setBodyParameter("vpc_Message",vpc_Message.toString())
-                .setBodyParameter("vpc_ReceiptNo",vpc_ReceiptNo.toString())
-                .setBodyParameter("vpc_TransactionNo",vpc_TransactionNo.toString())
+                .setBodyParameter("vpc_BatchNo",batch_no.get(0))
+                .setBodyParameter("order_id",order_id.get(0))
+                .setBodyParameter("vpc_AuthorizeId",vpc_AuthorizeId.get(0))
+                .setBodyParameter("vpc_Card",vpc_Card.get(0))
+                .setBodyParameter("vpc_Message",vpc_Message.get(0))
+                .setBodyParameter("vpc_ReceiptNo",vpc_ReceiptNo.get(0))
+                .setBodyParameter("vpc_TransactionNo",vpc_TransactionNo.get(0))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -450,7 +445,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
 
                         progressBarHandler.hide();
 
-                        if (result.get("error").getAsString().contains("false"))
+                       if (result.get("error").getAsString().contains("false"))
                         {
 
                             String amount = vpc_Amount.toString().replace("[","");
@@ -476,8 +471,6 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                             intent.putExtra("vpc_TransactionNo", transaction_no);
                             intent.putExtra("vpc_ReceiptNo", receipt_no);
                             startActivity(intent);
-
-
                         }
                         else
                         {
@@ -487,6 +480,7 @@ public class PaymentActivity extends AppCompatActivity implements TabLayout.OnTa
                             startActivity(intent);
                         }
                         //Toast.makeText(getApplicationContext(),result.toString(),Toast.LENGTH_SHORT).show();
+
 
                     }
                 });

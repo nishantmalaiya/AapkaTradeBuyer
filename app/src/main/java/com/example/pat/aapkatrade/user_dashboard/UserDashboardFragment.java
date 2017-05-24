@@ -183,14 +183,4 @@ public class UserDashboardFragment extends Fragment {
 
 
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Ion.getDefault(getActivity()).cancelAll(getActivity());
-        progressBarHandler.hide();
-    }
-
-
-
-
 }
