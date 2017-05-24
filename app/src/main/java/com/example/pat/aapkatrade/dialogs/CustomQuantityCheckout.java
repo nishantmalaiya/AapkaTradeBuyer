@@ -94,7 +94,7 @@ public class CustomQuantityCheckout extends DialogFragment
 
                         callwebservice__update_cart(CartCheckOutAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartCheckOutAdapter.itemList.get(pos).product_id);
 
-                       /* if (callwebservice__update_cart(CartAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartAdapter.itemList.get(pos).product_id))
+                       /* if (callWebServiceUpdateCart(CartAdapter.itemList.get(pos).id,1,etManualQuantity.getText().toString(),CartAdapter.itemList.get(pos).product_id))
                         {
                             textView_qty.setText(etManualQuantity.getText().toString().trim());
                             double cart_price = Double.valueOf(price) *Integer.valueOf(etManualQuantity.getText().toString().trim());
@@ -244,7 +244,7 @@ public class CustomQuantityCheckout extends DialogFragment
 
                                     app_sharedpreference.setSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), Integer.valueOf(cart_count));
 
-                                   // HomeActivity.tvCartCount.setText(String.valueOf(app_sharedpreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
+                                   // HomeActivity.tvCartCount.setText(String.valueOf(appSharedPreference.getSharedPrefInt(SharedPreferenceConstants.CART_COUNT.toString(), 0)));
 
                                     CartCheckoutActivity.tvPriceItemsHeading.setText("Price(" + cart_count + "items)");
                                     CartCheckoutActivity.tvPriceItems.setText(context.getResources().getText(R.string.Rs) + total_amount);
