@@ -110,11 +110,7 @@ public class OrderActivity extends AppCompatActivity {
                 .load(getResources().getString(R.string.webservice_base_url) + "/buyer_order_details")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-
-
                 .setBodyParameter("buyer_id", appSharedPreference.getSharedPref("userid", user_id))
-
-
                 .setBodyParameter("type", appSharedPreference.getSharedPref(SharedPreferenceConstants.USER_TYPE.toString(), "1"))
 
 

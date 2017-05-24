@@ -276,16 +276,18 @@ public class CartCheckoutActivity extends AppCompatActivity {
     }
 
 
-    private void callwebservice__save_order(String buyer_id) {
+    private void callwebservice__save_order(String buyer_id)
+    {
 
         progressBarHandler.show();
-
+        String user_id = app_sharedpreference.getSharedPref(SharedPreferenceConstants.USER_ID.toString(), "notlogin");
         String login_url = context.getResources().getString(R.string.webservice_base_url) + "/save_order";
         Ion.with(context)
                 .load(login_url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("buyer_id", buyer_id)
+                .setBodyParameter("user_id",user_id)
                 .setBodyParameter("device_id", AppConfig.getCurrentDeviceId(context))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
