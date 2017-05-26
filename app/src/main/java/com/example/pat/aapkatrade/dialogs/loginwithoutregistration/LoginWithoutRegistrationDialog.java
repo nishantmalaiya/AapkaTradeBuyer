@@ -253,6 +253,17 @@ public class LoginWithoutRegistrationDialog extends DialogFragment {
                 .setBodyParameter("client_id", appSharedPreference.getSharedPref(SharedPreferenceConstants.CLIENT_ID.toString()))
                 .setBodyParameter("password", etPassword.getText().toString())
                 .setBodyParameter("type", type)
+//                .asString()
+//                .setCallback(new FutureCallback<String>() {
+//                    @Override
+//                    public void onCompleted(Exception e, String result) {
+//                        AndroidUtils.showErrorLog(context,"^^^^^^>>>>>>", result);
+//
+//                    }
+//                });
+
+
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
